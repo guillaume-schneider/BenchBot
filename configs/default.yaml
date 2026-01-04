@@ -1,0 +1,83 @@
+schema_version: int                       # ex: 1
+name: str                                 # nom de campagne
+workspace:                                # infos environnement (pour logs)
+  ros_distro: str                         # ex: humble
+  use_sim_time: bool                      # true en sim
+  enforce_realtime_factor: float|null     # ex: 0.9 (optionnel)
+  cpu_affinity: str|null                  # ex: "0-7" (optionnel)
+  env:                                    # variables d'env injectées dans tous les process
+    <str>: <str>
+
+defaults:
+  run:
+    warmup_s: float                       # ex: 2.0
+    drain_s: float                        # ex: 1.0
+    timeout_s: float                      # durée max run
+    settle_s: float                       # ex: 0.0 (optionnel)
+    max_restarts: int                     # ex: 0/1 (si crash)
+  rosbag:
+    enabled: bool
+    storage_id: str                       # "sqlite3" (par défaut)
+    compression: str|null                 # "zstd"|"lz4"|null
+    max_bag_size_mb: int|null             # split bag
+    include_hidden_topics: bool
+    qos_overrides_path: str|null          # fichier yaml (optionnel)
+    topics:                               # liste de topics à recorder (glob supporté par ton code)
+      - str
+  probes:                                 # probes globales communes
+    required:                             # liste de probes (voir section 3)
+      - {type: str, ...}
+    optional:
+      - {type: str, ...}
+  evaluation:
+    enabled: bool
+    metrics:                              # noms de métriques à calculer (ton évaluer)
+      - str
+
+datasets:                                  # liste de scénarios/datasets
+  - id: str                                # identifiant unique
+    kind: str                              # "sim_gazebo" | "bag_play"
+    scenario:                              # config scenario
+      launch:                              # comment lancer m-explore-ros2 + monde + nav2
+        cmd: [str, ...]                    # ex: ["ros2","launch",...]
+        env: {<str>: <str>}                # variables d'env scenario
+      args: {<str>: <yaml scalar>}         # overrides de launch via arguments (optionnel)
+    overrides:                             # overrides par dataset (optionnel)
+      run: {...}
+      rosbag: {...}
+      probes: {...}
+
+slams:                                      # liste de SLAMs à tester
+  - id: str                                 # ex: "slam_toolbox_sync"
+    profile: str                            # chemin relatif: "slams/slam_toolbox_sync.yaml"
+    overrides:                               # overrides params/launch (optionnel)
+      params: {<str>: <yaml scalar|list|map>}
+      remaps: {<str>: <str>}
+      launch:
+        args: {<str>: <yaml scalar>}
+      probes: {...}
+
+matrix:                                     # définition des combinaisons à exécuter
+  include:
+    - dataset: str                          # id dataset
+      slams: [str, ...]                     # ids slams
+      repeats: int                          # nb répétitions
+      seeds: [int, ...]                     # seeds à tester
+      tags: [str, ...]                      # tags run
+      overrides:                            # overrides au niveau combo (optionnel)
+        run: {...}
+        rosbag: {...}
+        probes: {...}
+  exclude:                                  # exclusions fines (optionnel)
+    - dataset: str
+      slam: str
+      reason: str
+
+output:
+  root_dir: str                             # ex: "results/runs"
+  index_file: str                           # ex: "results/index.jsonl"
+  artifacts:
+    export_map: bool
+    export_traj: bool
+    dump_params: bool
+    dump_rosgraph: bool

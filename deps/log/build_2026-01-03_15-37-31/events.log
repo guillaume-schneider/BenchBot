@@ -1,0 +1,1300 @@
+[0.000000] (-) TimerEvent: {}
+[0.000145] (explore_lite) JobQueued: {'identifier': 'explore_lite', 'dependencies': OrderedDict()}
+[0.000170] (multirobot_map_merge) JobQueued: {'identifier': 'multirobot_map_merge', 'dependencies': OrderedDict()}
+[0.000185] (explore_lite) JobStarted: {'identifier': 'explore_lite'}
+[0.003960] (multirobot_map_merge) JobStarted: {'identifier': 'multirobot_map_merge'}
+[0.006889] (explore_lite) JobProgress: {'identifier': 'explore_lite', 'progress': 'cmake'}
+[0.007281] (explore_lite) Command: {'cmd': ['/usr/bin/cmake', '/home/schneigu/Projects/slam_bench_orchestrator/deps/src/m-explore/explore', '-DCMAKE_INSTALL_PREFIX=/home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite'], 'cwd': '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/explore_lite', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('PYTHON_BASIC_REPL', '1'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'schneigu'), ('LC_TIME', 'fr_FR.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/usr/share/antigravity/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('ANTIGRAVITY_CLI_ALIAS', 'agy'), ('HOME', '/home/schneigu'), ('CHROME_DESKTOP', 'antigravity.desktop'), ('OLDPWD', '/home/schneigu/Projects/slam_bench_orchestrator'), ('TERM_PROGRAM_VERSION', '1.104.0'), ('DESKTOP_SESSION', 'ubuntu-xorg'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/antigravity.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('PAGER', 'cat'), ('VSCODE_GIT_ASKPASS_MAIN', '/usr/share/antigravity/resources/app/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'fr_FR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/usr/share/antigravity/antigravity'), ('MANAGERPID', '1360'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('SYSTEMD_EXEC_PID', '1750'), ('BUNDLED_DEBUGPY_PATH', '/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('ANTIGRAVITY_AGENT', '1'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '28409'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'schneigu'), ('JOURNAL_STREAM', '8:17674'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'schneigu'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/schneigu/.local/bin:/opt/ros/humble/bin:/home/schneigu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts'), ('SESSION_MANAGER', 'local/schneigu:@/tmp/.ICE-unix/1723,unix/schneigu:/tmp/.ICE-unix/1723'), ('INVOCATION_ID', '43a639bb0e6f4a0da1a19b4bdbba1663'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'fr_FR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-a59f4789109266d8.txt'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('PYTHONSTARTUP', '/home/schneigu/.config/Antigravity/User/workspaceStorage/2220fb696ce71b69b11b34d8e84ae5af/ms-python.python/pythonrc.py'), ('LC_TELEPHONE', 'fr_FR.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu-xorg'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-ec97d97a1c.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('LC_NAME', 'fr_FR.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu-xorg'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'fr_FR.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('LC_IDENTIFICATION', 'fr_FR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/explore_lite'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'fr_FR.UTF-8'), ('LC_PAPER', 'fr_FR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.009239] (multirobot_map_merge) JobProgress: {'identifier': 'multirobot_map_merge', 'progress': 'cmake'}
+[0.009898] (multirobot_map_merge) Command: {'cmd': ['/usr/bin/cmake', '/home/schneigu/Projects/slam_bench_orchestrator/deps/src/m-explore/map_merge', '-DCMAKE_INSTALL_PREFIX=/home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge'], 'cwd': '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('PYTHON_BASIC_REPL', '1'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'schneigu'), ('LC_TIME', 'fr_FR.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/usr/share/antigravity/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('ANTIGRAVITY_CLI_ALIAS', 'agy'), ('HOME', '/home/schneigu'), ('CHROME_DESKTOP', 'antigravity.desktop'), ('OLDPWD', '/home/schneigu/Projects/slam_bench_orchestrator'), ('TERM_PROGRAM_VERSION', '1.104.0'), ('DESKTOP_SESSION', 'ubuntu-xorg'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/antigravity.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('PAGER', 'cat'), ('VSCODE_GIT_ASKPASS_MAIN', '/usr/share/antigravity/resources/app/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'fr_FR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/usr/share/antigravity/antigravity'), ('MANAGERPID', '1360'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('SYSTEMD_EXEC_PID', '1750'), ('BUNDLED_DEBUGPY_PATH', '/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('ANTIGRAVITY_AGENT', '1'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '28409'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'schneigu'), ('JOURNAL_STREAM', '8:17674'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'schneigu'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/schneigu/.local/bin:/opt/ros/humble/bin:/home/schneigu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts'), ('SESSION_MANAGER', 'local/schneigu:@/tmp/.ICE-unix/1723,unix/schneigu:/tmp/.ICE-unix/1723'), ('INVOCATION_ID', '43a639bb0e6f4a0da1a19b4bdbba1663'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'fr_FR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-a59f4789109266d8.txt'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('PYTHONSTARTUP', '/home/schneigu/.config/Antigravity/User/workspaceStorage/2220fb696ce71b69b11b34d8e84ae5af/ms-python.python/pythonrc.py'), ('LC_TELEPHONE', 'fr_FR.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu-xorg'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-ec97d97a1c.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('LC_NAME', 'fr_FR.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu-xorg'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'fr_FR.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('LC_IDENTIFICATION', 'fr_FR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'fr_FR.UTF-8'), ('LC_PAPER', 'fr_FR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.014122] (explore_lite) StderrLine: {'line': b'\x1b[0mCMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):\n'}
+[0.014224] (explore_lite) StderrLine: {'line': b'  Compatibility with CMake < 3.10 will be removed from a future version of\n'}
+[0.014280] (explore_lite) StderrLine: {'line': b'  CMake.\n'}
+[0.014327] (explore_lite) StderrLine: {'line': b'\n'}
+[0.014374] (explore_lite) StderrLine: {'line': b'  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax\n'}
+[0.014417] (explore_lite) StderrLine: {'line': b'  to tell CMake that the project requires at least <min> but has been updated\n'}
+[0.014457] (explore_lite) StderrLine: {'line': b'  to work with policies introduced by <max> or earlier.\n'}
+[0.014498] (explore_lite) StderrLine: {'line': b'\n'}
+[0.014539] (explore_lite) StderrLine: {'line': b'\x1b[0m\n'}
+[0.015173] (multirobot_map_merge) StderrLine: {'line': b'\x1b[0mCMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):\n'}
+[0.015253] (multirobot_map_merge) StderrLine: {'line': b'  Compatibility with CMake < 3.10 will be removed from a future version of\n'}
+[0.015300] (multirobot_map_merge) StderrLine: {'line': b'  CMake.\n'}
+[0.015342] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[0.015383] (multirobot_map_merge) StderrLine: {'line': b'  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax\n'}
+[0.015423] (multirobot_map_merge) StderrLine: {'line': b'  to tell CMake that the project requires at least <min> but has been updated\n'}
+[0.015456] (multirobot_map_merge) StderrLine: {'line': b'  to work with policies introduced by <max> or earlier.\n'}
+[0.015485] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[0.015514] (multirobot_map_merge) StderrLine: {'line': b'\x1b[0m\n'}
+[0.048540] (explore_lite) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.048833] (multirobot_map_merge) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.098146] (explore_lite) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.098300] (multirobot_map_merge) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.099432] (-) TimerEvent: {}
+[0.105032] (explore_lite) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.105176] (multirobot_map_merge) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.149513] (explore_lite) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.149871] (multirobot_map_merge) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.161415] (explore_lite) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.161583] (multirobot_map_merge) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.161699] (explore_lite) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.161811] (multirobot_map_merge) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.161909] (explore_lite) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.162215] (multirobot_map_merge) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.169934] (explore_lite) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.170291] (multirobot_map_merge) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.199532] (-) TimerEvent: {}
+[0.219998] (multirobot_map_merge) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.220158] (explore_lite) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.231508] (multirobot_map_merge) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.231598] (explore_lite) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.231812] (multirobot_map_merge) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.231883] (explore_lite) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.232328] (multirobot_map_merge) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.232402] (explore_lite) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.237094] (explore_lite) StdoutLine: {'line': b'-- BuilD for ROS2: humble\n'}
+[0.238980] (multirobot_map_merge) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.239230] (explore_lite) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.299617] (-) TimerEvent: {}
+[0.332401] (multirobot_map_merge) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter\n'}
+[0.341800] (explore_lite) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter\n'}
+[0.399679] (-) TimerEvent: {}
+[0.427216] (multirobot_map_merge) StdoutLine: {'line': b'-- Found rclcpp: 16.0.16 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.430309] (explore_lite) StdoutLine: {'line': b'-- Found rclcpp: 16.0.16 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.471421] (multirobot_map_merge) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.475118] (explore_lite) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.476583] (multirobot_map_merge) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.480071] (explore_lite) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.485886] (multirobot_map_merge) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.489778] (explore_lite) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.498331] (multirobot_map_merge) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.499734] (-) TimerEvent: {}
+[0.502043] (explore_lite) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.514701] (multirobot_map_merge) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.518231] (explore_lite) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.562139] (multirobot_map_merge) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.564998] (multirobot_map_merge) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.565393] (explore_lite) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.568292] (explore_lite) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.599832] (-) TimerEvent: {}
+[0.641417] (multirobot_map_merge) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")\n'}
+[0.644998] (explore_lite) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")\n'}
+[0.670483] (multirobot_map_merge) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include\n'}
+[0.673927] (explore_lite) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include\n'}
+[0.699929] (-) TimerEvent: {}
+[0.719918] (multirobot_map_merge) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.724420] (explore_lite) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.730863] (multirobot_map_merge) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[0.735176] (explore_lite) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[0.779287] (multirobot_map_merge) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[0.780095] (multirobot_map_merge) StdoutLine: {'line': b'-- Found Threads: TRUE\n'}
+[0.780499] (explore_lite) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[0.781336] (explore_lite) StdoutLine: {'line': b'-- Found Threads: TRUE\n'}
+[0.800007] (-) TimerEvent: {}
+[0.839913] (explore_lite) StdoutLine: {'line': b'-- Found sensor_msgs: 4.9.0 (/opt/ros/humble/share/sensor_msgs/cmake)\n'}
+[0.840097] (multirobot_map_merge) StdoutLine: {'line': b'-- Found geometry_msgs: 4.9.0 (/opt/ros/humble/share/geometry_msgs/cmake)\n'}
+[0.854802] (multirobot_map_merge) StdoutLine: {'line': b'-- Found image_geometry: 3.2.1 (/opt/ros/humble/share/image_geometry/cmake)\n'}
+[0.874999] (explore_lite) StdoutLine: {'line': b'-- Found tf2_ros: 0.25.17 (/opt/ros/humble/share/tf2_ros/cmake)\n'}
+[0.886838] (multirobot_map_merge) StdoutLine: {'line': b'-- Found map_msgs: 2.1.0 (/opt/ros/humble/share/map_msgs/cmake)\n'}
+[0.900073] (-) TimerEvent: {}
+[0.934856] (multirobot_map_merge) StdoutLine: {'line': b'-- Found tf2_geometry_msgs: 0.25.17 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)\n'}
+[0.950300] (multirobot_map_merge) StdoutLine: {'line': b'-- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)\n'}
+[0.951552] (multirobot_map_merge) StdoutLine: {'line': b'-- Found Eigen3: TRUE (found version "3.4.0")\n'}
+[0.951660] (multirobot_map_merge) StdoutLine: {'line': b'-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target\n'}
+[0.986484] (explore_lite) StdoutLine: {'line': b'-- Found tf2_geometry_msgs: 0.25.17 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)\n'}
+[1.000151] (-) TimerEvent: {}
+[1.002301] (explore_lite) StdoutLine: {'line': b'-- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)\n'}
+[1.003754] (explore_lite) StdoutLine: {'line': b'-- Found Eigen3: TRUE (found version "3.4.0")\n'}
+[1.003862] (explore_lite) StdoutLine: {'line': b'-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target\n'}
+[1.007524] (explore_lite) StdoutLine: {'line': b'-- Found nav2_msgs: 1.1.20 (/opt/ros/humble/share/nav2_msgs/cmake)\n'}
+[1.059560] (explore_lite) StdoutLine: {'line': b'-- Found map_msgs: 2.1.0 (/opt/ros/humble/share/map_msgs/cmake)\n'}
+[1.064310] (multirobot_map_merge) StderrLine: {'line': b'\x1b[33mCMake Warning (dev) at CMakeLists.txt:29 (find_package):\n'}
+[1.064396] (multirobot_map_merge) StderrLine: {'line': b'  Policy CMP0167 is not set: The FindBoost module is removed.  Run "cmake\n'}
+[1.064448] (multirobot_map_merge) StderrLine: {'line': b'  --help-policy CMP0167" for policy details.  Use the cmake_policy command to\n'}
+[1.064491] (multirobot_map_merge) StderrLine: {'line': b'  set the policy and suppress this warning.\n'}
+[1.064530] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[1.064568] (multirobot_map_merge) StderrLine: {'line': b'This warning is for project developers.  Use -Wno-dev to suppress it.\n'}
+[1.064607] (multirobot_map_merge) StderrLine: {'line': b'\x1b[0m\n'}
+[1.079549] (multirobot_map_merge) StdoutLine: {'line': b'-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake (found version "1.74.0") found components: thread\n'}
+[1.080483] (explore_lite) StdoutLine: {'line': b'-- Found visualization_msgs: 4.9.0 (/opt/ros/humble/share/visualization_msgs/cmake)\n'}
+[1.083056] (multirobot_map_merge) StdoutLine: {'line': b'-- Found OpenCV: /usr (found version "4.5.4")\n'}
+[1.091269] (multirobot_map_merge) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[1.100216] (-) TimerEvent: {}
+[1.103903] (explore_lite) StdoutLine: {'line': b'-- Found nav2_costmap_2d: 1.1.20 (/opt/ros/humble/share/nav2_costmap_2d/cmake)\n'}
+[1.151693] (multirobot_map_merge) StdoutLine: {'line': b'-- Found ament_cmake_gtest: 1.3.12 (/opt/ros/humble/share/ament_cmake_gtest/cmake)\n'}
+[1.156410] (multirobot_map_merge) StderrLine: {'line': b'--2026-01-03 15:37:32--  https://raw.githubusercontent.com/hrnr/m-explore-extra/master/map_merge/hector_maps/map00.pgm\n'}
+[1.187976] (multirobot_map_merge) StderrLine: {'line': b'Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 2606:50c0:8003::154, 2606:50c0:8000::154, 2606:50c0:8001::154, ...\n'}
+[1.200293] (-) TimerEvent: {}
+[1.215442] (multirobot_map_merge) StderrLine: {'line': b'Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|2606:50c0:8003::154|:443... connected.\n'}
+[1.236811] (explore_lite) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[1.297355] (explore_lite) StdoutLine: {'line': b'-- Found ament_cmake_gtest: 1.3.12 (/opt/ros/humble/share/ament_cmake_gtest/cmake)\n'}
+[1.300354] (-) TimerEvent: {}
+[1.300471] (explore_lite) StdoutLine: {'line': b"-- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built\n"}
+[1.302487] (explore_lite) StderrLine: {'line': b'\x1b[0mCMake Deprecation Warning at /opt/ros/humble/src/gtest_vendor/CMakeLists.txt:2 (cmake_minimum_required):\n'}
+[1.302557] (explore_lite) StderrLine: {'line': b'  Compatibility with CMake < 3.10 will be removed from a future version of\n'}
+[1.302605] (explore_lite) StderrLine: {'line': b'  CMake.\n'}
+[1.302664] (explore_lite) StderrLine: {'line': b'\n'}
+[1.302708] (explore_lite) StderrLine: {'line': b'  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax\n'}
+[1.302758] (explore_lite) StderrLine: {'line': b'  to tell CMake that the project requires at least <min> but has been updated\n'}
+[1.302799] (explore_lite) StderrLine: {'line': b'  to work with policies introduced by <max> or earlier.\n'}
+[1.302839] (explore_lite) StderrLine: {'line': b'\n'}
+[1.302878] (explore_lite) StderrLine: {'line': b'\x1b[0m\n'}
+[1.310399] (explore_lite) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[1.310771] (explore_lite) StdoutLine: {'line': b'-- Configured cppcheck include dirs: /home/schneigu/Projects/slam_bench_orchestrator/deps/src/m-explore/explore/include;$<BUILD_INTERFACE:/home/schneigu/Projects/slam_bench_orchestrator/deps/src/m-explore/explore/include>\n'}
+[1.310832] (explore_lite) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[1.311521] (explore_lite) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[1.312318] (explore_lite) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[1.312979] (explore_lite) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257\n"}
+[1.314532] (explore_lite) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[1.314622] (explore_lite) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[1.315208] (explore_lite) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[1.316913] (explore_lite) StdoutLine: {'line': b'-- Configuring done (1.3s)\n'}
+[1.400341] (explore_lite) StdoutLine: {'line': b'-- Generating done (0.1s)\n'}
+[1.400480] (-) TimerEvent: {}
+[1.446475] (explore_lite) StdoutLine: {'line': b'-- Build files have been written to: /home/schneigu/Projects/slam_bench_orchestrator/deps/build/explore_lite\n'}
+[1.457943] (explore_lite) CommandEnded: {'returncode': 0}
+[1.458450] (explore_lite) JobProgress: {'identifier': 'explore_lite', 'progress': 'build'}
+[1.458910] (explore_lite) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/explore_lite', '--', '-j16', '-l16'], 'cwd': '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/explore_lite', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('PYTHON_BASIC_REPL', '1'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'schneigu'), ('LC_TIME', 'fr_FR.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/usr/share/antigravity/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('ANTIGRAVITY_CLI_ALIAS', 'agy'), ('HOME', '/home/schneigu'), ('CHROME_DESKTOP', 'antigravity.desktop'), ('OLDPWD', '/home/schneigu/Projects/slam_bench_orchestrator'), ('TERM_PROGRAM_VERSION', '1.104.0'), ('DESKTOP_SESSION', 'ubuntu-xorg'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/antigravity.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('PAGER', 'cat'), ('VSCODE_GIT_ASKPASS_MAIN', '/usr/share/antigravity/resources/app/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'fr_FR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/usr/share/antigravity/antigravity'), ('MANAGERPID', '1360'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('SYSTEMD_EXEC_PID', '1750'), ('BUNDLED_DEBUGPY_PATH', '/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('ANTIGRAVITY_AGENT', '1'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '28409'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'schneigu'), ('JOURNAL_STREAM', '8:17674'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'schneigu'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/schneigu/.local/bin:/opt/ros/humble/bin:/home/schneigu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts'), ('SESSION_MANAGER', 'local/schneigu:@/tmp/.ICE-unix/1723,unix/schneigu:/tmp/.ICE-unix/1723'), ('INVOCATION_ID', '43a639bb0e6f4a0da1a19b4bdbba1663'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'fr_FR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-a59f4789109266d8.txt'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('PYTHONSTARTUP', '/home/schneigu/.config/Antigravity/User/workspaceStorage/2220fb696ce71b69b11b34d8e84ae5af/ms-python.python/pythonrc.py'), ('LC_TELEPHONE', 'fr_FR.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu-xorg'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-ec97d97a1c.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('LC_NAME', 'fr_FR.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu-xorg'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'fr_FR.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('LC_IDENTIFICATION', 'fr_FR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/explore_lite'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'fr_FR.UTF-8'), ('LC_PAPER', 'fr_FR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[1.482437] (explore_lite) StdoutLine: {'line': b'[ 10%] \x1b[32mBuilding CXX object gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o\x1b[0m\n'}
+[1.482669] (explore_lite) StdoutLine: {'line': b'[ 20%] \x1b[32mBuilding CXX object gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o\x1b[0m\n'}
+[1.483721] (explore_lite) StdoutLine: {'line': b'[ 30%] \x1b[32mBuilding CXX object CMakeFiles/explore.dir/src/costmap_client.cpp.o\x1b[0m\n'}
+[1.483831] (explore_lite) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/explore.dir/src/frontier_search.cpp.o\x1b[0m\n'}
+[1.483926] (explore_lite) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/explore.dir/src/explore.cpp.o\x1b[0m\n'}
+[1.500600] (-) TimerEvent: {}
+[1.600893] (-) TimerEvent: {}
+[1.680841] (multirobot_map_merge) StderrLine: {'line': b'HTTP request sent, awaiting response... 200 OK\n'}
+[1.680990] (multirobot_map_merge) StderrLine: {'line': b'Length: 4194362 (4.0M) [application/octet-stream]\n'}
+[1.681066] (multirobot_map_merge) StderrLine: {'line': b'Saving to: \xe2\x80\x98/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/map00.pgm\xe2\x80\x99\n'}
+[1.690512] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[1.700972] (-) TimerEvent: {}
+[1.745460] (multirobot_map_merge) StderrLine: {'line': b'     0K .......... .......... .......... .......... ..........  1%  775K 5s\n'}
+[1.768283] (multirobot_map_merge) StderrLine: {'line': b'    50K .......... .......... .......... .......... ..........  2% 2.14M 3s\n'}
+[1.782127] (multirobot_map_merge) StderrLine: {'line': b'   100K .......... .......... .......... .......... ..........  3% 3.52M 3s\n'}
+[1.793495] (multirobot_map_merge) StderrLine: {'line': b'   150K .......... .......... .......... .......... ..........  4% 4.31M 2s\n'}
+[1.801048] (-) TimerEvent: {}
+[1.801404] (multirobot_map_merge) StderrLine: {'line': b'   200K .......... .......... .......... .......... ..........  6% 6.10M 2s\n'}
+[1.807808] (multirobot_map_merge) StderrLine: {'line': b'   250K .......... .......... .......... .......... ..........  7% 7.64M 2s\n'}
+[1.817311] (multirobot_map_merge) StderrLine: {'line': b'   300K .......... .......... .......... .......... ..........  8% 5.15M 1s\n'}
+[1.823703] (multirobot_map_merge) StderrLine: {'line': b'   350K .......... .......... .......... .......... ..........  9% 7.61M 1s\n'}
+[1.828851] (multirobot_map_merge) StderrLine: {'line': b'   400K .......... .......... .......... .......... .......... 10% 9.53M 1s\n'}
+[1.832371] (multirobot_map_merge) StderrLine: {'line': b'   450K .......... .......... .......... .......... .......... 12% 13.8M 1s\n'}
+[1.835332] (multirobot_map_merge) StderrLine: {'line': b'   500K .......... .......... .......... .......... .......... 13% 16.3M 1s\n'}
+[1.839246] (multirobot_map_merge) StderrLine: {'line': b'   550K .......... .......... .......... .......... .......... 14% 12.5M 1s\n'}
+[1.842022] (multirobot_map_merge) StderrLine: {'line': b'   600K .......... .......... .......... .......... .......... 15% 17.6M 1s\n'}
+[1.844149] (multirobot_map_merge) StderrLine: {'line': b'   650K .......... .......... .......... .......... .......... 17% 22.8M 1s\n'}
+[1.851348] (multirobot_map_merge) StderrLine: {'line': b'   700K .......... .......... .......... .......... .......... 18% 6.80M 1s\n'}
+[1.853623] (multirobot_map_merge) StderrLine: {'line': b'   750K .......... .......... .......... .......... .......... 19% 21.4M 1s\n'}
+[1.855663] (multirobot_map_merge) StderrLine: {'line': b'   800K .......... .......... .......... .......... .......... 20% 23.9M 1s\n'}
+[1.858351] (multirobot_map_merge) StderrLine: {'line': b'   850K .......... .......... .......... .......... .......... 21% 18.2M 1s\n'}
+[1.860361] (multirobot_map_merge) StderrLine: {'line': b'   900K .......... .......... .......... .......... .......... 23% 24.1M 1s\n'}
+[1.862389] (multirobot_map_merge) StderrLine: {'line': b'   950K .......... .......... .......... .......... .......... 24% 24.1M 1s\n'}
+[1.864237] (multirobot_map_merge) StderrLine: {'line': b'  1000K .......... .......... .......... .......... .......... 25% 26.6M 1s\n'}
+[1.866155] (multirobot_map_merge) StderrLine: {'line': b'  1050K .......... .......... .......... .......... .......... 26% 25.6M 1s\n'}
+[1.868074] (multirobot_map_merge) StderrLine: {'line': b'  1100K .......... .......... .......... .......... .......... 28% 25.3M 0s\n'}
+[1.869933] (multirobot_map_merge) StderrLine: {'line': b'  1150K .......... .......... .......... .......... .......... 29% 26.4M 0s\n'}
+[1.871032] (multirobot_map_merge) StderrLine: {'line': b'  1200K .......... .......... .......... .......... .......... 30% 44.1M 0s\n'}
+[1.872744] (multirobot_map_merge) StderrLine: {'line': b'  1250K .......... .......... .......... .......... .......... 31% 28.7M 0s\n'}
+[1.873850] (multirobot_map_merge) StderrLine: {'line': b'  1300K .......... .......... .......... .......... .......... 32% 43.7M 0s\n'}
+[1.875747] (multirobot_map_merge) StderrLine: {'line': b'  1350K .......... .......... .......... .......... .......... 34% 25.6M 0s\n'}
+[1.877001] (multirobot_map_merge) StderrLine: {'line': b'  1400K .......... .......... .......... .......... .......... 35% 38.8M 0s\n'}
+[1.878133] (multirobot_map_merge) StderrLine: {'line': b'  1450K .......... .......... .......... .......... .......... 36% 43.8M 0s\n'}
+[1.879826] (multirobot_map_merge) StderrLine: {'line': b'  1500K .......... .......... .......... .......... .......... 37% 29.0M 0s\n'}
+[1.880945] (multirobot_map_merge) StderrLine: {'line': b'  1550K .......... .......... .......... .......... .......... 39% 43.7M 0s\n'}
+[1.884183] (multirobot_map_merge) StderrLine: {'line': b'  1600K .......... .......... .......... .......... .......... 40% 15.2M 0s\n'}
+[1.885208] (multirobot_map_merge) StderrLine: {'line': b'  1650K .......... .......... .......... .......... .......... 41% 47.1M 0s\n'}
+[1.886228] (multirobot_map_merge) StderrLine: {'line': b'  1700K .......... .......... .......... .......... .......... 42% 46.2M 0s\n'}
+[1.887218] (multirobot_map_merge) StderrLine: {'line': b'  1750K .......... .......... .......... .......... .......... 43% 49.6M 0s\n'}
+[1.888910] (multirobot_map_merge) StderrLine: {'line': b'  1800K .......... .......... .......... .......... .......... 45% 28.8M 0s\n'}
+[1.889863] (multirobot_map_merge) StderrLine: {'line': b'  1850K .......... .......... .......... .......... .......... 46% 53.7M 0s\n'}
+[1.890891] (multirobot_map_merge) StderrLine: {'line': b'  1900K .......... .......... .......... .......... .......... 47% 49.5M 0s\n'}
+[1.901141] (-) TimerEvent: {}
+[1.902754] (multirobot_map_merge) StderrLine: {'line': b'  1950K .......... .......... .......... .......... .......... 48% 4.10M 0s\n'}
+[1.903175] (multirobot_map_merge) StderrLine: {'line': b'  2000K .......... .......... .......... .......... .......... 50%  112M 0s\n'}
+[1.903997] (multirobot_map_merge) StderrLine: {'line': b'  2050K .......... .......... .......... .......... .......... 51% 58.4M 0s\n'}
+[1.904881] (multirobot_map_merge) StderrLine: {'line': b'  2100K .......... .......... .......... .......... .......... 52% 54.7M 0s\n'}
+[1.905712] (multirobot_map_merge) StderrLine: {'line': b'  2150K .......... .......... .......... .......... .......... 53% 59.2M 0s\n'}
+[1.906101] (multirobot_map_merge) StderrLine: {'line': b'  2200K .......... .......... .......... .......... .......... 54%  121M 0s\n'}
+[1.906781] (multirobot_map_merge) StderrLine: {'line': b'  2250K .......... .......... .......... .......... .......... 56% 74.6M 0s\n'}
+[1.907034] (explore_lite) StdoutLine: {'line': b'[ 60%] \x1b[1m\x1b[32mLinking CXX static library libgtest_main.a\x1b[0m\n'}
+[1.907594] (multirobot_map_merge) StderrLine: {'line': b'  2300K .......... .......... .......... .......... .......... 57% 59.0M 0s\n'}
+[1.908388] (multirobot_map_merge) StderrLine: {'line': b'  2350K .......... .......... .......... .......... .......... 58% 61.6M 0s\n'}
+[1.909155] (multirobot_map_merge) StderrLine: {'line': b'  2400K .......... .......... .......... .......... .......... 59% 63.7M 0s\n'}
+[1.909577] (multirobot_map_merge) StderrLine: {'line': b'  2450K .......... .......... .......... .......... .......... 61%  112M 0s\n'}
+[1.910449] (multirobot_map_merge) StderrLine: {'line': b'  2500K .......... .......... .......... .......... .......... 62% 56.2M 0s\n'}
+[1.911413] (multirobot_map_merge) StderrLine: {'line': b'  2550K .......... .......... .......... .......... .......... 63% 51.3M 0s\n'}
+[1.911855] (multirobot_map_merge) StderrLine: {'line': b'  2600K .......... .......... .......... .......... .......... 64%  108M 0s\n'}
+[1.912568] (multirobot_map_merge) StderrLine: {'line': b'  2650K .......... .......... .......... .......... .......... 65% 69.0M 0s\n'}
+[1.913065] (multirobot_map_merge) StderrLine: {'line': b'  2700K .......... .......... .......... .......... .......... 67% 95.8M 0s\n'}
+[1.913657] (multirobot_map_merge) StderrLine: {'line': b'  2750K .......... .......... .......... .......... .......... 68% 89.3M 0s\n'}
+[1.914254] (multirobot_map_merge) StderrLine: {'line': b'  2800K .......... .......... .......... .......... .......... 69% 77.4M 0s\n'}
+[1.914769] (multirobot_map_merge) StderrLine: {'line': b'  2850K .......... .......... .......... .......... .......... 70% 93.5M 0s\n'}
+[1.915406] (multirobot_map_merge) StderrLine: {'line': b'  2900K .......... .......... .......... .......... .......... 72% 77.3M 0s\n'}
+[1.916173] (multirobot_map_merge) StderrLine: {'line': b'  2950K .......... .......... .......... .......... .......... 73%  106M 0s\n'}
+[1.916694] (multirobot_map_merge) StderrLine: {'line': b'  3000K .......... .......... .......... .......... .......... 74% 63.4M 0s\n'}
+[1.917261] (multirobot_map_merge) StderrLine: {'line': b'  3050K .......... .......... .......... .......... .......... 75% 81.7M 0s\n'}
+[1.917891] (multirobot_map_merge) StderrLine: {'line': b'  3100K .......... .......... .......... .......... .......... 76% 79.3M 0s\n'}
+[1.918475] (multirobot_map_merge) StderrLine: {'line': b'  3150K .......... .......... .......... .......... .......... 78% 88.4M 0s\n'}
+[1.919027] (multirobot_map_merge) StderrLine: {'line': b'  3200K .......... .......... .......... .......... .......... 79% 82.5M 0s\n'}
+[1.919611] (multirobot_map_merge) StderrLine: {'line': b'  3250K .......... .......... .......... .......... .......... 80% 86.1M 0s\n'}
+[1.920124] (multirobot_map_merge) StderrLine: {'line': b'  3300K .......... .......... .......... .......... .......... 81% 90.8M 0s\n'}
+[1.920662] (multirobot_map_merge) StderrLine: {'line': b'  3350K .......... .......... .......... .......... .......... 83% 96.6M 0s\n'}
+[1.921277] (multirobot_map_merge) StderrLine: {'line': b'  3400K .......... .......... .......... .......... .......... 84% 72.9M 0s\n'}
+[1.921850] (multirobot_map_merge) StderrLine: {'line': b'  3450K .......... .......... .......... .......... .......... 85% 91.2M 0s\n'}
+[1.922350] (multirobot_map_merge) StderrLine: {'line': b'  3500K .......... .......... .......... .......... .......... 86% 96.8M 0s\n'}
+[1.923054] (multirobot_map_merge) StderrLine: {'line': b'  3550K .......... .......... .......... .......... .......... 87% 75.4M 0s\n'}
+[1.923513] (multirobot_map_merge) StderrLine: {'line': b'  3600K .......... .......... .......... .......... .......... 89% 88.7M 0s\n'}
+[1.924063] (multirobot_map_merge) StderrLine: {'line': b'  3650K .......... .......... .......... .......... .......... 90% 97.1M 0s\n'}
+[1.924717] (multirobot_map_merge) StderrLine: {'line': b'  3700K .......... .......... .......... .......... .......... 91% 73.8M 0s\n'}
+[1.925301] (multirobot_map_merge) StderrLine: {'line': b'  3750K .......... .......... .......... .......... .......... 92% 84.1M 0s\n'}
+[1.926240] (multirobot_map_merge) StderrLine: {'line': b'  3800K .......... .......... .......... .......... .......... 93% 63.0M 0s\n'}
+[1.926469] (multirobot_map_merge) StderrLine: {'line': b'  3850K .......... .......... .......... .......... .......... 95%  111M 0s\n'}
+[1.929328] (multirobot_map_merge) StderrLine: {'line': b'  3900K .......... .......... .......... .......... .......... 96% 17.6M 0s\n'}
+[1.929914] (multirobot_map_merge) StderrLine: {'line': b'  3950K .......... .......... .......... .......... .......... 97% 79.3M 0s\n'}
+[1.930585] (multirobot_map_merge) StderrLine: {'line': b'  4000K .......... .......... .......... .......... .......... 98% 83.7M 0s\n'}
+[1.951230] (explore_lite) StdoutLine: {'line': b'[ 60%] Built target gtest_main\n'}
+[1.954727] (multirobot_map_merge) StderrLine: {'line': b'  4050K .......... .......... .......... .......... ......    100% 1.85M=0.3s\n'}
+[1.954901] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[1.954982] (multirobot_map_merge) StderrLine: {'line': b'2026-01-03 15:37:33 (14.6 MB/s) - \xe2\x80\x98/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/map00.pgm\xe2\x80\x99 saved [4194362/4194362]\n'}
+[1.955036] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[1.955756] (multirobot_map_merge) StdoutLine: {'line': b'Checking MD5 sum of /home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/map00.pgm\n'}
+[1.961784] (multirobot_map_merge) StdoutLine: {'line': b'/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/map00.pgm: OK\n'}
+[1.966143] (multirobot_map_merge) StderrLine: {'line': b'--2026-01-03 15:37:33--  https://raw.githubusercontent.com/hrnr/m-explore-extra/master/map_merge/hector_maps/map05.pgm\n'}
+[1.968172] (multirobot_map_merge) StderrLine: {'line': b'Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 2606:50c0:8000::154, 2606:50c0:8002::154, 2606:50c0:8001::154, ...\n'}
+[1.995773] (multirobot_map_merge) StderrLine: {'line': b'Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|2606:50c0:8000::154|:443... connected.\n'}
+[2.001212] (-) TimerEvent: {}
+[2.101439] (-) TimerEvent: {}
+[2.201677] (-) TimerEvent: {}
+[2.301921] (-) TimerEvent: {}
+[2.402193] (-) TimerEvent: {}
+[2.502474] (-) TimerEvent: {}
+[2.602791] (-) TimerEvent: {}
+[2.703086] (-) TimerEvent: {}
+[2.748646] (multirobot_map_merge) StderrLine: {'line': b'HTTP request sent, awaiting response... 200 OK\n'}
+[2.748814] (multirobot_map_merge) StderrLine: {'line': b'Length: 4194362 (4.0M) [application/octet-stream]\n'}
+[2.748876] (multirobot_map_merge) StderrLine: {'line': b'Saving to: \xe2\x80\x98/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/map05.pgm\xe2\x80\x99\n'}
+[2.748957] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[2.803177] (-) TimerEvent: {}
+[2.815029] (multirobot_map_merge) StderrLine: {'line': b'     0K .......... .......... .......... .......... ..........  1%  754K 5s\n'}
+[2.837438] (multirobot_map_merge) StderrLine: {'line': b'    50K .......... .......... .......... .......... ..........  2% 2.18M 4s\n'}
+[2.851366] (multirobot_map_merge) StderrLine: {'line': b'   100K .......... .......... .......... .......... ..........  3% 3.51M 3s\n'}
+[2.861973] (multirobot_map_merge) StderrLine: {'line': b'   150K .......... .......... .......... .......... ..........  4% 4.59M 2s\n'}
+[2.869689] (multirobot_map_merge) StderrLine: {'line': b'   200K .......... .......... .......... .......... ..........  6% 6.30M 2s\n'}
+[2.876818] (multirobot_map_merge) StderrLine: {'line': b'   250K .......... .......... .......... .......... ..........  7% 6.86M 2s\n'}
+[2.884547] (multirobot_map_merge) StderrLine: {'line': b'   300K .......... .......... .......... .......... ..........  8% 6.33M 1s\n'}
+[2.890604] (multirobot_map_merge) StderrLine: {'line': b'   350K .......... .......... .......... .......... ..........  9% 10.9M 1s\n'}
+[2.895272] (multirobot_map_merge) StderrLine: {'line': b'   400K .......... .......... .......... .......... .......... 10% 7.80M 1s\n'}
+[2.898843] (multirobot_map_merge) StderrLine: {'line': b'   450K .......... .......... .......... .......... .......... 12% 13.7M 1s\n'}
+[2.902445] (multirobot_map_merge) StderrLine: {'line': b'   500K .......... .......... .......... .......... .......... 13% 13.6M 1s\n'}
+[2.903232] (-) TimerEvent: {}
+[2.905685] (multirobot_map_merge) StderrLine: {'line': b'   550K .......... .......... .......... .......... .......... 14% 15.2M 1s\n'}
+[2.937101] (multirobot_map_merge) StderrLine: {'line': b'   600K .......... .......... .......... .......... .......... 15% 1.55M 1s\n'}
+[2.937324] (multirobot_map_merge) StderrLine: {'line': b'   650K .......... .......... .......... .......... .......... 17%  271M 1s\n'}
+[2.937456] (multirobot_map_merge) StderrLine: {'line': b'   700K .......... .......... .......... .......... .......... 18%  253M 1s\n'}
+[2.937622] (multirobot_map_merge) StderrLine: {'line': b'   750K .......... .......... .......... .......... .......... 19%  271M 1s\n'}
+[2.937817] (multirobot_map_merge) StderrLine: {'line': b'   800K .......... .......... .......... .......... .......... 20%  232M 1s\n'}
+[2.937939] (multirobot_map_merge) StderrLine: {'line': b'   850K .......... .......... .......... .......... .......... 21%  345M 1s\n'}
+[2.938084] (multirobot_map_merge) StderrLine: {'line': b'   900K .......... .......... .......... .......... .......... 23%  339M 1s\n'}
+[2.938273] (multirobot_map_merge) StderrLine: {'line': b'   950K .......... .......... .......... .......... .......... 24%  297M 1s\n'}
+[2.938436] (multirobot_map_merge) StderrLine: {'line': b'  1000K .......... .......... .......... .......... .......... 25%  257M 1s\n'}
+[2.938737] (multirobot_map_merge) StderrLine: {'line': b'  1050K .......... .......... .......... .......... .......... 26%  160M 1s\n'}
+[2.938878] (multirobot_map_merge) StderrLine: {'line': b'  1100K .......... .......... .......... .......... .......... 28%  349M 0s\n'}
+[2.939046] (multirobot_map_merge) StderrLine: {'line': b'  1150K .......... .......... .......... .......... .......... 29%  355M 0s\n'}
+[2.939183] (multirobot_map_merge) StderrLine: {'line': b'  1200K .......... .......... .......... .......... .......... 30%  291M 0s\n'}
+[2.940862] (multirobot_map_merge) StderrLine: {'line': b'  1250K .......... .......... .......... .......... .......... 31% 30.1M 0s\n'}
+[2.943479] (multirobot_map_merge) StderrLine: {'line': b'  1300K .......... .......... .......... .......... .......... 32% 18.8M 0s\n'}
+[2.944632] (multirobot_map_merge) StderrLine: {'line': b'  1350K .......... .......... .......... .......... .......... 34% 41.9M 0s\n'}
+[2.947075] (multirobot_map_merge) StderrLine: {'line': b'  1400K .......... .......... .......... .......... .......... 35% 19.7M 0s\n'}
+[2.950499] (multirobot_map_merge) StderrLine: {'line': b'  1450K .......... .......... .......... .......... .......... 36% 14.3M 0s\n'}
+[2.951889] (multirobot_map_merge) StderrLine: {'line': b'  1500K .......... .......... .......... .......... .......... 37% 34.9M 0s\n'}
+[2.954178] (multirobot_map_merge) StderrLine: {'line': b'  1550K .......... .......... .......... .......... .......... 39% 35.4M 0s\n'}
+[2.955922] (multirobot_map_merge) StderrLine: {'line': b'  1600K .......... .......... .......... .......... .......... 40% 18.3M 0s\n'}
+[2.959041] (multirobot_map_merge) StderrLine: {'line': b'  1650K .......... .......... .......... .......... .......... 41% 15.7M 0s\n'}
+[2.960592] (multirobot_map_merge) StderrLine: {'line': b'  1700K .......... .......... .......... .......... .......... 42% 33.5M 0s\n'}
+[2.963147] (multirobot_map_merge) StderrLine: {'line': b'  1750K .......... .......... .......... .......... .......... 43% 18.4M 0s\n'}
+[2.964432] (multirobot_map_merge) StderrLine: {'line': b'  1800K .......... .......... .......... .......... .......... 45% 38.2M 0s\n'}
+[2.964948] (multirobot_map_merge) StderrLine: {'line': b'  1850K .......... .......... .......... .......... .......... 46% 93.1M 0s\n'}
+[2.965604] (multirobot_map_merge) StderrLine: {'line': b'  1900K .......... .......... .......... .......... .......... 47% 77.3M 0s\n'}
+[2.967315] (multirobot_map_merge) StderrLine: {'line': b'  1950K .......... .......... .......... .......... .......... 48% 28.0M 0s\n'}
+[2.968382] (multirobot_map_merge) StderrLine: {'line': b'  2000K .......... .......... .......... .......... .......... 50% 46.8M 0s\n'}
+[2.971183] (multirobot_map_merge) StderrLine: {'line': b'  2050K .......... .......... .......... .......... .......... 51% 17.4M 0s\n'}
+[2.972902] (multirobot_map_merge) StderrLine: {'line': b'  2100K .......... .......... .......... .......... .......... 52% 33.9M 0s\n'}
+[2.973328] (multirobot_map_merge) StderrLine: {'line': b'  2150K .......... .......... .......... .......... .......... 53% 69.1M 0s\n'}
+[2.974691] (multirobot_map_merge) StderrLine: {'line': b'  2200K .......... .......... .......... .......... .......... 54% 35.7M 0s\n'}
+[2.975788] (multirobot_map_merge) StderrLine: {'line': b'  2250K .......... .......... .......... .......... .......... 56% 44.6M 0s\n'}
+[2.976436] (multirobot_map_merge) StderrLine: {'line': b'  2300K .......... .......... .......... .......... .......... 57% 76.3M 0s\n'}
+[2.978025] (multirobot_map_merge) StderrLine: {'line': b'  2350K .......... .......... .......... .......... .......... 58% 30.4M 0s\n'}
+[2.978489] (multirobot_map_merge) StderrLine: {'line': b'  2400K .......... .......... .......... .......... .......... 59%  105M 0s\n'}
+[2.979551] (multirobot_map_merge) StderrLine: {'line': b'  2450K .......... .......... .......... .......... .......... 61% 47.4M 0s\n'}
+[2.981224] (multirobot_map_merge) StderrLine: {'line': b'  2500K .......... .......... .......... .......... .......... 62% 28.6M 0s\n'}
+[2.982075] (multirobot_map_merge) StderrLine: {'line': b'  2550K .......... .......... .......... .......... .......... 63% 61.1M 0s\n'}
+[2.982582] (multirobot_map_merge) StderrLine: {'line': b'  2600K .......... .......... .......... .......... .......... 64% 88.7M 0s\n'}
+[2.983802] (multirobot_map_merge) StderrLine: {'line': b'  2650K .......... .......... .......... .......... .......... 65% 40.0M 0s\n'}
+[2.986683] (multirobot_map_merge) StderrLine: {'line': b'  2700K .......... .......... .......... .......... .......... 67% 17.0M 0s\n'}
+[2.987372] (multirobot_map_merge) StderrLine: {'line': b'  2750K .......... .......... .......... .......... .......... 68% 71.1M 0s\n'}
+[2.988488] (multirobot_map_merge) StderrLine: {'line': b'  2800K .......... .......... .......... .......... .......... 69% 43.9M 0s\n'}
+[2.988925] (multirobot_map_merge) StderrLine: {'line': b'  2850K .......... .......... .......... .......... .......... 70%  113M 0s\n'}
+[2.989719] (multirobot_map_merge) StderrLine: {'line': b'  2900K .......... .......... .......... .......... .......... 72% 63.7M 0s\n'}
+[2.991203] (multirobot_map_merge) StderrLine: {'line': b'  2950K .......... .......... .......... .......... .......... 73% 32.4M 0s\n'}
+[2.991701] (multirobot_map_merge) StderrLine: {'line': b'  3000K .......... .......... .......... .......... .......... 74% 96.7M 0s\n'}
+[2.993504] (multirobot_map_merge) StderrLine: {'line': b'  3050K .......... .......... .......... .......... .......... 75% 27.2M 0s\n'}
+[2.994236] (multirobot_map_merge) StderrLine: {'line': b'  3100K .......... .......... .......... .......... .......... 76% 65.1M 0s\n'}
+[2.995075] (multirobot_map_merge) StderrLine: {'line': b'  3150K .......... .......... .......... .......... .......... 78% 58.7M 0s\n'}
+[2.995922] (multirobot_map_merge) StderrLine: {'line': b'  3200K .......... .......... .......... .......... .......... 79% 57.7M 0s\n'}
+[2.996630] (multirobot_map_merge) StderrLine: {'line': b'  3250K .......... .......... .......... .......... .......... 80% 70.7M 0s\n'}
+[2.997505] (multirobot_map_merge) StderrLine: {'line': b'  3300K .......... .......... .......... .......... .......... 81% 57.5M 0s\n'}
+[2.998420] (multirobot_map_merge) StderrLine: {'line': b'  3350K .......... .......... .......... .......... .......... 83% 52.0M 0s\n'}
+[2.998998] (multirobot_map_merge) StderrLine: {'line': b'  3400K .......... .......... .......... .......... .......... 84% 85.5M 0s\n'}
+[2.999450] (multirobot_map_merge) StderrLine: {'line': b'  3450K .......... .......... .......... .......... .......... 85%  104M 0s\n'}
+[3.000410] (multirobot_map_merge) StderrLine: {'line': b'  3500K .......... .......... .......... .......... .......... 86% 52.7M 0s\n'}
+[3.000778] (multirobot_map_merge) StderrLine: {'line': b'  3550K .......... .......... .......... .......... .......... 87%  118M 0s\n'}
+[3.001421] (multirobot_map_merge) StderrLine: {'line': b'  3600K .......... .......... .......... .......... .......... 89% 76.6M 0s\n'}
+[3.002287] (multirobot_map_merge) StderrLine: {'line': b'  3650K .......... .......... .......... .......... .......... 90% 55.9M 0s\n'}
+[3.002800] (multirobot_map_merge) StderrLine: {'line': b'  3700K .......... .......... .......... .......... .......... 91% 94.4M 0s\n'}
+[3.003294] (-) TimerEvent: {}
+[3.003419] (multirobot_map_merge) StderrLine: {'line': b'  3750K .......... .......... .......... .......... .......... 92% 92.6M 0s\n'}
+[3.004190] (multirobot_map_merge) StderrLine: {'line': b'  3800K .......... .......... .......... .......... .......... 93% 56.6M 0s\n'}
+[3.004652] (multirobot_map_merge) StderrLine: {'line': b'  3850K .......... .......... .......... .......... .......... 95%  106M 0s\n'}
+[3.005281] (multirobot_map_merge) StderrLine: {'line': b'  3900K .......... .......... .......... .......... .......... 96% 76.4M 0s\n'}
+[3.005824] (multirobot_map_merge) StderrLine: {'line': b'  3950K .......... .......... .......... .......... .......... 97% 90.2M 0s\n'}
+[3.006349] (multirobot_map_merge) StderrLine: {'line': b'  4000K .......... .......... .......... .......... .......... 98% 93.2M 0s\n'}
+[3.033711] (multirobot_map_merge) StderrLine: {'line': b'  4050K .......... .......... .......... .......... ......    100% 1.65M=0.3s\n'}
+[3.033879] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[3.033953] (multirobot_map_merge) StderrLine: {'line': b'2026-01-03 15:37:34 (14.0 MB/s) - \xe2\x80\x98/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/map05.pgm\xe2\x80\x99 saved [4194362/4194362]\n'}
+[3.034018] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[3.034755] (multirobot_map_merge) StdoutLine: {'line': b'Checking MD5 sum of /home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/map05.pgm\n'}
+[3.041006] (multirobot_map_merge) StdoutLine: {'line': b'/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/map05.pgm: OK\n'}
+[3.045311] (multirobot_map_merge) StderrLine: {'line': b'--2026-01-03 15:37:34--  https://raw.githubusercontent.com/hrnr/m-explore-extra/master/map_merge/gmapping_maps/2011-08-09-12-22-52.pgm\n'}
+[3.047345] (multirobot_map_merge) StderrLine: {'line': b'Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 2606:50c0:8003::154, 2606:50c0:8001::154, 2606:50c0:8002::154, ...\n'}
+[3.075145] (multirobot_map_merge) StderrLine: {'line': b'Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|2606:50c0:8003::154|:443... connected.\n'}
+[3.103423] (-) TimerEvent: {}
+[3.203701] (-) TimerEvent: {}
+[3.304016] (-) TimerEvent: {}
+[3.404277] (-) TimerEvent: {}
+[3.411652] (explore_lite) StdoutLine: {'line': b'[ 70%] \x1b[1m\x1b[32mLinking CXX static library libgtest.a\x1b[0m\n'}
+[3.484933] (explore_lite) StdoutLine: {'line': b'[ 70%] Built target gtest\n'}
+[3.494552] (explore_lite) StdoutLine: {'line': b'[ 80%] \x1b[32mBuilding CXX object CMakeFiles/test_explore.dir/test/test_explore.cpp.o\x1b[0m\n'}
+[3.504375] (-) TimerEvent: {}
+[3.604669] (-) TimerEvent: {}
+[3.704976] (-) TimerEvent: {}
+[3.760228] (multirobot_map_merge) StderrLine: {'line': b'HTTP request sent, awaiting response... 200 OK\n'}
+[3.760436] (multirobot_map_merge) StderrLine: {'line': b'Length: 16000058 (15M) [application/octet-stream]\n'}
+[3.760522] (multirobot_map_merge) StderrLine: {'line': b'Saving to: \xe2\x80\x98/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/2011-08-09-12-22-52.pgm\xe2\x80\x99\n'}
+[3.760598] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[3.805067] (-) TimerEvent: {}
+[3.831231] (multirobot_map_merge) StderrLine: {'line': b'     0K .......... .......... .......... .......... ..........  0%  705K 22s\n'}
+[3.852438] (multirobot_map_merge) StderrLine: {'line': b'    50K .......... .......... .......... .......... ..........  0% 2.31M 14s\n'}
+[3.867452] (multirobot_map_merge) StderrLine: {'line': b'   100K .......... .......... .......... .......... ..........  0% 3.25M 11s\n'}
+[3.877154] (multirobot_map_merge) StderrLine: {'line': b'   150K .......... .......... .......... .......... ..........  1% 5.02M 9s\n'}
+[3.884816] (multirobot_map_merge) StderrLine: {'line': b'   200K .......... .......... .......... .......... ..........  1% 6.32M 8s\n'}
+[3.891120] (multirobot_map_merge) StderrLine: {'line': b'   250K .......... .......... .......... .......... ..........  1% 7.76M 7s\n'}
+[3.897885] (multirobot_map_merge) StderrLine: {'line': b'   300K .......... .......... .......... .......... ..........  2% 7.22M 6s\n'}
+[3.904579] (multirobot_map_merge) StderrLine: {'line': b'   350K .......... .......... .......... .......... ..........  2% 10.3M 5s\n'}
+[3.905124] (-) TimerEvent: {}
+[3.908928] (multirobot_map_merge) StderrLine: {'line': b'   400K .......... .......... .......... .......... ..........  2% 7.84M 5s\n'}
+[3.912606] (multirobot_map_merge) StderrLine: {'line': b'   450K .......... .......... .......... .......... ..........  3% 13.1M 5s\n'}
+[3.916082] (multirobot_map_merge) StderrLine: {'line': b'   500K .......... .......... .......... .......... ..........  3% 14.0M 4s\n'}
+[3.919013] (multirobot_map_merge) StderrLine: {'line': b'   550K .......... .......... .......... .......... ..........  3% 16.7M 4s\n'}
+[3.921788] (multirobot_map_merge) StderrLine: {'line': b'   600K .......... .......... .......... .......... ..........  4% 17.5M 4s\n'}
+[3.924617] (multirobot_map_merge) StderrLine: {'line': b'   650K .......... .......... .......... .......... ..........  4% 17.2M 4s\n'}
+[3.928451] (multirobot_map_merge) StderrLine: {'line': b'   700K .......... .......... .......... .......... ..........  4% 12.9M 3s\n'}
+[3.931236] (multirobot_map_merge) StderrLine: {'line': b'   750K .......... .......... .......... .......... ..........  5% 27.9M 3s\n'}
+[3.933073] (multirobot_map_merge) StderrLine: {'line': b'   800K .......... .......... .......... .......... ..........  5% 17.0M 3s\n'}
+[3.935970] (multirobot_map_merge) StderrLine: {'line': b'   850K .......... .......... .......... .......... ..........  5% 16.8M 3s\n'}
+[3.938698] (multirobot_map_merge) StderrLine: {'line': b'   900K .......... .......... .......... .......... ..........  6% 18.0M 3s\n'}
+[3.940417] (multirobot_map_merge) StderrLine: {'line': b'   950K .......... .......... .......... .......... ..........  6% 28.4M 3s\n'}
+[3.942440] (multirobot_map_merge) StderrLine: {'line': b'  1000K .......... .......... .......... .......... ..........  6% 24.0M 3s\n'}
+[3.944016] (multirobot_map_merge) StderrLine: {'line': b'  1050K .......... .......... .......... .......... ..........  7% 31.1M 2s\n'}
+[3.945929] (multirobot_map_merge) StderrLine: {'line': b'  1100K .......... .......... .......... .......... ..........  7% 40.2M 2s\n'}
+[3.947060] (multirobot_map_merge) StderrLine: {'line': b'  1150K .......... .......... .......... .......... ..........  7% 26.4M 2s\n'}
+[3.948984] (multirobot_map_merge) StderrLine: {'line': b'  1200K .......... .......... .......... .......... ..........  7% 25.6M 2s\n'}
+[3.950580] (multirobot_map_merge) StderrLine: {'line': b'  1250K .......... .......... .......... .......... ..........  8% 30.3M 2s\n'}
+[3.951740] (multirobot_map_merge) StderrLine: {'line': b'  1300K .......... .......... .......... .......... ..........  8% 43.5M 2s\n'}
+[3.953382] (multirobot_map_merge) StderrLine: {'line': b'  1350K .......... .......... .......... .......... ..........  8% 28.8M 2s\n'}
+[3.954462] (multirobot_map_merge) StderrLine: {'line': b'  1400K .......... .......... .......... .......... ..........  9% 45.7M 2s\n'}
+[3.955487] (multirobot_map_merge) StderrLine: {'line': b'  1450K .......... .......... .......... .......... ..........  9% 47.8M 2s\n'}
+[3.957214] (multirobot_map_merge) StderrLine: {'line': b'  1500K .......... .......... .......... .......... ..........  9% 30.0M 2s\n'}
+[3.958320] (multirobot_map_merge) StderrLine: {'line': b'  1550K .......... .......... .......... .......... .......... 10% 40.5M 2s\n'}
+[3.959261] (multirobot_map_merge) StderrLine: {'line': b'  1600K .......... .......... .......... .......... .......... 10% 51.0M 2s\n'}
+[3.960612] (multirobot_map_merge) StderrLine: {'line': b'  1650K .......... .......... .......... .......... .......... 10% 36.4M 2s\n'}
+[3.962637] (multirobot_map_merge) StderrLine: {'line': b'  1700K .......... .......... .......... .......... .......... 11% 24.4M 2s\n'}
+[3.963550] (multirobot_map_merge) StderrLine: {'line': b'  1750K .......... .......... .......... .......... .......... 11% 51.2M 2s\n'}
+[3.964783] (multirobot_map_merge) StderrLine: {'line': b'  1800K .......... .......... .......... .......... .......... 11% 39.7M 2s\n'}
+[3.965474] (multirobot_map_merge) StderrLine: {'line': b'  1850K .......... .......... .......... .......... .......... 12% 71.5M 1s\n'}
+[3.966528] (multirobot_map_merge) StderrLine: {'line': b'  1900K .......... .......... .......... .......... .......... 12% 51.6M 1s\n'}
+[3.967921] (multirobot_map_merge) StderrLine: {'line': b'  1950K .......... .......... .......... .......... .......... 12% 32.8M 1s\n'}
+[3.968996] (multirobot_map_merge) StderrLine: {'line': b'  2000K .......... .......... .......... .......... .......... 13% 45.1M 1s\n'}
+[3.969736] (multirobot_map_merge) StderrLine: {'line': b'  2050K .......... .......... .......... .......... .......... 13% 65.5M 1s\n'}
+[3.970619] (multirobot_map_merge) StderrLine: {'line': b'  2100K .......... .......... .......... .......... .......... 13% 56.2M 1s\n'}
+[3.971068] (multirobot_map_merge) StderrLine: {'line': b'  2150K .......... .......... .......... .......... .......... 14%  104M 1s\n'}
+[3.972300] (multirobot_map_merge) StderrLine: {'line': b'  2200K .......... .......... .......... .......... .......... 14% 39.7M 1s\n'}
+[3.973311] (multirobot_map_merge) StderrLine: {'line': b'  2250K .......... .......... .......... .......... .......... 14% 48.0M 1s\n'}
+[3.974369] (multirobot_map_merge) StderrLine: {'line': b'  2300K .......... .......... .......... .......... .......... 15%  101M 1s\n'}
+[3.974988] (multirobot_map_merge) StderrLine: {'line': b'  2350K .......... .......... .......... .......... .......... 15% 41.6M 1s\n'}
+[3.976220] (multirobot_map_merge) StderrLine: {'line': b'  2400K .......... .......... .......... .......... .......... 15% 39.3M 1s\n'}
+[3.976665] (multirobot_map_merge) StderrLine: {'line': b'  2450K .......... .......... .......... .......... .......... 15%  109M 1s\n'}
+[3.977706] (multirobot_map_merge) StderrLine: {'line': b'  2500K .......... .......... .......... .......... .......... 16% 48.5M 1s\n'}
+[3.978472] (multirobot_map_merge) StderrLine: {'line': b'  2550K .......... .......... .......... .......... .......... 16% 61.8M 1s\n'}
+[3.978917] (multirobot_map_merge) StderrLine: {'line': b'  2600K .......... .......... .......... .......... .......... 16%  106M 1s\n'}
+[3.979803] (multirobot_map_merge) StderrLine: {'line': b'  2650K .......... .......... .......... .......... .......... 17% 55.9M 1s\n'}
+[3.980824] (multirobot_map_merge) StderrLine: {'line': b'  2700K .......... .......... .......... .......... .......... 17% 61.3M 1s\n'}
+[3.981248] (multirobot_map_merge) StderrLine: {'line': b'  2750K .......... .......... .......... .......... .......... 17% 75.8M 1s\n'}
+[3.981984] (multirobot_map_merge) StderrLine: {'line': b'  2800K .......... .......... .......... .......... .......... 18% 66.5M 1s\n'}
+[3.982701] (multirobot_map_merge) StderrLine: {'line': b'  2850K .......... .......... .......... .......... .......... 18% 69.8M 1s\n'}
+[3.983760] (multirobot_map_merge) StderrLine: {'line': b'  2900K .......... .......... .......... .......... .......... 18% 46.9M 1s\n'}
+[3.984333] (multirobot_map_merge) StderrLine: {'line': b'  2950K .......... .......... .......... .......... .......... 19% 87.5M 1s\n'}
+[3.984828] (multirobot_map_merge) StderrLine: {'line': b'  3000K .......... .......... .......... .......... .......... 19% 86.6M 1s\n'}
+[3.985374] (multirobot_map_merge) StderrLine: {'line': b'  3050K .......... .......... .......... .......... .......... 19% 92.3M 1s\n'}
+[3.986071] (multirobot_map_merge) StderrLine: {'line': b'  3100K .......... .......... .......... .......... .......... 20%  117M 1s\n'}
+[3.986515] (multirobot_map_merge) StderrLine: {'line': b'  3150K .......... .......... .......... .......... .......... 20% 66.8M 1s\n'}
+[3.987093] (multirobot_map_merge) StderrLine: {'line': b'  3200K .......... .......... .......... .......... .......... 20% 85.2M 1s\n'}
+[3.987729] (multirobot_map_merge) StderrLine: {'line': b'  3250K .......... .......... .......... .......... .......... 21% 76.5M 1s\n'}
+[3.988391] (multirobot_map_merge) StderrLine: {'line': b'  3300K .......... .......... .......... .......... .......... 21% 73.6M 1s\n'}
+[3.989005] (multirobot_map_merge) StderrLine: {'line': b'  3350K .......... .......... .......... .......... .......... 21% 80.0M 1s\n'}
+[3.990086] (multirobot_map_merge) StderrLine: {'line': b'  3400K .......... .......... .......... .......... .......... 22% 45.0M 1s\n'}
+[3.990546] (multirobot_map_merge) StderrLine: {'line': b'  3450K .......... .......... .......... .......... .......... 22%  105M 1s\n'}
+[3.991006] (multirobot_map_merge) StderrLine: {'line': b'  3500K .......... .......... .......... .......... .......... 22%  105M 1s\n'}
+[3.991467] (multirobot_map_merge) StderrLine: {'line': b'  3550K .......... .......... .......... .......... .......... 23%  106M 1s\n'}
+[3.991891] (multirobot_map_merge) StderrLine: {'line': b'  3600K .......... .......... .......... .......... .......... 23%  114M 1s\n'}
+[3.992677] (multirobot_map_merge) StderrLine: {'line': b'  3650K .......... .......... .......... .......... .......... 23% 63.0M 1s\n'}
+[3.993120] (multirobot_map_merge) StderrLine: {'line': b'  3700K .......... .......... .......... .......... .......... 23%  112M 1s\n'}
+[3.993659] (multirobot_map_merge) StderrLine: {'line': b'  3750K .......... .......... .......... .......... .......... 24% 91.5M 1s\n'}
+[3.994078] (multirobot_map_merge) StderrLine: {'line': b'  3800K .......... .......... .......... .......... .......... 24%  111M 1s\n'}
+[3.994592] (multirobot_map_merge) StderrLine: {'line': b'  3850K .......... .......... .......... .......... .......... 24% 99.7M 1s\n'}
+[3.995130] (multirobot_map_merge) StderrLine: {'line': b'  3900K .......... .......... .......... .......... .......... 25% 95.1M 1s\n'}
+[3.995552] (multirobot_map_merge) StderrLine: {'line': b'  3950K .......... .......... .......... .......... .......... 25%  103M 1s\n'}
+[3.996084] (multirobot_map_merge) StderrLine: {'line': b'  4000K .......... .......... .......... .......... .......... 25% 92.8M 1s\n'}
+[3.996699] (multirobot_map_merge) StderrLine: {'line': b'  4050K .......... .......... .......... .......... .......... 26% 81.8M 1s\n'}
+[3.997134] (multirobot_map_merge) StderrLine: {'line': b'  4100K .......... .......... .......... .......... .......... 26%  111M 1s\n'}
+[3.997635] (multirobot_map_merge) StderrLine: {'line': b'  4150K .......... .......... .......... .......... .......... 26%  105M 1s\n'}
+[3.998067] (multirobot_map_merge) StderrLine: {'line': b'  4200K .......... .......... .......... .......... .......... 27%  103M 1s\n'}
+[3.998551] (multirobot_map_merge) StderrLine: {'line': b'  4250K .......... .......... .......... .......... .......... 27%  101M 1s\n'}
+[3.999016] (multirobot_map_merge) StderrLine: {'line': b'  4300K .......... .......... .......... .......... .......... 27%  105M 1s\n'}
+[3.999791] (multirobot_map_merge) StderrLine: {'line': b'  4350K .......... .......... .......... .......... .......... 28% 63.7M 1s\n'}
+[4.000239] (multirobot_map_merge) StderrLine: {'line': b'  4400K .......... .......... .......... .......... .......... 28%  111M 1s\n'}
+[4.000701] (multirobot_map_merge) StderrLine: {'line': b'  4450K .......... .......... .......... .......... .......... 28%  104M 1s\n'}
+[4.001198] (multirobot_map_merge) StderrLine: {'line': b'  4500K .......... .......... .......... .......... .......... 29% 97.2M 1s\n'}
+[4.001575] (multirobot_map_merge) StderrLine: {'line': b'  4550K .......... .......... .......... .......... .......... 29%  123M 1s\n'}
+[4.002157] (multirobot_map_merge) StderrLine: {'line': b'  4600K .......... .......... .......... .......... .......... 29%  104M 1s\n'}
+[4.002606] (multirobot_map_merge) StderrLine: {'line': b'  4650K .......... .......... .......... .......... .......... 30% 86.9M 1s\n'}
+[4.003091] (multirobot_map_merge) StderrLine: {'line': b'  4700K .......... .......... .......... .......... .......... 30%  107M 1s\n'}
+[4.003556] (multirobot_map_merge) StderrLine: {'line': b'  4750K .......... .......... .......... .......... .......... 30%  109M 1s\n'}
+[4.004019] (multirobot_map_merge) StderrLine: {'line': b'  4800K .......... .......... .......... .......... .......... 31%  103M 1s\n'}
+[4.004436] (multirobot_map_merge) StderrLine: {'line': b'  4850K .......... .......... .......... .......... .......... 31%  111M 1s\n'}
+[4.004951] (multirobot_map_merge) StderrLine: {'line': b'  4900K .......... .......... .......... .......... .......... 31% 99.4M 1s\n'}
+[4.005192] (-) TimerEvent: {}
+[4.005354] (multirobot_map_merge) StderrLine: {'line': b'  4950K .......... .......... .......... .......... .......... 31%  115M 1s\n'}
+[4.005821] (multirobot_map_merge) StderrLine: {'line': b'  5000K .......... .......... .......... .......... .......... 32%  104M 1s\n'}
+[4.006300] (multirobot_map_merge) StderrLine: {'line': b'  5050K .......... .......... .......... .......... .......... 32%  111M 1s\n'}
+[4.006850] (multirobot_map_merge) StderrLine: {'line': b'  5100K .......... .......... .......... .......... .......... 32%  118M 1s\n'}
+[4.007245] (multirobot_map_merge) StderrLine: {'line': b'  5150K .......... .......... .......... .......... .......... 33% 84.1M 0s\n'}
+[4.007712] (multirobot_map_merge) StderrLine: {'line': b'  5200K .......... .......... .......... .......... .......... 33%  106M 0s\n'}
+[4.008160] (multirobot_map_merge) StderrLine: {'line': b'  5250K .......... .......... .......... .......... .......... 33%  111M 0s\n'}
+[4.008617] (multirobot_map_merge) StderrLine: {'line': b'  5300K .......... .......... .......... .......... .......... 34%  112M 0s\n'}
+[4.009077] (multirobot_map_merge) StderrLine: {'line': b'  5350K .......... .......... .......... .......... .......... 34% 98.1M 0s\n'}
+[4.009531] (multirobot_map_merge) StderrLine: {'line': b'  5400K .......... .......... .......... .......... .......... 34%  110M 0s\n'}
+[4.009937] (multirobot_map_merge) StderrLine: {'line': b'  5450K .......... .......... .......... .......... .......... 35%  115M 0s\n'}
+[4.010499] (multirobot_map_merge) StderrLine: {'line': b'  5500K .......... .......... .......... .......... .......... 35%  102M 0s\n'}
+[4.010969] (multirobot_map_merge) StderrLine: {'line': b'  5550K .......... .......... .......... .......... .......... 35% 94.8M 0s\n'}
+[4.011380] (multirobot_map_merge) StderrLine: {'line': b'  5600K .......... .......... .......... .......... .......... 36%  111M 0s\n'}
+[4.011899] (multirobot_map_merge) StderrLine: {'line': b'  5650K .......... .......... .......... .......... .......... 36% 93.8M 0s\n'}
+[4.012291] (multirobot_map_merge) StderrLine: {'line': b'  5700K .......... .......... .......... .......... .......... 36%  121M 0s\n'}
+[4.012771] (multirobot_map_merge) StderrLine: {'line': b'  5750K .......... .......... .......... .......... .......... 37%  107M 0s\n'}
+[4.013212] (multirobot_map_merge) StderrLine: {'line': b'  5800K .......... .......... .......... .......... .......... 37%  109M 0s\n'}
+[4.013827] (multirobot_map_merge) StderrLine: {'line': b'  5850K .......... .......... .......... .......... .......... 37% 79.8M 0s\n'}
+[4.014247] (multirobot_map_merge) StderrLine: {'line': b'  5900K .......... .......... .......... .......... .......... 38%  116M 0s\n'}
+[4.014711] (multirobot_map_merge) StderrLine: {'line': b'  5950K .......... .......... .......... .......... .......... 38%  110M 0s\n'}
+[4.015109] (multirobot_map_merge) StderrLine: {'line': b'  6000K .......... .......... .......... .......... .......... 38%  115M 0s\n'}
+[4.015602] (multirobot_map_merge) StderrLine: {'line': b'  6050K .......... .......... .......... .......... .......... 39% 99.3M 0s\n'}
+[4.016053] (multirobot_map_merge) StderrLine: {'line': b'  6100K .......... .......... .......... .......... .......... 39%  108M 0s\n'}
+[4.016491] (multirobot_map_merge) StderrLine: {'line': b'  6150K .......... .......... .......... .......... .......... 39%  111M 0s\n'}
+[4.016937] (multirobot_map_merge) StderrLine: {'line': b'  6200K .......... .......... .......... .......... .......... 39%  110M 0s\n'}
+[4.017504] (multirobot_map_merge) StderrLine: {'line': b'  6250K .......... .......... .......... .......... .......... 40% 86.2M 0s\n'}
+[4.017945] (multirobot_map_merge) StderrLine: {'line': b'  6300K .......... .......... .......... .......... .......... 40%  111M 0s\n'}
+[4.018416] (multirobot_map_merge) StderrLine: {'line': b'  6350K .......... .......... .......... .......... .......... 40%  107M 0s\n'}
+[4.018830] (multirobot_map_merge) StderrLine: {'line': b'  6400K .......... .......... .......... .......... .......... 41%  113M 0s\n'}
+[4.019445] (multirobot_map_merge) StderrLine: {'line': b'  6450K .......... .......... .......... .......... .......... 41% 80.5M 0s\n'}
+[4.019973] (multirobot_map_merge) StderrLine: {'line': b'  6500K .......... .......... .......... .......... .......... 41% 93.7M 0s\n'}
+[4.020238] (multirobot_map_merge) StderrLine: {'line': b'  6550K .......... .......... .......... .......... .......... 42%  183M 0s\n'}
+[4.020672] (multirobot_map_merge) StderrLine: {'line': b'  6600K .......... .......... .......... .......... .......... 42%  114M 0s\n'}
+[4.021301] (multirobot_map_merge) StderrLine: {'line': b'  6650K .......... .......... .......... .......... .......... 42% 83.0M 0s\n'}
+[4.021709] (multirobot_map_merge) StderrLine: {'line': b'  6700K .......... .......... .......... .......... .......... 43%  111M 0s\n'}
+[4.022124] (multirobot_map_merge) StderrLine: {'line': b'  6750K .......... .......... .......... .......... .......... 43%  114M 0s\n'}
+[4.022571] (multirobot_map_merge) StderrLine: {'line': b'  6800K .......... .......... .......... .......... .......... 43%  109M 0s\n'}
+[4.023037] (multirobot_map_merge) StderrLine: {'line': b'  6850K .......... .......... .......... .......... .......... 44%  105M 0s\n'}
+[4.023495] (multirobot_map_merge) StderrLine: {'line': b'  6900K .......... .......... .......... .......... .......... 44%  107M 0s\n'}
+[4.023951] (multirobot_map_merge) StderrLine: {'line': b'  6950K .......... .......... .......... .......... .......... 44%  107M 0s\n'}
+[4.024400] (multirobot_map_merge) StderrLine: {'line': b'  7000K .......... .......... .......... .......... .......... 45%  106M 0s\n'}
+[4.024980] (multirobot_map_merge) StderrLine: {'line': b'  7050K .......... .......... .......... .......... .......... 45% 86.6M 0s\n'}
+[4.025438] (multirobot_map_merge) StderrLine: {'line': b'  7100K .......... .......... .......... .......... .......... 45%  108M 0s\n'}
+[4.025849] (multirobot_map_merge) StderrLine: {'line': b'  7150K .......... .......... .......... .......... .......... 46%  114M 0s\n'}
+[4.026306] (multirobot_map_merge) StderrLine: {'line': b'  7200K .......... .......... .......... .......... .......... 46%  106M 0s\n'}
+[4.026783] (multirobot_map_merge) StderrLine: {'line': b'  7250K .......... .......... .......... .......... .......... 46%  101M 0s\n'}
+[4.060185] (multirobot_map_merge) StderrLine: {'line': b'  7300K .......... .......... .......... .......... .......... 47% 1.46M 0s\n'}
+[4.060522] (multirobot_map_merge) StderrLine: {'line': b'  7350K .......... .......... .......... .......... .......... 47%  124M 0s\n'}
+[4.060711] (multirobot_map_merge) StderrLine: {'line': b'  7400K .......... .......... .......... .......... .......... 47%  254M 0s\n'}
+[4.060912] (multirobot_map_merge) StderrLine: {'line': b'  7450K .......... .......... .......... .......... .......... 47%  226M 0s\n'}
+[4.061062] (multirobot_map_merge) StderrLine: {'line': b'  7500K .......... .......... .......... .......... .......... 48%  321M 0s\n'}
+[4.061213] (multirobot_map_merge) StderrLine: {'line': b'  7550K .......... .......... .......... .......... .......... 48%  325M 0s\n'}
+[4.061365] (multirobot_map_merge) StderrLine: {'line': b'  7600K .......... .......... .......... .......... .......... 48%  336M 0s\n'}
+[4.061545] (multirobot_map_merge) StderrLine: {'line': b'  7650K .......... .......... .......... .......... .......... 49%  288M 0s\n'}
+[4.061682] (multirobot_map_merge) StderrLine: {'line': b'  7700K .......... .......... .......... .......... .......... 49%  316M 0s\n'}
+[4.061845] (multirobot_map_merge) StderrLine: {'line': b'  7750K .......... .......... .......... .......... .......... 49%  313M 0s\n'}
+[4.062046] (multirobot_map_merge) StderrLine: {'line': b'  7800K .......... .......... .......... .......... .......... 50%  281M 0s\n'}
+[4.062246] (multirobot_map_merge) StderrLine: {'line': b'  7850K .......... .......... .......... .......... .......... 50%  211M 0s\n'}
+[4.062399] (multirobot_map_merge) StderrLine: {'line': b'  7900K .......... .......... .......... .......... .......... 50%  321M 0s\n'}
+[4.062547] (multirobot_map_merge) StderrLine: {'line': b'  7950K .......... .......... .......... .......... .......... 51%  327M 0s\n'}
+[4.062704] (multirobot_map_merge) StderrLine: {'line': b'  8000K .......... .......... .......... .......... .......... 51%  317M 0s\n'}
+[4.062870] (multirobot_map_merge) StderrLine: {'line': b'  8050K .......... .......... .......... .......... .......... 51%  283M 0s\n'}
+[4.063015] (multirobot_map_merge) StderrLine: {'line': b'  8100K .......... .......... .......... .......... .......... 52%  334M 0s\n'}
+[4.063179] (multirobot_map_merge) StderrLine: {'line': b'  8150K .......... .......... .......... .......... .......... 52%  307M 0s\n'}
+[4.063348] (multirobot_map_merge) StderrLine: {'line': b'  8200K .......... .......... .......... .......... .......... 52%  300M 0s\n'}
+[4.063521] (multirobot_map_merge) StderrLine: {'line': b'  8250K .......... .......... .......... .......... .......... 53%  266M 0s\n'}
+[4.063730] (multirobot_map_merge) StderrLine: {'line': b'  8300K .......... .......... .......... .......... .......... 53%  272M 0s\n'}
+[4.063918] (multirobot_map_merge) StderrLine: {'line': b'  8350K .......... .......... .......... .......... .......... 53%  232M 0s\n'}
+[4.064111] (multirobot_map_merge) StderrLine: {'line': b'  8400K .......... .......... .......... .......... .......... 54%  257M 0s\n'}
+[4.064315] (multirobot_map_merge) StderrLine: {'line': b'  8450K .......... .......... .......... .......... .......... 54%  232M 0s\n'}
+[4.064498] (multirobot_map_merge) StderrLine: {'line': b'  8500K .......... .......... .......... .......... .......... 54%  268M 0s\n'}
+[4.064689] (multirobot_map_merge) StderrLine: {'line': b'  8550K .......... .......... .......... .......... .......... 55%  258M 0s\n'}
+[4.064888] (multirobot_map_merge) StderrLine: {'line': b'  8600K .......... .......... .......... .......... .......... 55%  254M 0s\n'}
+[4.065092] (multirobot_map_merge) StderrLine: {'line': b'  8650K .......... .......... .......... .......... .......... 55%  225M 0s\n'}
+[4.065281] (multirobot_map_merge) StderrLine: {'line': b'  8700K .......... .......... .......... .......... .......... 55%  264M 0s\n'}
+[4.065489] (multirobot_map_merge) StderrLine: {'line': b'  8750K .......... .......... .......... .......... .......... 56%  271M 0s\n'}
+[4.065680] (multirobot_map_merge) StderrLine: {'line': b'  8800K .......... .......... .......... .......... .......... 56%  239M 0s\n'}
+[4.065852] (multirobot_map_merge) StderrLine: {'line': b'  8850K .......... .......... .......... .......... .......... 56%  272M 0s\n'}
+[4.065994] (multirobot_map_merge) StderrLine: {'line': b'  8900K .......... .......... .......... .......... .......... 57%  326M 0s\n'}
+[4.066144] (multirobot_map_merge) StderrLine: {'line': b'  8950K .......... .......... .......... .......... .......... 57%  331M 0s\n'}
+[4.066305] (multirobot_map_merge) StderrLine: {'line': b'  9000K .......... .......... .......... .......... .......... 57%  312M 0s\n'}
+[4.066472] (multirobot_map_merge) StderrLine: {'line': b'  9050K .......... .......... .......... .......... .......... 58%  274M 0s\n'}
+[4.066613] (multirobot_map_merge) StderrLine: {'line': b'  9100K .......... .......... .......... .......... .......... 58%  341M 0s\n'}
+[4.072552] (multirobot_map_merge) StderrLine: {'line': b'  9150K .......... .......... .......... .......... .......... 58% 8.30M 0s\n'}
+[4.072793] (multirobot_map_merge) StderrLine: {'line': b'  9200K .......... .......... .......... .......... .......... 59%  178M 0s\n'}
+[4.073016] (multirobot_map_merge) StderrLine: {'line': b'  9250K .......... .......... .......... .......... .......... 59%  218M 0s\n'}
+[4.073205] (multirobot_map_merge) StderrLine: {'line': b'  9300K .......... .......... .......... .......... .......... 59%  266M 0s\n'}
+[4.073424] (multirobot_map_merge) StderrLine: {'line': b'  9350K .......... .......... .......... .......... .......... 60%  230M 0s\n'}
+[4.073636] (multirobot_map_merge) StderrLine: {'line': b'  9400K .......... .......... .......... .......... .......... 60%  217M 0s\n'}
+[4.074612] (multirobot_map_merge) StderrLine: {'line': b'  9450K .......... .......... .......... .......... .......... 60% 50.6M 0s\n'}
+[4.075687] (multirobot_map_merge) StderrLine: {'line': b'  9500K .......... .......... .......... .......... .......... 61%  230M 0s\n'}
+[4.075756] (multirobot_map_merge) StderrLine: {'line': b'  9550K .......... .......... .......... .......... .......... 61%  333M 0s\n'}
+[4.075801] (multirobot_map_merge) StderrLine: {'line': b'  9600K .......... .......... .......... .......... .......... 61%  299M 0s\n'}
+[4.075863] (multirobot_map_merge) StderrLine: {'line': b'  9650K .......... .......... .......... .......... .......... 62%  339M 0s\n'}
+[4.075909] (multirobot_map_merge) StderrLine: {'line': b'  9700K .......... .......... .......... .......... .......... 62%  339M 0s\n'}
+[4.076638] (multirobot_map_merge) StderrLine: {'line': b'  9750K .......... .......... .......... .......... .......... 62% 40.3M 0s\n'}
+[4.076910] (multirobot_map_merge) StderrLine: {'line': b'  9800K .......... .......... .......... .......... .......... 63%  168M 0s\n'}
+[4.077149] (multirobot_map_merge) StderrLine: {'line': b'  9850K .......... .......... .......... .......... .......... 63%  207M 0s\n'}
+[4.077383] (multirobot_map_merge) StderrLine: {'line': b'  9900K .......... .......... .......... .......... .......... 63%  211M 0s\n'}
+[4.077618] (multirobot_map_merge) StderrLine: {'line': b'  9950K .......... .......... .......... .......... .......... 63%  209M 0s\n'}
+[4.077880] (multirobot_map_merge) StderrLine: {'line': b' 10000K .......... .......... .......... .......... .......... 64%  183M 0s\n'}
+[4.078112] (multirobot_map_merge) StderrLine: {'line': b' 10050K .......... .......... .......... .......... .......... 64%  216M 0s\n'}
+[4.078334] (multirobot_map_merge) StderrLine: {'line': b' 10100K .......... .......... .......... .......... .......... 64%  215M 0s\n'}
+[4.078568] (multirobot_map_merge) StderrLine: {'line': b' 10150K .......... .......... .......... .......... .......... 65%  216M 0s\n'}
+[4.078840] (multirobot_map_merge) StderrLine: {'line': b' 10200K .......... .......... .......... .......... .......... 65%  173M 0s\n'}
+[4.079075] (multirobot_map_merge) StderrLine: {'line': b' 10250K .......... .......... .......... .......... .......... 65%  207M 0s\n'}
+[4.079308] (multirobot_map_merge) StderrLine: {'line': b' 10300K .......... .......... .......... .......... .......... 66%  212M 0s\n'}
+[4.079531] (multirobot_map_merge) StderrLine: {'line': b' 10350K .......... .......... .......... .......... .......... 66%  221M 0s\n'}
+[4.079796] (multirobot_map_merge) StderrLine: {'line': b' 10400K .......... .......... .......... .......... .......... 66%  184M 0s\n'}
+[4.080021] (multirobot_map_merge) StderrLine: {'line': b' 10450K .......... .......... .......... .......... .......... 67%  216M 0s\n'}
+[4.080240] (multirobot_map_merge) StderrLine: {'line': b' 10500K .......... .......... .......... .......... .......... 67%  222M 0s\n'}
+[4.080473] (multirobot_map_merge) StderrLine: {'line': b' 10550K .......... .......... .......... .......... .......... 67%  217M 0s\n'}
+[4.080742] (multirobot_map_merge) StderrLine: {'line': b' 10600K .......... .......... .......... .......... .......... 68%  174M 0s\n'}
+[4.080971] (multirobot_map_merge) StderrLine: {'line': b' 10650K .......... .......... .......... .......... .......... 68%  217M 0s\n'}
+[4.081192] (multirobot_map_merge) StderrLine: {'line': b' 10700K .......... .......... .......... .......... .......... 68%  220M 0s\n'}
+[4.086097] (multirobot_map_merge) StderrLine: {'line': b' 10750K .......... .......... .......... .......... .......... 69% 10.0M 0s\n'}
+[4.086365] (multirobot_map_merge) StderrLine: {'line': b' 10800K .......... .......... .......... .......... .......... 69%  173M 0s\n'}
+[4.086577] (multirobot_map_merge) StderrLine: {'line': b' 10850K .......... .......... .......... .......... .......... 69%  222M 0s\n'}
+[4.086785] (multirobot_map_merge) StderrLine: {'line': b' 10900K .......... .......... .......... .......... .......... 70%  229M 0s\n'}
+[4.086998] (multirobot_map_merge) StderrLine: {'line': b' 10950K .......... .......... .......... .......... .......... 70%  244M 0s\n'}
+[4.087223] (multirobot_map_merge) StderrLine: {'line': b' 11000K .......... .......... .......... .......... .......... 70%  205M 0s\n'}
+[4.098433] (multirobot_map_merge) StderrLine: {'line': b' 11050K .......... .......... .......... .......... .......... 71% 4.39M 0s\n'}
+[4.098814] (multirobot_map_merge) StderrLine: {'line': b' 11100K .......... .......... .......... .......... .......... 71%  112M 0s\n'}
+[4.099278] (multirobot_map_merge) StderrLine: {'line': b' 11150K .......... .......... .......... .......... .......... 71%  108M 0s\n'}
+[4.099760] (multirobot_map_merge) StderrLine: {'line': b' 11200K .......... .......... .......... .......... .......... 71% 94.6M 0s\n'}
+[4.100283] (multirobot_map_merge) StderrLine: {'line': b' 11250K .......... .......... .......... .......... .......... 72%  102M 0s\n'}
+[4.100771] (multirobot_map_merge) StderrLine: {'line': b' 11300K .......... .......... .......... .......... .......... 72%  101M 0s\n'}
+[4.101239] (multirobot_map_merge) StderrLine: {'line': b' 11350K .......... .......... .......... .......... .......... 72%  100M 0s\n'}
+[4.101796] (multirobot_map_merge) StderrLine: {'line': b' 11400K .......... .......... .......... .......... .......... 73% 90.3M 0s\n'}
+[4.102198] (multirobot_map_merge) StderrLine: {'line': b' 11450K .......... .......... .......... .......... .......... 73%  115M 0s\n'}
+[4.102666] (multirobot_map_merge) StderrLine: {'line': b' 11500K .......... .......... .......... .......... .......... 73%  111M 0s\n'}
+[4.103136] (multirobot_map_merge) StderrLine: {'line': b' 11550K .......... .......... .......... .......... .......... 74%  102M 0s\n'}
+[4.103705] (multirobot_map_merge) StderrLine: {'line': b' 11600K .......... .......... .......... .......... .......... 74% 90.2M 0s\n'}
+[4.104267] (multirobot_map_merge) StderrLine: {'line': b' 11650K .......... .......... .......... .......... .......... 74% 79.5M 0s\n'}
+[4.104868] (multirobot_map_merge) StderrLine: {'line': b' 11700K .......... .......... .......... .......... .......... 75% 85.2M 0s\n'}
+[4.105256] (-) TimerEvent: {}
+[4.105374] (multirobot_map_merge) StderrLine: {'line': b' 11750K .......... .......... .......... .......... .......... 75%  107M 0s\n'}
+[4.105811] (multirobot_map_merge) StderrLine: {'line': b' 11800K .......... .......... .......... .......... .......... 75%  113M 0s\n'}
+[4.106264] (multirobot_map_merge) StderrLine: {'line': b' 11850K .......... .......... .......... .......... .......... 76% 96.8M 0s\n'}
+[4.106837] (multirobot_map_merge) StderrLine: {'line': b' 11900K .......... .......... .......... .......... .......... 76% 81.5M 0s\n'}
+[4.107455] (multirobot_map_merge) StderrLine: {'line': b' 11950K .......... .......... .......... .......... .......... 76% 81.6M 0s\n'}
+[4.108023] (multirobot_map_merge) StderrLine: {'line': b' 12000K .......... .......... .......... .......... .......... 77% 86.4M 0s\n'}
+[4.108448] (multirobot_map_merge) StderrLine: {'line': b' 12050K .......... .......... .......... .......... .......... 77%  114M 0s\n'}
+[4.109086] (multirobot_map_merge) StderrLine: {'line': b' 12100K .......... .......... .......... .......... .......... 77% 77.3M 0s\n'}
+[4.109646] (multirobot_map_merge) StderrLine: {'line': b' 12150K .......... .......... .......... .......... .......... 78% 88.1M 0s\n'}
+[4.110129] (multirobot_map_merge) StderrLine: {'line': b' 12200K .......... .......... .......... .......... .......... 78% 95.0M 0s\n'}
+[4.110727] (multirobot_map_merge) StderrLine: {'line': b' 12250K .......... .......... .......... .......... .......... 78% 86.5M 0s\n'}
+[4.111384] (multirobot_map_merge) StderrLine: {'line': b' 12300K .......... .......... .......... .......... .......... 79% 70.2M 0s\n'}
+[4.111851] (multirobot_map_merge) StderrLine: {'line': b' 12350K .......... .......... .......... .......... .......... 79%  109M 0s\n'}
+[4.112482] (multirobot_map_merge) StderrLine: {'line': b' 12400K .......... .......... .......... .......... .......... 79% 82.4M 0s\n'}
+[4.113054] (multirobot_map_merge) StderrLine: {'line': b' 12450K .......... .......... .......... .......... .......... 79% 81.6M 0s\n'}
+[4.113664] (multirobot_map_merge) StderrLine: {'line': b' 12500K .......... .......... .......... .......... .......... 80% 81.2M 0s\n'}
+[4.114284] (multirobot_map_merge) StderrLine: {'line': b' 12550K .......... .......... .......... .......... .......... 80% 77.9M 0s\n'}
+[4.114841] (multirobot_map_merge) StderrLine: {'line': b' 12600K .......... .......... .......... .......... .......... 80% 88.1M 0s\n'}
+[4.115342] (multirobot_map_merge) StderrLine: {'line': b' 12650K .......... .......... .......... .......... .......... 81% 99.5M 0s\n'}
+[4.115970] (multirobot_map_merge) StderrLine: {'line': b' 12700K .......... .......... .......... .......... .......... 81% 74.7M 0s\n'}
+[4.116468] (multirobot_map_merge) StderrLine: {'line': b' 12750K .......... .......... .......... .......... .......... 81% 96.7M 0s\n'}
+[4.116981] (multirobot_map_merge) StderrLine: {'line': b' 12800K .......... .......... .......... .......... .......... 82% 96.0M 0s\n'}
+[4.117574] (multirobot_map_merge) StderrLine: {'line': b' 12850K .......... .......... .......... .......... .......... 82% 84.2M 0s\n'}
+[4.118322] (multirobot_map_merge) StderrLine: {'line': b' 12900K .......... .......... .......... .......... .......... 82% 62.8M 0s\n'}
+[4.118838] (multirobot_map_merge) StderrLine: {'line': b' 12950K .......... .......... .......... .......... .......... 83%  101M 0s\n'}
+[4.119393] (multirobot_map_merge) StderrLine: {'line': b' 13000K .......... .......... .......... .......... .......... 83% 88.0M 0s\n'}
+[4.119940] (multirobot_map_merge) StderrLine: {'line': b' 13050K .......... .......... .......... .......... .......... 83% 88.0M 0s\n'}
+[4.120441] (multirobot_map_merge) StderrLine: {'line': b' 13100K .......... .......... .......... .......... .......... 84% 93.9M 0s\n'}
+[4.121010] (multirobot_map_merge) StderrLine: {'line': b' 13150K .......... .......... .......... .......... .......... 84% 87.6M 0s\n'}
+[4.121574] (multirobot_map_merge) StderrLine: {'line': b' 13200K .......... .......... .......... .......... .......... 84% 86.1M 0s\n'}
+[4.122082] (multirobot_map_merge) StderrLine: {'line': b' 13250K .......... .......... .......... .......... .......... 85% 96.2M 0s\n'}
+[4.122761] (multirobot_map_merge) StderrLine: {'line': b' 13300K .......... .......... .......... .......... .......... 85% 78.7M 0s\n'}
+[4.123366] (multirobot_map_merge) StderrLine: {'line': b' 13350K .......... .......... .......... .......... .......... 85% 75.6M 0s\n'}
+[4.124062] (multirobot_map_merge) StderrLine: {'line': b' 13400K .......... .......... .......... .......... .......... 86% 69.5M 0s\n'}
+[4.124766] (multirobot_map_merge) StderrLine: {'line': b' 13450K .......... .......... .......... .......... .......... 86% 74.6M 0s\n'}
+[4.125425] (multirobot_map_merge) StderrLine: {'line': b' 13500K .......... .......... .......... .......... .......... 86% 72.9M 0s\n'}
+[4.126126] (multirobot_map_merge) StderrLine: {'line': b' 13550K .......... .......... .......... .......... .......... 87% 65.6M 0s\n'}
+[4.126742] (multirobot_map_merge) StderrLine: {'line': b' 13600K .......... .......... .......... .......... .......... 87% 79.9M 0s\n'}
+[4.127360] (multirobot_map_merge) StderrLine: {'line': b' 13650K .......... .......... .......... .......... .......... 87% 79.1M 0s\n'}
+[4.128130] (multirobot_map_merge) StderrLine: {'line': b' 13700K .......... .......... .......... .......... .......... 87% 73.3M 0s\n'}
+[4.128778] (multirobot_map_merge) StderrLine: {'line': b' 13750K .......... .......... .......... .......... .......... 88% 65.5M 0s\n'}
+[4.129392] (multirobot_map_merge) StderrLine: {'line': b' 13800K .......... .......... .......... .......... .......... 88% 78.9M 0s\n'}
+[4.130007] (multirobot_map_merge) StderrLine: {'line': b' 13850K .......... .......... .......... .......... .......... 88% 79.0M 0s\n'}
+[4.130700] (multirobot_map_merge) StderrLine: {'line': b' 13900K .......... .......... .......... .......... .......... 89% 80.6M 0s\n'}
+[4.131304] (multirobot_map_merge) StderrLine: {'line': b' 13950K .......... .......... .......... .......... .......... 89% 70.9M 0s\n'}
+[4.131907] (multirobot_map_merge) StderrLine: {'line': b' 14000K .......... .......... .......... .......... .......... 89% 80.8M 0s\n'}
+[4.132508] (multirobot_map_merge) StderrLine: {'line': b' 14050K .......... .......... .......... .......... .......... 90% 81.0M 0s\n'}
+[4.133233] (multirobot_map_merge) StderrLine: {'line': b' 14100K .......... .......... .......... .......... .......... 90% 79.9M 0s\n'}
+[4.133949] (multirobot_map_merge) StderrLine: {'line': b' 14150K .......... .......... .......... .......... .......... 90% 59.9M 0s\n'}
+[4.134650] (multirobot_map_merge) StderrLine: {'line': b' 14200K .......... .......... .......... .......... .......... 91% 69.6M 0s\n'}
+[4.135271] (multirobot_map_merge) StderrLine: {'line': b' 14250K .......... .......... .......... .......... .......... 91% 77.1M 0s\n'}
+[4.136009] (multirobot_map_merge) StderrLine: {'line': b' 14300K .......... .......... .......... .......... .......... 91% 70.8M 0s\n'}
+[4.136710] (multirobot_map_merge) StderrLine: {'line': b' 14350K .......... .......... .......... .......... .......... 92% 66.2M 0s\n'}
+[4.137541] (multirobot_map_merge) StderrLine: {'line': b' 14400K .......... .......... .......... .......... .......... 92% 57.1M 0s\n'}
+[4.138152] (multirobot_map_merge) StderrLine: {'line': b' 14450K .......... .......... .......... .......... .......... 92% 87.2M 0s\n'}
+[4.138760] (multirobot_map_merge) StderrLine: {'line': b' 14500K .......... .......... .......... .......... .......... 93% 75.4M 0s\n'}
+[4.139402] (multirobot_map_merge) StderrLine: {'line': b' 14550K .......... .......... .......... .......... .......... 93% 76.0M 0s\n'}
+[4.140085] (multirobot_map_merge) StderrLine: {'line': b' 14600K .......... .......... .......... .......... .......... 93% 75.1M 0s\n'}
+[4.140559] (multirobot_map_merge) StderrLine: {'line': b' 14650K .......... .......... .......... .......... .......... 94% 96.2M 0s\n'}
+[4.140817] (multirobot_map_merge) StderrLine: {'line': b' 14700K .......... .......... .......... .......... .......... 94%  167M 0s\n'}
+[4.141043] (multirobot_map_merge) StderrLine: {'line': b' 14750K .......... .......... .......... .......... .......... 94%  207M 0s\n'}
+[4.141259] (multirobot_map_merge) StderrLine: {'line': b' 14800K .......... .......... .......... .......... .......... 95%  226M 0s\n'}
+[4.141511] (multirobot_map_merge) StderrLine: {'line': b' 14850K .......... .......... .......... .......... .......... 95%  221M 0s\n'}
+[4.141754] (multirobot_map_merge) StderrLine: {'line': b' 14900K .......... .......... .......... .......... .......... 95%  181M 0s\n'}
+[4.141980] (multirobot_map_merge) StderrLine: {'line': b' 14950K .......... .......... .......... .......... .......... 95%  213M 0s\n'}
+[4.142215] (multirobot_map_merge) StderrLine: {'line': b' 15000K .......... .......... .......... .......... .......... 96%  215M 0s\n'}
+[4.142459] (multirobot_map_merge) StderrLine: {'line': b' 15050K .......... .......... .......... .......... .......... 96%  195M 0s\n'}
+[4.142707] (multirobot_map_merge) StderrLine: {'line': b' 15100K .......... .......... .......... .......... .......... 96%  204M 0s\n'}
+[4.142960] (multirobot_map_merge) StderrLine: {'line': b' 15150K .......... .......... .......... .......... .......... 97%  185M 0s\n'}
+[4.143189] (multirobot_map_merge) StderrLine: {'line': b' 15200K .......... .......... .......... .......... .......... 97%  210M 0s\n'}
+[4.143422] (multirobot_map_merge) StderrLine: {'line': b' 15250K .......... .......... .......... .......... .......... 97%  213M 0s\n'}
+[4.143669] (multirobot_map_merge) StderrLine: {'line': b' 15300K .......... .......... .......... .......... .......... 98%  197M 0s\n'}
+[4.143900] (multirobot_map_merge) StderrLine: {'line': b' 15350K .......... .......... .......... .......... .......... 98%  203M 0s\n'}
+[4.144147] (multirobot_map_merge) StderrLine: {'line': b' 15400K .......... .......... .......... .......... .......... 98%  196M 0s\n'}
+[4.144379] (multirobot_map_merge) StderrLine: {'line': b' 15450K .......... .......... .......... .......... .......... 99%  215M 0s\n'}
+[4.144611] (multirobot_map_merge) StderrLine: {'line': b' 15500K .......... .......... .......... .......... .......... 99%  211M 0s\n'}
+[4.144850] (multirobot_map_merge) StderrLine: {'line': b' 15550K .......... .......... .......... .......... .......... 99%  200M 0s\n'}
+[4.164070] (multirobot_map_merge) StderrLine: {'line': b' 15600K .......... .......... .....                           100% 1.28M=0.4s\n'}
+[4.164250] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[4.164302] (multirobot_map_merge) StderrLine: {'line': b'2026-01-03 15:37:35 (37.8 MB/s) - \xe2\x80\x98/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/2011-08-09-12-22-52.pgm\xe2\x80\x99 saved [16000058/16000058]\n'}
+[4.164348] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[4.165367] (multirobot_map_merge) StdoutLine: {'line': b'Checking MD5 sum of /home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/2011-08-09-12-22-52.pgm\n'}
+[4.185940] (multirobot_map_merge) StdoutLine: {'line': b'/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/2011-08-09-12-22-52.pgm: OK\n'}
+[4.190316] (multirobot_map_merge) StderrLine: {'line': b'--2026-01-03 15:37:35--  https://raw.githubusercontent.com/hrnr/m-explore-extra/master/map_merge/gmapping_maps/2012-01-28-11-12-01.pgm\n'}
+[4.192383] (multirobot_map_merge) StderrLine: {'line': b'Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 2606:50c0:8003::154, 2606:50c0:8002::154, 2606:50c0:8001::154, ...\n'}
+[4.205355] (-) TimerEvent: {}
+[4.219637] (multirobot_map_merge) StderrLine: {'line': b'Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|2606:50c0:8003::154|:443... connected.\n'}
+[4.305455] (-) TimerEvent: {}
+[4.391893] (explore_lite) StdoutLine: {'line': b'[ 90%] \x1b[1m\x1b[32mLinking CXX executable test_explore\x1b[0m\n'}
+[4.405556] (-) TimerEvent: {}
+[4.505830] (-) TimerEvent: {}
+[4.606085] (-) TimerEvent: {}
+[4.706348] (-) TimerEvent: {}
+[4.806606] (-) TimerEvent: {}
+[4.903951] (explore_lite) StdoutLine: {'line': b'[ 90%] Built target test_explore\n'}
+[4.906661] (-) TimerEvent: {}
+[5.006893] (-) TimerEvent: {}
+[5.067527] (multirobot_map_merge) StderrLine: {'line': b'HTTP request sent, awaiting response... 200 OK\n'}
+[5.067713] (multirobot_map_merge) StderrLine: {'line': b'Length: 16000058 (15M) [application/octet-stream]\n'}
+[5.067776] (multirobot_map_merge) StderrLine: {'line': b'Saving to: \xe2\x80\x98/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/2012-01-28-11-12-01.pgm\xe2\x80\x99\n'}
+[5.067824] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[5.106988] (-) TimerEvent: {}
+[5.134369] (multirobot_map_merge) StderrLine: {'line': b'     0K .......... .......... .......... .......... ..........  0%  749K 21s\n'}
+[5.155372] (multirobot_map_merge) StderrLine: {'line': b'    50K .......... .......... .......... .......... ..........  0% 2.32M 14s\n'}
+[5.168844] (multirobot_map_merge) StderrLine: {'line': b'   100K .......... .......... .......... .......... ..........  0% 3.63M 10s\n'}
+[5.179800] (multirobot_map_merge) StderrLine: {'line': b'   150K .......... .......... .......... .......... ..........  1% 4.44M 9s\n'}
+[5.187698] (multirobot_map_merge) StderrLine: {'line': b'   200K .......... .......... .......... .......... ..........  1% 6.21M 7s\n'}
+[5.194787] (multirobot_map_merge) StderrLine: {'line': b'   250K .......... .......... .......... .......... ..........  1% 6.86M 6s\n'}
+[5.200306] (multirobot_map_merge) StderrLine: {'line': b'   300K .......... .......... .......... .......... ..........  2% 8.87M 6s\n'}
+[5.205760] (multirobot_map_merge) StderrLine: {'line': b'   350K .......... .......... .......... .......... ..........  2% 8.98M 5s\n'}
+[5.207056] (-) TimerEvent: {}
+[5.210612] (multirobot_map_merge) StderrLine: {'line': b'   400K .......... .......... .......... .......... ..........  2% 9.98M 5s\n'}
+[5.216129] (multirobot_map_merge) StderrLine: {'line': b'   450K .......... .......... .......... .......... ..........  3% 8.86M 4s\n'}
+[5.218976] (multirobot_map_merge) StderrLine: {'line': b'   500K .......... .......... .......... .......... ..........  3% 17.2M 4s\n'}
+[5.222693] (multirobot_map_merge) StderrLine: {'line': b'   550K .......... .......... .......... .......... ..........  3% 13.2M 4s\n'}
+[5.226318] (multirobot_map_merge) StderrLine: {'line': b'   600K .......... .......... .......... .......... ..........  4% 13.4M 4s\n'}
+[5.228352] (multirobot_map_merge) StderrLine: {'line': b'   650K .......... .......... .......... .......... ..........  4% 23.8M 3s\n'}
+[5.231090] (multirobot_map_merge) StderrLine: {'line': b'   700K .......... .......... .......... .......... ..........  4% 17.8M 3s\n'}
+[5.233042] (multirobot_map_merge) StderrLine: {'line': b'   750K .......... .......... .......... .......... ..........  5% 25.0M 3s\n'}
+[5.237936] (multirobot_map_merge) StderrLine: {'line': b'   800K .......... .......... .......... .......... ..........  5% 9.93M 3s\n'}
+[5.239822] (multirobot_map_merge) StderrLine: {'line': b'   850K .......... .......... .......... .......... ..........  5% 26.1M 3s\n'}
+[5.241752] (multirobot_map_merge) StderrLine: {'line': b'   900K .......... .......... .......... .......... ..........  6% 25.3M 3s\n'}
+[5.243752] (multirobot_map_merge) StderrLine: {'line': b'   950K .......... .......... .......... .......... ..........  6% 24.5M 3s\n'}
+[5.245566] (multirobot_map_merge) StderrLine: {'line': b'  1000K .......... .......... .......... .......... ..........  6% 26.8M 2s\n'}
+[5.247478] (multirobot_map_merge) StderrLine: {'line': b'  1050K .......... .......... .......... .......... ..........  7% 25.8M 2s\n'}
+[5.249317] (multirobot_map_merge) StderrLine: {'line': b'  1100K .......... .......... .......... .......... ..........  7% 26.4M 2s\n'}
+[5.251164] (multirobot_map_merge) StderrLine: {'line': b'  1150K .......... .......... .......... .......... ..........  7% 26.3M 2s\n'}
+[5.252329] (multirobot_map_merge) StderrLine: {'line': b'  1200K .......... .......... .......... .......... ..........  7% 42.0M 2s\n'}
+[5.254129] (multirobot_map_merge) StderrLine: {'line': b'  1250K .......... .......... .......... .......... ..........  8% 27.0M 2s\n'}
+[5.255399] (multirobot_map_merge) StderrLine: {'line': b'  1300K .......... .......... .......... .......... ..........  8% 38.3M 2s\n'}
+[5.257134] (multirobot_map_merge) StderrLine: {'line': b'  1350K .......... .......... .......... .......... ..........  8% 28.4M 2s\n'}
+[5.258322] (multirobot_map_merge) StderrLine: {'line': b'  1400K .......... .......... .......... .......... ..........  9% 40.9M 2s\n'}
+[5.259902] (multirobot_map_merge) StderrLine: {'line': b'  1450K .......... .......... .......... .......... ..........  9% 31.1M 2s\n'}
+[5.261001] (multirobot_map_merge) StderrLine: {'line': b'  1500K .......... .......... .......... .......... ..........  9% 44.3M 2s\n'}
+[5.261903] (multirobot_map_merge) StderrLine: {'line': b'  1550K .......... .......... .......... .......... .......... 10% 52.9M 2s\n'}
+[5.264487] (multirobot_map_merge) StderrLine: {'line': b'  1600K .......... .......... .......... .......... .......... 10% 19.1M 2s\n'}
+[5.265026] (multirobot_map_merge) StderrLine: {'line': b'  1650K .......... .......... .......... .......... .......... 10% 91.5M 2s\n'}
+[5.266800] (multirobot_map_merge) StderrLine: {'line': b'  1700K .......... .......... .......... .......... .......... 11% 27.4M 2s\n'}
+[5.268018] (multirobot_map_merge) StderrLine: {'line': b'  1750K .......... .......... .......... .......... .......... 11% 39.9M 2s\n'}
+[5.269142] (multirobot_map_merge) StderrLine: {'line': b'  1800K .......... .......... .......... .......... .......... 11% 44.0M 2s\n'}
+[5.270000] (multirobot_map_merge) StderrLine: {'line': b'  1850K .......... .......... .......... .......... .......... 12% 55.9M 1s\n'}
+[5.270997] (multirobot_map_merge) StderrLine: {'line': b'  1900K .......... .......... .......... .......... .......... 12% 48.8M 1s\n'}
+[5.272015] (multirobot_map_merge) StderrLine: {'line': b'  1950K .......... .......... .......... .......... .......... 12% 48.4M 1s\n'}
+[5.273460] (multirobot_map_merge) StderrLine: {'line': b'  2000K .......... .......... .......... .......... .......... 13% 33.8M 1s\n'}
+[5.274068] (multirobot_map_merge) StderrLine: {'line': b'  2050K .......... .......... .......... .......... .......... 13% 78.3M 1s\n'}
+[5.275498] (multirobot_map_merge) StderrLine: {'line': b'  2100K .......... .......... .......... .......... .......... 13% 34.4M 1s\n'}
+[5.276353] (multirobot_map_merge) StderrLine: {'line': b'  2150K .......... .......... .......... .......... .......... 14% 59.6M 1s\n'}
+[5.277703] (multirobot_map_merge) StderrLine: {'line': b'  2200K .......... .......... .......... .......... .......... 14% 35.4M 1s\n'}
+[5.278117] (multirobot_map_merge) StderrLine: {'line': b'  2250K .......... .......... .......... .......... .......... 14%  115M 1s\n'}
+[5.279883] (multirobot_map_merge) StderrLine: {'line': b'  2300K .......... .......... .......... .......... .......... 15% 28.0M 1s\n'}
+[5.280292] (multirobot_map_merge) StderrLine: {'line': b'  2350K .......... .......... .......... .......... .......... 15%  113M 1s\n'}
+[5.281084] (multirobot_map_merge) StderrLine: {'line': b'  2400K .......... .......... .......... .......... .......... 15% 63.1M 1s\n'}
+[5.282187] (multirobot_map_merge) StderrLine: {'line': b'  2450K .......... .......... .......... .......... .......... 15% 43.7M 1s\n'}
+[5.283109] (multirobot_map_merge) StderrLine: {'line': b'  2500K .......... .......... .......... .......... .......... 16% 53.1M 1s\n'}
+[5.283939] (multirobot_map_merge) StderrLine: {'line': b'  2550K .......... .......... .......... .......... .......... 16% 59.7M 1s\n'}
+[5.284553] (multirobot_map_merge) StderrLine: {'line': b'  2600K .......... .......... .......... .......... .......... 16% 80.0M 1s\n'}
+[5.285263] (multirobot_map_merge) StderrLine: {'line': b'  2650K .......... .......... .......... .......... .......... 17% 69.5M 1s\n'}
+[5.285720] (multirobot_map_merge) StderrLine: {'line': b'  2700K .......... .......... .......... .......... .......... 17%  101M 1s\n'}
+[5.286491] (multirobot_map_merge) StderrLine: {'line': b'  2750K .......... .......... .......... .......... .......... 17% 63.2M 1s\n'}
+[5.287189] (multirobot_map_merge) StderrLine: {'line': b'  2800K .......... .......... .......... .......... .......... 18% 69.1M 1s\n'}
+[5.287971] (multirobot_map_merge) StderrLine: {'line': b'  2850K .......... .......... .......... .......... .......... 18% 63.1M 1s\n'}
+[5.288904] (multirobot_map_merge) StderrLine: {'line': b'  2900K .......... .......... .......... .......... .......... 18% 52.3M 1s\n'}
+[5.289340] (multirobot_map_merge) StderrLine: {'line': b'  2950K .......... .......... .......... .......... .......... 19%  111M 1s\n'}
+[5.289990] (multirobot_map_merge) StderrLine: {'line': b'  3000K .......... .......... .......... .......... .......... 19% 75.8M 1s\n'}
+[5.290692] (multirobot_map_merge) StderrLine: {'line': b'  3050K .......... .......... .......... .......... .......... 19% 70.8M 1s\n'}
+[5.291479] (multirobot_map_merge) StderrLine: {'line': b'  3100K .......... .......... .......... .......... .......... 20% 60.9M 1s\n'}
+[5.291985] (multirobot_map_merge) StderrLine: {'line': b'  3150K .......... .......... .......... .......... .......... 20% 95.3M 1s\n'}
+[5.292580] (multirobot_map_merge) StderrLine: {'line': b'  3200K .......... .......... .......... .......... .......... 20% 82.1M 1s\n'}
+[5.293036] (multirobot_map_merge) StderrLine: {'line': b'  3250K .......... .......... .......... .......... .......... 21%  108M 1s\n'}
+[5.293824] (multirobot_map_merge) StderrLine: {'line': b'  3300K .......... .......... .......... .......... .......... 21% 62.0M 1s\n'}
+[5.294449] (multirobot_map_merge) StderrLine: {'line': b'  3350K .......... .......... .......... .......... .......... 21% 79.4M 1s\n'}
+[5.294988] (multirobot_map_merge) StderrLine: {'line': b'  3400K .......... .......... .......... .......... .......... 22% 89.6M 1s\n'}
+[5.295420] (multirobot_map_merge) StderrLine: {'line': b'  3450K .......... .......... .......... .......... .......... 22%  112M 1s\n'}
+[5.295888] (multirobot_map_merge) StderrLine: {'line': b'  3500K .......... .......... .......... .......... .......... 22%  103M 1s\n'}
+[5.296414] (multirobot_map_merge) StderrLine: {'line': b'  3550K .......... .......... .......... .......... .......... 23% 92.0M 1s\n'}
+[5.297026] (multirobot_map_merge) StderrLine: {'line': b'  3600K .......... .......... .......... .......... .......... 23% 81.2M 1s\n'}
+[5.297589] (multirobot_map_merge) StderrLine: {'line': b'  3650K .......... .......... .......... .......... .......... 23% 86.6M 1s\n'}
+[5.298174] (multirobot_map_merge) StderrLine: {'line': b'  3700K .......... .......... .......... .......... .......... 23% 83.9M 1s\n'}
+[5.298585] (multirobot_map_merge) StderrLine: {'line': b'  3750K .......... .......... .......... .......... .......... 24%  116M 1s\n'}
+[5.299039] (multirobot_map_merge) StderrLine: {'line': b'  3800K .......... .......... .......... .......... .......... 24%  108M 1s\n'}
+[5.299761] (multirobot_map_merge) StderrLine: {'line': b'  3850K .......... .......... .......... .......... .......... 24% 73.0M 1s\n'}
+[5.300456] (multirobot_map_merge) StderrLine: {'line': b'  3900K .......... .......... .......... .......... .......... 25% 64.6M 1s\n'}
+[5.301001] (multirobot_map_merge) StderrLine: {'line': b'  3950K .......... .......... .......... .......... .......... 25% 90.9M 1s\n'}
+[5.302782] (multirobot_map_merge) StderrLine: {'line': b'  4000K .......... .......... .......... .......... .......... 25% 27.8M 1s\n'}
+[5.303237] (multirobot_map_merge) StderrLine: {'line': b'  4050K .......... .......... .......... .......... .......... 26%  105M 1s\n'}
+[5.303689] (multirobot_map_merge) StderrLine: {'line': b'  4100K .......... .......... .......... .......... .......... 26%  109M 1s\n'}
+[5.304136] (multirobot_map_merge) StderrLine: {'line': b'  4150K .......... .......... .......... .......... .......... 26%  110M 1s\n'}
+[5.304601] (multirobot_map_merge) StderrLine: {'line': b'  4200K .......... .......... .......... .......... .......... 27%  104M 1s\n'}
+[5.305092] (multirobot_map_merge) StderrLine: {'line': b'  4250K .......... .......... .......... .......... .......... 27%  106M 1s\n'}
+[5.305476] (multirobot_map_merge) StderrLine: {'line': b'  4300K .......... .......... .......... .......... .......... 27%  113M 1s\n'}
+[5.305975] (multirobot_map_merge) StderrLine: {'line': b'  4350K .......... .......... .......... .......... .......... 28%  104M 1s\n'}
+[5.306502] (multirobot_map_merge) StderrLine: {'line': b'  4400K .......... .......... .......... .......... .......... 28% 88.6M 1s\n'}
+[5.306939] (multirobot_map_merge) StderrLine: {'line': b'  4450K .......... .......... .......... .......... .......... 28%  114M 1s\n'}
+[5.307114] (-) TimerEvent: {}
+[5.307386] (multirobot_map_merge) StderrLine: {'line': b'  4500K .......... .......... .......... .......... .......... 29%  108M 1s\n'}
+[5.307845] (multirobot_map_merge) StderrLine: {'line': b'  4550K .......... .......... .......... .......... .......... 29%  110M 1s\n'}
+[5.308300] (multirobot_map_merge) StderrLine: {'line': b'  4600K .......... .......... .......... .......... .......... 29%  103M 1s\n'}
+[5.308743] (multirobot_map_merge) StderrLine: {'line': b'  4650K .......... .......... .......... .......... .......... 30%  108M 1s\n'}
+[5.309174] (multirobot_map_merge) StderrLine: {'line': b'  4700K .......... .......... .......... .......... .......... 30%  114M 1s\n'}
+[5.309654] (multirobot_map_merge) StderrLine: {'line': b'  4750K .......... .......... .......... .......... .......... 30%  103M 1s\n'}
+[5.310226] (multirobot_map_merge) StderrLine: {'line': b'  4800K .......... .......... .......... .......... .......... 31% 84.8M 1s\n'}
+[5.310659] (multirobot_map_merge) StderrLine: {'line': b'  4850K .......... .......... .......... .......... .......... 31%  112M 1s\n'}
+[5.311095] (multirobot_map_merge) StderrLine: {'line': b'  4900K .......... .......... .......... .......... .......... 31%  111M 1s\n'}
+[5.311543] (multirobot_map_merge) StderrLine: {'line': b'  4950K .......... .......... .......... .......... .......... 31%  111M 1s\n'}
+[5.312064] (multirobot_map_merge) StderrLine: {'line': b'  5000K .......... .......... .......... .......... .......... 32% 94.1M 1s\n'}
+[5.312506] (multirobot_map_merge) StderrLine: {'line': b'  5050K .......... .......... .......... .......... .......... 32%  109M 1s\n'}
+[5.312993] (multirobot_map_merge) StderrLine: {'line': b'  5100K .......... .......... .......... .......... .......... 32%  104M 0s\n'}
+[5.313436] (multirobot_map_merge) StderrLine: {'line': b'  5150K .......... .......... .......... .......... .......... 33%  106M 0s\n'}
+[5.313896] (multirobot_map_merge) StderrLine: {'line': b'  5200K .......... .......... .......... .......... .......... 33%  108M 0s\n'}
+[5.314364] (multirobot_map_merge) StderrLine: {'line': b'  5250K .......... .......... .......... .......... .......... 33%  104M 0s\n'}
+[5.314780] (multirobot_map_merge) StderrLine: {'line': b'  5300K .......... .......... .......... .......... .......... 34%  115M 0s\n'}
+[5.315356] (multirobot_map_merge) StderrLine: {'line': b'  5350K .......... .......... .......... .......... .......... 34% 84.5M 0s\n'}
+[5.315792] (multirobot_map_merge) StderrLine: {'line': b'  5400K .......... .......... .......... .......... .......... 34%  113M 0s\n'}
+[5.316246] (multirobot_map_merge) StderrLine: {'line': b'  5450K .......... .......... .......... .......... .......... 35%  108M 0s\n'}
+[5.316705] (multirobot_map_merge) StderrLine: {'line': b'  5500K .......... .......... .......... .......... .......... 35%  107M 0s\n'}
+[5.317095] (multirobot_map_merge) StderrLine: {'line': b'  5550K .......... .......... .......... .......... .......... 35%  122M 0s\n'}
+[5.317685] (multirobot_map_merge) StderrLine: {'line': b'  5600K .......... .......... .......... .......... .......... 36%  108M 0s\n'}
+[5.318135] (multirobot_map_merge) StderrLine: {'line': b'  5650K .......... .......... .......... .......... .......... 36% 85.4M 0s\n'}
+[5.318593] (multirobot_map_merge) StderrLine: {'line': b'  5700K .......... .......... .......... .......... .......... 36%  110M 0s\n'}
+[5.319028] (multirobot_map_merge) StderrLine: {'line': b'  5750K .......... .......... .......... .......... .......... 37%  109M 0s\n'}
+[5.319520] (multirobot_map_merge) StderrLine: {'line': b'  5800K .......... .......... .......... .......... .......... 37%  104M 0s\n'}
+[5.319951] (multirobot_map_merge) StderrLine: {'line': b'  5850K .......... .......... .......... .......... .......... 37%  107M 0s\n'}
+[5.320392] (multirobot_map_merge) StderrLine: {'line': b'  5900K .......... .......... .......... .......... .......... 38%  112M 0s\n'}
+[5.320901] (multirobot_map_merge) StderrLine: {'line': b'  5950K .......... .......... .......... .......... .......... 38% 94.2M 0s\n'}
+[5.321338] (multirobot_map_merge) StderrLine: {'line': b'  6000K .......... .......... .......... .......... .......... 38%  111M 0s\n'}
+[5.321835] (multirobot_map_merge) StderrLine: {'line': b'  6050K .......... .......... .......... .......... .......... 39%  107M 0s\n'}
+[5.322273] (multirobot_map_merge) StderrLine: {'line': b'  6100K .......... .......... .......... .......... .......... 39%  101M 0s\n'}
+[5.322745] (multirobot_map_merge) StderrLine: {'line': b'  6150K .......... .......... .......... .......... .......... 39%  106M 0s\n'}
+[5.323171] (multirobot_map_merge) StderrLine: {'line': b'  6200K .......... .......... .......... .......... .......... 39%  111M 0s\n'}
+[5.323740] (multirobot_map_merge) StderrLine: {'line': b'  6250K .......... .......... .......... .......... .......... 40%  112M 0s\n'}
+[5.324198] (multirobot_map_merge) StderrLine: {'line': b'  6300K .......... .......... .......... .......... .......... 40% 84.6M 0s\n'}
+[5.324659] (multirobot_map_merge) StderrLine: {'line': b'  6350K .......... .......... .......... .......... .......... 40%  110M 0s\n'}
+[5.325084] (multirobot_map_merge) StderrLine: {'line': b'  6400K .......... .......... .......... .......... .......... 41%  108M 0s\n'}
+[5.325553] (multirobot_map_merge) StderrLine: {'line': b'  6450K .......... .......... .......... .......... .......... 41%  108M 0s\n'}
+[5.325968] (multirobot_map_merge) StderrLine: {'line': b'  6500K .......... .......... .......... .......... .......... 41%  111M 0s\n'}
+[5.326430] (multirobot_map_merge) StderrLine: {'line': b'  6550K .......... .......... .......... .......... .......... 42%  107M 0s\n'}
+[5.326901] (multirobot_map_merge) StderrLine: {'line': b'  6600K .......... .......... .......... .......... .......... 42%  103M 0s\n'}
+[5.327404] (multirobot_map_merge) StderrLine: {'line': b'  6650K .......... .......... .......... .......... .......... 42% 98.8M 0s\n'}
+[5.327844] (multirobot_map_merge) StderrLine: {'line': b'  6700K .......... .......... .......... .......... .......... 43%  109M 0s\n'}
+[5.328290] (multirobot_map_merge) StderrLine: {'line': b'  6750K .......... .......... .......... .......... .......... 43%  110M 0s\n'}
+[5.328842] (multirobot_map_merge) StderrLine: {'line': b'  6800K .......... .......... .......... .......... .......... 43%  108M 0s\n'}
+[5.329278] (multirobot_map_merge) StderrLine: {'line': b'  6850K .......... .......... .......... .......... .......... 44% 90.3M 0s\n'}
+[5.329740] (multirobot_map_merge) StderrLine: {'line': b'  6900K .......... .......... .......... .......... .......... 44%  108M 0s\n'}
+[5.330197] (multirobot_map_merge) StderrLine: {'line': b'  6950K .......... .......... .......... .......... .......... 44%  111M 0s\n'}
+[5.330622] (multirobot_map_merge) StderrLine: {'line': b'  7000K .......... .......... .......... .......... .......... 45%  109M 0s\n'}
+[5.331068] (multirobot_map_merge) StderrLine: {'line': b'  7050K .......... .......... .......... .......... .......... 45%  109M 0s\n'}
+[5.331550] (multirobot_map_merge) StderrLine: {'line': b'  7100K .......... .......... .......... .......... .......... 45%  102M 0s\n'}
+[5.332105] (multirobot_map_merge) StderrLine: {'line': b'  7150K .......... .......... .......... .......... .......... 46%  108M 0s\n'}
+[5.332557] (multirobot_map_merge) StderrLine: {'line': b'  7200K .......... .......... .......... .......... .......... 46% 87.9M 0s\n'}
+[5.332990] (multirobot_map_merge) StderrLine: {'line': b'  7250K .......... .......... .......... .......... .......... 46%  112M 0s\n'}
+[5.333471] (multirobot_map_merge) StderrLine: {'line': b'  7300K .......... .......... .......... .......... .......... 47%  102M 0s\n'}
+[5.333938] (multirobot_map_merge) StderrLine: {'line': b'  7350K .......... .......... .......... .......... .......... 47%  105M 0s\n'}
+[5.334375] (multirobot_map_merge) StderrLine: {'line': b'  7400K .......... .......... .......... .......... .......... 47%  111M 0s\n'}
+[5.334859] (multirobot_map_merge) StderrLine: {'line': b'  7450K .......... .......... .......... .......... .......... 47%  101M 0s\n'}
+[5.335312] (multirobot_map_merge) StderrLine: {'line': b'  7500K .......... .......... .......... .......... .......... 48%  112M 0s\n'}
+[5.335838] (multirobot_map_merge) StderrLine: {'line': b'  7550K .......... .......... .......... .......... .......... 48% 93.6M 0s\n'}
+[5.336280] (multirobot_map_merge) StderrLine: {'line': b'  7600K .......... .......... .......... .......... .......... 48%  109M 0s\n'}
+[5.336721] (multirobot_map_merge) StderrLine: {'line': b'  7650K .......... .......... .......... .......... .......... 49%  108M 0s\n'}
+[5.337170] (multirobot_map_merge) StderrLine: {'line': b'  7700K .......... .......... .......... .......... .......... 49%  106M 0s\n'}
+[5.337624] (multirobot_map_merge) StderrLine: {'line': b'  7750K .......... .......... .......... .......... .......... 49%  110M 0s\n'}
+[5.338037] (multirobot_map_merge) StderrLine: {'line': b'  7800K .......... .......... .......... .......... .......... 50%  115M 0s\n'}
+[5.338616] (multirobot_map_merge) StderrLine: {'line': b'  7850K .......... .......... .......... .......... .......... 50% 86.3M 0s\n'}
+[5.339061] (multirobot_map_merge) StderrLine: {'line': b'  7900K .......... .......... .......... .......... .......... 50%  111M 0s\n'}
+[5.339515] (multirobot_map_merge) StderrLine: {'line': b'  7950K .......... .......... .......... .......... .......... 51%  106M 0s\n'}
+[5.339990] (multirobot_map_merge) StderrLine: {'line': b'  8000K .......... .......... .......... .......... .......... 51%  107M 0s\n'}
+[5.340401] (multirobot_map_merge) StderrLine: {'line': b'  8050K .......... .......... .......... .......... .......... 51%  111M 0s\n'}
+[5.340953] (multirobot_map_merge) StderrLine: {'line': b'  8100K .......... .......... .......... .......... .......... 52% 91.1M 0s\n'}
+[5.341366] (multirobot_map_merge) StderrLine: {'line': b'  8150K .......... .......... .......... .......... .......... 52%  115M 0s\n'}
+[5.341841] (multirobot_map_merge) StderrLine: {'line': b'  8200K .......... .......... .......... .......... .......... 52%  104M 0s\n'}
+[5.342279] (multirobot_map_merge) StderrLine: {'line': b'  8250K .......... .......... .......... .......... .......... 53%  110M 0s\n'}
+[5.342763] (multirobot_map_merge) StderrLine: {'line': b'  8300K .......... .......... .......... .......... .......... 53%  103M 0s\n'}
+[5.343181] (multirobot_map_merge) StderrLine: {'line': b'  8350K .......... .......... .......... .......... .......... 53%  113M 0s\n'}
+[5.343737] (multirobot_map_merge) StderrLine: {'line': b'  8400K .......... .......... .......... .......... .......... 54%  116M 0s\n'}
+[5.344194] (multirobot_map_merge) StderrLine: {'line': b'  8450K .......... .......... .......... .......... .......... 54% 83.5M 0s\n'}
+[5.344617] (multirobot_map_merge) StderrLine: {'line': b'  8500K .......... .......... .......... .......... .......... 54%  115M 0s\n'}
+[5.345073] (multirobot_map_merge) StderrLine: {'line': b'  8550K .......... .......... .......... .......... .......... 55%  107M 0s\n'}
+[5.345481] (multirobot_map_merge) StderrLine: {'line': b'  8600K .......... .......... .......... .......... .......... 55%  120M 0s\n'}
+[5.346087] (multirobot_map_merge) StderrLine: {'line': b'  8650K .......... .......... .......... .......... .......... 55%  106M 0s\n'}
+[5.346513] (multirobot_map_merge) StderrLine: {'line': b'  8700K .......... .......... .......... .......... .......... 55% 84.9M 0s\n'}
+[5.346960] (multirobot_map_merge) StderrLine: {'line': b'  8750K .......... .......... .......... .......... .......... 56%  110M 0s\n'}
+[5.347401] (multirobot_map_merge) StderrLine: {'line': b'  8800K .......... .......... .......... .......... .......... 56%  110M 0s\n'}
+[5.347816] (multirobot_map_merge) StderrLine: {'line': b'  8850K .......... .......... .......... .......... .......... 56%  117M 0s\n'}
+[5.348391] (multirobot_map_merge) StderrLine: {'line': b'  8900K .......... .......... .......... .......... .......... 57%  108M 0s\n'}
+[5.348834] (multirobot_map_merge) StderrLine: {'line': b'  8950K .......... .......... .......... .......... .......... 57% 88.0M 0s\n'}
+[5.349277] (multirobot_map_merge) StderrLine: {'line': b'  9000K .......... .......... .......... .......... .......... 57%  107M 0s\n'}
+[5.349747] (multirobot_map_merge) StderrLine: {'line': b'  9050K .......... .......... .......... .......... .......... 58%  110M 0s\n'}
+[5.350160] (multirobot_map_merge) StderrLine: {'line': b'  9100K .......... .......... .......... .......... .......... 58%  116M 0s\n'}
+[5.350652] (multirobot_map_merge) StderrLine: {'line': b'  9150K .......... .......... .......... .......... .......... 58% 98.6M 0s\n'}
+[5.351066] (multirobot_map_merge) StderrLine: {'line': b'  9200K .......... .......... .......... .......... .......... 59%  116M 0s\n'}
+[5.351650] (multirobot_map_merge) StderrLine: {'line': b'  9250K .......... .......... .......... .......... .......... 59% 84.7M 0s\n'}
+[5.352109] (multirobot_map_merge) StderrLine: {'line': b'  9300K .......... .......... .......... .......... .......... 59%  106M 0s\n'}
+[5.352556] (multirobot_map_merge) StderrLine: {'line': b'  9350K .......... .......... .......... .......... .......... 60%  109M 0s\n'}
+[5.352999] (multirobot_map_merge) StderrLine: {'line': b'  9400K .......... .......... .......... .......... .......... 60%  111M 0s\n'}
+[5.353435] (multirobot_map_merge) StderrLine: {'line': b'  9450K .......... .......... .......... .......... .......... 60%  110M 0s\n'}
+[5.353900] (multirobot_map_merge) StderrLine: {'line': b'  9500K .......... .......... .......... .......... .......... 61%  104M 0s\n'}
+[5.354356] (multirobot_map_merge) StderrLine: {'line': b'  9550K .......... .......... .......... .......... .......... 61%  110M 0s\n'}
+[5.354796] (multirobot_map_merge) StderrLine: {'line': b'  9600K .......... .......... .......... .......... .......... 61%  108M 0s\n'}
+[5.355270] (multirobot_map_merge) StderrLine: {'line': b'  9650K .......... .......... .......... .......... .......... 62%  103M 0s\n'}
+[5.355766] (multirobot_map_merge) StderrLine: {'line': b'  9700K .......... .......... .......... .......... .......... 62%  104M 0s\n'}
+[5.356314] (multirobot_map_merge) StderrLine: {'line': b'  9750K .......... .......... .......... .......... .......... 62% 88.3M 0s\n'}
+[5.356762] (multirobot_map_merge) StderrLine: {'line': b'  9800K .......... .......... .......... .......... .......... 63%  110M 0s\n'}
+[5.357179] (multirobot_map_merge) StderrLine: {'line': b'  9850K .......... .......... .......... .......... .......... 63%  112M 0s\n'}
+[5.357629] (multirobot_map_merge) StderrLine: {'line': b'  9900K .......... .......... .......... .......... .......... 63%  111M 0s\n'}
+[5.358096] (multirobot_map_merge) StderrLine: {'line': b'  9950K .......... .......... .......... .......... .......... 63%  102M 0s\n'}
+[5.358532] (multirobot_map_merge) StderrLine: {'line': b' 10000K .......... .......... .......... .......... .......... 64%  112M 0s\n'}
+[5.358982] (multirobot_map_merge) StderrLine: {'line': b' 10050K .......... .......... .......... .......... .......... 64%  110M 0s\n'}
+[5.359451] (multirobot_map_merge) StderrLine: {'line': b' 10100K .......... .......... .......... .......... .......... 64%  104M 0s\n'}
+[5.360010] (multirobot_map_merge) StderrLine: {'line': b' 10150K .......... .......... .......... .......... .......... 65% 87.7M 0s\n'}
+[5.360400] (multirobot_map_merge) StderrLine: {'line': b' 10200K .......... .......... .......... .......... .......... 65%  125M 0s\n'}
+[5.360921] (multirobot_map_merge) StderrLine: {'line': b' 10250K .......... .......... .......... .......... .......... 65%  100M 0s\n'}
+[5.361334] (multirobot_map_merge) StderrLine: {'line': b' 10300K .......... .......... .......... .......... .......... 66%  115M 0s\n'}
+[5.361784] (multirobot_map_merge) StderrLine: {'line': b' 10350K .......... .......... .......... .......... .......... 66%  104M 0s\n'}
+[5.362357] (multirobot_map_merge) StderrLine: {'line': b' 10400K .......... .......... .......... .......... .......... 66%  109M 0s\n'}
+[5.362797] (multirobot_map_merge) StderrLine: {'line': b' 10450K .......... .......... .......... .......... .......... 67% 87.2M 0s\n'}
+[5.363248] (multirobot_map_merge) StderrLine: {'line': b' 10500K .......... .......... .......... .......... .......... 67%  110M 0s\n'}
+[5.363715] (multirobot_map_merge) StderrLine: {'line': b' 10550K .......... .......... .......... .......... .......... 67%  105M 0s\n'}
+[5.364168] (multirobot_map_merge) StderrLine: {'line': b' 10600K .......... .......... .......... .......... .......... 68%  111M 0s\n'}
+[5.364622] (multirobot_map_merge) StderrLine: {'line': b' 10650K .......... .......... .......... .......... .......... 68%  103M 0s\n'}
+[5.365089] (multirobot_map_merge) StderrLine: {'line': b' 10700K .......... .......... .......... .......... .......... 68%  109M 0s\n'}
+[5.365542] (multirobot_map_merge) StderrLine: {'line': b' 10750K .......... .......... .......... .......... .......... 69%  104M 0s\n'}
+[5.400124] (multirobot_map_merge) StderrLine: {'line': b' 10800K .......... .......... .......... .......... .......... 69% 1.42M 0s\n'}
+[5.400338] (multirobot_map_merge) StderrLine: {'line': b' 10850K .......... .......... .......... .......... .......... 69%  163M 0s\n'}
+[5.400545] (multirobot_map_merge) StderrLine: {'line': b' 10900K .......... .......... .......... .......... .......... 70%  222M 0s\n'}
+[5.400712] (multirobot_map_merge) StderrLine: {'line': b' 10950K .......... .......... .......... .......... .......... 70%  266M 0s\n'}
+[5.400873] (multirobot_map_merge) StderrLine: {'line': b' 11000K .......... .......... .......... .......... .......... 70%  282M 0s\n'}
+[5.401031] (multirobot_map_merge) StderrLine: {'line': b' 11050K .......... .......... .......... .......... .......... 71%  324M 0s\n'}
+[5.401198] (multirobot_map_merge) StderrLine: {'line': b' 11100K .......... .......... .......... .......... .......... 71%  291M 0s\n'}
+[5.401528] (multirobot_map_merge) StderrLine: {'line': b' 11150K .......... .......... .......... .......... .......... 71%  152M 0s\n'}
+[5.401752] (multirobot_map_merge) StderrLine: {'line': b' 11200K .......... .......... .......... .......... .......... 71%  210M 0s\n'}
+[5.401962] (multirobot_map_merge) StderrLine: {'line': b' 11250K .......... .......... .......... .......... .......... 72%  232M 0s\n'}
+[5.402207] (multirobot_map_merge) StderrLine: {'line': b' 11300K .......... .......... .......... .......... .......... 72%  194M 0s\n'}
+[5.402430] (multirobot_map_merge) StderrLine: {'line': b' 11350K .......... .......... .......... .......... .......... 72%  255M 0s\n'}
+[5.402649] (multirobot_map_merge) StderrLine: {'line': b' 11400K .......... .......... .......... .......... .......... 73%  217M 0s\n'}
+[5.402889] (multirobot_map_merge) StderrLine: {'line': b' 11450K .......... .......... .......... .......... .......... 73%  204M 0s\n'}
+[5.403103] (multirobot_map_merge) StderrLine: {'line': b' 11500K .......... .......... .......... .......... .......... 73%  215M 0s\n'}
+[5.403286] (multirobot_map_merge) StderrLine: {'line': b' 11550K .......... .......... .......... .......... .......... 74%  300M 0s\n'}
+[5.403436] (multirobot_map_merge) StderrLine: {'line': b' 11600K .......... .......... .......... .......... .......... 74%  275M 0s\n'}
+[5.403594] (multirobot_map_merge) StderrLine: {'line': b' 11650K .......... .......... .......... .......... .......... 74%  317M 0s\n'}
+[5.403767] (multirobot_map_merge) StderrLine: {'line': b' 11700K .......... .......... .......... .......... .......... 75%  281M 0s\n'}
+[5.403933] (multirobot_map_merge) StderrLine: {'line': b' 11750K .......... .......... .......... .......... .......... 75%  323M 0s\n'}
+[5.404074] (multirobot_map_merge) StderrLine: {'line': b' 11800K .......... .......... .......... .......... .......... 75%  291M 0s\n'}
+[5.404246] (multirobot_map_merge) StderrLine: {'line': b' 11850K .......... .......... .......... .......... .......... 76%  283M 0s\n'}
+[5.404410] (multirobot_map_merge) StderrLine: {'line': b' 11900K .......... .......... .......... .......... .......... 76%  332M 0s\n'}
+[5.404554] (multirobot_map_merge) StderrLine: {'line': b' 11950K .......... .......... .......... .......... .......... 76%  328M 0s\n'}
+[5.404714] (multirobot_map_merge) StderrLine: {'line': b' 12000K .......... .......... .......... .......... .......... 77%  304M 0s\n'}
+[5.404877] (multirobot_map_merge) StderrLine: {'line': b' 12050K .......... .......... .......... .......... .......... 77%  290M 0s\n'}
+[5.405026] (multirobot_map_merge) StderrLine: {'line': b' 12100K .......... .......... .......... .......... .......... 77%  326M 0s\n'}
+[5.405177] (multirobot_map_merge) StderrLine: {'line': b' 12150K .......... .......... .......... .......... .......... 78%  324M 0s\n'}
+[5.405328] (multirobot_map_merge) StderrLine: {'line': b' 12200K .......... .......... .......... .......... .......... 78%  332M 0s\n'}
+[5.405500] (multirobot_map_merge) StderrLine: {'line': b' 12250K .......... .......... .......... .......... .......... 78%  278M 0s\n'}
+[5.405653] (multirobot_map_merge) StderrLine: {'line': b' 12300K .......... .......... .......... .......... .......... 79%  326M 0s\n'}
+[5.405806] (multirobot_map_merge) StderrLine: {'line': b' 12350K .......... .......... .......... .......... .......... 79%  309M 0s\n'}
+[5.405952] (multirobot_map_merge) StderrLine: {'line': b' 12400K .......... .......... .......... .......... .......... 79%  332M 0s\n'}
+[5.406125] (multirobot_map_merge) StderrLine: {'line': b' 12450K .......... .......... .......... .......... .......... 79%  282M 0s\n'}
+[5.406275] (multirobot_map_merge) StderrLine: {'line': b' 12500K .......... .......... .......... .......... .......... 80%  326M 0s\n'}
+[5.406422] (multirobot_map_merge) StderrLine: {'line': b' 12550K .......... .......... .......... .......... .......... 80%  326M 0s\n'}
+[5.406603] (multirobot_map_merge) StderrLine: {'line': b' 12600K .......... .......... .......... .......... .......... 80%  328M 0s\n'}
+[5.406766] (multirobot_map_merge) StderrLine: {'line': b' 12650K .......... .......... .......... .......... .......... 81%  262M 0s\n'}
+[5.406910] (multirobot_map_merge) StderrLine: {'line': b' 12700K .......... .......... .......... .......... .......... 81%  327M 0s\n'}
+[5.407057] (multirobot_map_merge) StderrLine: {'line': b' 12750K .......... .......... .......... .......... .......... 81%  329M 0s\n'}
+[5.407173] (-) TimerEvent: {}
+[5.407257] (multirobot_map_merge) StderrLine: {'line': b' 12800K .......... .......... .......... .......... .......... 82%  311M 0s\n'}
+[5.407470] (multirobot_map_merge) StderrLine: {'line': b' 12850K .......... .......... .......... .......... .......... 82%  277M 0s\n'}
+[5.407557] (multirobot_map_merge) StderrLine: {'line': b' 12900K .......... .......... .......... .......... .......... 82%  293M 0s\n'}
+[5.407717] (multirobot_map_merge) StderrLine: {'line': b' 12950K .......... .......... .......... .......... .......... 83%  305M 0s\n'}
+[5.407871] (multirobot_map_merge) StderrLine: {'line': b' 13000K .......... .......... .......... .......... .......... 83%  325M 0s\n'}
+[5.408036] (multirobot_map_merge) StderrLine: {'line': b' 13050K .......... .......... .......... .......... .......... 83%  295M 0s\n'}
+[5.408196] (multirobot_map_merge) StderrLine: {'line': b' 13100K .......... .......... .......... .......... .......... 84%  290M 0s\n'}
+[5.408367] (multirobot_map_merge) StderrLine: {'line': b' 13150K .......... .......... .......... .......... .......... 84%  303M 0s\n'}
+[5.408517] (multirobot_map_merge) StderrLine: {'line': b' 13200K .......... .......... .......... .......... .......... 84%  308M 0s\n'}
+[5.408683] (multirobot_map_merge) StderrLine: {'line': b' 13250K .......... .......... .......... .......... .......... 85%  314M 0s\n'}
+[5.408839] (multirobot_map_merge) StderrLine: {'line': b' 13300K .......... .......... .......... .......... .......... 85%  296M 0s\n'}
+[5.409003] (multirobot_map_merge) StderrLine: {'line': b' 13350K .......... .......... .......... .......... .......... 85%  293M 0s\n'}
+[5.409156] (multirobot_map_merge) StderrLine: {'line': b' 13400K .......... .......... .......... .......... .......... 86%  326M 0s\n'}
+[5.409310] (multirobot_map_merge) StderrLine: {'line': b' 13450K .......... .......... .......... .......... .......... 86%  326M 0s\n'}
+[5.409484] (multirobot_map_merge) StderrLine: {'line': b' 13500K .......... .......... .......... .......... .......... 86%  290M 0s\n'}
+[5.409669] (multirobot_map_merge) StderrLine: {'line': b' 13550K .......... .......... .......... .......... .......... 87%  262M 0s\n'}
+[5.409814] (multirobot_map_merge) StderrLine: {'line': b' 13600K .......... .......... .......... .......... .......... 87%  318M 0s\n'}
+[5.409960] (multirobot_map_merge) StderrLine: {'line': b' 13650K .......... .......... .......... .......... .......... 87%  336M 0s\n'}
+[5.410111] (multirobot_map_merge) StderrLine: {'line': b' 13700K .......... .......... .......... .......... .......... 87%  338M 0s\n'}
+[5.410266] (multirobot_map_merge) StderrLine: {'line': b' 13750K .......... .......... .......... .......... .......... 88%  296M 0s\n'}
+[5.410410] (multirobot_map_merge) StderrLine: {'line': b' 13800K .......... .......... .......... .......... .......... 88%  343M 0s\n'}
+[5.410580] (multirobot_map_merge) StderrLine: {'line': b' 13850K .......... .......... .......... .......... .......... 88%  298M 0s\n'}
+[5.410752] (multirobot_map_merge) StderrLine: {'line': b' 13900K .......... .......... .......... .......... .......... 89%  337M 0s\n'}
+[5.410896] (multirobot_map_merge) StderrLine: {'line': b' 13950K .......... .......... .......... .......... .......... 89%  279M 0s\n'}
+[5.411044] (multirobot_map_merge) StderrLine: {'line': b' 14000K .......... .......... .......... .......... .......... 89%  338M 0s\n'}
+[5.411194] (multirobot_map_merge) StderrLine: {'line': b' 14050K .......... .......... .......... .......... .......... 90%  328M 0s\n'}
+[5.411385] (multirobot_map_merge) StderrLine: {'line': b' 14100K .......... .......... .......... .......... .......... 90%  332M 0s\n'}
+[5.411519] (multirobot_map_merge) StderrLine: {'line': b' 14150K .......... .......... .......... .......... .......... 90%  273M 0s\n'}
+[5.411678] (multirobot_map_merge) StderrLine: {'line': b' 14200K .......... .......... .......... .......... .......... 91%  327M 0s\n'}
+[5.411824] (multirobot_map_merge) StderrLine: {'line': b' 14250K .......... .......... .......... .......... .......... 91%  310M 0s\n'}
+[5.412002] (multirobot_map_merge) StderrLine: {'line': b' 14300K .......... .......... .......... .......... .......... 91%  332M 0s\n'}
+[5.412142] (multirobot_map_merge) StderrLine: {'line': b' 14350K .......... .......... .......... .......... .......... 92%  281M 0s\n'}
+[5.412294] (multirobot_map_merge) StderrLine: {'line': b' 14400K .......... .......... .......... .......... .......... 92%  333M 0s\n'}
+[5.412439] (multirobot_map_merge) StderrLine: {'line': b' 14450K .......... .......... .......... .......... .......... 92%  332M 0s\n'}
+[5.412600] (multirobot_map_merge) StderrLine: {'line': b' 14500K .......... .......... .......... .......... .......... 93%  304M 0s\n'}
+[5.429575] (multirobot_map_merge) StderrLine: {'line': b' 14550K .......... .......... .......... .......... .......... 93% 2.89M 0s\n'}
+[5.429999] (multirobot_map_merge) StderrLine: {'line': b' 14600K .......... .......... .......... .......... .......... 93%  100M 0s\n'}
+[5.430445] (multirobot_map_merge) StderrLine: {'line': b' 14650K .......... .......... .......... .......... .......... 94%  111M 0s\n'}
+[5.430896] (multirobot_map_merge) StderrLine: {'line': b' 14700K .......... .......... .......... .......... .......... 94%  111M 0s\n'}
+[5.431337] (multirobot_map_merge) StderrLine: {'line': b' 14750K .......... .......... .......... .......... .......... 94%  108M 0s\n'}
+[5.431935] (multirobot_map_merge) StderrLine: {'line': b' 14800K .......... .......... .......... .......... .......... 95% 83.9M 0s\n'}
+[5.432332] (multirobot_map_merge) StderrLine: {'line': b' 14850K .......... .......... .......... .......... .......... 95%  116M 0s\n'}
+[5.432800] (multirobot_map_merge) StderrLine: {'line': b' 14900K .......... .......... .......... .......... .......... 95%  107M 0s\n'}
+[5.433236] (multirobot_map_merge) StderrLine: {'line': b' 14950K .......... .......... .......... .......... .......... 95%  112M 0s\n'}
+[5.433740] (multirobot_map_merge) StderrLine: {'line': b' 15000K .......... .......... .......... .......... .......... 96% 95.6M 0s\n'}
+[5.434150] (multirobot_map_merge) StderrLine: {'line': b' 15050K .......... .......... .......... .......... .......... 96%  117M 0s\n'}
+[5.434622] (multirobot_map_merge) StderrLine: {'line': b' 15100K .......... .......... .......... .......... .......... 96%  105M 0s\n'}
+[5.435050] (multirobot_map_merge) StderrLine: {'line': b' 15150K .......... .......... .......... .......... .......... 97%  113M 0s\n'}
+[5.435557] (multirobot_map_merge) StderrLine: {'line': b' 15200K .......... .......... .......... .......... .......... 97% 97.4M 0s\n'}
+[5.436013] (multirobot_map_merge) StderrLine: {'line': b' 15250K .......... .......... .......... .......... .......... 97%  108M 0s\n'}
+[5.436596] (multirobot_map_merge) StderrLine: {'line': b' 15300K .......... .......... .......... .......... .......... 98%  111M 0s\n'}
+[5.437039] (multirobot_map_merge) StderrLine: {'line': b' 15350K .......... .......... .......... .......... .......... 98% 84.9M 0s\n'}
+[5.437467] (multirobot_map_merge) StderrLine: {'line': b' 15400K .......... .......... .......... .......... .......... 98%  110M 0s\n'}
+[5.437901] (multirobot_map_merge) StderrLine: {'line': b' 15450K .......... .......... .......... .......... .......... 99%  112M 0s\n'}
+[5.438373] (multirobot_map_merge) StderrLine: {'line': b' 15500K .......... .......... .......... .......... .......... 99%  102M 0s\n'}
+[5.438819] (multirobot_map_merge) StderrLine: {'line': b' 15550K .......... .......... .......... .......... .......... 99%  108M 0s\n'}
+[5.462539] (multirobot_map_merge) StderrLine: {'line': b' 15600K .......... .......... .....                           100% 1.04M=0.4s\n'}
+[5.462723] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[5.462798] (multirobot_map_merge) StderrLine: {'line': b'2026-01-03 15:37:36 (38.6 MB/s) - \xe2\x80\x98/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/2012-01-28-11-12-01.pgm\xe2\x80\x99 saved [16000058/16000058]\n'}
+[5.462861] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[5.463665] (multirobot_map_merge) StdoutLine: {'line': b'Checking MD5 sum of /home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/2012-01-28-11-12-01.pgm\n'}
+[5.483986] (multirobot_map_merge) StdoutLine: {'line': b'/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge/2012-01-28-11-12-01.pgm: OK\n'}
+[5.488480] (multirobot_map_merge) StdoutLine: {'line': b"-- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built\n"}
+[5.490944] (multirobot_map_merge) StderrLine: {'line': b'\x1b[0mCMake Deprecation Warning at /opt/ros/humble/src/gtest_vendor/CMakeLists.txt:2 (cmake_minimum_required):\n'}
+[5.491030] (multirobot_map_merge) StderrLine: {'line': b'  Compatibility with CMake < 3.10 will be removed from a future version of\n'}
+[5.491082] (multirobot_map_merge) StderrLine: {'line': b'  CMake.\n'}
+[5.491123] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[5.491161] (multirobot_map_merge) StderrLine: {'line': b'  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax\n'}
+[5.491200] (multirobot_map_merge) StderrLine: {'line': b'  to tell CMake that the project requires at least <min> but has been updated\n'}
+[5.491239] (multirobot_map_merge) StderrLine: {'line': b'  to work with policies introduced by <max> or earlier.\n'}
+[5.491278] (multirobot_map_merge) StderrLine: {'line': b'\n'}
+[5.491314] (multirobot_map_merge) StderrLine: {'line': b'\x1b[0m\n'}
+[5.500893] (multirobot_map_merge) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[5.501358] (multirobot_map_merge) StdoutLine: {'line': b'-- Configured cppcheck include dirs: /home/schneigu/Projects/slam_bench_orchestrator/deps/src/m-explore/map_merge/include;$<BUILD_INTERFACE:/home/schneigu/Projects/slam_bench_orchestrator/deps/src/m-explore/map_merge/include>\n'}
+[5.501431] (multirobot_map_merge) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[5.502408] (multirobot_map_merge) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[5.503693] (multirobot_map_merge) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[5.504672] (multirobot_map_merge) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257\n"}
+[5.507240] (-) TimerEvent: {}
+[5.507642] (multirobot_map_merge) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[5.507724] (multirobot_map_merge) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[5.508618] (multirobot_map_merge) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[5.511602] (multirobot_map_merge) StdoutLine: {'line': b'-- Configuring done (5.5s)\n'}
+[5.596304] (multirobot_map_merge) StdoutLine: {'line': b'-- Generating done (0.1s)\n'}
+[5.607340] (-) TimerEvent: {}
+[5.642056] (multirobot_map_merge) StdoutLine: {'line': b'-- Build files have been written to: /home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge\n'}
+[5.653966] (multirobot_map_merge) CommandEnded: {'returncode': 0}
+[5.654533] (multirobot_map_merge) JobProgress: {'identifier': 'multirobot_map_merge', 'progress': 'build'}
+[5.655007] (multirobot_map_merge) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge', '--', '-j16', '-l16'], 'cwd': '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('PYTHON_BASIC_REPL', '1'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'schneigu'), ('LC_TIME', 'fr_FR.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/usr/share/antigravity/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('ANTIGRAVITY_CLI_ALIAS', 'agy'), ('HOME', '/home/schneigu'), ('CHROME_DESKTOP', 'antigravity.desktop'), ('OLDPWD', '/home/schneigu/Projects/slam_bench_orchestrator'), ('TERM_PROGRAM_VERSION', '1.104.0'), ('DESKTOP_SESSION', 'ubuntu-xorg'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/antigravity.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('PAGER', 'cat'), ('VSCODE_GIT_ASKPASS_MAIN', '/usr/share/antigravity/resources/app/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'fr_FR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/usr/share/antigravity/antigravity'), ('MANAGERPID', '1360'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('SYSTEMD_EXEC_PID', '1750'), ('BUNDLED_DEBUGPY_PATH', '/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('ANTIGRAVITY_AGENT', '1'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '28409'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'schneigu'), ('JOURNAL_STREAM', '8:17674'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'schneigu'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/schneigu/.local/bin:/opt/ros/humble/bin:/home/schneigu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts'), ('SESSION_MANAGER', 'local/schneigu:@/tmp/.ICE-unix/1723,unix/schneigu:/tmp/.ICE-unix/1723'), ('INVOCATION_ID', '43a639bb0e6f4a0da1a19b4bdbba1663'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'fr_FR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-a59f4789109266d8.txt'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('PYTHONSTARTUP', '/home/schneigu/.config/Antigravity/User/workspaceStorage/2220fb696ce71b69b11b34d8e84ae5af/ms-python.python/pythonrc.py'), ('LC_TELEPHONE', 'fr_FR.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu-xorg'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-ec97d97a1c.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('LC_NAME', 'fr_FR.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu-xorg'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'fr_FR.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('LC_IDENTIFICATION', 'fr_FR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'fr_FR.UTF-8'), ('LC_PAPER', 'fr_FR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[5.678330] (multirobot_map_merge) StdoutLine: {'line': b'[ 16%] \x1b[32mBuilding CXX object CMakeFiles/combine_grids.dir/src/combine_grids/grid_compositor.cpp.o\x1b[0m\n'}
+[5.678504] (multirobot_map_merge) StdoutLine: {'line': b'[ 16%] \x1b[32mBuilding CXX object gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o\x1b[0m\n'}
+[5.678615] (multirobot_map_merge) StdoutLine: {'line': b'[ 25%] \x1b[32mBuilding CXX object CMakeFiles/combine_grids.dir/src/combine_grids/grid_warper.cpp.o\x1b[0m\n'}
+[5.678715] (multirobot_map_merge) StdoutLine: {'line': b'[ 41%] \x1b[32mBuilding CXX object CMakeFiles/combine_grids.dir/src/combine_grids/merging_pipeline.cpp.o\x1b[0m\n'}
+[5.678799] (multirobot_map_merge) StdoutLine: {'line': b'[ 41%] \x1b[32mBuilding CXX object gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o\x1b[0m\n'}
+[5.707441] (-) TimerEvent: {}
+[5.807695] (-) TimerEvent: {}
+[5.910704] (-) TimerEvent: {}
+[6.011027] (-) TimerEvent: {}
+[6.111332] (-) TimerEvent: {}
+[6.211636] (-) TimerEvent: {}
+[6.311915] (-) TimerEvent: {}
+[6.412183] (-) TimerEvent: {}
+[6.425437] (multirobot_map_merge) StdoutLine: {'line': b'[ 50%] \x1b[1m\x1b[32mLinking CXX static library libgtest_main.a\x1b[0m\n'}
+[6.468118] (multirobot_map_merge) StdoutLine: {'line': b'[ 50%] Built target gtest_main\n'}
+[6.512291] (-) TimerEvent: {}
+[6.612583] (-) TimerEvent: {}
+[6.712862] (-) TimerEvent: {}
+[6.813142] (-) TimerEvent: {}
+[6.913433] (-) TimerEvent: {}
+[7.013682] (-) TimerEvent: {}
+[7.113950] (-) TimerEvent: {}
+[7.214214] (-) TimerEvent: {}
+[7.314469] (-) TimerEvent: {}
+[7.414747] (-) TimerEvent: {}
+[7.515018] (-) TimerEvent: {}
+[7.615309] (-) TimerEvent: {}
+[7.715586] (-) TimerEvent: {}
+[7.815859] (-) TimerEvent: {}
+[7.882843] (multirobot_map_merge) StdoutLine: {'line': b'[ 58%] \x1b[1m\x1b[32mLinking CXX static library libgtest.a\x1b[0m\n'}
+[7.915955] (-) TimerEvent: {}
+[7.946754] (multirobot_map_merge) StdoutLine: {'line': b'[ 58%] Built target gtest\n'}
+[8.016052] (-) TimerEvent: {}
+[8.116290] (-) TimerEvent: {}
+[8.216526] (-) TimerEvent: {}
+[8.316769] (-) TimerEvent: {}
+[8.417006] (-) TimerEvent: {}
+[8.424284] (multirobot_map_merge) StdoutLine: {'line': b'[ 66%] \x1b[1m\x1b[32mLinking CXX static library libcombine_grids.a\x1b[0m\n'}
+[8.473078] (multirobot_map_merge) StdoutLine: {'line': b'[ 66%] Built target combine_grids\n'}
+[8.482780] (multirobot_map_merge) StdoutLine: {'line': b'[ 75%] \x1b[32mBuilding CXX object CMakeFiles/test_merging_pipeline.dir/test/test_merging_pipeline.cpp.o\x1b[0m\n'}
+[8.483016] (multirobot_map_merge) StdoutLine: {'line': b'[ 83%] \x1b[32mBuilding CXX object CMakeFiles/map_merge.dir/src/map_merge.cpp.o\x1b[0m\n'}
+[8.517098] (-) TimerEvent: {}
+[8.617329] (-) TimerEvent: {}
+[8.717565] (-) TimerEvent: {}
+[8.817822] (-) TimerEvent: {}
+[8.918073] (-) TimerEvent: {}
+[9.018319] (-) TimerEvent: {}
+[9.118576] (-) TimerEvent: {}
+[9.218853] (-) TimerEvent: {}
+[9.319117] (-) TimerEvent: {}
+[9.419395] (-) TimerEvent: {}
+[9.519671] (-) TimerEvent: {}
+[9.619944] (-) TimerEvent: {}
+[9.720225] (-) TimerEvent: {}
+[9.820503] (-) TimerEvent: {}
+[9.920790] (-) TimerEvent: {}
+[10.021075] (-) TimerEvent: {}
+[10.121361] (-) TimerEvent: {}
+[10.221622] (-) TimerEvent: {}
+[10.321930] (-) TimerEvent: {}
+[10.422213] (-) TimerEvent: {}
+[10.522474] (-) TimerEvent: {}
+[10.601918] (explore_lite) StdoutLine: {'line': b'[100%] \x1b[1m\x1b[32mLinking CXX executable explore\x1b[0m\n'}
+[10.622568] (-) TimerEvent: {}
+[10.722821] (-) TimerEvent: {}
+[10.823059] (-) TimerEvent: {}
+[10.923298] (-) TimerEvent: {}
+[11.023534] (-) TimerEvent: {}
+[11.123792] (-) TimerEvent: {}
+[11.224061] (-) TimerEvent: {}
+[11.324296] (-) TimerEvent: {}
+[11.424540] (-) TimerEvent: {}
+[11.524778] (-) TimerEvent: {}
+[11.625016] (-) TimerEvent: {}
+[11.702593] (explore_lite) StdoutLine: {'line': b'[100%] Built target explore\n'}
+[11.707868] (explore_lite) CommandEnded: {'returncode': 0}
+[11.708742] (explore_lite) JobProgress: {'identifier': 'explore_lite', 'progress': 'install'}
+[11.712164] (explore_lite) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/explore_lite'], 'cwd': '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/explore_lite', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('PYTHON_BASIC_REPL', '1'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'schneigu'), ('LC_TIME', 'fr_FR.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/usr/share/antigravity/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('ANTIGRAVITY_CLI_ALIAS', 'agy'), ('HOME', '/home/schneigu'), ('CHROME_DESKTOP', 'antigravity.desktop'), ('OLDPWD', '/home/schneigu/Projects/slam_bench_orchestrator'), ('TERM_PROGRAM_VERSION', '1.104.0'), ('DESKTOP_SESSION', 'ubuntu-xorg'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/antigravity.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('PAGER', 'cat'), ('VSCODE_GIT_ASKPASS_MAIN', '/usr/share/antigravity/resources/app/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'fr_FR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/usr/share/antigravity/antigravity'), ('MANAGERPID', '1360'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('SYSTEMD_EXEC_PID', '1750'), ('BUNDLED_DEBUGPY_PATH', '/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('ANTIGRAVITY_AGENT', '1'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '28409'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'schneigu'), ('JOURNAL_STREAM', '8:17674'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'schneigu'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/schneigu/.local/bin:/opt/ros/humble/bin:/home/schneigu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts'), ('SESSION_MANAGER', 'local/schneigu:@/tmp/.ICE-unix/1723,unix/schneigu:/tmp/.ICE-unix/1723'), ('INVOCATION_ID', '43a639bb0e6f4a0da1a19b4bdbba1663'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'fr_FR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-a59f4789109266d8.txt'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('PYTHONSTARTUP', '/home/schneigu/.config/Antigravity/User/workspaceStorage/2220fb696ce71b69b11b34d8e84ae5af/ms-python.python/pythonrc.py'), ('LC_TELEPHONE', 'fr_FR.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu-xorg'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-ec97d97a1c.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('LC_NAME', 'fr_FR.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu-xorg'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'fr_FR.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('LC_IDENTIFICATION', 'fr_FR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/explore_lite'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'fr_FR.UTF-8'), ('LC_PAPER', 'fr_FR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[11.715641] (explore_lite) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[11.715754] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/include/explore/\n'}
+[11.715962] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/include/explore//costmap_client.h\n'}
+[11.716190] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/include/explore//costmap_tools.h\n'}
+[11.716361] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/include/explore//frontier_search.h\n'}
+[11.716533] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/include/explore//explore.h\n'}
+[11.716745] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/config\n'}
+[11.716942] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/config/params_costmap.yaml\n'}
+[11.717123] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/config/params.yaml\n'}
+[11.717312] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/launch\n'}
+[11.717430] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/launch/explore.launch.py\n'}
+[11.717768] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/lib/explore_lite/explore\n'}
+[11.725076] (-) TimerEvent: {}
+[11.725216] (explore_lite) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/lib/explore_lite/explore" to ""\n'}
+[11.725377] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/ament_index/resource_index/package_run_dependencies/explore_lite\n'}
+[11.725533] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/ament_index/resource_index/parent_prefix_path/explore_lite\n'}
+[11.725693] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/environment/ament_prefix_path.sh\n'}
+[11.725806] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/environment/ament_prefix_path.dsv\n'}
+[11.725914] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/environment/path.sh\n'}
+[11.726020] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/environment/path.dsv\n'}
+[11.726127] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/local_setup.bash\n'}
+[11.726232] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/local_setup.sh\n'}
+[11.726365] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/local_setup.zsh\n'}
+[11.726470] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/local_setup.dsv\n'}
+[11.726584] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/package.dsv\n'}
+[11.726738] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/ament_index/resource_index/packages/explore_lite\n'}
+[11.726880] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[11.726993] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/cmake/explore_liteConfig.cmake\n'}
+[11.727092] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/cmake/explore_liteConfig-version.cmake\n'}
+[11.727193] (explore_lite) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/package.xml\n'}
+[11.728386] (explore_lite) CommandEnded: {'returncode': 0}
+[11.739265] (explore_lite) JobEnded: {'identifier': 'explore_lite', 'rc': 0}
+[11.825167] (-) TimerEvent: {}
+[11.925374] (-) TimerEvent: {}
+[12.025587] (-) TimerEvent: {}
+[12.042216] (multirobot_map_merge) StdoutLine: {'line': b'[ 91%] \x1b[1m\x1b[32mLinking CXX executable test_merging_pipeline\x1b[0m\n'}
+[12.125670] (-) TimerEvent: {}
+[12.225885] (-) TimerEvent: {}
+[12.326148] (-) TimerEvent: {}
+[12.426384] (-) TimerEvent: {}
+[12.471029] (multirobot_map_merge) StdoutLine: {'line': b'[ 91%] Built target test_merging_pipeline\n'}
+[12.526477] (-) TimerEvent: {}
+[12.626677] (-) TimerEvent: {}
+[12.726912] (-) TimerEvent: {}
+[12.827140] (-) TimerEvent: {}
+[12.927373] (-) TimerEvent: {}
+[13.027603] (-) TimerEvent: {}
+[13.127838] (-) TimerEvent: {}
+[13.228074] (-) TimerEvent: {}
+[13.328313] (-) TimerEvent: {}
+[13.428553] (-) TimerEvent: {}
+[13.528796] (-) TimerEvent: {}
+[13.629031] (-) TimerEvent: {}
+[13.729267] (-) TimerEvent: {}
+[13.829504] (-) TimerEvent: {}
+[13.929747] (-) TimerEvent: {}
+[14.029977] (-) TimerEvent: {}
+[14.130209] (-) TimerEvent: {}
+[14.230444] (-) TimerEvent: {}
+[14.330680] (-) TimerEvent: {}
+[14.430913] (-) TimerEvent: {}
+[14.531148] (-) TimerEvent: {}
+[14.631386] (-) TimerEvent: {}
+[14.731611] (-) TimerEvent: {}
+[14.831852] (-) TimerEvent: {}
+[14.932080] (-) TimerEvent: {}
+[15.032305] (-) TimerEvent: {}
+[15.132524] (-) TimerEvent: {}
+[15.232754] (-) TimerEvent: {}
+[15.332977] (-) TimerEvent: {}
+[15.433190] (-) TimerEvent: {}
+[15.533404] (-) TimerEvent: {}
+[15.633623] (-) TimerEvent: {}
+[15.733851] (-) TimerEvent: {}
+[15.834071] (-) TimerEvent: {}
+[15.934284] (-) TimerEvent: {}
+[16.034504] (-) TimerEvent: {}
+[16.134729] (-) TimerEvent: {}
+[16.234946] (-) TimerEvent: {}
+[16.335172] (-) TimerEvent: {}
+[16.435423] (-) TimerEvent: {}
+[16.535674] (-) TimerEvent: {}
+[16.635922] (-) TimerEvent: {}
+[16.736178] (-) TimerEvent: {}
+[16.836432] (-) TimerEvent: {}
+[16.936685] (-) TimerEvent: {}
+[17.036936] (-) TimerEvent: {}
+[17.137197] (-) TimerEvent: {}
+[17.237452] (-) TimerEvent: {}
+[17.337679] (-) TimerEvent: {}
+[17.437903] (-) TimerEvent: {}
+[17.538127] (-) TimerEvent: {}
+[17.638359] (-) TimerEvent: {}
+[17.738594] (-) TimerEvent: {}
+[17.838846] (-) TimerEvent: {}
+[17.854762] (multirobot_map_merge) StdoutLine: {'line': b'[100%] \x1b[1m\x1b[32mLinking CXX executable map_merge\x1b[0m\n'}
+[17.938939] (-) TimerEvent: {}
+[18.039172] (-) TimerEvent: {}
+[18.139410] (-) TimerEvent: {}
+[18.239656] (-) TimerEvent: {}
+[18.339888] (-) TimerEvent: {}
+[18.440120] (-) TimerEvent: {}
+[18.540370] (-) TimerEvent: {}
+[18.559920] (multirobot_map_merge) StdoutLine: {'line': b'[100%] Built target map_merge\n'}
+[18.565098] (multirobot_map_merge) CommandEnded: {'returncode': 0}
+[18.566240] (multirobot_map_merge) JobProgress: {'identifier': 'multirobot_map_merge', 'progress': 'install'}
+[18.566690] (multirobot_map_merge) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge'], 'cwd': '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('PYTHON_BASIC_REPL', '1'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'schneigu'), ('LC_TIME', 'fr_FR.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/usr/share/antigravity/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('ANTIGRAVITY_CLI_ALIAS', 'agy'), ('HOME', '/home/schneigu'), ('CHROME_DESKTOP', 'antigravity.desktop'), ('OLDPWD', '/home/schneigu/Projects/slam_bench_orchestrator'), ('TERM_PROGRAM_VERSION', '1.104.0'), ('DESKTOP_SESSION', 'ubuntu-xorg'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/antigravity.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('PAGER', 'cat'), ('VSCODE_GIT_ASKPASS_MAIN', '/usr/share/antigravity/resources/app/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'fr_FR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/usr/share/antigravity/antigravity'), ('MANAGERPID', '1360'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('SYSTEMD_EXEC_PID', '1750'), ('BUNDLED_DEBUGPY_PATH', '/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/libs/debugpy'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('ANTIGRAVITY_AGENT', '1'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '28409'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'schneigu'), ('JOURNAL_STREAM', '8:17674'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'schneigu'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/schneigu/.local/bin:/opt/ros/humble/bin:/home/schneigu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/bundled/scripts/noConfigScripts'), ('SESSION_MANAGER', 'local/schneigu:@/tmp/.ICE-unix/1723,unix/schneigu:/tmp/.ICE-unix/1723'), ('INVOCATION_ID', '43a639bb0e6f4a0da1a19b4bdbba1663'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'fr_FR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/schneigu/.antigravity/extensions/ms-python.debugpy-2025.18.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-a59f4789109266d8.txt'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('PYTHONSTARTUP', '/home/schneigu/.config/Antigravity/User/workspaceStorage/2220fb696ce71b69b11b34d8e84ae5af/ms-python.python/pythonrc.py'), ('LC_TELEPHONE', 'fr_FR.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu-xorg'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-ec97d97a1c.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('LC_NAME', 'fr_FR.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu-xorg'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'fr_FR.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('LC_IDENTIFICATION', 'fr_FR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/schneigu/Projects/slam_bench_orchestrator/deps/build/multirobot_map_merge'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'fr_FR.UTF-8'), ('LC_PAPER', 'fr_FR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[18.569467] (multirobot_map_merge) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[18.569569] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/include/map_merge/\n'}
+[18.569645] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/include/map_merge//ros1_names.hpp\n'}
+[18.569768] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/include/map_merge//map_merge.h\n'}
+[18.569875] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/launch\n'}
+[18.569979] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/launch/map_merge.rviz\n'}
+[18.570086] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/launch/map_merge.launch.py\n'}
+[18.570174] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/launch/tb3_simulation\n'}
+[18.570237] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/launch/tb3_simulation/bringup_launch.py\n'}
+[18.570338] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/launch/tb3_simulation/slam_toolbox.py\n'}
+[18.570456] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/launch/tb3_simulation/multi_tb3_simulation_launch.py\n'}
+[18.570532] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/launch/tb3_simulation/tb3_simulation_launch.py\n'}
+[18.570637] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/launch/tb3_simulation/worlds\n'}
+[18.570731] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/launch/tb3_simulation/worlds/world_only.model\n'}
+[18.570818] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/launch/tb3_simulation/config\n'}
+[18.570883] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/launch/tb3_simulation/config/nav2_multirobot_params_1.yaml\n'}
+[18.570982] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/launch/tb3_simulation/config/nav2_multirobot_params_2.yaml\n'}
+[18.571077] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/launch/from_map_server.launch.py\n'}
+[18.571169] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/config\n'}
+[18.571245] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/config/params.yaml\n'}
+[18.571392] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/lib/libcombine_grids.a\n'}
+[18.572794] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/lib/multirobot_map_merge/map_merge\n'}
+[18.580165] (multirobot_map_merge) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/lib/multirobot_map_merge/map_merge" to ""\n'}
+[18.580267] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/environment/library_path.sh\n'}
+[18.580359] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/environment/library_path.dsv\n'}
+[18.580542] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/ament_index/resource_index/package_run_dependencies/multirobot_map_merge\n'}
+[18.580777] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/ament_index/resource_index/parent_prefix_path/multirobot_map_merge\n'}
+[18.580891] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/environment/ament_prefix_path.sh\n'}
+[18.580996] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/environment/ament_prefix_path.dsv\n'}
+[18.581106] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/environment/path.sh\n'}
+[18.581208] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/environment/path.dsv\n'}
+[18.581313] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/local_setup.bash\n'}
+[18.581417] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/local_setup.sh\n'}
+[18.581527] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/local_setup.zsh\n'}
+[18.581646] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/local_setup.dsv\n'}
+[18.581746] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/package.dsv\n'}
+[18.581896] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/ament_index/resource_index/packages/multirobot_map_merge\n'}
+[18.582030] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[18.582136] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[18.582246] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/cmake/multirobot_map_mergeConfig.cmake\n'}
+[18.582339] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/cmake/multirobot_map_mergeConfig-version.cmake\n'}
+[18.582443] (multirobot_map_merge) StdoutLine: {'line': b'-- Installing: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/share/multirobot_map_merge/package.xml\n'}
+[18.583540] (multirobot_map_merge) CommandEnded: {'returncode': 0}
+[18.595720] (multirobot_map_merge) JobEnded: {'identifier': 'multirobot_map_merge', 'rc': 0}
+[18.597113] (-) EventReactorShutdown: {}

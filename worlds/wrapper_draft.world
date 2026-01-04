@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- The user's model -->
+    <include>
+      <uri>model://turtlebot3_house</uri>
+      <!-- We assume the model definition is available or we include the file content directly if it's a stand-alone file. 
+           However, <include> usually works with GAZEBO_MODEL_PATH. 
+           Since 'worlds/model.sdf' is a file, we can't easily include it via URI unless we add it to path.
+           
+           BETTER APPROACH:
+           Since the user provided a pure <model> file, we can just Copy-Paste the model content INSIDE the <world> tag.
+      -->
+    </include>
+  </world>
+</sdf>

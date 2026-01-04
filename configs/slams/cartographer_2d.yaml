@@ -1,0 +1,64 @@
+schema_version: 1
+id: "cartographer_2d"
+display_name: "Cartographer ROS2 (2D)"
+description: "Cartographer 2D: nodes + occupancy grid."
+
+launch:
+  cmd: ["ros2", "launch", "cartographer_ros", "cartographer.launch.py"]
+  cwd: null
+  env: {}
+  args:
+    configuration_directory: "/home/user/configs/cartographer"
+    configuration_basename: "cartographer_2d.lua"
+    use_sim_time: true
+  namespace: null
+  use_sim_time: true
+  respawn: false
+
+params:
+  files: []
+  inline: {}
+
+remaps:
+  "/scan": "/scan"
+
+io_contract:
+  map_topic: "/map"
+  map_frame: "map"
+  odom_frame: "odom"
+  base_frame: "base_link"
+  scan_topic: "/scan"
+  pose_source: "tf"
+  pose_topic: null
+
+probes:
+  ready:
+    - type: "node_present"
+      node: "/cartographer_node"
+      timeout_s: 20
+    - type: "tf_available"
+      from_frame: "map"
+      to_frame: "odom"
+      timeout_s: 45
+    - type: "topic_publish"
+      topic: "/map"
+      min_messages: 1
+      timeout_s: 90
+  health:
+    - type: "topic_hz"
+      topic: "/submap_list"
+      min_hz: 0.05
+      window_s: 30
+      timeout_s: 90
+
+recording_overrides:
+  topics:
+    - "/submap_list"
+    - "/trajectory_node_list"
+    - "/constraint_list"
+
+notes:
+  known_issues:
+    - "Cartographer peut publier /map via occupancy_grid_node séparé selon launch."
+  tips:
+    - "Si /map n'apparaît pas, ajouter occupancy_grid_node au launch scenario."

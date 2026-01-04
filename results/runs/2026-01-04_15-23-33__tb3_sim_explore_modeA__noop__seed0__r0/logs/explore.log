@@ -1,0 +1,9 @@
+[INFO] [launch]: All log files can be found below /home/schneigu/.ros/log/2026-01-04-15-23-34-067671-schneigu-34196
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [explore-1]: process started with pid [34197]
+[explore-1] [INFO] [1767536614.123285218] [explore_node]: Waiting for costmap to become available, topic: map
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[explore-1] [INFO] [1767536619.607585599] [rclcpp]: signal_handler(signum=2)
+[explore-1] terminate called after throwing an instance of 'rclcpp::exceptions::RCLError'
+[explore-1]   what():  failed to create guard condition: the given context is not valid, either rcl_init() was not called or rcl_shutdown() was called., at ./src/rcl/guard_condition.c:67
+[ERROR] [explore-1]: process has died [pid 34197, exit code -6, cmd '/home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/lib/explore_lite/explore --ros-args -r __node:=explore_node -r __ns:=/ --params-file /home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite/share/explore_lite/config/params.yaml --params-file /tmp/launch_params_lg2znz56 -r /tf:=tf -r /tf_static:=tf_static'].

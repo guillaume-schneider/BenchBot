@@ -1,0 +1,126 @@
+[INFO] [launch]: All log files can be found below /home/schneigu/.ros/log/2026-01-04-15-02-21-627675-schneigu-28244
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [gzserver-1]: process started with pid [28294]
+[INFO] [spawn_entity.py-2]: process started with pid [28296]
+[INFO] [robot_state_publisher-3]: process started with pid [28298]
+[INFO] [rviz2-4]: process started with pid [28300]
+[INFO] [component_container_isolated-5]: process started with pid [28302]
+[INFO] [map_saver_server-6]: process started with pid [28304]
+[INFO] [lifecycle_manager-7]: process started with pid [28306]
+[INFO] [sync_slam_toolbox_node-8]: process started with pid [28308]
+[lifecycle_manager-7] [INFO] [1767535342.127667101] [lifecycle_manager_slam]: Creating
+[robot_state_publisher-3] [INFO] [1767535342.129218936] [robot_state_publisher]: got segment base_footprint
+[robot_state_publisher-3] [INFO] [1767535342.129292467] [robot_state_publisher]: got segment base_link
+[robot_state_publisher-3] [INFO] [1767535342.129302487] [robot_state_publisher]: got segment base_scan
+[robot_state_publisher-3] [INFO] [1767535342.129308497] [robot_state_publisher]: got segment camera_depth_frame
+[robot_state_publisher-3] [INFO] [1767535342.129314367] [robot_state_publisher]: got segment camera_depth_optical_frame
+[robot_state_publisher-3] [INFO] [1767535342.129320417] [robot_state_publisher]: got segment camera_link
+[robot_state_publisher-3] [INFO] [1767535342.129326667] [robot_state_publisher]: got segment camera_rgb_frame
+[robot_state_publisher-3] [INFO] [1767535342.129332247] [robot_state_publisher]: got segment camera_rgb_optical_frame
+[robot_state_publisher-3] [INFO] [1767535342.129338067] [robot_state_publisher]: got segment caster_back_left_link
+[robot_state_publisher-3] [INFO] [1767535342.129343187] [robot_state_publisher]: got segment caster_back_right_link
+[robot_state_publisher-3] [INFO] [1767535342.129349027] [robot_state_publisher]: got segment imu_link
+[robot_state_publisher-3] [INFO] [1767535342.129354937] [robot_state_publisher]: got segment wheel_left_link
+[robot_state_publisher-3] [INFO] [1767535342.129360807] [robot_state_publisher]: got segment wheel_right_link
+[sync_slam_toolbox_node-8] [INFO] [1767535342.130463261] [slam_toolbox]: Node using stack size 40000000
+[lifecycle_manager-7] [INFO] [1767535342.131584174] [lifecycle_manager_slam]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[map_saver_server-6] [INFO] [1767535342.135197726] [map_saver]: 
+[map_saver_server-6] 	map_saver lifecycle node launched. 
+[map_saver_server-6] 	Waiting on external lifecycle transitions to activate
+[map_saver_server-6] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[map_saver_server-6] [INFO] [1767535342.135274656] [map_saver]: Creating
+[lifecycle_manager-7] [INFO] [1767535342.141422216] [lifecycle_manager_slam]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-7] [INFO] [1767535342.141458336] [lifecycle_manager_slam]: [34m[1mConfiguring map_saver[0m[0m
+[sync_slam_toolbox_node-8] [INFO] [1767535342.164705843] [slam_toolbox]: Using solver plugin solver_plugins::CeresSolver
+[sync_slam_toolbox_node-8] [INFO] [1767535342.164970904] [slam_toolbox]: CeresSolver: Using SCHUR_JACOBI preconditioner.
+[map_saver_server-6] [INFO] [1767535342.291490501] [map_saver]: Configuring
+[lifecycle_manager-7] [INFO] [1767535342.292850745] [lifecycle_manager_slam]: [34m[1mActivating map_saver[0m[0m
+[map_saver_server-6] [INFO] [1767535342.292913295] [map_saver]: Activating
+[map_saver_server-6] [INFO] [1767535342.292930675] [map_saver]: Creating bond (map_saver) to lifecycle manager.
+[lifecycle_manager-7] [INFO] [1767535342.395162222] [lifecycle_manager_slam]: Server map_saver connected with bond.
+[lifecycle_manager-7] [INFO] [1767535342.395191492] [lifecycle_manager_slam]: [34m[1mManaged nodes are active[0m[0m
+[lifecycle_manager-7] [INFO] [1767535342.395198762] [lifecycle_manager_slam]: [34m[1mCreating bond timer...[0m[0m
+[spawn_entity.py-2] [INFO] [1767535342.395739424] [spawn_entity]: Spawn Entity started
+[spawn_entity.py-2] [INFO] [1767535342.395983895] [spawn_entity]: Loading entity XML from file /home/schneigu/Projects/slam_bench_orchestrator/worlds/waffle_fixed.model
+[spawn_entity.py-2] [INFO] [1767535342.396554586] [spawn_entity]: Waiting for service /spawn_entity, timeout = 30
+[spawn_entity.py-2] [INFO] [1767535342.396771057] [spawn_entity]: Waiting for service /spawn_entity
+[rviz2-4] [INFO] [1767535342.398655903] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-4] [INFO] [1767535342.398708413] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[rviz2-4] [INFO] [1767535342.410261322] [rviz2]: Stereo is NOT SUPPORTED
+[gzserver-1] [INFO] [1767535342.965014528] [gazebo.gazebo_ros_state]: Publishing states of gazebo models at [/gazebo/model_states]
+[gzserver-1] [INFO] [1767535342.965522600] [gazebo.gazebo_ros_state]: Publishing states of gazebo links at [/gazebo/link_states]
+[spawn_entity.py-2] [INFO] [1767535343.150092608] [spawn_entity]: Calling service /spawn_entity
+[spawn_entity.py-2] [INFO] [1767535343.413378704] [spawn_entity]: Spawn status: SpawnEntity: Successfully spawned entity [turtlebot3_waffle]
+[INFO] [spawn_entity.py-2]: process has finished cleanly [pid 28296]
+[gzserver-1] [INFO] [1767535343.855776461] [intel_realsense_r200_depth_driver]: Publishing camera info to [/intel_realsense_r200_depth/camera_info]
+[gzserver-1] [INFO] [1767535343.856959064] [intel_realsense_r200_depth_driver]: Publishing depth camera info to [/intel_realsense_r200_depth/depth/camera_info]
+[gzserver-1] [INFO] [1767535343.857339636] [intel_realsense_r200_depth_driver]: Publishing pointcloud to [/intel_realsense_r200_depth/points]
+[gzserver-1] [INFO] [1767535343.928966172] [turtlebot3_diff_drive]: Wheel pair 1 separation set to [0.287000m]
+[gzserver-1] [INFO] [1767535343.929010752] [turtlebot3_diff_drive]: Wheel pair 1 diameter set to [0.066000m]
+[gzserver-1] [INFO] [1767535343.929838014] [turtlebot3_diff_drive]: Subscribed to [/cmd_vel]
+[gzserver-1] [INFO] [1767535343.931429430] [turtlebot3_diff_drive]: Advertise odometry on [/odom]
+[gzserver-1] [INFO] [1767535343.933668017] [turtlebot3_diff_drive]: Publishing odom transforms between [odom] and [base_footprint]
+[gzserver-1] [INFO] [1767535343.943986001] [turtlebot3_joint_state]: Going to publish joint [wheel_left_joint]
+[gzserver-1] [INFO] [1767535343.944010781] [turtlebot3_joint_state]: Going to publish joint [wheel_right_joint]
+[sync_slam_toolbox_node-8] [INFO] [1767535344.056595892] [slam_toolbox]: Message Filter dropping message: frame 'base_scan' at time 0.288 for reason 'the timestamp on the message is earlier than all the data in the transform cache'
+[sync_slam_toolbox_node-8] [WARN] [1767535344.148862085] [slam_toolbox]: minimum laser range setting (0.0 m) exceeds the capabilities of the used Lidar (0.1 m)
+[sync_slam_toolbox_node-8] Registering sensor: [Custom Described Lidar]
+[rviz2-4] [INFO] [1767535347.198927886] [rviz2]: Trying to create a map of size 298 x 103 using 1 swatches
+[rviz2-4] [ERROR] [1767535347.230217549] [rviz2]: Vertex Program:rviz/glsl120/indexed_8bit_image.vert Fragment Program:rviz/glsl120/indexed_8bit_image.frag GLSL link result : 
+[rviz2-4] active samplers with a different type refer to the same texture image unit
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[WARNING] [launch_ros.actions.load_composable_nodes]: Abandoning wait for the '/nav2_container/_container/load_node' service response, due to shutdown.
+[map_saver_server-6] [INFO] [1767535349.076317535] [rclcpp]: signal_handler(signum=2)
+[map_saver_server-6] [INFO] [1767535349.076426796] [map_saver]: Running Nav2 LifecycleNode rcl preshutdown (map_saver)
+[INFO] [component_container_isolated-5]: process has finished cleanly [pid 28302]
+[INFO] [map_saver_server-6]: process has finished cleanly [pid 28304]
+[INFO] [lifecycle_manager-7]: process has finished cleanly [pid 28306]
+[INFO] [robot_state_publisher-3]: process has finished cleanly [pid 28298]
+[INFO] [sync_slam_toolbox_node-8]: process has finished cleanly [pid 28308]
+[sync_slam_toolbox_node-8] [INFO] [1767535349.076313915] [rclcpp]: signal_handler(signum=2)
+[lifecycle_manager-7] [INFO] [1767535349.076320825] [rclcpp]: signal_handler(signum=2)
+[lifecycle_manager-7] [INFO] [1767535349.076431666] [lifecycle_manager_slam]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_slam)
+[lifecycle_manager-7] [INFO] [1767535349.076479586] [lifecycle_manager_slam]: [34m[1mTerminating bond timer...[0m[0m
+[rviz2-4] [INFO] [1767535349.076323445] [rclcpp]: signal_handler(signum=2)
+[rviz2-4] 
+[rviz2-4] >>> [rcutils|error_handling.c:108] rcutils_set_error_state()
+[rviz2-4] This error state is being overwritten:
+[rviz2-4] 
+[rviz2-4]   'rcl node's context is invalid, at ./src/rcl/node.c:428'
+[rviz2-4] 
+[rviz2-4] with this new error message:
+[rviz2-4] 
+[rviz2-4]   'the given context is not valid, either rcl_init() was not called or rcl_shutdown() was called., at ./src/rcl/wait.c:130'
+[rviz2-4] 
+[rviz2-4] rcutils_reset_error() should be called after error handling to avoid this.
+[rviz2-4] <<<
+[robot_state_publisher-3] [INFO] [1767535349.076325215] [rclcpp]: signal_handler(signum=2)
+[component_container_isolated-5] [INFO] [1767535349.076324375] [rclcpp]: signal_handler(signum=2)
+[map_saver_server-6] [INFO] [1767535349.076499746] [map_saver]: Deactivating
+[map_saver_server-6] [INFO] [1767535349.076522036] [map_saver]: Destroying bond (map_saver) to lifecycle manager.
+[map_saver_server-6] [INFO] [1767535349.086723199] [map_saver]: Cleaning up
+[map_saver_server-6] [INFO] [1767535349.086745299] [map_saver]: Destroying bond (map_saver) to lifecycle manager.
+[map_saver_server-6] [INFO] [1767535349.087629962] [map_saver]: Destroying
+[rviz2-4] terminate called after throwing an instance of 'rclcpp::exceptions::RCLError'
+[rviz2-4]   what():  failed to initialize wait set: the given context is not valid, either rcl_init() was not called or rcl_shutdown() was called., at ./src/rcl/wait.c:130
+[lifecycle_manager-7] [INFO] [1767535349.088467805] [lifecycle_manager_slam]: Destroying lifecycle_manager_slam
+[WARNING] [launch_ros.actions.load_composable_nodes]: Abandoning wait for the '/nav2_container/_container/load_node' service response, due to shutdown.
+Future exception was never retrieved
+future: <Future finished exception=InvalidHandle('cannot use Destroyable because destruction was requested')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/ros/humble/lib/python3.10/site-packages/launch_ros/actions/load_composable_nodes.py", line 197, in _load_in_sequence
+    self._load_node(next_load_node_request, context)
+  File "/opt/ros/humble/lib/python3.10/site-packages/launch_ros/actions/load_composable_nodes.py", line 119, in _load_node
+    while not self.__rclpy_load_node_client.wait_for_service(timeout_sec=1.0):
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/client.py", line 180, in wait_for_service
+    return self.service_is_ready()
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/client.py", line 159, in service_is_ready
+    with self.handle:
+rclpy._rclpy_pybind11.InvalidHandle: cannot use Destroyable because destruction was requested
+[ERROR] [rviz2-4]: process has died [pid 28300, exit code -6, cmd '/opt/ros/humble/lib/rviz2/rviz2 -d /opt/ros/humble/share/nav2_bringup/rviz/nav2_default_view.rviz --ros-args'].
+[ERROR] [launch]: Caught exception in launch (see debug for traceback): Cannot shutdown a ROS adapter that is not running
+[ERROR] [gzserver-1]: process[gzserver-1] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+[INFO] [gzserver-1]: sending signal 'SIGTERM' to process[gzserver-1]
+[gzserver-1] [INFO] [1767535354.926358019] [rclcpp]: signal_handler(signum=15)

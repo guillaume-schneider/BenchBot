@@ -1,0 +1,103 @@
+[INFO] [launch]: All log files can be found below /home/schneigu/.ros/log/2026-01-04-15-03-42-568034-schneigu-29722
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [gzserver-1]: process started with pid [29786]
+[INFO] [spawn_entity.py-2]: process started with pid [29789]
+[INFO] [robot_state_publisher-3]: process started with pid [29791]
+[INFO] [component_container_isolated-4]: process started with pid [29793]
+[INFO] [map_saver_server-5]: process started with pid [29796]
+[INFO] [lifecycle_manager-6]: process started with pid [29798]
+[INFO] [sync_slam_toolbox_node-7]: process started with pid [29800]
+[lifecycle_manager-6] [INFO] [1767535423.343633050] [lifecycle_manager_slam]: Creating
+[lifecycle_manager-6] [INFO] [1767535423.346679089] [lifecycle_manager_slam]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[map_saver_server-5] [INFO] [1767535423.348233664] [map_saver]: 
+[map_saver_server-5] 	map_saver lifecycle node launched. 
+[map_saver_server-5] 	Waiting on external lifecycle transitions to activate
+[map_saver_server-5] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[map_saver_server-5] [INFO] [1767535423.348332475] [map_saver]: Creating
+[sync_slam_toolbox_node-7] [INFO] [1767535423.348317075] [slam_toolbox]: Node using stack size 40000000
+[robot_state_publisher-3] [INFO] [1767535423.360264103] [robot_state_publisher]: got segment base_footprint
+[robot_state_publisher-3] [INFO] [1767535423.360340383] [robot_state_publisher]: got segment base_link
+[robot_state_publisher-3] [INFO] [1767535423.360349943] [robot_state_publisher]: got segment base_scan
+[robot_state_publisher-3] [INFO] [1767535423.360365243] [robot_state_publisher]: got segment camera_depth_frame
+[robot_state_publisher-3] [INFO] [1767535423.360412593] [robot_state_publisher]: got segment camera_depth_optical_frame
+[robot_state_publisher-3] [INFO] [1767535423.360420193] [robot_state_publisher]: got segment camera_link
+[robot_state_publisher-3] [INFO] [1767535423.360425903] [robot_state_publisher]: got segment camera_rgb_frame
+[robot_state_publisher-3] [INFO] [1767535423.360431754] [robot_state_publisher]: got segment camera_rgb_optical_frame
+[robot_state_publisher-3] [INFO] [1767535423.360445594] [robot_state_publisher]: got segment caster_back_left_link
+[robot_state_publisher-3] [INFO] [1767535423.360450974] [robot_state_publisher]: got segment caster_back_right_link
+[robot_state_publisher-3] [INFO] [1767535423.360456304] [robot_state_publisher]: got segment imu_link
+[robot_state_publisher-3] [INFO] [1767535423.360461384] [robot_state_publisher]: got segment wheel_left_link
+[robot_state_publisher-3] [INFO] [1767535423.360467534] [robot_state_publisher]: got segment wheel_right_link
+[ERROR] [gzserver-1]: process has died [pid 29786, exit code 255, cmd 'gzserver -s libgazebo_ros_init.so -s libgazebo_ros_factory.so /home/schneigu/Projects/slam_bench_orchestrator/worlds/fixed_model.world'].
+[sync_slam_toolbox_node-7] [INFO] [1767535423.394893494] [slam_toolbox]: Using solver plugin solver_plugins::CeresSolver
+[sync_slam_toolbox_node-7] [INFO] [1767535423.395120055] [slam_toolbox]: CeresSolver: Using SCHUR_JACOBI preconditioner.
+[lifecycle_manager-6] [INFO] [1767535423.413384253] [lifecycle_manager_slam]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-6] [INFO] [1767535423.413431523] [lifecycle_manager_slam]: [34m[1mConfiguring map_saver[0m[0m
+[map_saver_server-5] [INFO] [1767535423.413802344] [map_saver]: Configuring
+[lifecycle_manager-6] [INFO] [1767535423.416034201] [lifecycle_manager_slam]: [34m[1mActivating map_saver[0m[0m
+[map_saver_server-5] [INFO] [1767535423.416223052] [map_saver]: Activating
+[map_saver_server-5] [INFO] [1767535423.416240852] [map_saver]: Creating bond (map_saver) to lifecycle manager.
+[spawn_entity.py-2] [INFO] [1767535423.456587831] [spawn_entity]: Spawn Entity started
+[spawn_entity.py-2] [INFO] [1767535423.456991992] [spawn_entity]: Loading entity XML from file /home/schneigu/Projects/slam_bench_orchestrator/worlds/waffle_fixed.model
+[spawn_entity.py-2] [INFO] [1767535423.457771305] [spawn_entity]: Waiting for service /spawn_entity, timeout = 30
+[spawn_entity.py-2] [INFO] [1767535423.458069516] [spawn_entity]: Waiting for service /spawn_entity
+[lifecycle_manager-6] [INFO] [1767535423.520645436] [lifecycle_manager_slam]: Server map_saver connected with bond.
+[lifecycle_manager-6] [INFO] [1767535423.520682926] [lifecycle_manager_slam]: [34m[1mManaged nodes are active[0m[0m
+[lifecycle_manager-6] [INFO] [1767535423.520696366] [lifecycle_manager_slam]: [34m[1mCreating bond timer...[0m[0m
+[spawn_entity.py-2] [INFO] [1767535425.213858810] [spawn_entity]: Calling service /spawn_entity
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[sync_slam_toolbox_node-7] [INFO] [1767535484.678379568] [rclcpp]: signal_handler(signum=2)
+[ERROR] [spawn_entity.py-2]: process has died [pid 29789, exit code -2, cmd '/opt/ros/humble/lib/gazebo_ros/spawn_entity.py -entity turtlebot3_waffle -file /home/schneigu/Projects/slam_bench_orchestrator/worlds/waffle_fixed.model -robot_namespace -x 0.5 -y 0.5 -z 0.01 -R 0.00 -P 0.00 -Y 0.0 --ros-args'].
+[INFO] [component_container_isolated-4]: process has finished cleanly [pid 29793]
+[INFO] [robot_state_publisher-3]: process has finished cleanly [pid 29791]
+[INFO] [sync_slam_toolbox_node-7]: process has finished cleanly [pid 29800]
+[INFO] [lifecycle_manager-6]: process has finished cleanly [pid 29798]
+[INFO] [map_saver_server-5]: process has finished cleanly [pid 29796]
+[lifecycle_manager-6] [INFO] [1767535484.678380768] [rclcpp]: signal_handler(signum=2)
+[lifecycle_manager-6] [INFO] [1767535484.678482899] [lifecycle_manager_slam]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_slam)
+[lifecycle_manager-6] [INFO] [1767535484.678541389] [lifecycle_manager_slam]: [34m[1mTerminating bond timer...[0m[0m
+[robot_state_publisher-3] [INFO] [1767535484.678387258] [rclcpp]: signal_handler(signum=2)
+[map_saver_server-5] [INFO] [1767535484.678386898] [rclcpp]: signal_handler(signum=2)
+[map_saver_server-5] [INFO] [1767535484.678498559] [map_saver]: Running Nav2 LifecycleNode rcl preshutdown (map_saver)
+[map_saver_server-5] [INFO] [1767535484.678585619] [map_saver]: Deactivating
+[map_saver_server-5] [INFO] [1767535484.678607979] [map_saver]: Destroying bond (map_saver) to lifecycle manager.
+[component_container_isolated-4] [INFO] [1767535484.678389738] [rclcpp]: signal_handler(signum=2)
+[spawn_entity.py-2] Traceback (most recent call last):
+[spawn_entity.py-2]   File "/opt/ros/humble/lib/gazebo_ros/spawn_entity.py", line 372, in <module>
+[spawn_entity.py-2]     main()
+[spawn_entity.py-2]   File "/opt/ros/humble/lib/gazebo_ros/spawn_entity.py", line 367, in main
+[spawn_entity.py-2]     exit_code = spawn_entity_node.run()
+[spawn_entity.py-2]   File "/opt/ros/humble/lib/gazebo_ros/spawn_entity.py", line 228, in run
+[spawn_entity.py-2]     success = self._spawn_entity(entity_xml, initial_pose, spawn_service_timeout)
+[spawn_entity.py-2]   File "/opt/ros/humble/lib/gazebo_ros/spawn_entity.py", line 290, in _spawn_entity
+[spawn_entity.py-2]     rclpy.spin_once(self)
+[spawn_entity.py-2]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/__init__.py", line 208, in spin_once
+[spawn_entity.py-2]     executor.spin_once(timeout_sec=timeout_sec)
+[spawn_entity.py-2]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 773, in spin_once
+[spawn_entity.py-2]     self._spin_once_impl(timeout_sec)
+[spawn_entity.py-2]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 762, in _spin_once_impl
+[spawn_entity.py-2]     handler, entity, node = self.wait_for_ready_callbacks(timeout_sec=timeout_sec)
+[spawn_entity.py-2]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 745, in wait_for_ready_callbacks
+[spawn_entity.py-2]     return next(self._cb_iter)
+[spawn_entity.py-2]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 642, in _wait_for_ready_callbacks
+[spawn_entity.py-2]     wait_set.wait(timeout_nsec)
+[spawn_entity.py-2] KeyboardInterrupt
+[map_saver_server-5] [INFO] [1767535484.688833351] [map_saver]: Cleaning up
+[map_saver_server-5] [INFO] [1767535484.688863761] [map_saver]: Destroying bond (map_saver) to lifecycle manager.
+[map_saver_server-5] [INFO] [1767535484.689911755] [map_saver]: Destroying
+[lifecycle_manager-6] [INFO] [1767535484.691055798] [lifecycle_manager_slam]: Destroying lifecycle_manager_slam
+[WARNING] [launch_ros.actions.load_composable_nodes]: Abandoning wait for the '/nav2_container/_container/load_node' service response, due to shutdown.
+Future exception was never retrieved
+future: <Future finished exception=InvalidHandle('cannot use Destroyable because destruction was requested')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/ros/humble/lib/python3.10/site-packages/launch_ros/actions/load_composable_nodes.py", line 197, in _load_in_sequence
+    self._load_node(next_load_node_request, context)
+  File "/opt/ros/humble/lib/python3.10/site-packages/launch_ros/actions/load_composable_nodes.py", line 119, in _load_node
+    while not self.__rclpy_load_node_client.wait_for_service(timeout_sec=1.0):
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/client.py", line 180, in wait_for_service
+    return self.service_is_ready()
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/client.py", line 159, in service_is_ready
+    with self.handle:
+rclpy._rclpy_pybind11.InvalidHandle: cannot use Destroyable because destruction was requested

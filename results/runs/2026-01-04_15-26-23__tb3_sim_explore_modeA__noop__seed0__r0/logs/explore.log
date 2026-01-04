@@ -1,0 +1,17 @@
+[INFO] [launch]: All log files can be found below /home/schneigu/.ros/log/2026-01-04-15-26-23-796290-schneigu-34898
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [explore-1]: process started with pid [34904]
+[explore-1] [INFO] [1767536783.853128343] [explore_node]: Waiting for costmap to become available, topic: map
+[explore-1] [INFO] [1767536790.868008407] [explore_node]: Waiting to connect to move_base nav2 server
+[explore-1] [INFO] [1767536790.868270148] [explore_node]: Connected to move_base nav2 server
+[explore-1] [INFO] [1767536790.868277808] [explore_node]: Getting initial pose of the robot
+[explore-1] [INFO] [1767536791.541327586] [explore_node]: Exploration resuming.
+[explore-1] [INFO] [1767536791.543011830] [explore_node]: Exploration resuming.
+[explore-1] [INFO] [1767536881.601219259] [explore_node]: Exploration stopped.
+[explore-1] [INFO] [1767536881.601362080] [explore_node]: Exploration stopped.
+[explore-1] [INFO] [1767536881.642096523] [explore_node]: Exploration stopped.
+[explore-1] [INFO] [1767536881.642148423] [explore_node]: Exploration stopped.
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[explore-1] [INFO] [1767536881.901865429] [rclcpp]: signal_handler(signum=2)
+[explore-1] [INFO] [1767536881.902028389] [explore_node]: Exploration stopped.
+[INFO] [explore-1]: process has finished cleanly [pid 34904]

@@ -1,0 +1,50 @@
+schema_version: int
+id: str
+display_name: str
+description: str|null
+
+launch:
+  cmd: [str, ...]                      # commande complète (ros2 launch ...)
+  cwd: str|null
+  env: {<str>: <str>}
+  args: {<str>: <yaml scalar>}         # arguments launch
+  namespace: str|null                  # ex: "/robot1" si mono-robot
+  use_sim_time: bool|null              # override (sinon matrix defaults)
+  respawn: bool                        # si tu veux respawn (souvent false bench)
+
+params:
+  files: [str, ...]                    # chemins YAML de params ROS2
+  inline: {<str>: <yaml any>}          # overrides de paramètres (aplatis par node)
+                                      # ex:
+                                      # inline:
+                                      #   slam_toolbox:
+                                      #     ros__parameters:
+                                      #       mode: "mapping"
+
+remaps:                                # remaps de topics (au besoin)
+  <str>: <str>
+
+io_contract:                           # standardisation pour évaluateur
+  map_topic: str                       # ex: "/map" ou "/robot1/map"
+  map_frame: str                       # ex: "map"
+  odom_frame: str                      # ex: "odom"
+  base_frame: str                      # ex: "base_link"
+  scan_topic: str|null                 # ex: "/scan"
+  pose_source: str                     # "tf"|"topic"
+  pose_topic: str|null                 # si pose_source=topic
+
+probes:
+  ready:                               # probes spécifiques au slam (voir section 3)
+    - {type: str, ...}
+  health:                              # probes en cours de run (optionnel)
+    - {type: str, ...}
+  stop:                                # probes au stop (optionnel)
+    - {type: str, ...}
+
+recording_overrides:                   # topics additionnels propres à ce slam (optionnel)
+  topics:
+    - str
+
+notes:
+  known_issues: [str, ...]
+  tips: [str, ...]

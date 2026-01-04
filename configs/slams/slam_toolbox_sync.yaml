@@ -1,0 +1,66 @@
+schema_version: 1
+id: "slam_toolbox_sync"
+display_name: "slam_toolbox (sync mapping)"
+description: "SLAM 2D slam_toolbox en mode mapping synchronisé."
+
+launch:
+  cmd: ["ros2", "launch", "slam_toolbox", "online_sync_launch.py"]
+  cwd: null
+  env: {}
+  args:
+    slam_params_file: "/opt/ros/humble/share/slam_toolbox/config/mapper_params_online_sync.yaml"
+    use_sim_time: true
+  namespace: null
+  use_sim_time: true
+  respawn: false
+
+params:
+  files:
+    - "/opt/ros/humble/share/slam_toolbox/config/mapper_params_online_sync.yaml"
+  inline: {}   # tu peux override ici au besoin
+
+remaps:
+  "/scan": "/scan"   # ajuste si robot namespace
+
+io_contract:
+  map_topic: "/map"
+  map_frame: "map"
+  odom_frame: "odom"
+  base_frame: "base_link"
+  scan_topic: "/scan"
+  pose_source: "tf"
+  pose_topic: null
+
+probes:
+  ready:
+    - type: "service_available"
+      service: "/slam_toolbox/dynamic_map"
+      srv_type: "nav_msgs/srv/GetMap"
+      timeout_s: 20
+    - type: "tf_available"
+      from_frame: "map"
+      to_frame: "odom"
+      timeout_s: 30
+    - type: "topic_publish"
+      topic: "/map"
+      msg_type: "nav_msgs/msg/OccupancyGrid"
+      min_messages: 1
+      timeout_s: 60
+  health:
+    - type: "topic_hz"
+      topic: "/map"
+      msg_type: "nav_msgs/msg/OccupancyGrid"
+      min_hz: 0.1
+      window_s: 20
+      timeout_s: 60
+
+recording_overrides:
+  topics:
+    - "/slam_toolbox/graph_visualization"
+    - "/slam_toolbox/scan_matching_odometry"
+
+notes:
+  known_issues:
+    - "Si /scan QoS est en BestEffort et slam_toolbox en Reliable, besoin d'override QoS."
+  tips:
+    - "Toujours recorder /tf_static, sinon repro TF impossible."

@@ -1,0 +1,14 @@
+name: exp
+datasets:
+- id: tb3_sim
+  world_name: worlds/turtlebot3_house.world
+  launch:
+    cmd: ros2 launch nav2_bringup tb3_simulation_launch.py headless:=True world:={world_name}
+slams:
+- id: slam_toolbox_sync
+  config_path: configs/slams/slam_toolbox_sync.yaml
+matrix:
+  include:
+  - repeats: 1
+output:
+  root_dir: results/runs

@@ -1,0 +1,98 @@
+[INFO] [launch]: All log files can be found below /home/schneigu/.ros/log/2026-01-04-15-16-18-723086-schneigu-32407
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [gzserver-1]: process started with pid [32457]
+[INFO] [spawn_entity.py-2]: process started with pid [32459]
+[INFO] [robot_state_publisher-3]: process started with pid [32461]
+[INFO] [component_container_isolated-4]: process started with pid [32463]
+[INFO] [map_saver_server-5]: process started with pid [32465]
+[INFO] [lifecycle_manager-6]: process started with pid [32467]
+[INFO] [sync_slam_toolbox_node-7]: process started with pid [32469]
+[sync_slam_toolbox_node-7] [INFO] [1767536179.243106286] [slam_toolbox]: Node using stack size 40000000
+[robot_state_publisher-3] [INFO] [1767536179.245313420] [robot_state_publisher]: got segment base_footprint
+[robot_state_publisher-3] [INFO] [1767536179.245380890] [robot_state_publisher]: got segment base_link
+[robot_state_publisher-3] [INFO] [1767536179.245389631] [robot_state_publisher]: got segment base_scan
+[robot_state_publisher-3] [INFO] [1767536179.245401641] [robot_state_publisher]: got segment camera_depth_frame
+[robot_state_publisher-3] [INFO] [1767536179.245408091] [robot_state_publisher]: got segment camera_depth_optical_frame
+[robot_state_publisher-3] [INFO] [1767536179.245414141] [robot_state_publisher]: got segment camera_link
+[robot_state_publisher-3] [INFO] [1767536179.245420201] [robot_state_publisher]: got segment camera_rgb_frame
+[robot_state_publisher-3] [INFO] [1767536179.245425481] [robot_state_publisher]: got segment camera_rgb_optical_frame
+[robot_state_publisher-3] [INFO] [1767536179.245431451] [robot_state_publisher]: got segment caster_back_left_link
+[robot_state_publisher-3] [INFO] [1767536179.245437451] [robot_state_publisher]: got segment caster_back_right_link
+[robot_state_publisher-3] [INFO] [1767536179.245443331] [robot_state_publisher]: got segment imu_link
+[robot_state_publisher-3] [INFO] [1767536179.245449301] [robot_state_publisher]: got segment wheel_left_link
+[robot_state_publisher-3] [INFO] [1767536179.245455221] [robot_state_publisher]: got segment wheel_right_link
+[lifecycle_manager-6] [INFO] [1767536179.246176392] [lifecycle_manager_slam]: Creating
+[lifecycle_manager-6] [INFO] [1767536179.249649478] [lifecycle_manager_slam]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[map_saver_server-5] [INFO] [1767536179.252514203] [map_saver]: 
+[map_saver_server-5] 	map_saver lifecycle node launched. 
+[map_saver_server-5] 	Waiting on external lifecycle transitions to activate
+[map_saver_server-5] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[map_saver_server-5] [INFO] [1767536179.252628883] [map_saver]: Creating
+[sync_slam_toolbox_node-7] [INFO] [1767536179.281849893] [slam_toolbox]: Using solver plugin solver_plugins::CeresSolver
+[sync_slam_toolbox_node-7] [INFO] [1767536179.281962193] [slam_toolbox]: CeresSolver: Using SCHUR_JACOBI preconditioner.
+[lifecycle_manager-6] [INFO] [1767536179.402041941] [lifecycle_manager_slam]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-6] [INFO] [1767536179.402082711] [lifecycle_manager_slam]: [34m[1mConfiguring map_saver[0m[0m
+[map_saver_server-5] [INFO] [1767536179.402311981] [map_saver]: Configuring
+[lifecycle_manager-6] [INFO] [1767536179.404226234] [lifecycle_manager_slam]: [34m[1mActivating map_saver[0m[0m
+[map_saver_server-5] [INFO] [1767536179.404292894] [map_saver]: Activating
+[map_saver_server-5] [INFO] [1767536179.404310934] [map_saver]: Creating bond (map_saver) to lifecycle manager.
+[lifecycle_manager-6] [INFO] [1767536179.506671141] [lifecycle_manager_slam]: Server map_saver connected with bond.
+[lifecycle_manager-6] [INFO] [1767536179.506704781] [lifecycle_manager_slam]: [34m[1mManaged nodes are active[0m[0m
+[lifecycle_manager-6] [INFO] [1767536179.506714931] [lifecycle_manager_slam]: [34m[1mCreating bond timer...[0m[0m
+[spawn_entity.py-2] [INFO] [1767536179.541342701] [spawn_entity]: Spawn Entity started
+[spawn_entity.py-2] [INFO] [1767536179.541746242] [spawn_entity]: Loading entity XML from file /home/schneigu/Projects/slam_bench_orchestrator/worlds/waffle_fixed.model
+[spawn_entity.py-2] [INFO] [1767536179.542580143] [spawn_entity]: Waiting for service /spawn_entity, timeout = 30
+[spawn_entity.py-2] [INFO] [1767536179.542902854] [spawn_entity]: Waiting for service /spawn_entity
+[spawn_entity.py-2] [INFO] [1767536180.047355224] [spawn_entity]: Calling service /spawn_entity
+[gzserver-1] [INFO] [1767536180.073107859] [gazebo.gazebo_ros_state]: Publishing states of gazebo models at [/gazebo/model_states]
+[gzserver-1] [INFO] [1767536180.073646420] [gazebo.gazebo_ros_state]: Publishing states of gazebo links at [/gazebo/link_states]
+[spawn_entity.py-2] [INFO] [1767536180.311967441] [spawn_entity]: Spawn status: SpawnEntity: Successfully spawned entity [turtlebot3_waffle]
+[INFO] [spawn_entity.py-2]: process has finished cleanly [pid 32459]
+[gzserver-1] [INFO] [1767536182.076166359] [intel_realsense_r200_depth_driver]: Publishing camera info to [/intel_realsense_r200_depth/camera_info]
+[gzserver-1] [INFO] [1767536182.077607342] [intel_realsense_r200_depth_driver]: Publishing depth camera info to [/intel_realsense_r200_depth/depth/camera_info]
+[gzserver-1] [INFO] [1767536182.078059723] [intel_realsense_r200_depth_driver]: Publishing pointcloud to [/intel_realsense_r200_depth/points]
+[gzserver-1] [INFO] [1767536182.127352688] [turtlebot3_diff_drive]: Wheel pair 1 separation set to [0.287000m]
+[gzserver-1] [INFO] [1767536182.127404198] [turtlebot3_diff_drive]: Wheel pair 1 diameter set to [0.066000m]
+[gzserver-1] [INFO] [1767536182.128330000] [turtlebot3_diff_drive]: Subscribed to [/cmd_vel]
+[gzserver-1] [INFO] [1767536182.129956792] [turtlebot3_diff_drive]: Advertise odometry on [/odom]
+[gzserver-1] [INFO] [1767536182.132093156] [turtlebot3_diff_drive]: Publishing odom transforms between [odom] and [base_footprint]
+[gzserver-1] [INFO] [1767536182.142231394] [turtlebot3_joint_state]: Going to publish joint [wheel_left_joint]
+[gzserver-1] [INFO] [1767536182.142259454] [turtlebot3_joint_state]: Going to publish joint [wheel_right_joint]
+[sync_slam_toolbox_node-7] [WARN] [1767536182.347771569] [slam_toolbox]: minimum laser range setting (0.0 m) exceeds the capabilities of the used Lidar (0.1 m)
+[sync_slam_toolbox_node-7] Registering sensor: [Custom Described Lidar]
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[WARNING] [launch_ros.actions.load_composable_nodes]: Abandoning wait for the '/nav2_container/_container/load_node' service response, due to shutdown.
+[map_saver_server-5] [INFO] [1767536276.934745916] [rclcpp]: signal_handler(signum=2)
+[map_saver_server-5] [INFO] [1767536276.934833266] [map_saver]: Running Nav2 LifecycleNode rcl preshutdown (map_saver)
+[lifecycle_manager-6] [INFO] [1767536276.934746116] [rclcpp]: signal_handler(signum=2)
+[lifecycle_manager-6] [INFO] [1767536276.934840696] [lifecycle_manager_slam]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_slam)
+[lifecycle_manager-6] [INFO] [1767536276.934890756] [lifecycle_manager_slam]: [34m[1mTerminating bond timer...[0m[0m
+Future exception was never retrieved
+future: <Future finished exception=InvalidHandle('cannot use Destroyable because destruction was requested')>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/ros/humble/lib/python3.10/site-packages/launch_ros/actions/load_composable_nodes.py", line 197, in _load_in_sequence
+    self._load_node(next_load_node_request, context)
+  File "/opt/ros/humble/lib/python3.10/site-packages/launch_ros/actions/load_composable_nodes.py", line 119, in _load_node
+    while not self.__rclpy_load_node_client.wait_for_service(timeout_sec=1.0):
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/client.py", line 180, in wait_for_service
+    return self.service_is_ready()
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/client.py", line 159, in service_is_ready
+    with self.handle:
+rclpy._rclpy_pybind11.InvalidHandle: cannot use Destroyable because destruction was requested
+[sync_slam_toolbox_node-7] [INFO] [1767536276.934746316] [rclcpp]: signal_handler(signum=2)
+[robot_state_publisher-3] [INFO] [1767536276.934754616] [rclcpp]: signal_handler(signum=2)
+[component_container_isolated-4] [INFO] [1767536276.934760226] [rclcpp]: signal_handler(signum=2)
+[map_saver_server-5] [INFO] [1767536276.934901406] [map_saver]: Deactivating
+[map_saver_server-5] [INFO] [1767536276.934922426] [map_saver]: Destroying bond (map_saver) to lifecycle manager.
+[lifecycle_manager-6] [INFO] [1767536277.037107166] [lifecycle_manager_slam]: Destroying lifecycle_manager_slam
+[map_saver_server-5] [INFO] [1767536277.847106471] [map_saver]: Cleaning up
+[map_saver_server-5] [INFO] [1767536277.847137501] [map_saver]: Destroying bond (map_saver) to lifecycle manager.
+[map_saver_server-5] [INFO] [1767536277.848260793] [map_saver]: Destroying
+[INFO] [component_container_isolated-4]: process has finished cleanly [pid 32463]
+[INFO] [robot_state_publisher-3]: process has finished cleanly [pid 32461]
+[INFO] [sync_slam_toolbox_node-7]: process has finished cleanly [pid 32469]
+[INFO] [map_saver_server-5]: process has finished cleanly [pid 32465]
+[INFO] [gzserver-1]: process has finished cleanly [pid 32457]
+[INFO] [lifecycle_manager-6]: process has finished cleanly [pid 32467]

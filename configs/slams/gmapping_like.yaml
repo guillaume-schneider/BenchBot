@@ -1,0 +1,57 @@
+schema_version: 1
+id: "gmapping_like"
+display_name: "GMapping-like (2D particle)"
+description: "Implémentation gmapping-like ROS2 (selon package choisi)."
+
+launch:
+  cmd: ["ros2", "launch", "slam_gmapping", "slam_gmapping.launch.py"]
+  cwd: null
+  env: {}
+  args:
+    use_sim_time: true
+  namespace: null
+  use_sim_time: true
+  respawn: false
+
+params:
+  files:
+    - "/home/user/configs/gmapping/gmapping_params.yaml"
+  inline: {}
+
+remaps:
+  "/scan": "/scan"
+
+io_contract:
+  map_topic: "/map"
+  map_frame: "map"
+  odom_frame: "odom"
+  base_frame: "base_link"
+  scan_topic: "/scan"
+  pose_source: "tf"
+  pose_topic: null
+
+probes:
+  ready:
+    - type: "topic_publish"
+      topic: "/map"
+      min_messages: 1
+      timeout_s: 90
+    - type: "tf_available"
+      from_frame: "map"
+      to_frame: "odom"
+      timeout_s: 60
+  health:
+    - type: "topic_hz"
+      topic: "/tf"
+      min_hz: 5.0
+      window_s: 5
+      timeout_s: 20
+
+recording_overrides:
+  topics: []
+
+notes:
+  known_issues:
+    - "Multi-robot: gmapping-like rarement adapté sans namespacing/merge."
+  tips:
+    - "Vérifier que /scan frame_id correspond bien à base_frame via TF."

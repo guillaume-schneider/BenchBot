@@ -1,0 +1,21 @@
+[INFO] [1767535423.330008336] [rosbag2_recorder]: Press SPACE for pausing/resuming
+[INFO] [1767535423.331758362] [rosbag2_storage]: Opened database 'results/runs/2026-01-04_15-03-42__tb3_sim_explore_modeA__noop__seed0__r0/bags/output/output_0.db3' for READ_WRITE.
+[INFO] [1767535423.332607374] [rosbag2_recorder]: Listening for topics...
+[INFO] [1767535423.332620014] [rosbag2_recorder]: Event publisher thread: Starting
+[INFO] [1767535423.333979009] [rosbag2_recorder]: Subscribed to topic '/clock'
+[INFO] [1767535423.334040319] [rosbag2_recorder]: Recording...
+[INFO] [1767535423.334490290] [rosbag2_recorder]: Overriding subscription profile for /tf
+[INFO] [1767535423.337404640] [rosbag2_recorder]: Subscribed to topic '/tf'
+[INFO] [1767535423.338102762] [rosbag2_recorder]: Subscribed to topic '/robot_description'
+[INFO] [1767535423.338328883] [rosbag2_recorder]: Overriding subscription profile for /tf_static
+[INFO] [1767535423.338676644] [rosbag2_recorder]: Subscribed to topic '/tf_static'
+[INFO] [1767535423.439615477] [rosbag2_recorder]: Overriding subscription profile for /gazebo/model_states
+[INFO] [1767535423.441178402] [rosbag2_recorder]: Subscribed to topic '/gazebo/model_states'
+[INFO] [1767535423.442366195] [rosbag2_recorder]: Subscribed to topic '/map'
+[INFO] [1767535423.443002848] [rosbag2_recorder]: Subscribed to topic '/map_metadata'
+[INFO] [1767535423.443863690] [rosbag2_recorder]: Subscribed to topic '/odom'
+[INFO] [1767535423.444085581] [rosbag2_recorder]: Overriding subscription profile for /scan
+[INFO] [1767535423.444981094] [rosbag2_recorder]: Subscribed to topic '/scan'
+[INFO] [1767535483.346574751] [rosbag2_cpp]: Writing remaining messages from cache to the bag. It may take a while
+[INFO] [1767535483.347506304] [rosbag2_recorder]: Event publisher thread: Exiting
+[INFO] [1767535483.347561694] [rosbag2_recorder]: Recording stopped
