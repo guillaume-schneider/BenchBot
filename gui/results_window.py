@@ -200,7 +200,8 @@ class ResultWindow(QMainWindow):
             self.ax_est.set_title("Estimated Map", color='white')
             
             self.display_map(self.ax_gt, gt_map)
-            self.display_map(self.ax_est, est_map)
+            # Flip estimated map to match GT orientation
+            self.display_map(self.ax_est, np.flipud(est_map))
             
             self.canvas.draw()
             

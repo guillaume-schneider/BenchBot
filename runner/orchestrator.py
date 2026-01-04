@@ -56,6 +56,17 @@ def run_once(config_path: str) -> int:
     logs_dir = cfg["paths"]["logs_dir"]
     bags_dir = cfg["paths"]["bags_dir"]
 
+    # Préventive cleanup: kill any leftover Gazebo/Nav2 processes
+    # This ensures a clean slate before starting
+    try:
+        import subprocess
+        subprocess.run(["pkill", "-9", "-f", "gzserver"], stderr=subprocess.DEVNULL, timeout=2)
+        subprocess.run(["pkill", "-9", "-f", "gzclient"], stderr=subprocess.DEVNULL, timeout=2)
+        subprocess.run(["pkill", "-9", "-f", "nav2"], stderr=subprocess.DEVNULL, timeout=2)
+        time.sleep(2.0)  # Let the system fully clean up ports and resources
+    except Exception:
+        pass
+
     pm = ProcessManager(logs_dir=logs_dir)
 
     # Start ROS probe node
@@ -199,6 +210,12 @@ def run_once(config_path: str) -> int:
                 pm.stop(proc["name"])
         except Exception:
             pass
+        
+        # Ensure ALL processes are stopped (safety net)
+        try:
+            pm.stop_all()
+        except Exception:
+            pass
 
         # EVALUATE (after stop)
         try:
@@ -221,3 +238,13 @@ def run_once(config_path: str) -> int:
 
         node.destroy_node()
         rclpy.shutdown()
+        
+        # Final killall for stubborn processes (Gazebo is notorious)
+        # This is a nuclear option but necessary for reliability
+        try:
+            import subprocess
+            subprocess.run(["pkill", "-9", "-f", "gzserver"], stderr=subprocess.DEVNULL, timeout=2)
+            subprocess.run(["pkill", "-9", "-f", "gzclient"], stderr=subprocess.DEVNULL, timeout=2)
+            time.sleep(2.0)  # Increased from 0.5s - let the system fully clean up
+        except Exception:
+            pass
