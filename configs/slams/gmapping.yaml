@@ -1,0 +1,72 @@
+schema_version: 1
+id: "gmapping"
+display_name: "GMapping"
+description: "Classic GMapping SLAM (requires slam_gmapping package)"
+
+launch:
+  # On utilise un wrapper qui source deps/gmapping_ws
+  cmd: 
+    - "/home/schneigu/Projects/slam_bench_orchestrator/tools/launch/gmapping_wrapper.sh"
+    - "--ros-args"
+    - "--params-file"
+    - "/home/schneigu/Projects/slam_bench_orchestrator/configs/params/gmapping_params.yaml"
+    - "-p"
+    - "use_sim_time:=true"
+  args:
+    use_sim_time: "true"
+
+params:
+  # Parametres passes via --ros-args -p key:=value
+  inline: # Moved to external file configs/params/gmapping_params.yaml
+    base_frame: "base_footprint"
+    odom_frame: "odom"
+    map_frame: "map"
+    map_update_interval: 5.0 # Match Toolbox
+    maxUrange: 20.0 # Match Toolbox
+    sigma: 0.05
+    kernelSize: 1
+    lstep: 0.05
+    astep: 0.05
+    iterations: 5
+    lsigma: 0.075
+    ogain: 3.0
+    lskip: 0
+    srr: 0.1
+    srt: 0.2
+    str: 0.1
+    stt: 0.2
+    linearUpdate: 1.0
+    angularUpdate: 0.5
+    temporalUpdate: 3.0
+    resampleThreshold: 0.5
+    particles: 100
+    xmin: -10.0
+    ymin: -10.0
+    xmax: 10.0
+    ymax: 10.0
+    delta: 0.05
+    llsamplerange: 0.01
+    llsamplestep: 0.01
+    lasamplerange: 0.005
+    lasamplestep: 0.005
+    transform_publish_period: 0.02 # Match Toolbox (50Hz)
+    occ_thresh: 0.25
+
+remaps:
+  scan: "/scan"
+  odom: "/odom"
+
+io_contract:
+  map_topic: "/map"
+  map_frame: "map"
+  odom_frame: "odom"
+  base_frame: "base_footprint"
+  scan_topic: "/scan"
+
+probes:
+  health:
+    - type: "topic_hz"
+      topic: "/map"
+      msg_type: "nav_msgs/msg/OccupancyGrid"
+      min_hz: 0.1 # GMapping publie map lentement (update_interval 5s = 0.2Hz)
+      timeout_s: 30

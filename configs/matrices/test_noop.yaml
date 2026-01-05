@@ -1,0 +1,81 @@
+schema_version: 1
+name: test_noop
+workspace:
+  ros_distro: humble
+  use_sim_time: true
+defaults:
+  run:
+    warmup_s: 2.0
+    drain_s: 1.0
+    timeout_s: 120.0
+    max_restarts: 0
+  rosbag:
+    enabled: true
+    storage_id: sqlite3
+    topics: [/tf, /tf_static, /odom, /clock, /scan, /cmd_vel, /gazebo/model_states, /robot_description]
+  probes:
+    required:
+    - type: topic_publish
+      topic: /scan
+      msg_type: sensor_msgs/msg/LaserScan
+      min_messages: 1
+      timeout_s: 60
+    - type: tf_available
+      from_frame: map
+      to_frame: odom
+      timeout_s: 60
+    # Pas de probe MAP pour noop (Baseline)
+
+datasets:
+- id: tb3_sim_explore_modeA
+  kind: sim_gazebo
+  scenario:
+    processes:
+    - name: nav2_sim
+      cmd:
+      - ros2
+      - launch
+      - /home/schneigu/Projects/slam_bench_orchestrator/tools/launch/tb3_sim_no_loc.launch.py
+      - use_sim_time:=True
+      - x_pose:=0.5
+      - y_pose:=0.5
+      - world:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/fixed_model.world
+      - robot_sdf:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/waffle_fixed.model
+      env:
+        TURTLEBOT3_MODEL: waffle
+    - name: explore
+      cmd:
+      - ros2
+      - launch
+      - explore_lite
+      - explore.launch.py
+      - use_sim_time:=True
+      env:
+        AMENT_PREFIX_PATH: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge:/home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite:/opt/ros/humble
+        LD_LIBRARY_PATH: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib
+        PYTHONPATH: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages
+      params:
+        explore_node:
+          ros__parameters:
+            robot_base_frame: base_footprint
+            min_frontier_size: 0.15
+            planner_frequency: 1.0
+  world_model: worlds/model.sdf
+
+slams:
+- id: noop
+  profile: configs/slams/noop.yaml
+
+matrix:
+  include:
+  - dataset: tb3_sim_explore_modeA
+    slams:
+    - noop
+    repeats: 1
+    seeds: [0]
+    tags: [single_test, noop]
+
+output:
+  root_dir: results/runs
+  index_file: results/index.jsonl
+  artifacts: {export_map: true}

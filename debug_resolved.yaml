@@ -1,0 +1,198 @@
+created_at: '2026-01-04T22:34:55+01:00'
+dataset:
+  id: tb3_sim_explore_modeA
+  kind: sim_gazebo
+  scenario:
+    bag_path: datasets/tb3_sim_explore_modeA.bag
+    duration_s: 180
+    processes:
+    - cmd:
+      - ros2
+      - launch
+      - /home/schneigu/Projects/slam_bench_orchestrator/tools/launch/tb3_sim_no_loc.launch.py
+      - use_sim_time:=True
+      - x_pose:=0.5
+      - y_pose:=0.5
+      - world:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/fixed_model.world
+      - robot_sdf:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/waffle_fixed.model
+      - params_file:=/home/schneigu/Projects/slam_bench_orchestrator/configs/params/nav2_params.yaml
+      - use_gazebo:=False
+      - use_gazebo:=False
+      - use_rviz:=False
+      env:
+        TURTLEBOT3_MODEL: waffle
+      name: nav2_sim
+    - cmd:
+      - /home/schneigu/Projects/slam_bench_orchestrator/tools/scripts/kickstart.sh
+      - use_gazebo:=False
+      - use_rviz:=False
+      delay_s: 5.0
+      name: kickstart
+      params:
+        restart: false
+    - cmd:
+      - ros2
+      - launch
+      - explore_lite
+      - explore.launch.py
+      - use_sim_time:=True
+      - use_gazebo:=False
+      - use_rviz:=False
+      delay_s: 10.0
+      name: explore
+      params:
+        explore_node:
+          ros__parameters:
+            gain_scale: 1.0
+            min_frontier_size: 0.5
+            orientation_scale: 0.0
+            planner_frequency: 0.33
+            potential_scale: 3.0
+            progress_timeout: 30.0
+            robot_base_frame: base_footprint
+            track_unknown_space: true
+            transform_tolerance: 0.3
+    world: worlds/model.sdf
+execution_plan:
+  states:
+  - name: SETUP
+  - name: START_SCENARIO
+  - name: START_SLAM
+  - name: WAIT_READY
+  - duration_s: 2.0
+    name: WARMUP
+  - name: RUN
+    timeout_s: 180.0
+  - duration_s: 1.0
+    name: DRAIN
+  - name: STOP
+  - name: EVALUATE
+  - name: INDEX
+paths:
+  bags_dir: results/runs_debug/2026-01-04_22-34-55__tb3_sim_explore_modeA__gmapping__seed0__r0/bags
+  index_file: results/index.jsonl
+  logs_dir: results/runs_debug/2026-01-04_22-34-55__tb3_sim_explore_modeA__gmapping__seed0__r0/logs
+  metrics_json: results/runs_debug/2026-01-04_22-34-55__tb3_sim_explore_modeA__gmapping__seed0__r0/metrics.json
+  run_dir: results/runs_debug/2026-01-04_22-34-55__tb3_sim_explore_modeA__gmapping__seed0__r0
+probes:
+  health:
+  - min_hz: 0.1
+    msg_type: nav_msgs/msg/OccupancyGrid
+    timeout_s: 30
+    topic: /map
+    type: topic_hz
+  ready:
+  - min_messages: 1
+    msg_type: sensor_msgs/msg/LaserScan
+    timeout_s: 60
+    topic: /scan
+    type: topic_publish
+  - from_frame: map
+    timeout_s: 60
+    to_frame: odom
+    type: tf_available
+  - min_messages: 1
+    msg_type: nav_msgs/msg/OccupancyGrid
+    timeout_s: 60
+    topic: /map
+    type: topic_publish
+  stop: []
+recording:
+  enabled: true
+  extra_artifacts: {}
+  rosbag2:
+    enabled: true
+    storage_id: sqlite3
+    topics:
+    - /tf
+    - /tf_static
+    - /odom
+    - /clock
+    - /scan
+    - /cmd_vel
+    - /map
+    - /map_metadata
+    - /gazebo/model_states
+    - /robot_description
+repeat_index: 0
+reproduce:
+  command:
+  - python3
+  - tools/reproduce_run.py
+  - --config
+  - results/runs_debug/2026-01-04_22-34-55__tb3_sim_explore_modeA__gmapping__seed0__r0/config_resolved.yaml
+  requires: []
+run_control:
+  drain_s: 1.0
+  max_restarts: 0
+  timeout_s: 180.0
+  warmup_s: 2.0
+run_id: 2026-01-04_22-34-55__tb3_sim_explore_modeA__gmapping__seed0__r0
+schema_version: 1
+seed: 0
+slam:
+  id: gmapping
+  io_contract:
+    base_frame: base_footprint
+    map_frame: map
+    map_topic: /map
+    odom_frame: odom
+    scan_topic: /scan
+  launch:
+    args:
+      use_sim_time: 'true'
+    cmd:
+    - /home/schneigu/Projects/slam_bench_orchestrator/tools/launch/gmapping_wrapper.sh
+    - --ros-args
+  params:
+    inline:
+      angularUpdate: 0.5
+      astep: 0.05
+      base_frame: base_footprint
+      delta: 0.05
+      iterations: 5
+      kernelSize: 1
+      lasamplerange: 0.005
+      lasamplestep: 0.005
+      linearUpdate: 1.0
+      llsamplerange: 0.01
+      llsamplestep: 0.01
+      lsigma: 0.075
+      lskip: 0
+      lstep: 0.05
+      map_frame: map
+      map_update_interval: 5.0
+      maxUrange: 3.0
+      occ_thresh: 0.25
+      odom_frame: odom
+      ogain: 3.0
+      particles: 100
+      resampleThreshold: 0.5
+      sigma: 0.05
+      srr: 0.1
+      srt: 0.2
+      str: 0.1
+      stt: 0.2
+      temporalUpdate: 3.0
+      transform_publish_period: 0.05
+      xmax: 10.0
+      xmin: -10.0
+      ymax: 10.0
+      ymin: -10.0
+  profile_path: configs/slams/gmapping.yaml
+  remaps: {}
+tags: []
+workspace:
+  repo_state:
+    dirty: false
+    mexplore_git_sha: UNKNOWN
+    orchestrator_git_sha: UNKNOWN
+    slam_repo_git_sha: null
+  ros_distro: humble
+  system:
+    cpu_model: UNKNOWN
+    hostname: schneigu
+    kernel: 6.8.0-90-generic
+    os: UNKNOWN
+    ram_gb: 0.0
+  use_sim_time: true

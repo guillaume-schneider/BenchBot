@@ -86,13 +86,15 @@ datasets:
 slams:
 - id: noop
   profile: configs/slams/noop.yaml
+- id: external
+  profile: configs/slams/external.yaml
 - id: slam_toolbox_sync
   profile: configs/slams/slam_toolbox_sync.yaml
 matrix:
   include:
   - dataset: tb3_sim_explore_modeA
     slams:
-    - noop
+    - external
     repeats: 1
     seeds:
     - 0

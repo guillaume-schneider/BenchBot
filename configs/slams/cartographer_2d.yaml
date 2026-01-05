@@ -4,13 +4,19 @@ display_name: "Cartographer ROS2 (2D)"
 description: "Cartographer 2D: nodes + occupancy grid."
 
 launch:
-  cmd: ["ros2", "launch", "cartographer_ros", "cartographer.launch.py"]
+  cmd:
+    - "ros2"
+    - "launch"
+    - "/home/schneigu/Projects/slam_bench_orchestrator/tools/launch/cartographer_custom.launch.py"
+    - "use_sim_time:=True"
+    - "configuration_directory:=/home/schneigu/Projects/slam_bench_orchestrator/configs/params"
+    - "configuration_basename:=cartographer_turtlebot3_2d.lua"
   cwd: null
   env: {}
   args:
-    configuration_directory: "/home/user/configs/cartographer"
-    configuration_basename: "cartographer_2d.lua"
-    use_sim_time: true
+    configuration_directory: "/home/schneigu/Projects/slam_bench_orchestrator/configs/params"
+    configuration_basename: "cartographer_turtlebot3_2d.lua"
+    use_sim_time: true # Pour compatibilite args, meme si cmd ligne prevaut
   namespace: null
   use_sim_time: true
   respawn: false
@@ -20,7 +26,8 @@ params:
   inline: {}
 
 remaps:
-  "/scan": "/scan"
+  scan: "/scan"
+  odom: "/odom"
 
 io_contract:
   map_topic: "/map"
@@ -46,8 +53,9 @@ probes:
       timeout_s: 90
   health:
     - type: "topic_hz"
-      topic: "/submap_list"
-      min_hz: 0.05
+      topic: "/map"
+      msg_type: "nav_msgs/msg/OccupancyGrid"
+      min_hz: 0.1
       window_s: 30
       timeout_s: 90
 

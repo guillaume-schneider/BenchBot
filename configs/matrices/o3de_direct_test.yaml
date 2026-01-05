@@ -1,0 +1,55 @@
+# O3DE Direct Test Matrix
+# All configuration inline for simplicity
+
+name: "O3DE Direct Test"
+
+datasets:
+  - name: "TurtleBot3 O3DE Test"
+    id: "tb3_o3de_test"
+    simulator: "o3de"
+    scenario:
+      world_model: "worlds/model.sdf"
+      processes:
+        - name: "nav2_stack"
+          cmd:
+            - ros2
+            - launch
+            - nav2_bringup
+            - tb3_simulation_launch.py
+            - slam:=True
+            - headless:=True
+            - gui:=False
+            - use_sim_time:=True
+            - x_pose:=0.5
+            - y_pose:=0.5
+            - z_pose:=0.01
+            - yaw:=0.0
+            - world:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/fixed_model.world
+            - robot_sdf:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/waffle_fixed.model
+          env:
+            ROS_DOMAIN_ID: "0"
+        - name: "explore"
+          cmd:
+            - ros2
+            - launch
+            - explore_lite
+            - explore.launch.py
+            - use_sim_time:=True
+          env:
+            ROS_DOMAIN_ID: "0"
+    ground_truth:
+      map_path: "maps/gt/model.yaml"
+      name: "model"
+
+slams:
+  - name: "No SLAM (Noop)"
+    id: "noop"
+    launch:
+      cmd: ["echo", "noop"]
+
+matrix:
+  include:
+    - datasets: ["tb3_o3de_test"]
+      slams: ["noop"]
+      seeds: [0]
+      repeats: 1

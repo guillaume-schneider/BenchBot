@@ -1,0 +1,94 @@
+schema_version: 1
+name: o3de_benchmark_manual
+workspace:
+  ros_distro: humble
+  use_sim_time: true
+
+defaults:
+  run:
+    warmup_s: 10.0
+    drain_s: 5.0
+    timeout_s: 300.0
+  rosbag:
+    enabled: true
+    topics:
+    - /tf
+    - /tf_static
+    - /odom
+    - /scan
+    - /map
+    - /robot_description
+    - /clock
+    - /cmd_vel
+  probes:
+    required:
+    - type: topic_publish
+      topic: /scan
+      msg_type: sensor_msgs/msg/LaserScan
+      timeout_s: 60
+    - type: topic_publish
+      topic: /map
+      msg_type: nav_msgs/msg/OccupancyGrid
+      timeout_s: 120
+
+datasets:
+- id: tb3_o3de_manual
+  kind: sim_o3de
+  simulator: o3de
+  headless: true
+  world_model: worlds/model.sdf
+  scenario:
+    processes:
+    # 1. Robot State Publisher (Provides TF: base_link -> sensors/wheels)
+    # Uses custom launch file to load URDF via Xacro without Gazebo
+    - name: rsp
+      cmd:
+      - ros2
+      - launch
+      - configs/launch/rsp.launch.py
+      env:
+        TURTLEBOT3_MODEL: waffle
+
+    # 2. Nav2 (Navigation Only)
+    # Connects to O3DE (odom/scan/cmd_vel) and SLAM (map)
+    - name: nav2
+      cmd:
+      - ros2
+      - launch
+      - nav2_bringup
+      - navigation_launch.py
+      - use_sim_time:=True
+      - params_file:=/opt/ros/humble/share/nav2_bringup/params/nav2_params.yaml
+      env:
+        TURTLEBOT3_MODEL: waffle
+
+    # 3. Explore Lite (Autonomous movement)
+    - name: explore
+      cmd:
+      - ros2
+      - launch
+      - explore_lite
+      - explore.launch.py
+      - use_sim_time:=True
+      env:
+        TURTLEBOT3_MODEL: waffle
+        AMENT_PREFIX_PATH: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge:/home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite:/opt/ros/humble
+        LD_LIBRARY_PATH: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib
+        PYTHONPATH: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages
+
+slams:
+- id: slam_toolbox
+  profile: configs/slams/slam_toolbox_sync.yaml
+
+matrix:
+  include:
+  - dataset: tb3_o3de_manual
+    slams:
+    - slam_toolbox
+    repeats: 1
+    seeds: [0]
+
+output:
+  root_dir: results/runs
+  artifacts:
+    export_map: true

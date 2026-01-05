@@ -17,8 +17,9 @@ from gui.utils import STYLE_SHEET
 from gui.worker import RunWorker
 from gui.pages.dashboard import DashboardPage
 from gui.pages.details import ConfigDetailsPage
-from gui.pages.tools import ToolsPage # New Import
+from gui.pages.tools import ToolsPage 
 from gui.pages.editor import ConfigEditorPage
+from gui.pages.benchmark import BenchmarkPage # New Import
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -60,15 +61,17 @@ class MainWindow(QMainWindow):
         self.nav_group.setExclusive(True)
         
         self.btn_dash = self.create_nav_button("Dashboard", 0)
-        self.btn_tools = self.create_nav_button("Tools", 2) # Renamed
+        self.btn_bench = self.create_nav_button("Benchmark", 4) # New Index 4
+        self.btn_tools = self.create_nav_button("Tools", 2)
         
         sidebar_layout.addWidget(self.btn_dash)
+        sidebar_layout.addWidget(self.btn_bench)
         sidebar_layout.addWidget(self.btn_tools)
         
         sidebar_layout.addStretch()
         
         # Version
-        ver = QLabel("v2.1.0")
+        ver = QLabel("v2.2.0")
         ver.setStyleSheet("color: #475569; padding-left: 30px; font-weight: 600;")
         sidebar_layout.addWidget(ver)
         
@@ -81,13 +84,15 @@ class MainWindow(QMainWindow):
         # Pages
         self.page_dashboard = DashboardPage()
         self.page_details = ConfigDetailsPage()
-        self.page_tools = ToolsPage() # Use ToolsPage
+        self.page_tools = ToolsPage()
         self.page_editor = ConfigEditorPage()
+        self.page_benchmark = BenchmarkPage() # Initialize
         
         self.stack.addWidget(self.page_dashboard) # 0
         self.stack.addWidget(self.page_details)   # 1
         self.stack.addWidget(self.page_tools)     # 2
         self.stack.addWidget(self.page_editor)    # 3
+        self.stack.addWidget(self.page_benchmark) # 4
         
         # Connect Signals
         
@@ -143,6 +148,9 @@ class MainWindow(QMainWindow):
                     self.page_dashboard.cards[path].set_running(True)
         elif index == 2:
             self.btn_tools.setChecked(True)
+        elif index == 4:
+            self.btn_bench.setChecked(True)
+            self.page_benchmark.refresh_data() # Auto refresh
             
         self.stack.setCurrentIndex(index)
 

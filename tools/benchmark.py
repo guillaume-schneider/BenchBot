@@ -26,21 +26,24 @@ def read_bag_data(bag_path):
     if not Path(bag_path).exists():
         raise FileNotFoundError(f"Bag not found: {bag_path}")
 
-    storage_options = StorageOptions(uri=bag_path, storage_id='sqlite3')
-    converter_options = ConverterOptions(
-        input_serialization_format='cdr',
-        output_serialization_format='cdr')
-    
-    reader = SequentialReader()
+    # Try explicit sqlite3 first
     try:
+        storage_options = StorageOptions(uri=bag_path, storage_id='sqlite3')
+        converter_options = ConverterOptions(
+            input_serialization_format='cdr',
+            output_serialization_format='cdr')
+        reader = SequentialReader()
         reader.open(storage_options, converter_options)
-    except Exception as e:
-        print(f"Error opening bag: {e}")
-        # Try appending .db3 if it's a file path
-        if Path(bag_path).is_dir():
-            # Find metadata.yaml? rosbag2 opens folder.
-            pass
-        return [], [], []
+    except Exception as e1:
+        print(f"Failed to open with sqlite3: {e1}")
+        # Try auto-detection
+        try:
+            storage_options = StorageOptions(uri=bag_path, storage_id='')
+            reader = SequentialReader()
+            reader.open(storage_options, converter_options)
+        except Exception as e2:
+            print(f"Failed to open with auto-detect: {e2}")
+            return [], [], []
 
     topic_types = reader.get_all_topics_and_types()
     type_map = {t.name: t.type for t in topic_types}

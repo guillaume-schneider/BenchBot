@@ -187,11 +187,43 @@ class ResultWindow(QMainWindow):
             iou = compute_iou(gt_map, est_map)
             path_len = compute_path_length(odom_msgs)
             
+            # Compute Duration
+            duration_s = 0.0
+            if odom_msgs:
+                t_start = odom_msgs[0][0]
+                t_end = odom_msgs[-1][0]
+                duration_s = t_end - t_start
+            
             self.log(f"\n--- RESULTS ---")
+            self.log(f"Duration: {duration_s:.2f} s")
             self.log(f"Coverage: {cov*100:.2f}%")
             self.log(f"Accessible Coverage: {acc_cov*100:.2f}%")
             self.log(f"IoU: {iou:.4f}")
             self.log(f"Path Length: {path_len:.2f} m")
+            
+            # Save metrics to json
+            metrics_file = self.run_dir / "metrics.json"
+            data = {}
+            if metrics_file.exists():
+                import json
+                with open(metrics_file, 'r') as f:
+                    try:
+                        data = json.load(f)
+                    except:
+                        pass
+            
+            data.update({
+                "duration_s": float(duration_s),
+                "coverage_percent": float(cov*100),
+                "accessible_coverage_percent": float(acc_cov*100),
+                "iou": float(iou),
+                "path_length_m": float(path_len)
+            })
+            
+            import json
+            with open(metrics_file, 'w') as f:
+                json.dump(data, f, indent=4)
+            self.log(f"Metrics saved to {metrics_file.name}")
             
             # Plot
             self.ax_gt.clear()

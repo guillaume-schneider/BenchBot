@@ -1,0 +1,15 @@
+explore_node:
+  ros__parameters:
+    robot_base_frame: base_link
+    costmap_topic: /global_costmap/costmap
+    costmap_topic_reliability: reliable
+    visualize: true
+    min_frontier_size: 0.2
+    planner_frequency: 1.0
+    progress_timeout: 60.0
+    potential_scale: 0.001
+    orientation_scale: 0.0
+    gain_scale: 1.0
+    transform_tolerance: 5.0
+    track_unknown_space: true
+    use_sim_time: true

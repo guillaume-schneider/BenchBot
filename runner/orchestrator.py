@@ -56,13 +56,115 @@ def run_once(config_path: str) -> int:
     logs_dir = cfg["paths"]["logs_dir"]
     bags_dir = cfg["paths"]["bags_dir"]
 
-    # Préventive cleanup: kill any leftover Gazebo/Nav2 processes
+    # O3DE simulator variables (declared at function scope for try/except access)
+    o3de_simulator_instance = None
+    o3de_world_config = None
+    o3de_process_handle = None
+
+    # ========== SIMULATOR DETECTION & SETUP ==========
+    sim_type = cfg.get("dataset", {}).get("simulator", "gazebo")
+    
+    if sim_type == "o3de":
+        print(f"[ORCHESTRATOR] Detected O3DE simulator, setting up...")
+        
+        # Import simulator manager
+        try:
+            from tools.simulator_manager import SimulatorManager
+        except ImportError:
+            print("[ERROR] SimulatorManager not found. O3DE support requires tools/simulator_manager.py")
+            return 3
+        
+        sim_mgr = SimulatorManager()
+        o3de_sim = sim_mgr.get_simulator('o3de')
+        
+        # Verify O3DE is installed
+        if not o3de_sim.is_installed():
+            print("[ERROR] O3DE is not installed!")
+            print("Please install O3DE via GUI: Tools → Simulators → Install O3DE")
+            return 3
+        
+        print(f"[ORCHESTRATOR] O3DE found at: {o3de_sim.install_dir}")
+        
+        # Get world SDF path (it's at dataset level, not scenario level)
+        world_sdf = cfg.get("dataset", {}).get("world_model")
+        if not world_sdf:
+            print("[ERROR] No 'world_model' specified in dataset scenario")
+            return 3
+        
+        world_sdf_path = Path(world_sdf)
+        if not world_sdf_path.exists():
+            print(f"[ERROR] World SDF not found: {world_sdf}")
+            return 3
+        
+        # Convert SDF to O3DE project (cached)
+        project_name = world_sdf_path.stem + "_o3de_project"
+        print(f"[ORCHESTRATOR] Converting SDF world to O3DE project: {project_name}")
+        
+        try:
+            project_path = o3de_sim.create_project_from_sdf(
+                world_sdf_path,
+                project_name,
+                progress_callback=lambda msg, pct: print(f"  [{pct}%] {msg}")
+            )
+            print(f"[ORCHESTRATOR] O3DE project ready at: {project_path}")
+        except Exception as e:
+            print(f"[ERROR] Failed to convert SDF to O3DE: {e}")
+            import traceback
+            traceback.print_exc()
+            return 3
+        
+        # Get O3DE world configuration
+        world_config = {
+            'project_path': str(project_path),
+            'level': 'slam_world',
+            'headless': True,  # Always headless for benchmarking
+            'env': {'ROS_DOMAIN_ID': '0'}
+        }
+        
+        # Store O3DE simulator reference for later cleanup
+        o3de_simulator_instance = o3de_sim
+        o3de_world_config = world_config
+        
+        # Get existing scenario processes
+        scenario_processes = cfg.get("dataset", {}).get("scenario", {}).get("processes", [])
+        
+        # Create placeholder process that will be started via ProcessManager
+        # The actual O3DE launch will be handled by starting the simulator
+        o3de_process = {
+            "name": "o3de_sim",
+            "cmd": ["echo", "O3DE will be started via SimulatorManager"],  # Placeholder
+            "env": {"ROS_DOMAIN_ID": "0"},
+            "cwd": None,
+            "_o3de_managed": True  # Mark this as special
+        }
+        
+        # Insert O3DE as first process
+        scenario_processes.insert(0, o3de_process)
+        cfg["dataset"]["scenario"]["processes"] = scenario_processes
+        
+        print(f"[ORCHESTRATOR] O3DE simulator configured successfully")
+    
+    # Preventive cleanup: kill any leftover Gazebo/O3DE/Nav2 processes
+    # This ensures a clean slate before starting
+    # NOTE: Use specific process names to avoid killing this Python script!
+    # Preventive cleanup: kill any leftover Gazebo/O3DE/Nav2/ROS processes
     # This ensures a clean slate before starting
     try:
         import subprocess
-        subprocess.run(["pkill", "-9", "-f", "gzserver"], stderr=subprocess.DEVNULL, timeout=2)
-        subprocess.run(["pkill", "-9", "-f", "gzclient"], stderr=subprocess.DEVNULL, timeout=2)
-        subprocess.run(["pkill", "-9", "-f", "nav2"], stderr=subprocess.DEVNULL, timeout=2)
+        targets = [
+            "gzserver", "gzclient", "ruby",  # Gazebo
+            "Editor", "GameLauncher", "AssetProcessor",  # O3DE
+            "nav2_manager", "component_container", "component_container_isolated", "lifecycle_manager",  # Nav2
+            "map_server", "amcl", "bt_navigator", "planner_server", "controller_server",
+            "rviz2", "robot_state_publisher"
+        ]
+        
+        # Kill command construction
+        cmd = ["pkill", "-9", "-f"]
+        
+        for t in targets:
+            subprocess.run(cmd + [t], stderr=subprocess.DEVNULL, timeout=2)
+            
         time.sleep(2.0)  # Let the system fully clean up ports and resources
     except Exception:
         pass
@@ -133,12 +235,32 @@ def run_once(config_path: str) -> int:
     try:
         # START_SCENARIO (multi-process)
         for proc in scenario_processes:
-            pm.start(
-                proc["name"],
-                proc["cmd"],
-                env=proc.get("env", {}) or {},
-                cwd=proc.get("cwd", None),
-            )
+            # Special handling for O3DE-managed process
+            if proc.get("_o3de_managed"):
+                print("[ORCHESTRATOR] Starting O3DE via SimulatorManager...")
+                try:
+                    o3de_process_handle = o3de_simulator_instance.start(o3de_world_config)
+                    print(f"[O3DE] Process started (PID: {o3de_process_handle.pid})")
+                    # Store the handle for later cleanup - wrap in ManagedProcess
+                    from runner.process_manager import ManagedProcess
+                    mp = ManagedProcess(
+                        name="o3de_sim",
+                        popen=o3de_process_handle,
+                        log_path=pm.logs_dir / "o3de_sim.log"
+                    )
+                    pm.procs["o3de_sim"] = mp
+                except Exception as e:
+                    print(f"[ERROR] Failed to start O3DE: {e}")
+                    import traceback
+                    traceback.print_exc()
+                    return 3
+            else:
+                pm.start(
+                    proc["name"],
+                    proc["cmd"],
+                    env=proc.get("env", {}) or {},
+                    cwd=proc.get("cwd", None),
+                )
 
         # Pause exploration for stable probes/warmup
         set_explore(False)
@@ -207,7 +329,17 @@ def run_once(config_path: str) -> int:
         # Stop scenario processes in reverse order (explore then nav2_sim, etc.)
         try:
             for proc in reversed(scenario_processes):
-                pm.stop(proc["name"])
+                # Special handling for O3DE cleanup
+                if proc.get("_o3de_managed"):
+                    if o3de_simulator_instance is not None and o3de_process_handle is not None:
+                        print("[ORCHESTRATOR] Stopping O3DE via SimulatorManager...")
+                        try:
+                            o3de_simulator_instance.stop(o3de_process_handle)
+                            o3de_simulator_instance.cleanup()
+                        except Exception as e:
+                            print(f"[WARN] O3DE cleanup error: {e}")
+                else:
+                    pm.stop(proc["name"])
         except Exception:
             pass
         
@@ -239,12 +371,16 @@ def run_once(config_path: str) -> int:
         node.destroy_node()
         rclpy.shutdown()
         
-        # Final killall for stubborn processes (Gazebo is notorious)
+        # Final killall for stubborn processes (Gazebo/O3DE are notorious)
         # This is a nuclear option but necessary for reliability
+        # NOTE: Use specific process names to avoid killing other Python scripts!
         try:
             import subprocess
-            subprocess.run(["pkill", "-9", "-f", "gzserver"], stderr=subprocess.DEVNULL, timeout=2)
-            subprocess.run(["pkill", "-9", "-f", "gzclient"], stderr=subprocess.DEVNULL, timeout=2)
+            subprocess.run(["pkill", "-9", "gzserver"], stderr=subprocess.DEVNULL, timeout=2)
+            subprocess.run(["pkill", "-9", "gzclient"], stderr=subprocess.DEVNULL, timeout=2)
+            subprocess.run(["pkill", "-9", "Editor"], stderr=subprocess.DEVNULL, timeout=2)
+            subprocess.run(["pkill", "-9", "GameLauncher"], stderr=subprocess.DEVNULL, timeout=2)
+            subprocess.run(["pkill", "-9", "AssetProcessor"], stderr=subprocess.DEVNULL, timeout=2)
             time.sleep(2.0)  # Increased from 0.5s - let the system fully clean up
         except Exception:
             pass

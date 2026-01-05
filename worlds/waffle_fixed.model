@@ -49,19 +49,19 @@
               <x>
                 <noise type="gaussian">
                   <mean>0.0</mean>
-                  <stddev>2e-4</stddev>
+                  <stddev>2e-3</stddev>
                 </noise>
               </x>
               <y>
                 <noise type="gaussian">
                   <mean>0.0</mean>
-                  <stddev>2e-4</stddev>
+                  <stddev>2e-3</stddev>
                 </noise>
               </y>
               <z>
                 <noise type="gaussian">
                   <mean>0.0</mean>
-                  <stddev>2e-4</stddev>
+                  <stddev>2e-3</stddev>
                 </noise>
               </z>
             </angular_velocity>
@@ -69,19 +69,19 @@
               <x>
                 <noise type="gaussian">
                   <mean>0.0</mean>
-                  <stddev>1.7e-2</stddev>
+                  <stddev>1.7e-1</stddev>
                 </noise>
               </x>
               <y>
                 <noise type="gaussian">
                   <mean>0.0</mean>
-                  <stddev>1.7e-2</stddev>
+                  <stddev>1.7e-1</stddev>
                 </noise>
               </y>
               <z>
                 <noise type="gaussian">
                   <mean>0.0</mean>
-                  <stddev>1.7e-2</stddev>
+                  <stddev>1.7e-1</stddev>
                 </noise>
               </z>
             </linear_acceleration>
@@ -152,7 +152,7 @@
             <noise>
               <type>gaussian</type>
               <mean>0.0</mean>
-              <stddev>0.01</stddev>
+              <stddev>0.02</stddev>
             </noise>
           </ray>
           <plugin name="turtlebot3_laserscan" filename="libgazebo_ros_ray_sensor.so">
@@ -193,11 +193,11 @@
             <!-- This friction pamareter don't contain reliable data!! -->
             <friction>
               <ode>
-                <mu>100000.0</mu>
-                <mu2>100000.0</mu2>
+                <mu>1.0</mu>
+                <mu2>1.0</mu2>
                 <fdir1>0 0 0</fdir1>
-                <slip1>0.0</slip1>
-                <slip2>0.0</slip2>
+                <slip1>0.05</slip1>
+                <slip2>0.05</slip2>
               </ode>
             </friction>
             <contact>
@@ -251,11 +251,11 @@
             <!-- This friction pamareter don't contain reliable data!! -->
             <friction>
               <ode>
-                <mu>100000.0</mu>
-                <mu2>100000.0</mu2>
+                <mu>1.0</mu>
+                <mu2>1.0</mu2>
                 <fdir1>0 0 0</fdir1>
-                <slip1>0.0</slip1>
-                <slip2>0.0</slip2>
+                <slip1>0.05</slip1>
+                <slip2>0.05</slip2>
               </ode>
             </friction>
             <contact>
@@ -350,7 +350,7 @@
         </collision>
       </link>
 
-      <link name="camera_link">
+      <!-- <link name="camera_link">
         <inertial>
           <pose>0.069 -0.047 0.107 0 0 0</pose>
           <inertia>
@@ -371,7 +371,6 @@
             </box>
           </geometry>
         </collision>
-
         <pose>0.069 -0.047 0.107 0 0 0</pose>
 
         <sensor name="intel_realsense_r200_depth" type="depth">
@@ -390,17 +389,7 @@
             <max_depth>5.0</max_depth>
           </plugin>
         </sensor>
-
-        <collision name="collision">
-          <pose>0 0.047 -0.005 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.008 0.130 0.022</size>
-            </box>
-          </geometry>
-        </collision>
-        <pose>0.069 -0.047 0.107 0 0 0</pose>
-      </link>
+      </link> -->
 
       <joint name="base_joint" type="fixed">
         <parent>base_footprint</parent>
@@ -445,14 +434,14 @@
         </axis>
       </joint>
 
-      <joint name="camera_joint" type="fixed">
+      <!-- <joint name="camera_joint" type="fixed">
         <parent>base_link</parent>
         <child>camera_link</child>
         <pose>0.064 -0.065 0.094 0 0 0</pose>
         <axis>
           <xyz>0 0 1</xyz>
         </axis>
-      </joint>
+      </joint> -->
 
       <plugin name="turtlebot3_diff_drive" filename="libgazebo_ros_diff_drive.so">
 

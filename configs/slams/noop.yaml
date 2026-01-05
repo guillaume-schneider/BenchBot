@@ -1,12 +1,14 @@
 schema_version: 1
 id: "noop"
+display_name: "NoOp (Odom Only)"
+description: "Baseline: Publishes static map->odom TF to allow navigation without SLAM."
+
 launch:
-  cmd: ["bash", "-lc", "echo NOOP_SLAM"]
+  # Publish static TF map->odom so Nav2 can work
+  cmd: ["ros2", "run", "tf2_ros", "static_transform_publisher", 
+        "0", "0", "0", "0", "0", "0", "map", "odom"]
   args: {}
-params:
-  files: []
-  inline: {}
-remaps: {}
+
 io_contract:
   map_topic: "/map"
   map_frame: "map"
@@ -14,6 +16,10 @@ io_contract:
   base_frame: "base_link"
   scan_topic: "/scan"
   pose_source: "tf"
+
 probes:
-  ready: []
-  health: []
+  ready:
+    - type: "tf_available"
+      from_frame: "map"
+      to_frame: "odom"
+      timeout_s: 10

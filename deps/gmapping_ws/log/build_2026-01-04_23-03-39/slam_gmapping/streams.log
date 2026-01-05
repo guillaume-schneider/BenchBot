@@ -1,0 +1,69 @@
+[0.009s] Invoking command in '/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/build/slam_gmapping': AMENT_PREFIX_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping:/opt/ros/humble LD_LIBRARY_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/src/slam_gmapping/slam_gmapping -DCMAKE_INSTALL_PREFIX=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping
+[0.015s] [0mCMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+[0.015s]   Compatibility with CMake < 3.10 will be removed from a future version of
+[0.016s]   CMake.
+[0.016s] 
+[0.016s]   Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+[0.016s]   to tell CMake that the project requires at least <min> but has been updated
+[0.016s]   to work with policies introduced by <max> or earlier.
+[0.016s] 
+[0.016s] [0m
+[0.019s] [0m -fuse-ld=lld -Wl,--disable-new-dtags[0m
+[0.019s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.148s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.154s] -- Found std_msgs: 4.9.0 (/opt/ros/humble/share/std_msgs/cmake)
+[0.172s] -- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.174s] -- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.179s] -- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.185s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.195s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.215s] -- Found nav_msgs: 4.9.0 (/opt/ros/humble/share/nav_msgs/cmake)
+[0.243s] -- Found tf2: 0.25.17 (/opt/ros/humble/share/tf2/cmake)
+[0.246s] -- Found tf2_ros: 0.25.17 (/opt/ros/humble/share/tf2_ros/cmake)
+[0.286s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.286s] -- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.376s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.467s] -- Found tf2_geometry_msgs: 0.25.17 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)
+[0.469s] -- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+[0.470s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[0.471s] -- Found sensor_msgs: 4.9.0 (/opt/ros/humble/share/sensor_msgs/cmake)
+[0.488s] -- Found visualization_msgs: 4.9.0 (/opt/ros/humble/share/visualization_msgs/cmake)
+[0.508s] -- Found openslam_gmapping: 0.1.2 (/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping/share/openslam_gmapping/cmake)
+[0.510s] -- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[0.561s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[0.561s] -- Configured cppcheck include dirs: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/src/slam_gmapping/slam_gmapping/include
+[0.561s] -- Configured cppcheck exclude dirs and/or files: 
+[0.561s] -- Added test 'flake8' to check Python code syntax and style conventions
+[0.562s] -- Added test 'lint_cmake' to check CMake code style
+[0.562s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[0.562s] -- Added test 'uncrustify' to check C / C++ code style
+[0.562s] -- Configured uncrustify additional arguments: 
+[0.563s] -- Added test 'xmllint' to check XML markup files
+[0.563s] -- Configuring done (0.6s)
+[0.575s] -- Generating done (0.0s)
+[0.602s] -- Build files have been written to: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/build/slam_gmapping
+[0.608s] Invoked command in '/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/build/slam_gmapping' returned '0': AMENT_PREFIX_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping:/opt/ros/humble LD_LIBRARY_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/src/slam_gmapping/slam_gmapping -DCMAKE_INSTALL_PREFIX=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping
+[0.610s] Invoking command in '/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/build/slam_gmapping': AMENT_PREFIX_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping:/opt/ros/humble LD_LIBRARY_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/build/slam_gmapping -- -j16 -l16
+[0.643s] [100%] Built target slam_gmapping
+[0.648s] Invoked command in '/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/build/slam_gmapping' returned '0': AMENT_PREFIX_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping:/opt/ros/humble LD_LIBRARY_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/build/slam_gmapping -- -j16 -l16
+[0.652s] Invoking command in '/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/build/slam_gmapping': AMENT_PREFIX_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping:/opt/ros/humble LD_LIBRARY_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/build/slam_gmapping
+[0.654s] -- Install configuration: ""
+[0.655s] -- Execute custom install script
+[0.655s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/lib/slam_gmapping/slam_gmapping
+[0.655s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/slam_gmapping/launch/slam_gmapping.launch.py
+[0.655s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/ament_index/resource_index/package_run_dependencies/slam_gmapping
+[0.656s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/ament_index/resource_index/parent_prefix_path/slam_gmapping
+[0.656s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/slam_gmapping/environment/ament_prefix_path.sh
+[0.656s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/slam_gmapping/environment/ament_prefix_path.dsv
+[0.656s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/slam_gmapping/environment/path.sh
+[0.656s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/slam_gmapping/environment/path.dsv
+[0.656s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/slam_gmapping/local_setup.bash
+[0.656s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/slam_gmapping/local_setup.sh
+[0.656s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/slam_gmapping/local_setup.zsh
+[0.657s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/slam_gmapping/local_setup.dsv
+[0.657s] -- Symlinking: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/slam_gmapping/package.dsv
+[0.659s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/ament_index/resource_index/packages/slam_gmapping
+[0.660s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/slam_gmapping/cmake/slam_gmappingConfig.cmake
+[0.660s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/slam_gmapping/cmake/slam_gmappingConfig-version.cmake
+[0.660s] -- Up-to-date symlink: /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/slam_gmapping/share/slam_gmapping/package.xml
+[0.661s] Invoked command in '/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/build/slam_gmapping' returned '0': AMENT_PREFIX_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping:/opt/ros/humble LD_LIBRARY_PATH=/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/install/openslam_gmapping/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/build/slam_gmapping

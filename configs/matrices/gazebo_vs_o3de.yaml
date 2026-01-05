@@ -1,0 +1,22 @@
+# O3DE Test Matrix
+# Simple test to verify O3DE integration works
+
+name: "O3DE Integration Test"
+
+datasets:
+  - include: "configs/datasets/tb3_o3de_explore_modeA.yaml"  # O3DE
+
+slams:
+  - include: "configs/slams/noop.yaml"  # Simple test without SLAM overhead
+
+matrix:
+  include:
+    - datasets: ["tb3_o3de_explore_modeA"]
+      slams: ["noop"]
+      seeds: [0]
+      repeats: 1
+
+# Expected Results:
+# - 1 run with O3DE
+# - Same Nav2, same Explore
+# - Verify O3DE launches and runs correctly

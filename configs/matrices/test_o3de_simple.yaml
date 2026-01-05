@@ -1,0 +1,17 @@
+# Simple O3DE Test - Minimal Configuration
+# Uses the tb3_o3de_explore.yaml dataset
+
+name: "O3DE Test Simple"
+
+datasets:
+  - include: "configs/datasets/tb3_o3de_explore.yaml"
+
+slams:
+  - include: "configs/slams/noop.yaml"
+
+matrix:
+  include:
+    - datasets: ["tb3_o3de_explore"]
+      slams: ["noop"] 
+      seeds: [0]
+      repeats: 1

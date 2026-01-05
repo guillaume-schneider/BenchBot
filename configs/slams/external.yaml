@@ -1,0 +1,29 @@
+schema_version: 1
+id: "external"
+display_name: "External SLAM"
+description: "Passive profile for when SLAM is running inside the scenario (e.g. via Nav2). Does not publish TF or Map."
+
+launch:
+  # No command needed as SLAM is part of the scenario
+  cmd: ["true"]
+  args: {}
+
+io_contract:
+  map_topic: "/map"
+  map_frame: "map"
+  odom_frame: "odom"
+  base_frame: "base_link"
+  scan_topic: "/scan"
+  pose_source: "tf"
+
+probes:
+  ready:
+    - type: "tf_available"
+      from_frame: "map"
+      to_frame: "odom"
+      timeout_s: 60
+    - type: "topic_publish"
+      topic: "/map"
+      msg_type: "nav_msgs/msg/OccupancyGrid"
+      min_messages: 1
+      timeout_s: 60

@@ -1,0 +1,56 @@
+# TurtleBot3 O3DE Exploration - Full Dataset Configuration
+# This uses O3DE instead of Gazebo for improved physics and rendering
+
+name: "TurtleBot3 O3DE Exploration (Mode A)"
+id: "tb3_o3de_explore_modeA"
+
+# ========== SIMULATOR SELECTION ==========
+simulator: "o3de"  # Use O3DE instead of Gazebo
+
+scenario:
+  # World will be auto-converted from SDF to O3DE project
+  world_model: "worlds/model.sdf"
+  robot_model: "worlds/waffle_fixed.model"
+  
+  # Processes (Nav2, Explore) - O3DE will be injected automatically
+  processes:
+    - name: "nav2_stack"
+      cmd:
+        - ros2
+        - launch
+        - nav2_bringup
+        - tb3_simulation_launch.py
+        - slam:=True
+        - headless:=True
+        - gui:=False
+        - use_sim_time:=True
+        - x_pose:=0.5
+        - y_pose:=0.5
+        - z_pose:=0.01
+        - yaw:=0.0
+        - world:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/fixed_model.world
+        - robot_sdf:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/waffle_fixed.model
+      env:
+        ROS_DOMAIN_ID: "0"
+    
+    - name: "explore"
+      cmd:
+        - ros2
+        - launch
+        - explore_lite
+        - explore.launch.py
+        - use_sim_time:=True
+      env:
+        ROS_DOMAIN_ID: "0"
+
+# Ground truth map (same as Gazebo version)
+ground_truth:
+  map_path: "maps/gt/model.yaml"
+  name: "model"
+
+# Comments:
+# - simulator: o3de triggers automatic O3DE setup
+# - worlds/model.sdf will be converted to O3DE project automatically
+# - O3DE process will be inserted as first process
+# - Nav2 and Explore run identically to Gazebo version
+# - All ROS topics remain the same → metrics work identically

@@ -1,0 +1,89 @@
+schema_version: 1
+name: test_cartographer
+workspace:
+  ros_distro: humble
+  use_sim_time: true
+defaults:
+  run:
+    warmup_s: 2.0
+    drain_s: 1.0
+    timeout_s: 180.0
+    max_restarts: 0
+  rosbag:
+    enabled: true
+    storage_id: sqlite3
+    topics: [/tf, /tf_static, /odom, /clock, /scan, /cmd_vel, /map, /map_metadata, /gazebo/model_states, /robot_description]
+  probes:
+    required:
+    - type: topic_publish
+      topic: /scan
+      msg_type: sensor_msgs/msg/LaserScan
+      min_messages: 1
+      timeout_s: 60
+    - type: tf_available
+      from_frame: map
+      to_frame: odom
+      timeout_s: 60
+    - type: topic_publish
+      topic: /map
+      msg_type: nav_msgs/msg/OccupancyGrid
+      min_messages: 1
+      timeout_s: 60
+
+datasets:
+- id: tb3_sim_explore_modeA
+  kind: sim_gazebo
+  scenario:
+    processes:
+    - name: nav2_sim
+      cmd:
+      - ros2
+      - launch
+      - /home/schneigu/Projects/slam_bench_orchestrator/tools/launch/tb3_sim_no_loc.launch.py
+      - use_sim_time:=True
+      - x_pose:=0.5
+      - y_pose:=0.5
+      - world:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/fixed_model.world
+      - robot_sdf:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/waffle_fixed.model
+      - params_file:=/home/schneigu/Projects/slam_bench_orchestrator/configs/params/nav2_params.yaml
+      - use_gazebo:=False
+      env:
+        TURTLEBOT3_MODEL: waffle
+
+    - name: kickstart
+      cmd: ["/home/schneigu/Projects/slam_bench_orchestrator/tools/scripts/kickstart.sh"]
+      delay_s: 5.0
+      params:
+        restart: false
+
+    - name: explore
+      delay_s: 20.0
+      cmd:
+      - /home/schneigu/Projects/slam_bench_orchestrator/tools/launch/explore_wrapper.sh
+      - ros2
+      - run
+      - explore_lite
+      - explore
+      - --ros-args
+      - --params-file
+      - /home/schneigu/Projects/slam_bench_orchestrator/configs/params/explore_params.yaml
+      params: {}
+  world_model: worlds/model.sdf
+
+slams:
+- id: cartographer_2d
+  profile: configs/slams/cartographer_2d.yaml
+
+matrix:
+  include:
+  - dataset: tb3_sim_explore_modeA
+    slams:
+    - cartographer_2d
+    repeats: 1
+    seeds: [0]
+    tags: [single_test, cartographer]
+
+output:
+  root_dir: results/runs
+  index_file: results/index.jsonl
+  artifacts: {export_map: true}
