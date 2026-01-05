@@ -2,28 +2,51 @@
 
 An automated framework for benchmarking SLAM algorithms (Cartographer, GMapping, SLAM Toolbox, etc.) in dynamic simulation environments (Gazebo, O3DE).
 
-## Quick Start
+## 🚀 Key Features
 
-1. **Launch the GUI**:
-   ```bash
-   python3 gui/main.py
-   ```
-2. **Select a Benchmark Matrix**:
-   - Go to the Dashboard.
-   - Choose a configuration (e.g., `modeA_validate_loop`).
-3. **Run**:
-   - Click "Run Benchmark".
-   - Monitor progress and logs in real-time.
+*   **Multi-Simulator**: Switch between **Gazebo** (Classic) and **O3DE** (PhysX 5.0).
+*   **High-Fidelity Physics**: "Sim-to-Real" tuning with realistic wheel slip, friction, and IMU/Lidar noise ([Details](docs/SIMULATION_REALISM.md)).
+*   **Automated Metrics**:
+    *   **Trajectory**: ATE (Absolute Trajectory Error)
+    *   **Map Quality**: Coverage %, IoU (Intersection over Union), Path Length
+    *   **System**: CPU Usage %, Max RAM (MB)
+*   **Headless CI**: Run full benchmarks on servers without a display (`runner/run_matrix.py`).
+*   **Modern GUI**: Dark/Light themes, Dashboard, and interactive Benchmark Tables.
 
-## Features
+## 📦 Quick Start
 
-- **Multi-Simulator Support**: Seamlessly switch between Gazebo and O3DE.
-- **Automated Metrics**: Computes ATE (Trajectory Error) and Map Quality (Coverage, IoU) automatically.
-- **Resilience**: Automatic cleanup of zombie processes and handling of failed runs.
-- **Visualization**: Built-in tools for visualizing Ground Truth vs Generated Maps.
+### 1. Launch GUI
+```bash
+python3 gui/main.py
+```
+*   **Settings**: Install Simulators (O3DE) and toggle Themes (Dark/Light).
+*   **Dashboard**: Select `modeA_validate_loop` or other matrices.
+*   **Benchmark**: View results in a sortable table.
 
-## Documentation
+### 2. Headless Mode (CI/CD)
+Run a full benchmark suite without opening any windows:
+```bash
+python3 runner/run_matrix.py configs/matrices/test_headless_ci.yaml
+```
 
-- **[Troubleshooting Exploration](docs/TROUBLESHOOTING_EXPLORATION.md)**: Solutions for stuck robots and stability issues.
-- **[Multi-SLAM Guide](docs/MULTI_SLAM_GUIDE.md)**: How to add new SLAM algorithms.
-- **[O3DE Guide](docs/O3DE_README.md)**: Setup and usage with O3DE.
+## 📚 Documentation
+
+*   **[Setup & Specs](docs/SETUP_AND_SPECS.md)**: Hardware requirements and installation guide.
+*   **[Simulators Guide](docs/SIMULATORS.md)**: Installing and using Gazebo vs O3DE.
+*   **[Metrics Documentation](docs/METRICS.md)**: Details on ATE, coverage, and system metrics.
+*   **[Headless CI](docs/HEADLESS_CI.md)**: Running benchmarks in CLI/CI mode.
+*   **[Simulation Realism](docs/SIMULATION_REALISM.md)**: Physics and Sensor noise parameters.
+*   **[Troubleshooting Exploration](docs/TROUBLESHOOTING_EXPLORATION.md)**: Solutions for navigation issues.
+*   **[Multi-SLAM Guide](docs/MULTI_SLAM_GUIDE.md)**: How to add new SLAM algorithms.
+
+
+## 🛠️ Project Structure
+
+*   `gui/`: PyQT5 interface (Main, Dashboard, Settings, Benchmark).
+*   `runner/`: Core orchestration logic (`orchestrator.py`, `run_matrix.py`).
+*   `configs/`:
+    *   `matrices/`: Benchmark suites.
+    *   `slams/`: SLAM algorithm profiles.
+    *   `datasets/`: Simulation scenarios.
+*   `results/`: Runs, logs, bags, and generated metrics.
+

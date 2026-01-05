@@ -23,8 +23,8 @@ Le SLAM Bench Orchestrator supporte maintenant plusieurs simulateurs : **Gazebo*
 ### Via GUI (Recommandé)
 
 1. Ouvrez l'orchestrateur : `python3 gui/main.py`
-2. Allez dans l'onglet **Tools → Simulators**
-3. Cliquez sur **"Install O3DE"**
+2. Allez dans la page **Settings** (icône en bas à gauche)
+3. Cliquez sur **"Install O3DE"** (ou Gazebo)
 4. Attendez la fin de l'installation (peut prendre 30-60 min)
 
 ### Manual Installation

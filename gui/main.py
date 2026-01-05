@@ -19,14 +19,15 @@ from gui.pages.dashboard import DashboardPage
 from gui.pages.details import ConfigDetailsPage
 from gui.pages.tools import ToolsPage 
 from gui.pages.editor import ConfigEditorPage
-from gui.pages.benchmark import BenchmarkPage # New Import
+from gui.pages.benchmark import BenchmarkPage
+from gui.pages.settings import SettingsPage # New Import
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("SLAM Bench Orchestrator")
         self.resize(1400, 900)
-        self.setStyleSheet(STYLE_SHEET)
+        # self.setStyleSheet(STYLE_SHEET) # Moved to SettingsPage init to support persistence
         
         self.active_runs = {} # {config_path: worker}
         self.running_config = None # Last focused run
@@ -61,7 +62,7 @@ class MainWindow(QMainWindow):
         self.nav_group.setExclusive(True)
         
         self.btn_dash = self.create_nav_button("Dashboard", 0)
-        self.btn_bench = self.create_nav_button("Benchmark", 4) # New Index 4
+        self.btn_bench = self.create_nav_button("Benchmark", 4)
         self.btn_tools = self.create_nav_button("Tools", 2)
         
         sidebar_layout.addWidget(self.btn_dash)
@@ -70,9 +71,13 @@ class MainWindow(QMainWindow):
         
         sidebar_layout.addStretch()
         
+        # Settings Button (Bottom)
+        self.btn_settings = self.create_nav_button("Settings", 5) # New Index 5
+        sidebar_layout.addWidget(self.btn_settings)
+
         # Version
         ver = QLabel("v2.2.0")
-        ver.setStyleSheet("color: #475569; padding-left: 30px; font-weight: 600;")
+        ver.setStyleSheet("color: #475569; padding-left: 30px; font-weight: 600; margin-top: 10px;")
         sidebar_layout.addWidget(ver)
         
         main_layout.addWidget(self.sidebar)
@@ -86,13 +91,17 @@ class MainWindow(QMainWindow):
         self.page_details = ConfigDetailsPage()
         self.page_tools = ToolsPage()
         self.page_editor = ConfigEditorPage()
-        self.page_benchmark = BenchmarkPage() # Initialize
+        self.page_benchmark = BenchmarkPage()
+        
+        # Pass self (MainWindow) to SettingsPage so it can change theme
+        self.page_settings = SettingsPage(main_window=self) 
         
         self.stack.addWidget(self.page_dashboard) # 0
         self.stack.addWidget(self.page_details)   # 1
         self.stack.addWidget(self.page_tools)     # 2
         self.stack.addWidget(self.page_editor)    # 3
         self.stack.addWidget(self.page_benchmark) # 4
+        self.stack.addWidget(self.page_settings)  # 5
         
         # Connect Signals
         
@@ -150,7 +159,9 @@ class MainWindow(QMainWindow):
             self.btn_tools.setChecked(True)
         elif index == 4:
             self.btn_bench.setChecked(True)
-            self.page_benchmark.refresh_data() # Auto refresh
+            self.page_benchmark.refresh_data()
+        elif index == 5:
+            self.btn_settings.setChecked(True)
             
         self.stack.setCurrentIndex(index)
 

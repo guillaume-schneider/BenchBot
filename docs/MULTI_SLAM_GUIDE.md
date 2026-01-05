@@ -7,26 +7,32 @@ Votre orchestrateur supporte actuellement **4 algorithmes SLAM** :
 ### 1. **SLAM Toolbox (Sync Mode)**
 - **ID** : `slam_toolbox_sync`
 - **Type** : Graph-based SLAM
-- **Avantages** : Excellent loop closure, robuste
+- **Advantages** : State-of-the-art loop closure, very robust.
 - **Config** : `configs/slams/slam_toolbox_sync.yaml`
 
 ### 2. **Cartographer 2D**
 - **ID** : `cartographer_2d`
-- **Type** : Google's Cartographer
-- **Avantages** : Très précis, bon sur grands environnements
+- **Type** : Submap Matching SLAM
+- **Advantages** : High precision, optimized for large environments.
 - **Config** : `configs/slams/cartographer_2d.yaml`
 
-### 3. **GMapping-like**
-- **ID** : `gmapping_like`
+### 3. **GMapping (Native Path)**
+- **ID** : `gmapping`
 - **Type** : Particle filter SLAM
-- **Avantages** : Classique, rapide
-- **Config** : `configs/slams/gmapping_like.yaml`
+- **Notes** : Fixed & Patched in `deps/gmapping_ws` to support parameters and ROS 2 Humble.
+- **Config** : `configs/slams/gmapping.yaml`
 
-### 4. **NoOp (Baseline)**
+### 4. **External (Passive)**
+- **ID** : `external`
+- **Type** : Passive observer
+- **Usage** : When SLAM is already running externally or as part of the scenario dataset.
+- **Config** : `configs/slams/external.yaml`
+
+### 5. **NoOp (Baseline)**
 - **ID** : `noop`
-- **Type** : Pas de SLAM (odométrie uniquement)
-- **Avantages** : Baseline pour comparaison
-- **Config** : `configs/slams/noop.yaml`
+- **Type** : Odometry-only (No SLAM)
+- **Usage** : Reference point to measure drift without correction.
+
 
 ---
 
@@ -64,12 +70,12 @@ python3 runner/run_matrix.py configs/matrices/slam_comparison.yaml
 
 ### Métriques Collectées pour Chaque SLAM
 
-- **Coverage** : % de la carte explorée
-- **IoU** : Intersection over Union (précision de la carte)
-- **ATE** : Absolute Trajectory Error (précision de localisation)
-- **Map Quality** : Netteté de la carte générée
-- **Runtime** : Temps total d'exécution
-- **CPU/Memory** : Ressources utilisées
+- **Coverage** : Discovery percentage of explorable area.
+- **IoU** : Accuracy of generated map vs Ground Truth.
+- **ATE** : Locatization precision (RMSE).
+- **Duration** : Actual wall clock time for the run.
+- **CPU/Memory** : Peak system resources consumed (Max CPU%, Max RAM MB).
+- **Path Length** : Total distance traveled.
 
 ### Visualiser la Comparaison
 

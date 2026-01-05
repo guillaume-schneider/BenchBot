@@ -530,12 +530,13 @@ class ToolsPage(QWidget):
         
         self.gt_page = GTMapPage()
         self.manual_page = ManualAnalysisPage()
-        self.sim_page = SimulatorManagementPage()
+        # Simulators moved to SettingsPage
+        # self.sim_page = SimulatorManagementPage() 
         self.cleanup_page = CleanupPage()
         
         self.tabs.addTab(self.gt_page, "GT Generator")
         self.tabs.addTab(self.manual_page, "Manual Analysis")
-        self.tabs.addTab(self.sim_page, "Simulators")
+        # self.tabs.addTab(self.sim_page, "Simulators")
         self.tabs.addTab(self.cleanup_page, "Cleanup")
         
         layout.addWidget(self.tabs)

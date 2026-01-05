@@ -232,6 +232,117 @@ def run_once(config_path: str) -> int:
     drain_s = float(cfg["run_control"]["drain_s"])
     timeout_s = float(cfg["run_control"]["timeout_s"])
 
+    import threading
+    import psutil
+
+    # Start monitoring thread
+    system_metrics = {"max_cpu": 0.0, "max_ram": 0.0}
+    monitor_active = True
+    
+    def monitor_loop():
+        # Wait for processes to spin up
+        time.sleep(2.0)
+        
+        # Cache psutil.Process objects to maintain state for cpu_percent()
+        # Key: PID, Value: psutil.Process
+        proc_cache = {}
+        
+        while monitor_active:
+            try:
+                total_cpu = 0.0
+                total_rss_bytes = 0
+                
+                # Identify all target PIDs (roots + children)
+                target_pids = set()
+                
+                # 1. Collect Root PIDs from ProcessManager
+                root_pids = []
+                for name, managed_proc in list(pm.procs.items()):
+                    if managed_proc.popen.poll() is None:
+                        root_pids.append(managed_proc.popen.pid)
+                
+                # 2. Collect Root PID from O3DE if applicable
+                if o3de_simulator_instance and o3de_process_handle:
+                    root_pids.append(o3de_process_handle.pid)
+
+                # 3. Expand to children (using temporary process objects if not in cache yet)
+                # We need to be careful not to re-create objects if we already have them,
+                # BUT we need to find children. psutil.Process.children() requires an instance.
+                
+                current_cycle_procs = []
+                
+                for pid in root_pids:
+                    # Get or create process object for root
+                    if pid not in proc_cache:
+                        try:
+                            proc_cache[pid] = psutil.Process(pid)
+                            # First call to initialize timer (returns 0.0)
+                            proc_cache[pid].cpu_percent(interval=None)
+                        except (psutil.NoSuchProcess, psutil.AccessDenied):
+                            continue
+                    
+                    root_proc = proc_cache[pid]
+                    current_cycle_procs.append(root_proc)
+                    
+                    # Get children
+                    try:
+                        children = root_proc.children(recursive=True)
+                        for child in children:
+                            c_pid = child.pid
+                            if c_pid not in proc_cache:
+                                try:
+                                    proc_cache[c_pid] = child
+                                    # Initialize timer
+                                    proc_cache[c_pid].cpu_percent(interval=None)
+                                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                                    continue
+                            current_cycle_procs.append(proc_cache[c_pid])
+                    except (psutil.NoSuchProcess, psutil.AccessDenied):
+                        pass
+
+                # 4. Measure metrics on cached objects
+                for p in current_cycle_procs:
+                    try:
+                        # cpu_percent is non-blocking with interval=None
+                        # It returns usage since last call (on this object)
+                        cpu = p.cpu_percent(interval=None)
+                        rss = p.memory_info().rss
+                        
+                        total_cpu += cpu
+                        total_rss_bytes += rss
+                    except (psutil.NoSuchProcess, psutil.AccessDenied):
+                        # Process died between discovery and measurement
+                        # Remove from cache to be safe?
+                        # Actually we can leave it, we re-discover roots next time
+                        pass
+                
+                # Cleanup cache: remove PIDs that weren't in current_cycle_procs?
+                # Optional, but good for long runs.
+                # However, current_cycle_procs refinds them every time. 
+                # Let's simple prune cache to pids in current_cycle_procs
+                active_pids = {p.pid for p in current_cycle_procs}
+                bad_pids = [pid for pid in proc_cache if pid not in active_pids]
+                for pid in bad_pids:
+                    del proc_cache[pid]
+
+                total_ram_mb = total_rss_bytes / (1024 * 1024)
+                
+                if total_cpu > system_metrics["max_cpu"]:
+                    system_metrics["max_cpu"] = total_cpu
+                if total_ram_mb > system_metrics["max_ram"]:
+                    # Filter crazy spikes? No, valid reading.
+                    system_metrics["max_ram"] = total_ram_mb
+                    
+            except Exception as e:
+                # Don't crash the monitor
+                # print(f"Monitor error: {e}")
+                pass
+                
+            time.sleep(1.0) # 1Hz sampling
+
+    monitor_thread = threading.Thread(target=monitor_loop, daemon=True)
+    monitor_thread.start()
+
     try:
         # START_SCENARIO (multi-process)
         for proc in scenario_processes:
@@ -307,9 +418,17 @@ def run_once(config_path: str) -> int:
         # DRAIN: pause and wait a bit so last map/TF can flush
         set_explore(False)
         t2 = time.time()
+        
+        # Stop resource monitoring
+        monitor_active = False
+        if monitor_thread:
+            monitor_thread.join(timeout=2.0)
+            
         return 0
 
     finally:
+        monitor_active = False # Ensure loop stops
+        
         # STOP (reverse-ish)
         try:
             set_explore(False)
@@ -361,10 +480,14 @@ def run_once(config_path: str) -> int:
             rmse = run_benchmark(bag_path)
             
             # Save to metrics.json
-            metrics = {"ate_rmse": rmse}
+            metrics = {
+                "ate_rmse": rmse,
+                "max_cpu_percent": system_metrics["max_cpu"],
+                "max_ram_mb": system_metrics["max_ram"]
+            }
             with open(metrics_path, "w") as f:
                 json.dump(metrics, f, indent=4)
-            node.get_logger().info(f"Evaluation finished. RMSE: {rmse}")
+            node.get_logger().info(f"Evaluation finished. RMSE: {rmse}, CPU: {metrics['max_cpu_percent']:.1f}%, RAM: {metrics['max_ram_mb']:.1f}MB")
         except Exception as e:
             node.get_logger().error(f"Evaluation failed: {e}")
 
