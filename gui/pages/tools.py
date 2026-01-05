@@ -294,18 +294,18 @@ class SimulatorManagementPage(QWidget):
             
             # Update status label
             if installed:
-                status_label.setText(f"✅ Installed - Version: {version or 'Unknown'}")
+                status_label.setText(f"Installed - Version: {version or 'Unknown'}")
                 status_label.setStyleSheet("color: #10b981; font-size: 14px; margin: 10px 0;")
             else:
-                status_label.setText(f"❌ Not Installed (Size: ~{size_mb} MB)")
+                status_label.setText(f"Not Installed (Size: ~{size_mb} MB)")
                 status_label.setStyleSheet("color: #ef4444; font-size: 14px; margin: 10px 0;")
             
             # Update details
             details = f"Installation Directory: {sim.install_dir}\n\n"
             details += "Dependencies:\n"
             for dep, available in deps.items():
-                status = "✅" if available else "❌"
-                details += f"  {status} {dep}\n"
+                status = "OK" if available else "MISSING"
+                details += f"  [{status}] {dep}\n"
             details_text.setText(details)
             
             # Update button
@@ -421,8 +421,8 @@ class SimulatorManagementPage(QWidget):
                 # Update label with detailed info
                 detailed_msg = f"{message}\n\n"
                 detailed_msg += f"Progress: {percent}%\n"
-                detailed_msg += f"⏱️  Elapsed: {elapsed_str}\n"
-                detailed_msg += f"⏳ Estimated remaining: {remaining_str}"
+                detailed_msg += f"Elapsed: {elapsed_str}\n"
+                detailed_msg += f"Estimated remaining: {remaining_str}"
                 
                 info_label.setText(detailed_msg)
             else:
@@ -439,7 +439,7 @@ class SimulatorManagementPage(QWidget):
                     self, 
                     "Success", 
                     f"{sim_name.upper()} installed successfully!\n\n"
-                    f"⏱️ Total time: {format_time(int(elapsed_total))}"
+                    f"Total time: {format_time(int(elapsed_total))}"
                 )
             else:
                 QMessageBox.warning(
@@ -470,7 +470,7 @@ class CleanupPage(QWidget):
         self.layout.addWidget(desc)
         
         # Action Button
-        kill_btn = QPushButton("🔥 Kill All Zombie Processes")
+        kill_btn = QPushButton("Kill All Zombie Processes")
         kill_btn.setStyleSheet("""
             QPushButton { background-color: #ef4444; color: white; padding: 15px; border-radius: 8px; font-size: 16px; font-weight: bold; }
             QPushButton:hover { background-color: #dc2626; }
@@ -530,12 +530,15 @@ class ToolsPage(QWidget):
         
         self.gt_page = GTMapPage()
         self.manual_page = ManualAnalysisPage()
+        from gui.pages.optimizer_page import OptimizerPage
+        self.optimizer_page = OptimizerPage()
         # Simulators moved to SettingsPage
         # self.sim_page = SimulatorManagementPage() 
         self.cleanup_page = CleanupPage()
         
         self.tabs.addTab(self.gt_page, "GT Generator")
         self.tabs.addTab(self.manual_page, "Manual Analysis")
+        self.tabs.addTab(self.optimizer_page, "Auto-Tuner")
         # self.tabs.addTab(self.sim_page, "Simulators")
         self.tabs.addTab(self.cleanup_page, "Cleanup")
         

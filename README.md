@@ -33,11 +33,15 @@ python3 runner/run_matrix.py configs/matrices/test_headless_ci.yaml
 
 *   **[Setup & Specs](docs/SETUP_AND_SPECS.md)**: Hardware requirements and installation guide.
 *   **[Simulators Guide](docs/SIMULATORS.md)**: Installing and using Gazebo vs O3DE.
+*   **[Auto-Tuner Guide](docs/AUTO_TUNER_GUIDE.md)**: Optimizing SLAM parameters with AI.
+*   **[O3DE Deep Dive](docs/o3de/)**: Comprehensive documentation for O3DE integration.
 *   **[Metrics Documentation](docs/METRICS.md)**: Details on ATE, coverage, and system metrics.
 *   **[Headless CI](docs/HEADLESS_CI.md)**: Running benchmarks in CLI/CI mode.
 *   **[Simulation Realism](docs/SIMULATION_REALISM.md)**: Physics and Sensor noise parameters.
 *   **[Troubleshooting Exploration](docs/TROUBLESHOOTING_EXPLORATION.md)**: Solutions for navigation issues.
 *   **[Multi-SLAM Guide](docs/MULTI_SLAM_GUIDE.md)**: How to add new SLAM algorithms.
+*   **[Archive & Logs](docs/archive/)**: Historical session logs and debugging notes.
+
 
 
 ## 🛠️ Project Structure

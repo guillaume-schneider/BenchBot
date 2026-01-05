@@ -1,0 +1,30 @@
+name: "SLAM Tuning Suite"
+
+datasets:
+  - id: "tb3_sim_explore_modeA"
+    world_name: "worlds/turtlebot3_house.world"
+    launch:
+      cmd: "ros2 launch nav2_bringup tb3_simulation_launch.py headless:=True world:={world_name}"
+
+slams:
+  - id: "gmapping"
+    profile: "configs/slams/gmapping.yaml"
+  - id: "slam_toolbox"
+    profile: "configs/slams/slam_toolbox_sync.yaml"
+
+# This is our new automation block
+optimization_studios:
+  - name: "tune_gmapping_range"
+    dataset: "tb3_sim_explore_modeA"
+    slam: "gmapping"
+    trials: 5
+    params:
+      "slam.parameters.slam_gmapping.maxUrange": { "min": 5.0, "max": 20.0 }
+      "slam.parameters.slam_gmapping.particles": { "min": 10, "max": 50, "type": "int" }
+
+  - name: "tune_toolbox_range"
+    dataset: "tb3_sim_explore_modeA"
+    slam: "slam_toolbox"
+    trials: 5
+    params:
+      "slam.parameters.max_range": { "min": 5.0, "max": 15.0 }

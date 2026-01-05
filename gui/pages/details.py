@@ -21,6 +21,7 @@ try:
     from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
     from matplotlib.figure import Figure
     import numpy as np
+    import collections
     EVALUATION_AVAILABLE = True
 except ImportError:
     EVALUATION_AVAILABLE = False
@@ -135,10 +136,12 @@ class ConfigDetailsPage(QWidget):
         
         self.overview_tab = QWidget()
         self.logs_tab = QWidget()
+        self.monitor_tab = QWidget() # New tab
         self.analysis_tab = QWidget()
         
         self.tabs.addTab(self.overview_tab, "Overview")
         self.tabs.addTab(self.logs_tab, "Logs")
+        self.tabs.addTab(self.monitor_tab, "Monitor") # New tab
         self.tabs.addTab(self.analysis_tab, "Analysis")
         
         # Add Tabs to Main Layout
@@ -150,6 +153,7 @@ class ConfigDetailsPage(QWidget):
         # 3. Setup Tab Contents
         self.setup_logs_tab()
         self.setup_overview_tab()
+        self.setup_monitor_tab()
         self.setup_analysis_tab()
 
 
@@ -208,6 +212,94 @@ class ConfigDetailsPage(QWidget):
         self.log_view.setReadOnly(True)
         self.log_view.setStyleSheet("font-family: Monospace; font-size: 12px; background-color: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 10px;")
         l.addWidget(self.log_view)
+
+    def setup_monitor_tab(self):
+        l = QVBoxLayout(self.monitor_tab)
+        l.setContentsMargins(0, 20, 0, 0)
+        l.setSpacing(20)
+
+        # 1. Stats Row
+        stats_layout = QHBoxLayout()
+        self.cpu_card = self._create_stat_card("Current CPU", "0.0 %", "#6366f1")
+        self.ram_card = self._create_stat_card("Current RAM", "0.0 MB", "#10b981")
+        stats_layout.addWidget(self.cpu_card)
+        stats_layout.addWidget(self.ram_card)
+        l.addLayout(stats_layout)
+
+        # 2. Charts
+        self.max_points = 60
+        self.cpu_history = collections.deque([0.0] * self.max_points, maxlen=self.max_points)
+        self.ram_history = collections.deque([0.0] * self.max_points, maxlen=self.max_points)
+        self.time_data = list(range(self.max_points))
+
+        graph_frame = QFrame()
+        graph_frame.setStyleSheet("background-color: #1e293b; border-radius: 12px; border: 1px solid #334155;")
+        graph_layout = QVBoxLayout(graph_frame)
+        
+        self.mon_figure = Figure(figsize=(10, 6), facecolor='#1e293b')
+        self.mon_canvas = FigureCanvasQTAgg(self.mon_figure)
+        graph_layout.addWidget(self.mon_canvas)
+        
+        self.ax_cpu = self.mon_figure.add_subplot(211)
+        self.ax_ram = self.mon_figure.add_subplot(212)
+        
+        for ax in [self.ax_cpu, self.ax_ram]:
+            ax.set_facecolor('#1e293b')
+            ax.tick_params(colors='#94a3b8', labelsize=8)
+            for spine in ax.spines.values():
+                spine.set_color('#334155')
+        
+        self.mon_cpu_line, = self.ax_cpu.plot(self.time_data, list(self.cpu_history), color='#6366f1', linewidth=2)
+        self.mon_ram_line, = self.ax_ram.plot(self.time_data, list(self.ram_history), color='#10b981', linewidth=2)
+        
+        self.ax_cpu.set_title("CPU Usage (%)", color='#f1f5f9', fontsize=10, loc='left')
+        self.ax_ram.set_title("RAM Usage (MB)", color='#f1f5f9', fontsize=10, loc='left')
+        
+        self.mon_figure.tight_layout(pad=3.0)
+        l.addWidget(graph_frame)
+        
+        self.mon_info_lbl = QLabel("No active run.")
+        self.mon_info_lbl.setStyleSheet("color: #94a3b8; font-style: italic;")
+        l.addWidget(self.mon_info_lbl)
+
+    def _create_stat_card(self, title, value, color):
+        card = QFrame()
+        card.setStyleSheet(f"""
+            QFrame {{ background-color: #1e293b; border: 1px solid #334155; border-left: 4px solid {color}; border-radius: 8px; padding: 15px; }}
+        """)
+        l = QVBoxLayout(card)
+        t = QLabel(title)
+        t.setStyleSheet("color: #94a3b8; font-size: 12px; font-weight: bold; border: none;")
+        v = QLabel(value)
+        v.setStyleSheet(f"color: {color}; font-size: 24px; font-weight: bold; border: none;")
+        v.setObjectName("valueLabel")
+        l.addWidget(t)
+        l.addWidget(v)
+        return card
+
+    def update_monitor(self, data):
+        cpu = data.get('cpu', 0.0)
+        ram = data.get('ram', 0.0)
+        
+        # Update Cards
+        self.cpu_card.findChild(QLabel, "valueLabel").setText(f"{cpu} %")
+        self.ram_card.findChild(QLabel, "valueLabel").setText(f"{ram} MB")
+        
+        # Update Data
+        self.cpu_history.append(cpu)
+        self.ram_history.append(ram)
+        
+        # Update Plots
+        self.mon_cpu_line.set_ydata(list(self.cpu_history))
+        self.mon_ram_line.set_ydata(list(self.ram_history))
+        
+        # Rescale
+        self.ax_cpu.relim()
+        self.ax_cpu.autoscale_view()
+        self.ax_ram.relim()
+        self.ax_ram.autoscale_view()
+        
+        self.mon_canvas.draw()
 
     def setup_analysis_tab(self):
         l = QVBoxLayout(self.analysis_tab)
@@ -268,6 +360,12 @@ class ConfigDetailsPage(QWidget):
         self.config_data = data
         self.title_label.setText(f"Configuration: {data.get('name', 'Unknown')}")
         self.log_view.clear()
+        
+        # Reset Monitor
+        self.cpu_history = collections.deque([0.0] * self.max_points, maxlen=self.max_points)
+        self.ram_history = collections.deque([0.0] * self.max_points, maxlen=self.max_points)
+        self.mon_info_lbl.setText("Ready to monitor.")
+        self.mon_canvas.draw()
         
         # Fill Overview Summary
         name = data.get('name', 'Unknown')

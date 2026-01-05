@@ -48,9 +48,9 @@ class BenchmarkPage(QWidget):
         
         header_layout.addStretch()
         
-        self.btn_export = QPushButton("📄 Export PDF Report")
+        self.btn_export = QPushButton("Export PDF Report")
         self.btn_export.setObjectName("actionButton")
-        self.btn_export.setStyleSheet("background-color: #6366f1;")
+        self.btn_export.setStyleSheet("background-color: #6366f1; font-weight: bold;")
         self.btn_export.setFixedWidth(200)
         self.btn_export.clicked.connect(self.export_pdf_report)
         header_layout.addWidget(self.btn_export)

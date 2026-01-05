@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QColor, QFont, QCursor
+import collections
 
 class ConfigCard(QFrame):
     """
@@ -95,6 +96,20 @@ class ConfigCard(QFrame):
         self.pbar.hide()
         self.layout.addWidget(self.pbar)
         
+        self.metrics_row = QHBoxLayout()
+        self.cpu_lbl = QLabel("CPU: 0%")
+        self.cpu_lbl.setStyleSheet("color: #818cf8; font-size: 11px; font-weight: bold;")
+        self.ram_lbl = QLabel("RAM: 0MB")
+        self.ram_lbl.setStyleSheet("color: #10b981; font-size: 11px; font-weight: bold;")
+        self.metrics_row.addWidget(self.cpu_lbl)
+        self.metrics_row.addWidget(self.ram_lbl)
+        self.metrics_row.addStretch()
+        
+        self.metrics_container = QWidget()
+        self.metrics_container.setLayout(self.metrics_row)
+        self.metrics_container.hide()
+        self.layout.addWidget(self.metrics_container)
+
         self.layout.addStretch()
         
         # Actions
@@ -157,6 +172,7 @@ class ConfigCard(QFrame):
             self.run_btn.hide()
             self.stop_btn.show()
             self.pbar.show()
+            self.metrics_container.show()
         else:
             self.status_badge.setText("IDLE")
             self.status_badge.setStyleSheet("""
@@ -166,6 +182,11 @@ class ConfigCard(QFrame):
             self.run_btn.show()
             self.stop_btn.hide()
             self.pbar.hide()
+            self.metrics_container.hide()
+
+    def update_live_metrics(self, cpu, ram):
+        self.cpu_lbl.setText(f"CPU: {cpu}%")
+        self.ram_lbl.setText(f"RAM: {int(ram)}MB")
 
     def update_progress(self, current, total):
         if total > 0:

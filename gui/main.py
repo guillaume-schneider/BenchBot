@@ -215,6 +215,7 @@ class MainWindow(QMainWindow):
         worker.finished_signal.connect(lambda p=config_path: self.handle_finished(p))
         worker.config_started.connect(lambda p_str, p=config_path: self.handle_config_started(p_str, p))
         worker.result_ready.connect(lambda r_p, p=config_path: self.handle_result_ready(r_p, p))
+        worker.live_metrics_signal.connect(self.handle_live_metrics)
         
         # Update UI state
         self.update_ui_state(config_path, True)
@@ -245,12 +246,30 @@ class MainWindow(QMainWindow):
                          self.result_windows = []
                      
                      res_win = ResultWindow(run_path, self)
+                     res_win.auto_tune_requested.connect(self.switch_to_autotuner)
                      res_win.show()
                      self.result_windows.append(res_win) # prevent GC
                  except Exception as e:
-                     print(f"ERROR Opening Result Window: {e}")
-                     import traceback
-                     traceback.print_exc()
+                     print(f"Error opening ResultWindow: {e}")
+
+    def switch_to_autotuner(self, config_path):
+        # Tools page is index 2, but we need to open the right sub-tab
+        self.switch_page(2) 
+        # ToolsPage is a TabWidget. Index 2 is "Auto-Tuner"
+        self.page_tools.tabs.setCurrentIndex(2)
+        # Load the job
+        self.page_tools.optimizer_page.load_reference_job(config_path)
+
+    def handle_live_metrics(self, config_path, data):
+        # Update the details page monitor if matched
+        if self.page_details.config_path == config_path:
+            self.page_details.update_monitor(data)
+            
+        # Update the specific card on Dashboard
+        if config_path in self.page_dashboard.cards:
+            cpu = data.get('cpu', 0.0)
+            ram = data.get('ram', 0.0)
+            self.page_dashboard.cards[config_path].update_live_metrics(cpu, ram)
 
     def handle_log(self, msg, config_path):
         if config_path not in self.log_buffers:
@@ -265,6 +284,11 @@ class MainWindow(QMainWindow):
         # Update Dashboard Card
         if config_path in self.page_dashboard.cards:
             self.page_dashboard.cards[config_path].update_progress(current, total)
+        
+        # Update Detail page monitor info if matched
+        if self.page_details.config_path == config_path:
+            self.page_details.mon_info_lbl.setText(f"Monitoring active run: {run_id}")
+            self.page_details.mon_info_lbl.setStyleSheet("color: #60a5fa; font-weight: bold;")
 
     def handle_config_started(self, path, config_path):
         pass
@@ -276,6 +300,9 @@ class MainWindow(QMainWindow):
         
         if self.running_config == config_path:
             self.running_config = None
+            if self.page_details.config_path == config_path:
+                self.page_details.mon_info_lbl.setText("Run finished.")
+                self.page_details.mon_info_lbl.setStyleSheet("color: #94a3b8; font-style: italic;")
 
     def update_ui_state(self, path, is_running):
         # Update Dashboard Card

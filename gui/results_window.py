@@ -4,7 +4,7 @@ import yaml
 import numpy as np
 from PyQt5.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
                              QLabel, QTextEdit, QPushButton, QMessageBox)
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
@@ -38,6 +38,8 @@ except ImportError:
     )
 
 class ResultWindow(QMainWindow):
+    auto_tune_requested = pyqtSignal(str) # job_path
+
     def __init__(self, run_dir, parent=None):
         super().__init__(parent)
         self.run_dir = Path(run_dir)
@@ -51,9 +53,25 @@ class ResultWindow(QMainWindow):
         layout = QVBoxLayout(central)
         
         # Header
+        header_layout = QHBoxLayout()
         header = QLabel(f"Results for: {self.run_dir.name}")
-        header.setStyleSheet("font-size: 18px; font-weight: bold; color: #f8fafc; margin-bottom: 10px;")
-        layout.addWidget(header)
+        header.setStyleSheet("font-size: 18px; font-weight: bold; color: #f8fafc;")
+        header_layout.addWidget(header)
+        
+        header_layout.addStretch()
+        
+        self.btn_tune = QPushButton("Optimize this Run")
+        self.btn_tune.setStyleSheet("""
+            QPushButton { 
+                background-color: #6366f1; color: white; padding: 6px 15px; 
+                border-radius: 6px; font-weight: bold; font-size: 13px;
+            }
+            QPushButton:hover { background-color: #4f46e5; }
+        """)
+        self.btn_tune.clicked.connect(self.on_tune_clicked)
+        header_layout.addWidget(self.btn_tune)
+        
+        layout.addLayout(header_layout)
         
         # Content Layout (Text left, Plots right)
         content_layout = QHBoxLayout()
@@ -99,6 +117,13 @@ class ResultWindow(QMainWindow):
     def log(self, msg):
         self.log_view.append(msg)
         print(f"RESULT_WIN: {msg}")
+
+    def on_tune_clicked(self):
+        config_path = self.run_dir / "config_resolved.yaml"
+        if config_path.exists():
+            self.auto_tune_requested.emit(str(config_path))
+        else:
+            QMessageBox.warning(self, "Error", "Could not find reference configuration for this run.")
 
     def run_analysis(self):
         try:

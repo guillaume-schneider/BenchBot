@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import time
+import json
+import sys
 from pathlib import Path
 import yaml
 
@@ -146,6 +148,9 @@ def run_once(config_path: str) -> int:
     
     # Preventive cleanup: kill any leftover Gazebo/O3DE/Nav2 processes
     # This ensures a clean slate before starting
+    print(f"[ORCHESTRATOR] Starting run_once for {config_path}...")
+    sys.stdout.flush()
+
     # NOTE: Use specific process names to avoid killing this Python script!
     # Preventive cleanup: kill any leftover Gazebo/O3DE/Nav2/ROS processes
     # This ensures a clean slate before starting
@@ -327,6 +332,10 @@ def run_once(config_path: str) -> int:
 
                 total_ram_mb = total_rss_bytes / (1024 * 1024)
                 
+                # Live Reporting for GUI
+                print(f"[LIVE_METRICS] {json.dumps({'cpu': round(total_cpu, 1), 'ram': round(total_ram_mb, 1)})}")
+                sys.stdout.flush()
+
                 if total_cpu > system_metrics["max_cpu"]:
                     system_metrics["max_cpu"] = total_cpu
                 if total_ram_mb > system_metrics["max_ram"]:
@@ -335,7 +344,7 @@ def run_once(config_path: str) -> int:
                     
             except Exception as e:
                 # Don't crash the monitor
-                # print(f"Monitor error: {e}")
+                print(f"Monitor error: {e}")
                 pass
                 
             time.sleep(1.0) # 1Hz sampling
@@ -472,7 +481,6 @@ def run_once(config_path: str) -> int:
         try:
             node.get_logger().info("Starting post-run evaluation...")
             from tools.benchmark import run_benchmark
-            import json
             
             bag_path = cfg["paths"]["bags_dir"] + "/output"
             metrics_path = cfg["paths"]["metrics_json"]

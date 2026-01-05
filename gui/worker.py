@@ -19,6 +19,7 @@ class RunWorker(QThread):
     # New signals for config tracking
     config_started = pyqtSignal(str) # config_path
     config_finished = pyqtSignal(str) # config_path
+    live_metrics_signal = pyqtSignal(str, dict) # config_path, {cpu: float, ram: float}
 
     def __init__(self, configs_paths, use_gui, options=None):
         super().__init__()
@@ -218,7 +219,7 @@ class RunWorker(QThread):
                                         pass
                                                 
                                     config_path = Path(output_root) / run_id / "config_resolved.yaml"
-                                    total_resolved_jobs.append((run_id, config_path, resolved))
+                                    total_resolved_jobs.append((run_id, config_path, resolved, str(matrix_path)))
                 except Exception as e:
                     self.log_signal.emit(f"ERROR processing config {matrix_path}: {e}")
                     print(f"DEBUG: Error processing config {matrix_path}: {e}")
@@ -226,7 +227,7 @@ class RunWorker(QThread):
             # 2. Execute jobs
             print(f"DEBUG: Resolution complete. Total jobs: {len(total_resolved_jobs)}")
             total = len(total_resolved_jobs)
-            for i, (run_id, config_path, resolved) in enumerate(total_resolved_jobs):
+            for i, (run_id, config_path, resolved, origin_path) in enumerate(total_resolved_jobs):
                 print(f"DEBUG: Starting job {i+1}/{total}: {run_id}")
                 if self.is_cancelled: 
                     print("DEBUG: Cancelled before job start")
@@ -243,7 +244,7 @@ class RunWorker(QThread):
                      self.log_signal.emit(f"ERROR writing config: {e}")
                      continue
 
-                cmd = [sys.executable, "-m", "runner.run_one", str(config_path)]
+                cmd = [sys.executable, "-u", "-m", "runner.run_one", str(config_path)]
                 
                 # Start in a new process group to allow killing the entire tree
                 try:
@@ -275,12 +276,26 @@ class RunWorker(QThread):
                             line = process.stdout.readline()
                             if not line: # EOF
                                 break
-                            self.log_signal.emit(line.strip())
+                            
+                            line_str = line.strip()
+                            if "[LIVE_METRICS]" in line_str:
+                                try:
+                                    import json
+                                    data_str = line_str.split("[LIVE_METRICS]")[1].strip()
+                                    metrics = json.loads(data_str)
+                                    print(f"DEBUG: Received LIVE_METRICS: {metrics} for {origin_path}")
+                                    self.live_metrics_signal.emit(origin_path, metrics)
+                                except:
+                                    pass
+                            else:
+                                self.log_signal.emit(line_str)
                         
                         if process.poll() is not None:
                             # Flush remaining
                             for line in process.stdout:
-                                self.log_signal.emit(line.strip())
+                                line_str = line.strip()
+                                if "[LIVE_METRICS]" in line_str: continue
+                                self.log_signal.emit(line_str)
                             break
                 finally:
                     sel.unregister(process.stdout)
