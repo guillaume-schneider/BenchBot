@@ -9,6 +9,7 @@ import yaml
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Bool
+from nav_msgs.msg import Odometry
 
 from runner.process_manager import ProcessManager
 from runner.bag_recorder import RosbagConfig, build_rosbag_cmd
@@ -184,6 +185,22 @@ def run_once(config_path: str) -> int:
     # --------- Mode A additions: explore pause/resume ----------
     explore_resume_topic = "/explore/resume"
     explore_pub = node.create_publisher(Bool, explore_resume_topic, 10)
+
+    # --------- Pose Tracking for Live Plotting ---------
+    latest_pose = {"x": 0.0, "y": 0.0, "yaw": 0.0}
+    
+    def odom_callback(msg: Odometry):
+        nonlocal latest_pose
+        latest_pose["x"] = msg.pose.pose.position.x
+        latest_pose["y"] = msg.pose.pose.position.y
+        # Basic yaw extraction if needed
+        import math
+        q = msg.pose.pose.orientation
+        siny_cosp = 2 * (q.w * q.z + q.x * q.y)
+        cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z)
+        latest_pose["yaw"] = math.atan2(siny_cosp, cosy_cosp)
+
+    node.create_subscription(Odometry, "/odom", odom_callback, 10)
 
     def set_explore(enabled: bool) -> None:
         msg = Bool()
@@ -370,7 +387,12 @@ def run_once(config_path: str) -> int:
                 total_ram_mb = total_rss_bytes / (1024 * 1024)
                 
                 # Live Reporting for GUI
-                print(f"[LIVE_METRICS] {json.dumps({'cpu': round(total_cpu, 1), 'ram': round(total_ram_mb, 1)})}")
+                metrics_payload = {
+                    'cpu': round(total_cpu, 1), 
+                    'ram': round(total_ram_mb, 1),
+                    'pose': latest_pose
+                }
+                print(f"[LIVE_METRICS] {json.dumps(metrics_payload)}")
                 sys.stdout.flush()
 
                 if total_cpu > system_metrics["max_cpu"]:
@@ -524,15 +546,49 @@ def run_once(config_path: str) -> int:
             
             rmse = run_benchmark(bag_path)
             
+            # Additional analysis for anomalies and coverage
+            from evaluation import read_messages_by_topic, detect_anomalies, load_gt_map, occupancy_arrays_from_msgs, compute_coverage
+            
+            msgs = read_messages_by_topic(bag_path, ["/odom", "/map"])
+            odom_msgs = msgs.get("/odom", [])
+            map_msgs = msgs.get("/map", [])
+            
+            warnings, is_failure = detect_anomalies(odom_msgs, rmse)
+            
+            coverage = 0.0
+            # Try to get GT map for coverage
+            try:
+                # Find GT map from config (already loaded above as cfg)
+                gt_path_rel = None
+                for ds in cfg.get("datasets", []): # Matrix might have multiple, but cfg resolved has one
+                    pass # Simplified: Use the one in the resolved cfg
+                
+                # In resolved cfg, it's usually directly in dataset:
+                gt_def = cfg.get("dataset", {}).get("ground_truth", {})
+                if gt_def:
+                    gt_map, gt_res, gt_origin = load_gt_map(str(Path.cwd() / gt_def["map_path"]))
+                    est_on_gt = occupancy_arrays_from_msgs(map_msgs, gt_map, gt_res, gt_origin)
+                    coverage = compute_coverage(gt_map, est_on_gt)
+            except Exception as e:
+                node.get_logger().warn(f"Could not compute coverage: {e}")
+
             # Save to metrics.json
             metrics = {
                 "ate_rmse": rmse,
                 "max_cpu_percent": system_metrics["max_cpu"],
-                "max_ram_mb": system_metrics["max_ram"]
+                "max_ram_mb": system_metrics["max_ram"],
+                "coverage": float(coverage),
+                "is_failure": is_failure,
+                "failure_reasons": warnings
             }
             with open(metrics_path, "w") as f:
                 json.dump(metrics, f, indent=4)
-            node.get_logger().info(f"Evaluation finished. RMSE: {rmse}, CPU: {metrics['max_cpu_percent']:.1f}%, RAM: {metrics['max_ram_mb']:.1f}MB")
+            
+            status_text = "SUCCESS" if not is_failure else "POTENTIAL FAILURE"
+            node.get_logger().info(f"Evaluation finished [{status_text}]. RMSE: {rmse}, Coverage: {coverage*100:.1f}%, CPU: {metrics['max_cpu_percent']:.1f}%, RAM: {metrics['max_ram_mb']:.1f}MB")
+            if warnings:
+                for w in warnings:
+                    node.get_logger().warn(f" [!] {w}")
         except Exception as e:
             node.get_logger().error(f"Evaluation failed: {e}")
 

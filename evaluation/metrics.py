@@ -382,6 +382,64 @@ def compute_path_length(odom_msgs):
     return length
 
 
+def get_trajectory(odom_msgs):
+    """
+    Extract x, y points from a list of (timestamp, msg) odom messages.
+    Returns: (list_x, list_y)
+    """
+    tx, ty = [], []
+    for _, msg in odom_msgs:
+        tx.append(msg.pose.pose.position.x)
+        ty.append(msg.pose.pose.position.y)
+    return tx, ty
+
+
+def detect_anomalies(odom_msgs, ate_rmse=None):
+    """
+    Heuristic-based failure detection.
+    Returns: (list of warning strings, is_failure boolean)
+    """
+    warnings = []
+    is_failure = False
+    
+    if not odom_msgs:
+        return (["No odometry data found."], True)
+        
+    # 1. Minimum Movement Check
+    total_dist = compute_path_length(odom_msgs)
+    if total_dist < 0.2: # Less than 20cm
+        warnings.append("Robot barely moved (Stuck/Process fail)")
+        is_failure = True
+        
+    # 2. Velocity / Jump Check
+    # TB3 max speed is ~0.26 m/s. Let's flag anything > 1.5 m/s as a TF Jump
+    max_jump = 0.0
+    for i in range(1, len(odom_msgs)):
+        t1, p1 = odom_msgs[i-1]
+        t2, p2 = odom_msgs[i]
+        dt = t2 - t1
+        if dt <= 0: continue
+        
+        dx = p2.pose.pose.position.x - p1.pose.pose.position.x
+        dy = p2.pose.pose.position.y - p1.pose.pose.position.y
+        dist = math.sqrt(dx*dx + dy*dy)
+        vel = dist / dt
+        
+        if vel > 1.5: 
+            max_jump = max(max_jump, vel)
+            
+    if max_jump > 0:
+        warnings.append(f"Major TF Jump detected! (Max speed pulse: {max_jump:.2f} m/s)")
+        is_failure = True
+
+    # 3. Accuracy Fail
+    if ate_rmse is not None and ate_rmse > 1.0:
+        warnings.append(f"Massive drift detected! (ATE RMSE: {ate_rmse:.3f} m)")
+        is_failure = True
+
+    return warnings, is_failure
+
+
 # ---------- Main ----------
 
 def main():
@@ -421,6 +479,13 @@ def main():
     print(f"Final coverage         : {final_cov*100:.1f} %")
     print(f"Final occupancy IoU    : {final_iou:.3f}")
     print(f"Total path length      : {path_len:.2f} m")
+
+    # Anomalies
+    warnings, is_fail = detect_anomalies(odom_msgs, final_iou) # Use IoU as proxy for ATE if needed
+    if warnings:
+        print("\n--- Warnings/Anomalies ---")
+        for w in warnings:
+            print(f" [!] {w}")
 
     # bag time is relative; we just print seconds since first message
     t0 = map_msgs[0][0]

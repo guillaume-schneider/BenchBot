@@ -12,7 +12,9 @@ from .metrics import (
     compute_iou,
     compute_time_to_coverage,
     compute_path_length,
-    align_est_map_to_gt
+    align_est_map_to_gt,
+    get_trajectory,
+    detect_anomalies
 )
 
 __all__ = [
@@ -24,5 +26,7 @@ __all__ = [
     'compute_iou',
     'compute_time_to_coverage',
     'compute_path_length',
-    'align_est_map_to_gt'
+    'align_est_map_to_gt',
+    'get_trajectory',
+    'detect_anomalies'
 ]

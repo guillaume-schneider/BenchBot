@@ -230,15 +230,20 @@ class ConfigDetailsPage(QWidget):
         self.max_points = 60
         self.cpu_history = collections.deque([0.0] * self.max_points, maxlen=self.max_points)
         self.ram_history = collections.deque([0.0] * self.max_points, maxlen=self.max_points)
+        self.traj_x = []
+        self.traj_y = []
         self.time_data = list(range(self.max_points))
 
-        graph_frame = QFrame()
-        graph_frame.setStyleSheet("background-color: #1e293b; border-radius: 12px; border: 1px solid #334155;")
-        graph_layout = QVBoxLayout(graph_frame)
+        main_viz_layout = QHBoxLayout() # Split Charts and Trajectory
         
-        self.mon_figure = Figure(figsize=(10, 6), facecolor='#1e293b')
+        # Left: CPU/RAM
+        perf_frame = QFrame()
+        perf_frame.setStyleSheet("background-color: #1e293b; border-radius: 12px; border: 1px solid #334155;")
+        perf_vbox = QVBoxLayout(perf_frame)
+        
+        self.mon_figure = Figure(figsize=(6, 6), facecolor='#1e293b')
         self.mon_canvas = FigureCanvasQTAgg(self.mon_figure)
-        graph_layout.addWidget(self.mon_canvas)
+        perf_vbox.addWidget(self.mon_canvas)
         
         self.ax_cpu = self.mon_figure.add_subplot(211)
         self.ax_ram = self.mon_figure.add_subplot(212)
@@ -254,9 +259,32 @@ class ConfigDetailsPage(QWidget):
         
         self.ax_cpu.set_title("CPU Usage (%)", color='#f1f5f9', fontsize=10, loc='left')
         self.ax_ram.set_title("RAM Usage (MB)", color='#f1f5f9', fontsize=10, loc='left')
-        
         self.mon_figure.tight_layout(pad=3.0)
-        l.addWidget(graph_frame)
+        
+        main_viz_layout.addWidget(perf_frame, 2)
+
+        # Right: Trajectory
+        traj_frame = QFrame()
+        traj_frame.setStyleSheet("background-color: #1e293b; border-radius: 12px; border: 1px solid #334155;")
+        traj_vbox = QVBoxLayout(traj_frame)
+        
+        self.traj_figure = Figure(figsize=(6, 6), facecolor='#1e293b')
+        self.traj_canvas = FigureCanvasQTAgg(self.traj_figure)
+        traj_vbox.addWidget(self.traj_canvas)
+        
+        self.ax_traj = self.traj_figure.add_subplot(111)
+        self.ax_traj.set_facecolor('#0f172a')
+        self.ax_traj.tick_params(colors='#94a3b8', labelsize=8)
+        self.ax_traj.grid(True, color='#334155', linestyle='--', alpha=0.5)
+        self.ax_traj.set_title("Live Trajectory (Odom)", color='#f1f5f9', fontsize=10)
+        
+        self.traj_line, = self.ax_traj.plot([], [], color='#f43f5e', linewidth=2, label='Path')
+        self.robot_dot, = self.ax_traj.plot([], [], 'o', color='#ffffff', markersize=6, label='Robot')
+        
+        self.traj_figure.tight_layout()
+        main_viz_layout.addWidget(traj_frame, 3)
+
+        l.addLayout(main_viz_layout)
         
         self.mon_info_lbl = QLabel("No active run.")
         self.mon_info_lbl.setStyleSheet("color: #94a3b8; font-style: italic;")
@@ -280,26 +308,38 @@ class ConfigDetailsPage(QWidget):
     def update_monitor(self, data):
         cpu = data.get('cpu', 0.0)
         ram = data.get('ram', 0.0)
+        pose = data.get('pose', {})
         
         # Update Cards
         self.cpu_card.findChild(QLabel, "valueLabel").setText(f"{cpu} %")
         self.ram_card.findChild(QLabel, "valueLabel").setText(f"{ram} MB")
         
-        # Update Data
+        # Update Stats Data
         self.cpu_history.append(cpu)
         self.ram_history.append(ram)
         
-        # Update Plots
+        # Update Perf Plots
         self.mon_cpu_line.set_ydata(list(self.cpu_history))
         self.mon_ram_line.set_ydata(list(self.ram_history))
-        
-        # Rescale
         self.ax_cpu.relim()
         self.ax_cpu.autoscale_view()
         self.ax_ram.relim()
         self.ax_ram.autoscale_view()
-        
         self.mon_canvas.draw()
+
+        # Update Trajectory
+        if pose:
+            px, py = pose.get('x', 0.0), pose.get('y', 0.0)
+            self.traj_x.append(px)
+            self.traj_y.append(py)
+            
+            self.traj_line.set_data(self.traj_x, self.traj_y)
+            self.robot_dot.set_data([px], [py])
+            
+            # Auto-scroll/zoom traj
+            self.ax_traj.relim()
+            self.ax_traj.autoscale_view()
+            self.traj_canvas.draw()
 
     def setup_analysis_tab(self):
         l = QVBoxLayout(self.analysis_tab)
@@ -364,8 +404,49 @@ class ConfigDetailsPage(QWidget):
         # Reset Monitor
         self.cpu_history = collections.deque([0.0] * self.max_points, maxlen=self.max_points)
         self.ram_history = collections.deque([0.0] * self.max_points, maxlen=self.max_points)
+        self.traj_x = []
+        self.traj_y = []
         self.mon_info_lbl.setText("Ready to monitor.")
+        
+        # Try to background-load GT map for Trajectory plot
+        self.ax_traj.clear()
+        self.ax_traj.set_facecolor('#0f172a')
+        self.ax_traj.grid(True, color='#334155', linestyle='--', alpha=0.5)
+        self.ax_traj.set_title("Live Trajectory (Odom)", color='#f1f5f9', fontsize=10)
+        self.traj_line, = self.ax_traj.plot([], [], color='#f43f5e', linewidth=2, label='Path')
+        self.robot_dot, = self.ax_traj.plot([], [], 'o', color='#ffffff', markersize=6, zorder=5)
+
+        # Optimization: Check for GT map
+        gt_map_path = None
+        for ds in self.config_data.get("datasets", []):
+            if "ground_truth" in ds:
+                gt_map_path = ds["ground_truth"].get("map_path")
+                break
+        
+        if gt_map_path and EVALUATION_AVAILABLE:
+            try:
+                full_gt = (Path.cwd() / gt_map_path).resolve()
+                if full_gt.exists():
+                    gt_map, gt_res, gt_origin = load_gt_map(str(full_gt))
+                    # Plot GT in background
+                    extents = [
+                        gt_origin[0], 
+                        gt_origin[0] + gt_map.shape[1] * gt_res,
+                        gt_origin[1],
+                        gt_origin[1] + gt_map.shape[0] * gt_res
+                    ]
+                    # Convert map to vis (0-1 free/occ)
+                    vis = np.zeros(gt_map.shape)
+                    vis[gt_map == 0] = 0.8 # Free -> Light Gray
+                    vis[gt_map > 50] = 0.2 # Occ -> Dark Gray
+                    vis[gt_map == -1] = 0.0 # Unknown -> Black
+                    
+                    self.ax_traj.imshow(np.flipud(vis), extent=extents, origin='lower', cmap='gray', alpha=0.3)
+            except Exception as e:
+                print(f"DEBUG: Could not preview GT map: {e}")
+
         self.mon_canvas.draw()
+        self.traj_canvas.draw()
         
         # Fill Overview Summary
         name = data.get('name', 'Unknown')
