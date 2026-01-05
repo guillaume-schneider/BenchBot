@@ -24,11 +24,15 @@ RUN apt-get update && apt-get install -y \
 # Install Python requirements
 RUN pip3 install \
     pyyaml \
-    numpy \
+    "numpy<2" \
     matplotlib \
     reportlab \
     psutil \
-    transforms3d
+    transforms3d \
+    pyqtgraph \
+    PyOpenGL \
+    opencv-python-headless \
+    scikit-image
 
 # Setup workspace
 WORKDIR /app

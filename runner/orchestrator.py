@@ -611,20 +611,33 @@ def run_once(config_path: str) -> int:
             except Exception as e:
                 node.get_logger().warn(f"Could not compute coverage: {e}")
 
+            status_text = "SUCCESS" if not is_failure else "POTENTIAL FAILURE"
+            
+            # Advanced Map Metrics
+            ssim_val = 0.0
+            wall_thick = 0.0
+            try:
+                from evaluation import compute_ssim, compute_wall_thickness
+                ssim_val = compute_ssim(gt_map, est_on_gt)
+                wall_thick = compute_wall_thickness(est_on_gt, gt_res)
+            except Exception as e:
+                 node.get_logger().warn(f"Could not compute advanced map metrics: {e}")
+
             # Save to metrics.json
             metrics = {
                 "ate_rmse": rmse,
                 "max_cpu_percent": system_metrics["max_cpu"],
                 "max_ram_mb": system_metrics["max_ram"],
                 "coverage": float(coverage),
+                "map_ssim": float(ssim_val),
+                "wall_thickness_m": float(wall_thick),
                 "is_failure": is_failure,
                 "failure_reasons": warnings
             }
             with open(metrics_path, "w") as f:
                 json.dump(metrics, f, indent=4)
             
-            status_text = "SUCCESS" if not is_failure else "POTENTIAL FAILURE"
-            node.get_logger().info(f"Evaluation finished [{status_text}]. RMSE: {rmse}, Coverage: {coverage*100:.1f}%, CPU: {metrics['max_cpu_percent']:.1f}%, RAM: {metrics['max_ram_mb']:.1f}MB")
+            node.get_logger().info(f"Evaluation finished [{status_text}]. RMSE: {rmse}, Coverage: {coverage*100:.1f}%, SSIM: {ssim_val:.4f}, Wall: {wall_thick*100:.1f}cm")
             if warnings:
                 for w in warnings:
                     node.get_logger().warn(f" [!] {w}")

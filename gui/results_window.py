@@ -212,6 +212,15 @@ class ResultWindow(QMainWindow):
             iou = compute_iou(gt_map, est_map)
             path_len = compute_path_length(odom_msgs)
             
+            # RMSE Calculation
+            rmse = None
+            try:
+                from tools.benchmark import run_benchmark
+                # run_benchmark already handles plotting a separate ate_plot.png
+                rmse = run_benchmark(str(bag_path))
+            except Exception as e:
+                self.log(f"WARNING: RMSE calculation failed: {e}")
+            
             # Compute Duration
             duration_s = 0.0
             if odom_msgs:
@@ -239,11 +248,17 @@ class ResultWindow(QMainWindow):
             
             data.update({
                 "duration_s": float(duration_s),
-                "coverage_percent": float(cov*100),
-                "accessible_coverage_percent": float(acc_cov*100),
+                "coverage": float(cov),
+                "accessible_coverage": float(acc_cov),
                 "iou": float(iou),
                 "path_length_m": float(path_len)
             })
+            if rmse is not None:
+                data["ate_rmse"] = float(rmse)
+            
+            # Legacy fallbacks for older code specifically looking for percents
+            data["coverage_percent"] = float(cov * 100)
+            data["accessible_coverage_percent"] = float(acc_cov * 100)
             
             import json
             with open(metrics_file, 'w') as f:

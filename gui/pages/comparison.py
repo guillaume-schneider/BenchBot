@@ -173,7 +173,12 @@ class ComparisonPage(QWidget):
         self.ax.clear()
         self.ax.set_facecolor('#0f172a')
         self.ax.grid(True, color='#334155', linestyle='--', alpha=0.5)
-        self.table.setRowCount(7)
+        self.ax.grid(True, color='#334155', linestyle='--', alpha=0.5)
+        self.table.setRowCount(9)
+        # Update row labels
+        self.table.setVerticalHeaderLabels([
+            "Status", "SLAM", "Dataset", "ATE RMSE", "Coverage", "SSIM", "Wall Thick.", "Max RAM", "Max CPU"
+        ])
         
         colors = ["#3b82f6", "#ef4444", "#10b981"]
         gt_loaded = False
@@ -198,10 +203,18 @@ class ComparisonPage(QWidget):
             slam = parts[2] if len(parts) > 2 else "?"
             
             # 2. Metrics implementation
-            ate = metrics.get('ate_rmse', 0.0)
-            ram = metrics.get('max_ram_mb', 0.0)
-            cpu = metrics.get('max_cpu_percent', 0.0)
-            cov = metrics.get('coverage', 0.0)
+            ate = metrics.get('ate_rmse')
+            ram = metrics.get('max_ram_mb')
+            cpu = metrics.get('max_cpu_percent')
+            cov = metrics.get('coverage')
+            if cov is None and 'coverage_percent' in metrics:
+                cov = metrics['coverage_percent'] / 100.0
+            
+            ssim_val = metrics.get('map_ssim')
+            if ssim_val is None and 'iou' in metrics:
+                ssim_val = metrics['iou'] # Legacy fallback
+                
+            thick = metrics.get('wall_thickness_m')
             
             # 7. Status & Failure detection (NOW AT ROW 0)
             is_failure = metrics.get('is_failure', False)
@@ -219,20 +232,24 @@ class ComparisonPage(QWidget):
             self.table.setItem(0, i, status_item)
             self.table.setItem(1, i, QTableWidgetItem(slam))
             self.table.setItem(2, i, QTableWidgetItem(dataset))
-            self.table.setItem(3, i, QTableWidgetItem(f"{ate:.4f} m" if ate else "N/A"))
-            self.table.setItem(4, i, QTableWidgetItem(f"{cov*100:.1f} %" if cov else "N/A"))
-            self.table.setItem(5, i, QTableWidgetItem(f"{ram:.1f} MB" if ram else "N/A"))
-            self.table.setItem(6, i, QTableWidgetItem(f"{cpu:.1f} %" if cpu else "N/A"))
+            self.table.setItem(3, i, QTableWidgetItem(f"{ate:.4f} m" if ate is not None else "N/A"))
+            self.table.setItem(4, i, QTableWidgetItem(f"{cov*100:.1f} %" if cov is not None else "N/A"))
+            self.table.setItem(5, i, QTableWidgetItem(f"{ssim_val:.4f}" if ssim_val is not None else "N/A"))
+            self.table.setItem(6, i, QTableWidgetItem(f"{thick*100:.2f} cm" if thick is not None else "N/A"))
+            self.table.setItem(7, i, QTableWidgetItem(f"{ram:.1f} MB" if ram is not None else "N/A"))
+            self.table.setItem(8, i, QTableWidgetItem(f"{cpu:.1f} %" if cpu is not None else "N/A"))
 
             # Store for PDF report
             runs_to_report.append({
                 'name': run_path.name,
                 'slam': slam,
                 'dataset': dataset,
-                'ate': f"{ate:.4f}" if ate else "N/A",
-                'coverage': f"{cov*100:.1f}" if cov else "N/A",
-                'ram': f"{ram:.1f}" if ram else "N/A",
-                'cpu': f"{cpu:.1f}" if cpu else "N/A",
+                'ate': f"{ate:.4f}" if ate is not None else "N/A",
+                'coverage': f"{cov*100:.1f}" if cov is not None else "N/A",
+                'ssim': f"{ssim_val:.4f}" if ssim_val is not None else "N/A",
+                'wall_thick': f"{thick*100:.2f}" if thick is not None else "N/A",
+                'ram': f"{ram:.1f}" if ram is not None else "N/A",
+                'cpu': f"{cpu:.1f}" if cpu is not None else "N/A",
                 'status': "❌ ANOMALY" if is_failure else "✅ VALID",
                 'is_failure': is_failure,
                 'reasons': reasons

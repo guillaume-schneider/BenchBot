@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtCore import QThread, pyqtSignal, QSettings
 import subprocess
 import sys
 import os
@@ -246,6 +246,24 @@ class RunWorker(QThread):
 
                 cmd = [sys.executable, "-u", "-m", "runner.run_one", str(config_path)]
                 
+                # Check for Docker execution
+                settings = QSettings("SlamBench", "Orchestrator")
+                if settings.value("run_in_docker", "false") == "true":
+                    self.log_signal.emit("DOCKER: Wrapping run in container...")
+                    # docker run -v .:/app -e DISPLAY=$DISPLAY ... slam-bench-orchestrator python3 runner/run_one.py ...
+                    # We use relative config path because /app is mapped to PROJECT_ROOT
+                    rel_config = config_path.relative_to(PROJECT_ROOT)
+                    cmd = [
+                        "docker", "run", "--rm",
+                        "--network", "host",
+                        "--ipc", "host",
+                        "-v", f"{str(PROJECT_ROOT)}:/app",
+                        "-e", f"DISPLAY={os.environ.get('DISPLAY', '')}",
+                        "-e", "QT_X11_NO_MITSHM=1",
+                        "slam-bench-orchestrator:latest",
+                        "python3", "-u", "-m", "runner.run_one", str(rel_config)
+                    ]
+
                 # Start in a new process group to allow killing the entire tree
                 try:
                     process = subprocess.Popen(

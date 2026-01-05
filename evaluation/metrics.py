@@ -28,6 +28,12 @@ import math
 import yaml
 import cv2
 import numpy as np
+try:
+    from skimage.metrics import structural_similarity as ssim
+    from skimage.morphology import skeletonize
+    SKIMAGE_AVAILABLE = True
+except ImportError:
+    SKIMAGE_AVAILABLE = False
 
 import rclpy              
 from rclpy.serialization import deserialize_message# just for time helpers (optional)
@@ -334,6 +340,63 @@ def compute_iou(gt_map, est_map):
     return float(intersection) / float(union) if union > 0 else 0.0
 
 
+def compute_ssim(gt_map, est_map):
+    """
+    Compute Structural Similarity Index (SSIM) between maps.
+    Only considers common known areas.
+    """
+    if not SKIMAGE_AVAILABLE:
+        return 0.0
+        
+    # 1. Prepare normalized maps (0-1)
+    # Treat unknown (-1) as 0.5 for a "neutral" background or mask them
+    mask = (gt_map != -1) & (est_map != -1)
+    if not np.any(mask):
+        return 0.0
+
+    # Convert to float [0, 1]
+    gt_norm = np.clip(gt_map.astype(np.float32) / 100.0, 0, 1)
+    est_norm = np.clip(est_map.astype(np.float32) / 100.0, 0, 1)
+
+    # Compute SSIM on the whole image but focus on the relevant part
+    score, _ = ssim(gt_norm, est_norm, full=True, data_range=1.0)
+    
+    # Optional: localized SSIM only on known cells
+    # score = ssim(gt_norm * mask, est_norm * mask, data_range=1.0)
+    
+    return float(score)
+
+
+def compute_wall_thickness(map_array, resolution):
+    """
+    Estimate the average thickness of walls in the map (in meters).
+    Uses Distance Transform on occupied cells.
+    """
+    if not SKIMAGE_AVAILABLE:
+        return 0.0
+        
+    # Occupied mask
+    occ = (map_array > 50).astype(np.uint8)
+    if not np.any(occ):
+        return 0.0
+        
+    # Skeletonize to find center lines
+    try:
+        skel = skeletonize(occ).astype(np.uint8)
+    except:
+        return 0.0
+        
+    if not np.any(skel):
+        return 0.0
+        
+    # Distance transform from background (non-wall)
+    dist = cv2.distanceTransform(occ, cv2.DIST_L2, 3)
+    
+    # The thickness is roughly twice the distance from the center line to the edge
+    thickness_cells = 2.0 * np.mean(dist[skel > 0])
+    return thickness_cells * resolution
+
+
 def compute_time_to_coverage(gt_map, gt_res, gt_origin, map_msgs, thresholds):
     """
     Compute time to reach each coverage threshold using
@@ -478,6 +541,16 @@ def main():
     print("\n--- Results ---")
     print(f"Final coverage         : {final_cov*100:.1f} %")
     print(f"Final occupancy IoU    : {final_iou:.3f}")
+    
+    # Advanced Metrics
+    try:
+        f_ssim = compute_ssim(gt_map, est_map_final)
+        f_thick = compute_wall_thickness(est_map_final, gt_res)
+        print(f"Structural Similarity  : {f_ssim:.4f} (SSIM)")
+        print(f"Avg Wall Thickness     : {f_thick*100:.2f} cm")
+    except Exception as e:
+        print(f"Advanced metrics error : {e}")
+
     print(f"Total path length      : {path_len:.2f} m")
 
     # Anomalies

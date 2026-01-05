@@ -47,6 +47,8 @@ class ReportGenerator:
             ["Dataset"] + [r.get('dataset', '-') for r in runs_data],
             ["ATE RMSE (m)"] + [r.get('ate', '-') for r in runs_data],
             ["Coverage (%)"] + [r.get('coverage', '-') for r in runs_data],
+            ["Structural Similarity"] + [r.get('ssim', '-') for r in runs_data],
+            ["Wall Thick. (cm)"] + [r.get('wall_thick', '-') for r in runs_data],
             ["Max RAM (MB)"] + [r.get('ram', '-') for r in runs_data],
             ["Max CPU (%)"] + [r.get('cpu', '-') for r in runs_data],
         ]

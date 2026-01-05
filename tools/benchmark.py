@@ -8,6 +8,13 @@ import sqlite3
 from rosbag2_py import SequentialReader, StorageOptions, ConverterOptions
 from rclpy.serialization import deserialize_message
 from rosidl_runtime_py.utilities import get_message
+
+# Patch for tf_transformations compatibility with NumPy 2.x
+if not hasattr(np, 'float'):
+    np.float = np.float64
+if not hasattr(np, 'int'):
+    np.int = np.int_
+
 import tf_transformations
 
 # Import message types (dynamically or statically)

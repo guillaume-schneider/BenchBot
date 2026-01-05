@@ -76,6 +76,34 @@ class SettingsPage(QWidget):
         sim_layout.addWidget(self.sim_mgr_widget)
         content_layout.addWidget(sim_card)
         
+        # --- Execution / Docker ---
+        exec_card = self._create_card("Execution")
+        exec_layout = QVBoxLayout(exec_card)
+        
+        docker_row = QHBoxLayout()
+        docker_label = QLabel("Run in Docker (Experimental)")
+        docker_label.setStyleSheet("color: #e2e8f0; font-size: 14px;")
+        
+        self.docker_cb = QCheckBox()
+        self.docker_cb.setChecked(self.settings.value("run_in_docker", "false") == "true")
+        self.docker_cb.toggled.connect(self.on_docker_toggled)
+        
+        docker_row.addWidget(docker_label)
+        docker_row.addStretch()
+        docker_row.addWidget(self.docker_cb)
+        exec_layout.addLayout(docker_row)
+        
+        self.build_btn = QPushButton("Build Docker Image")
+        self.build_btn.setStyleSheet("background-color: #334155; color: white; padding: 5px; border-radius: 4px; font-size: 11px;")
+        self.build_btn.clicked.connect(self.build_docker_image)
+        exec_layout.addWidget(self.build_btn)
+
+        docker_info = QLabel("Isolation & Portability. Requires Docker installed.")
+        docker_info.setStyleSheet("color: #94a3b8; font-size: 11px; font-style: italic;")
+        exec_layout.addWidget(docker_info)
+        
+        content_layout.addWidget(exec_card)
+        
         content_layout.addStretch()
         scroll.setWidget(content)
         self.layout.addWidget(scroll)
@@ -113,6 +141,33 @@ class SettingsPage(QWidget):
         
         if self.main_window:
             self.apply_theme(is_dark)
+            
+    def on_docker_toggled(self, checked):
+        self.settings.setValue("run_in_docker", "true" if checked else "false")
+        QMessageBox.information(self, "Docker Execution", 
+            "Docker execution mode " + ("ENABLED" if checked else "DISABLED") + 
+            ".\nNote: Benchmarks will now use 'docker-compose' for isolation.")
+            
+    def build_docker_image(self):
+        # We can't easily show streaming output in a QMessageBox, but we can launch it
+        # and tell the user it started.
+        reply = QMessageBox.question(self, "Build Docker", 
+            "This will build the 'slam-bench-orchestrator:latest' image.\nIt may take several minutes. Continue?",
+            QMessageBox.Yes | QMessageBox.No)
+            
+        if reply == QMessageBox.Yes:
+            import subprocess
+            try:
+                # We could use a thread but for now just a simple blocking-ish start
+                # Better: print to logs if we had a global log area
+                self.build_btn.setEnabled(False)
+                self.build_btn.setText("Building (check terminal)...")
+                # Non-blocking-ish
+                cmd = ["docker", "build", "-t", "slam-bench-orchestrator:latest", "."]
+                subprocess.Popen(cmd, cwd=str(self.main_window.PROJECT_ROOT if hasattr(self.main_window, 'PROJECT_ROOT') else "."))
+                QMessageBox.information(self, "Build Started", "Docker build started in background.\nPlease check your terminal for progress.")
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Could not start docker build: {e}")
             
     def apply_theme(self, is_dark):
         # We define stylesheets for both modes

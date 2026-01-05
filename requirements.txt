@@ -1,0 +1,39 @@
+# SLAM Bench Orchestrator - Python Dependencies
+# Install with: pip3 install -r requirements.txt
+
+# GUI Framework
+PyQt5>=5.15.0
+
+# Numerical Computing
+numpy<2  # Pinned for ROS 2 Humble compatibility
+
+# Visualization & Plotting
+matplotlib>=3.5.0
+pyqtgraph>=0.13.0
+PyOpenGL>=3.1.0
+
+# PDF Report Generation
+reportlab>=3.6.0
+
+# System Monitoring
+psutil>=5.9.0
+
+# Transformations & Geometry
+transforms3d>=0.4.0
+
+# Advanced Image Metrics
+scikit-image>=0.19.0
+
+# Configuration Files
+pyyaml>=6.0
+
+# ROS 2 Dependencies (installed via apt, not pip)
+# - rclpy (from ros-humble-rclpy)
+# - rosbag2_py (from ros-humble-rosbag2-py)
+# - tf2_ros (from ros-humble-tf2-ros)
+# - nav_msgs, geometry_msgs, sensor_msgs (ROS 2 message packages)
+
+# Optional: Development Tools
+# pytest>=7.0.0  # For unit tests
+# black>=22.0.0  # Code formatter
+# flake8>=4.0.0  # Linter

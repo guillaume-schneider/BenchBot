@@ -18,7 +18,19 @@ The SLAM Bench Orchestrator captures high-fidelity performance metrics to evalua
 - **What it is**: Measures the alignment between the occupancy grid of the SLAM and the Ground Truth.
 - **Goal**: Higher is better. A low IoU despite high coverage indicates significant "ghosting" or map drift/stretching.
 
-### 4. Path Length
+### 4. SSIM (Structural Similarity Index) 🆕
+- **What it is**: Measures the structural similarity between the SLAM map and ground truth, capturing geometric fidelity beyond pixel-level comparison.
+- **Unit**: Score from 0.0 (completely different) to 1.0 (identical structure).
+- **Goal**: Higher is better. SSIM > 0.8 indicates excellent structural preservation.
+- **Advantage**: Detects non-linear distortions (e.g., curved corridors) that IoU might miss.
+
+### 5. Wall Thickness Analysis 🆕
+- **What it is**: Estimates the average thickness of walls in the generated map using distance transform and skeletonization.
+- **Unit**: Centimeters (cm).
+- **Goal**: Lower is better. Thin walls (~5-10cm) indicate precise mapping; thick walls (>20cm) suggest drift or sensor noise.
+- **Usage**: Identifies "blurry" maps caused by odometry errors or LIDAR noise.
+
+### 6. Path Length
 - **What it is**: Total distance traveled by the robot.
 - **Unit**: Meters (m).
 - **Usage**: Used to normalize other metrics (e.g., drift per meter).
@@ -29,12 +41,12 @@ The SLAM Bench Orchestrator captures high-fidelity performance metrics to evalua
 
 These metrics are sampled at **1Hz** throughout the duration of the run, capturing the usage of the entire process tree (SLAM + Nav2 + Simulator).
 
-### 5. Max CPU Usage
+### 7. Max CPU Usage
 - **What it is**: The peak cumulative CPU usage across all cores.
 - **Unit**: Percentage (%). Note: 100% means 1 full core at 100%. 
 - **Critical Threshold**: If $> 100\%$ on a Raspberry Pi or similar single-board computer, the algorithm might be too heavy for edge deployment.
 
-### 6. Max RAM Usage
+### 8. Max RAM Usage
 - **What it is**: The peak Resident Set Size (RSS) memory consumed.
 - **Unit**: Megabytes (MB).
 - **Usage**: Essential for ensuring the stack fits within the hardware constraints of the robot.
@@ -43,7 +55,7 @@ These metrics are sampled at **1Hz** throughout the duration of the run, capturi
 
 ## ⏱️ Temporal Metrics
 
-### 7. Duration
+### 9. Duration
 - **What it is**: Total time elapsed between the start of movement and the end of the run.
 - **Unit**: Seconds (s).
 - **Usage**: Helps distinguish "slow and steady" algorithms from "fast and risky" ones.
@@ -54,7 +66,7 @@ These metrics are sampled at **1Hz** throughout the duration of the run, capturi
 
 The orchestrator now includes a built-in "Brain" that evaluates if a run is a technical failure beyond simple completion.
 
-### 8. Potential Failure Detection
+### 10. Potential Failure Detection
 A run is flagged with a **"POTENTIAL FAILURE"** badge if any of the following are detected:
 - **Major TF Jumps**: If the robot "teleports" (calculated speed pulses $> 1.5 m/s$).
 - **Stuck Robot**: If the robot traveled less than $0.2m$ despite the process running.

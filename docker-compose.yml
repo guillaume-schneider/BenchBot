@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  slam-bench:
+    build: .
+    image: slam-bench-orchestrator:latest
+    container_name: slam_bench_runner
+    network_mode: host
+    ipc: host
+    volumes:
+      - .:/app
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - TURTLEBOT3_MODEL=waffle
+    privileged: true
+    stdin_open: true
+    tty: true
+    command: python3 gui/main.py

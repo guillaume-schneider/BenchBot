@@ -14,7 +14,9 @@ from .metrics import (
     compute_path_length,
     align_est_map_to_gt,
     get_trajectory,
-    detect_anomalies
+    detect_anomalies,
+    compute_ssim,
+    compute_wall_thickness
 )
 
 __all__ = [
@@ -28,5 +30,7 @@ __all__ = [
     'compute_path_length',
     'align_est_map_to_gt',
     'get_trajectory',
-    'detect_anomalies'
+    'detect_anomalies',
+    'compute_ssim',
+    'compute_wall_thickness'
 ]
