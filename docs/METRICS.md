@@ -47,3 +47,16 @@ These metrics are sampled at **1Hz** throughout the duration of the run, capturi
 - **What it is**: Total time elapsed between the start of movement and the end of the run.
 - **Unit**: Seconds (s).
 - **Usage**: Helps distinguish "slow and steady" algorithms from "fast and risky" ones.
+
+---
+
+## 🧠 Intelligent Anomaly Detection (Heuristics)
+
+The orchestrator now includes a built-in "Brain" that evaluates if a run is a technical failure beyond simple completion.
+
+### 8. Potential Failure Detection
+A run is flagged with a **"POTENTIAL FAILURE"** badge if any of the following are detected:
+- **Major TF Jumps**: If the robot "teleports" (calculated speed pulses $> 1.5 m/s$).
+- **Stuck Robot**: If the robot traveled less than $0.2m$ despite the process running.
+- **Massive Drift**: If the ATE RMSE exceeds $1.0m$.
+- **No Data**: If the rosbag is empty or missing key topics (odometry/scan).

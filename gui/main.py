@@ -22,6 +22,7 @@ from gui.pages.editor import ConfigEditorPage
 from gui.pages.benchmark import BenchmarkPage
 from gui.pages.settings import SettingsPage # New Import
 from gui.pages.comparison import ComparisonPage
+from gui.pages.robot_manager import RobotManagerPage
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -65,11 +66,13 @@ class MainWindow(QMainWindow):
         self.btn_dash = self.create_nav_button("Dashboard", 0)
         self.btn_bench = self.create_nav_button("Benchmark", 4)
         self.btn_compare = self.create_nav_button("Comparison", 6)
+        self.btn_robot = self.create_nav_button("Robot Manager", 7)
         self.btn_tools = self.create_nav_button("Tools", 2)
         
         sidebar_layout.addWidget(self.btn_dash)
         sidebar_layout.addWidget(self.btn_bench)
         sidebar_layout.addWidget(self.btn_compare)
+        sidebar_layout.addWidget(self.btn_robot)
         sidebar_layout.addWidget(self.btn_tools)
         
         sidebar_layout.addStretch()
@@ -96,6 +99,7 @@ class MainWindow(QMainWindow):
         self.page_editor = ConfigEditorPage()
         self.page_benchmark = BenchmarkPage()
         self.page_compare = ComparisonPage()
+        self.page_robot = RobotManagerPage()
         
         # Pass self (MainWindow) to SettingsPage so it can change theme
         self.page_settings = SettingsPage(main_window=self) 
@@ -107,6 +111,7 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.page_benchmark) # 4
         self.stack.addWidget(self.page_settings)  # 5
         self.stack.addWidget(self.page_compare)   # 6
+        self.stack.addWidget(self.page_robot)     # 7
         
         # Connect Signals
         
@@ -170,6 +175,9 @@ class MainWindow(QMainWindow):
         elif index == 6:
             self.btn_compare.setChecked(True)
             self.page_compare.scan_runs()
+        elif index == 7:
+            self.btn_robot.setChecked(True)
+            self.page_robot.load_settings()
             
         self.stack.setCurrentIndex(index)
 

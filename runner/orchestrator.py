@@ -210,9 +210,48 @@ def run_once(config_path: str) -> int:
         for _ in range(8):
             rclpy.spin_once(node, timeout_sec=0.05)
 
+    # --------- Robot Degradation Logic ---------
+    robot_settings_path = Path("configs/robot_settings.json")
+    degradation_active = False
+    if robot_settings_path.exists():
+        try:
+            with open(robot_settings_path) as f:
+                rs = json.load(f)
+                if rs.get("enabled", False):
+                    degradation_active = True
+                    degrader_cmd = [
+                        "python3", "tools/sensor_degrader.py",
+                        "--ros-args",
+                        "-p", f"max_range:={rs.get('max_range', 10.0)}",
+                        "-p", f"noise_std:={rs.get('noise_std', 0.0)}",
+                        "-p", f"speed_scale:={rs.get('speed_scale', 1.0)}",
+                        "-p", "enabled:=True"
+                    ]
+        except Exception as e:
+            node.get_logger().warn(f"Failed to load robot settings: {e}")
+
     # --------- Scenario: multi-process support ----------
     scenario = cfg.get("dataset", {}).get("scenario", {}) or {}
     scenario_processes = scenario.get("processes", None)
+    
+    # Apply degradation to scenario processes if active
+    if degradation_active:
+        node.get_logger().info("Applying Robot/Sensor DEGRADATION for this run.")
+        if not scenario_processes:
+            # Handle legacy or default wrap
+            pass # We'll handle it below when it's created
+        else:
+            for proc in scenario_processes:
+                if "sim" in proc["name"].lower():
+                    # Remap simulator outputs to _raw so degrader can intercept
+                    proc["cmd"] += ["--ros-args", "--remap", "scan:=scan_raw", "--remap", "cmd_vel:=cmd_vel_raw"]
+            
+            scenario_processes.append({
+                "name": "degrader",
+                "cmd": degrader_cmd,
+                "env": {},
+                "cwd": str(Path.cwd())
+            })
 
     # Backward compatible: old config had scenario.launch.cmd
     if not scenario_processes:

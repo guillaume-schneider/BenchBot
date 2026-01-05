@@ -11,7 +11,9 @@ An automated framework for benchmarking SLAM algorithms (Cartographer, GMapping,
     *   **Map Quality**: Coverage %, IoU (Intersection over Union), Path Length
     *   **System**: CPU Usage %, Max RAM (MB)
 *   **Headless CI**: Run full benchmarks on servers without a display (`runner/run_matrix.py`).
-*   **Modern GUI**: Dark/Light themes, Dashboard, and interactive Benchmark Tables.
+*   **Modern GUI**: Dashboard, Analysis Comparison, and Robot Hardware Manager.
+*   **Intelligent Analysis**: Comparison tool with trajectory overlay and heuristic anomaly detection.
+*   **Stress Testing**: Real-time sensor degradation (LIDAR noise/range) and actuator limiting.
 
 ## 📦 Quick Start
 
@@ -22,6 +24,8 @@ python3 gui/main.py
 *   **Settings**: Install Simulators (O3DE) and toggle Themes (Dark/Light).
 *   **Dashboard**: Select `modeA_validate_loop` or other matrices.
 *   **Benchmark**: View results in a sortable table.
+*   **Comparison**: Overlay trajectories from 3 runs on a ground truth map and detect anomalies.
+*   **Robot Manager**: Inject noise, limit LIDAR range, or scale motor speeds to test robustness.
 
 ### 2. Headless Mode (CI/CD)
 Run a full benchmark suite without opening any windows:
@@ -39,6 +43,8 @@ python3 runner/run_matrix.py configs/matrices/test_headless_ci.yaml
 *   **[Headless CI](docs/HEADLESS_CI.md)**: Running benchmarks in CLI/CI mode.
 *   **[Simulation Realism](docs/SIMULATION_REALISM.md)**: Physics and Sensor noise parameters.
 *   **[Troubleshooting Exploration](docs/TROUBLESHOOTING_EXPLORATION.md)**: Solutions for navigation issues.
+*   **[Analysis & Comparison](docs/ANALYSIS_GUIDE.md)**: Using the comparison tool and understanding anomaly detection.
+*   **[Robot Hardware Manager](docs/ROBOT_HARDWARE_MANAGER.md)**: Configuring sensor noise and motor limits for stress tests.
 *   **[Automated Dependencies](docs/AUTOMATED_DEPENDENCIES.md)**: Dynamic Git cloning and building for SLAMs.
 *   **[Archive & Logs](docs/archive/)**: Historical session logs and debugging notes.
 
