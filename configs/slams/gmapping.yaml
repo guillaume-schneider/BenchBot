@@ -20,7 +20,7 @@ launch:
     - "slam_gmapping"
     - "--ros-args"
     - "--params-file"
-    - "/home/schneigu/Projects/slam_bench_orchestrator/configs/params/gmapping_params.yaml"
+    - "/home/schneigu/Projects/benchbot/configs/params/gmapping_params.yaml"
     - "-p"
     - "use_sim_time:=true"
   args:

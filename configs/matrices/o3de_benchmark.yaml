@@ -51,9 +51,9 @@ datasets:
       - use_rviz:=False
       env:
         TURTLEBOT3_MODEL: waffle
-        AMENT_PREFIX_PATH: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge:/home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite:/opt/ros/humble
-        LD_LIBRARY_PATH: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib
-        PYTHONPATH: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages
+        AMENT_PREFIX_PATH: /home/schneigu/Projects/benchbot/deps/install/multirobot_map_merge:/home/schneigu/Projects/benchbot/deps/install/explore_lite:/opt/ros/humble
+        LD_LIBRARY_PATH: /home/schneigu/Projects/benchbot/deps/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib
+        PYTHONPATH: /home/schneigu/Projects/benchbot/deps/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages
 
     # 2. Explore Lite (Autonomous movement)
     - name: explore
@@ -65,9 +65,9 @@ datasets:
       - use_sim_time:=True
       env:
         TURTLEBOT3_MODEL: waffle
-        AMENT_PREFIX_PATH: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge:/home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite:/opt/ros/humble
-        LD_LIBRARY_PATH: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib
-        PYTHONPATH: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages
+        AMENT_PREFIX_PATH: /home/schneigu/Projects/benchbot/deps/install/multirobot_map_merge:/home/schneigu/Projects/benchbot/deps/install/explore_lite:/opt/ros/humble
+        LD_LIBRARY_PATH: /home/schneigu/Projects/benchbot/deps/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib
+        PYTHONPATH: /home/schneigu/Projects/benchbot/deps/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages
 
 slams:
 - id: noop

@@ -57,6 +57,7 @@ Welcome to the comprehensive documentation for the SLAM Bench Orchestrator. This
 - **[TROUBLESHOOTING_GMAPPING.md](TROUBLESHOOTING_GMAPPING.md)** - GMapping-specific problems
 - **[FIXES_EXPLORE_LITE.md](../FIXES_EXPLORE_LITE.md)** - explore_lite configuration fixes
 - **[FIXES_TF_PROBLEMS.md](../FIXES_TF_PROBLEMS.md)** - TF transformation issues
+- **[ARCHIVE/FIX_PROJECT_RENAME.md](archive/FIX_PROJECT_RENAME.md)** - Fixes for project rename issues
 
 ## 📦 Project Structure
 

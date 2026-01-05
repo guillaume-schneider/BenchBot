@@ -1,1 +1,0 @@
-/home/schneigu/Projects/slam_bench_orchestrator/deps/gmapping_ws/src/slam_gmapping/slam_gmapping/launch/slam_gmapping.launch.py

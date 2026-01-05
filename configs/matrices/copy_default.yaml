@@ -45,6 +45,13 @@ defaults:
 datasets:
 - id: tb3_sim_explore_modeA
   kind: sim_gazebo
+  dependencies:
+  - name: m-explore
+    git: https://github.com/robo-friends/m-explore-ros2
+    branch: main
+    path: deps/m_explore_ws
+    build: colcon build --symlink-install
+    source: install/setup.bash
   scenario:
     processes:
     - name: nav2_sim
@@ -61,8 +68,8 @@ datasets:
       - y_pose:=0.5
       - z_pose:=0.01
       - yaw:=0.0
-      - world:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/fixed_model.world
-      - robot_sdf:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/waffle_fixed.model
+      - world:=/home/schneigu/Projects/benchbot/worlds/fixed_model.world
+      - robot_sdf:=/home/schneigu/Projects/benchbot/worlds/waffle_fixed.model
       env:
         TURTLEBOT3_MODEL: waffle
     - name: explore
@@ -73,9 +80,10 @@ datasets:
       - explore.launch.py
       - use_sim_time:=True
       env:
-        AMENT_PREFIX_PATH: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge:/home/schneigu/Projects/slam_bench_orchestrator/deps/install/explore_lite:/opt/ros/humble
-        LD_LIBRARY_PATH: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib
-        PYTHONPATH: /home/schneigu/Projects/slam_bench_orchestrator/deps/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages
+      env:
+        AMENT_PREFIX_PATH: /home/schneigu/Projects/benchbot/deps/m_explore_ws/install/multirobot_map_merge:/home/schneigu/Projects/benchbot/deps/m_explore_ws/install/explore_lite:/opt/ros/humble
+        LD_LIBRARY_PATH: /home/schneigu/Projects/benchbot/deps/m_explore_ws/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib
+        PYTHONPATH: /home/schneigu/Projects/benchbot/deps/m_explore_ws/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages
       params:
         explore_node:
           ros__parameters:

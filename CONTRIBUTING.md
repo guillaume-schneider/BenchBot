@@ -14,8 +14,8 @@ Thank you for your interest in contributing to the SLAM Bench Orchestrator! This
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/slam_bench_orchestrator.git
-   cd slam_bench_orchestrator
+   git clone https://github.com/YOUR_USERNAME/benchbot.git
+   cd benchbot
    ```
 
 2. **Install dependencies:**
@@ -254,7 +254,7 @@ Closes #(issue number)
 ## 🐛 Reporting Bugs
 
 ### Before Reporting
-- Check if the bug has already been reported in [Issues](https://github.com/YOUR_USERNAME/slam_bench_orchestrator/issues)
+- Check if the bug has already been reported in [Issues](https://github.com/YOUR_USERNAME/benchbot/issues)
 - Try to reproduce the bug with the latest version
 
 ### Bug Report Template
@@ -291,7 +291,7 @@ Any other context about the problem.
 
 ## 💡 Feature Requests
 
-We welcome feature suggestions! Please use the [Feature Request template](https://github.com/YOUR_USERNAME/slam_bench_orchestrator/issues/new?template=feature_request.md) and include:
+We welcome feature suggestions! Please use the [Feature Request template](https://github.com/YOUR_USERNAME/benchbot/issues/new?template=feature_request.md) and include:
 
 - **Use Case:** Why is this feature needed?
 - **Proposed Solution:** How should it work?
@@ -321,7 +321,7 @@ We welcome feature suggestions! Please use the [Feature Request template](https:
 Understanding the codebase:
 
 ```
-slam_bench_orchestrator/
+benchbot/
 ├── gui/                    # PyQt5 GUI application
 │   ├── main.py            # Entry point
 │   ├── pages/             # GUI pages (Dashboard, Comparison, etc.)
@@ -347,7 +347,7 @@ slam_bench_orchestrator/
 
 ## 🤝 Community
 
-- **Discussions:** Use [GitHub Discussions](https://github.com/YOUR_USERNAME/slam_bench_orchestrator/discussions) for questions
+- **Discussions:** Use [GitHub Discussions](https://github.com/YOUR_USERNAME/benchbot/discussions) for questions
 - **Discord:** Join our [Discord server](#) for real-time chat
 - **Email:** For private inquiries: maintainer@example.com
 

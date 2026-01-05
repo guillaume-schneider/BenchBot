@@ -1,135 +1,118 @@
 schema_version: 1
-name: "modeA_validate_loop"
-
+name: modeA_validate_loop
 workspace:
-  ros_distro: "humble"
+  ros_distro: humble
   use_sim_time: true
-
 defaults:
   run:
     warmup_s: 2.0
     drain_s: 1.0
     timeout_s: 90.0
     max_restarts: 0
-
   rosbag:
     enabled: true
-    storage_id: "sqlite3"
+    storage_id: sqlite3
     compression: null
-    qos_overrides_path: "configs/qos_overrides.yaml"
+    qos_overrides_path: configs/qos_overrides.yaml
     include_hidden_topics: false
     topics:
-      - "/tf"
-      - "/tf_static"
-      - "odom"
-      - "/clock"
-      - "/scan"
-      - "/cmd_vel"
-      - "/map"
-      - "/map_metadata"
-      - "/gazebo/model_states"
-      - "/robot_description"
-
+    - /tf
+    - /tf_static
+    - odom
+    - /clock
+    - /scan
+    - /cmd_vel
+    - /map
+    - /map_metadata
+    - /gazebo/model_states
+    - /robot_description
   probes:
     required:
-      - type: "topic_publish"
-        topic: "/scan"
-        msg_type: "sensor_msgs/msg/LaserScan"
-        min_messages: 1
-        timeout_s: 60
-      - type: "tf_available"
-        from_frame: "map"
-        to_frame: "odom"
-        timeout_s: 60
-      - type: "topic_publish"
-        topic: "/map"
-        msg_type: "nav_msgs/msg/OccupancyGrid"
-        min_messages: 1
-        timeout_s: 60
-
+    - type: topic_publish
+      topic: /scan
+      msg_type: sensor_msgs/msg/LaserScan
+      min_messages: 1
+      timeout_s: 60
+    - type: tf_available
+      from_frame: map
+      to_frame: odom
+      timeout_s: 60
+    - type: topic_publish
+      topic: /map
+      msg_type: nav_msgs/msg/OccupancyGrid
+      min_messages: 1
+      timeout_s: 60
 datasets:
-  - id: "tb3_sim_explore_modeA"
-    kind: "sim_gazebo"
-    world_model: "worlds/model.sdf"
-    scenario:
-      world: "worlds/model.sdf"
-      processes:
-        - name: "nav2_sim"
-          cmd: ["ros2", "launch", "nav2_bringup", "tb3_simulation_launch.py", "slam:=True", "headless:=True", "gui:=False", "use_sim_time:=True", "x_pose:=0.5", "y_pose:=0.5", "z_pose:=0.01", "yaw:=0.0", "world:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/fixed_model.world", "robot_sdf:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/waffle_fixed.model"]
-          env:
-            TURTLEBOT3_MODEL: "waffle"
-        - name: "explore"
-          cmd: 
-            - "/home/schneigu/Projects/slam_bench_orchestrator/tools/launch/explore_wrapper.sh"
-            - "ros2"
-            - "run"
-            - "explore_lite"
-            - "explore"
-            - "--ros-args"
-            - "--params-file"
-            - "/home/schneigu/Projects/slam_bench_orchestrator/configs/params/explore_params.yaml"
-          params: {}
-  
-  - id: "tb3_sim_gmapping"
-    kind: "sim_gazebo"
-    world_model: "worlds/model.sdf"
-    scenario:
-      world: "worlds/model.sdf"
-      processes:
-        - name: "nav2_sim"
-          cmd: 
-            - "ros2"
-            - "launch"
-            - "/home/schneigu/Projects/slam_bench_orchestrator/tools/launch/tb3_sim_no_loc.launch.py"
-            - "use_sim_time:=True"
-            - "x_pose:=0.5"
-            - "y_pose:=0.5"
-            - "world:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/fixed_model.world"
-            - "robot_sdf:=/home/schneigu/Projects/slam_bench_orchestrator/worlds/waffle_fixed.model"
-            - "params_file:=/home/schneigu/Projects/slam_bench_orchestrator/configs/params/nav2_params.yaml"
-            - "use_gazebo:=False"
-          env:
-            TURTLEBOT3_MODEL: "waffle"
-        - name: "kickstart"
-          cmd: ["/home/schneigu/Projects/slam_bench_orchestrator/tools/scripts/kickstart.sh"]
-          delay_s: 5.0
-          params:
-            restart: false
-        - name: "explore"
-          delay_s: 5.0
-          cmd:
-            - "/home/schneigu/Projects/slam_bench_orchestrator/tools/launch/explore_wrapper.sh"
-            - "ros2"
-            - "run"
-            - "explore_lite"
-            - "explore"
-            - "--ros-args"
-            - "--params-file"
-            - "/home/schneigu/Projects/slam_bench_orchestrator/configs/params/explore_params.yaml"
-          params: {}
-
+- id: tb3_sim_explore_modeA
+  kind: sim_gazebo
+  dependencies:
+  - name: m-explore
+    git: https://github.com/robo-friends/m-explore-ros2
+    branch: main
+    path: deps/m_explore_ws
+    build: colcon build --symlink-install
+    source: install/setup.bash
+  scenario:
+    processes:
+    - name: nav2_sim
+      cmd:
+      - ros2
+      - launch
+      - nav2_bringup
+      - tb3_simulation_launch.py
+      - slam:=True
+      - headless:=True
+      - gui:=False
+      - use_sim_time:=True
+      - x_pose:=0.5
+      - y_pose:=0.5
+      - z_pose:=0.01
+      - yaw:=0.0
+      - world:=/home/schneigu/Projects/benchbot/worlds/fixed_model.world
+      - robot_sdf:=/home/schneigu/Projects/benchbot/worlds/waffle_fixed.model
+      env:
+        TURTLEBOT3_MODEL: waffle
+    - name: explore
+      cmd:
+      - ros2
+      - launch
+      - explore_lite
+      - explore.launch.py
+      - use_sim_time:=True
+      env:
+      env:
+        AMENT_PREFIX_PATH: /home/schneigu/Projects/benchbot/deps/m_explore_ws/install/multirobot_map_merge:/home/schneigu/Projects/benchbot/deps/m_explore_ws/install/explore_lite:/opt/ros/humble
+        LD_LIBRARY_PATH: /home/schneigu/Projects/benchbot/deps/m_explore_ws/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib
+        PYTHONPATH: /home/schneigu/Projects/benchbot/deps/m_explore_ws/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages
+      params:
+        explore_node:
+          ros__parameters:
+            robot_base_frame: base_footprint
+            min_frontier_size: 0.15
+            planner_frequency: 1.0
+  world_model: worlds/model.sdf
 slams:
-  # Mode A: pas de SLAM externe, on laisse la liste vide ou un "noop"
-  - id: "noop"
-    profile: "configs/slams/noop.yaml"
-  - id: "external"
-    profile: "configs/slams/external.yaml"
-  - id: "slam_toolbox_sync"
-    profile: "configs/slams/slam_toolbox_sync.yaml"
-  - id: "gmapping"
-    profile: "configs/slams/gmapping.yaml"
-
+- id: noop
+  profile: configs/slams/noop.yaml
+- id: external
+  profile: configs/slams/external.yaml
+- id: slam_toolbox_sync
+  profile: configs/slams/slam_toolbox_sync.yaml
 matrix:
   include:
-    - dataset: "tb3_sim_gmapping"
-      slams: ["gmapping"]
-      repeats: 1
-      seeds: [0]
-      tags: ["modeB","tb3","explore_lite"]
-
+  - dataset: tb3_sim_explore_modeA
+    slams:
+    - external
+    repeats: 1
+    seeds:
+    - 0
+    tags:
+    - modeB
+    - tb3
+    - explore_lite
 output:
-  root_dir: "results/runs"
-  index_file: "results/index.jsonl"
+  root_dir: results/runs
+  index_file: results/index.jsonl
   artifacts:
     export_map: true
     export_traj: false

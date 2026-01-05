@@ -37,8 +37,8 @@ An automated framework for benchmarking SLAM algorithms (Cartographer, GMapping,
 ### Quick Install
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/slam_bench_orchestrator.git
-cd slam_bench_orchestrator
+git clone https://github.com/YOUR_USERNAME/benchbot.git
+cd benchbot
 
 # Run automated installer
 ./install.sh
@@ -127,8 +127,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📧 Contact
 
 For questions or support:
-- **Issues:** [GitHub Issues](https://github.com/YOUR_USERNAME/slam_bench_orchestrator/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/YOUR_USERNAME/slam_bench_orchestrator/discussions)
+- **Issues:** [GitHub Issues](https://github.com/YOUR_USERNAME/benchbot/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/YOUR_USERNAME/benchbot/discussions)
 
 ---
 
