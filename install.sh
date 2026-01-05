@@ -51,11 +51,13 @@ echo -e "${YELLOW}[3/5] Installing Python libraries...${NC}"
 pip3 install --user \
     PyQt5 \
     pyyaml \
-    numpy \
+    "numpy<2" \
     matplotlib \
     reportlab \
     psutil \
-    transforms3d
+    transforms3d \
+    pyqtgraph \
+    PyOpenGL
 
 # 5. Build Local Slams (GMapping)
 echo -e "${YELLOW}[4/5] Building local workspaces (deps/)...${NC}"

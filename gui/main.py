@@ -23,6 +23,7 @@ from gui.pages.benchmark import BenchmarkPage
 from gui.pages.settings import SettingsPage # New Import
 from gui.pages.comparison import ComparisonPage
 from gui.pages.robot_manager import RobotManagerPage
+from gui.pages.visualizer import VisualizerPage
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -67,12 +68,14 @@ class MainWindow(QMainWindow):
         self.btn_bench = self.create_nav_button("Benchmark", 4)
         self.btn_compare = self.create_nav_button("Comparison", 6)
         self.btn_robot = self.create_nav_button("Robot Manager", 7)
+        self.btn_viz = self.create_nav_button("3D Visualizer", 8)
         self.btn_tools = self.create_nav_button("Tools", 2)
         
         sidebar_layout.addWidget(self.btn_dash)
         sidebar_layout.addWidget(self.btn_bench)
         sidebar_layout.addWidget(self.btn_compare)
         sidebar_layout.addWidget(self.btn_robot)
+        sidebar_layout.addWidget(self.btn_viz)
         sidebar_layout.addWidget(self.btn_tools)
         
         sidebar_layout.addStretch()
@@ -100,6 +103,7 @@ class MainWindow(QMainWindow):
         self.page_benchmark = BenchmarkPage()
         self.page_compare = ComparisonPage()
         self.page_robot = RobotManagerPage()
+        self.page_viz = VisualizerPage()
         
         # Pass self (MainWindow) to SettingsPage so it can change theme
         self.page_settings = SettingsPage(main_window=self) 
@@ -112,6 +116,7 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.page_settings)  # 5
         self.stack.addWidget(self.page_compare)   # 6
         self.stack.addWidget(self.page_robot)     # 7
+        self.stack.addWidget(self.page_viz)       # 8
         
         # Connect Signals
         
@@ -178,6 +183,8 @@ class MainWindow(QMainWindow):
         elif index == 7:
             self.btn_robot.setChecked(True)
             self.page_robot.load_settings()
+        elif index == 8:
+            self.btn_viz.setChecked(True)
             
         self.stack.setCurrentIndex(index)
 
@@ -287,6 +294,10 @@ class MainWindow(QMainWindow):
             ram = data.get('ram', 0.0)
             self.page_dashboard.cards[config_path].update_live_metrics(cpu, ram)
 
+        # Update 3D Visualizer if active
+        if data.get('pose'):
+            self.page_viz.inject_pose(data['pose'])
+
     def handle_log(self, msg, config_path):
         if config_path not in self.log_buffers:
             self.log_buffers[config_path] = []
@@ -331,7 +342,23 @@ class MainWindow(QMainWindow):
 
 
 if __name__ == "__main__":
+    import rclpy
+    try:
+        rclpy.init()
+    except:
+        pass # Already initialized
+
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
-    sys.exit(app.exec_())
+    
+    ret = app.exec_()
+    
+    # Cleanup ROS 2
+    try:
+        if rclpy.ok():
+            rclpy.shutdown()
+    except:
+        pass
+        
+    sys.exit(ret)

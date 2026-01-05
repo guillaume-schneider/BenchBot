@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, 
-    QComboBox, QFrame, QTableWidget, QTableWidgetItem, QHeaderView
+    QComboBox, QFrame, QTableWidget, QTableWidgetItem, QHeaderView, QFileDialog, QMessageBox
 )
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
@@ -27,6 +27,7 @@ class ComparisonPage(QWidget):
         self.layout.setSpacing(20)
         
         self.init_ui()
+        self.last_runs_data = []
         
     def init_ui(self):
         # 1. Header
@@ -77,6 +78,18 @@ class ComparisonPage(QWidget):
         """)
         refresh_btn.clicked.connect(self.scan_runs)
         sel_layout.addWidget(refresh_btn)
+        
+        self.export_btn = QPushButton("Export PDF Report")
+        self.export_btn.setFixedHeight(45)
+        self.export_btn.setFixedWidth(160)
+        self.export_btn.setEnabled(False)
+        self.export_btn.setStyleSheet("""
+            QPushButton { background-color: #059669; color: white; border: none; border-radius: 6px; font-weight: bold; margin-top: 15px; }
+            QPushButton:hover { background-color: #047857; }
+            QPushButton:disabled { background-color: #334155; color: #94a3b8; }
+        """)
+        self.export_btn.clicked.connect(self.export_report)
+        sel_layout.addWidget(self.export_btn)
         
         sel_layout.addStretch()
         
@@ -164,6 +177,7 @@ class ComparisonPage(QWidget):
         
         colors = ["#3b82f6", "#ef4444", "#10b981"]
         gt_loaded = False
+        runs_to_report = []
         
         for i, combo in enumerate(self.combos):
             run_path_str = combo.currentData()
@@ -210,6 +224,20 @@ class ComparisonPage(QWidget):
             self.table.setItem(5, i, QTableWidgetItem(f"{ram:.1f} MB" if ram else "N/A"))
             self.table.setItem(6, i, QTableWidgetItem(f"{cpu:.1f} %" if cpu else "N/A"))
 
+            # Store for PDF report
+            runs_to_report.append({
+                'name': run_path.name,
+                'slam': slam,
+                'dataset': dataset,
+                'ate': f"{ate:.4f}" if ate else "N/A",
+                'coverage': f"{cov*100:.1f}" if cov else "N/A",
+                'ram': f"{ram:.1f}" if ram else "N/A",
+                'cpu': f"{cpu:.1f}" if cpu else "N/A",
+                'status': "❌ ANOMALY" if is_failure else "✅ VALID",
+                'is_failure': is_failure,
+                'reasons': reasons
+            })
+
             # 3. Trajectory extraction
             bag_dir = run_path / "bags" / "output"
             if bag_dir.exists():
@@ -251,3 +279,34 @@ class ComparisonPage(QWidget):
         self.ax.relim()
         self.ax.autoscale_view()
         self.canvas.draw()
+        
+        # Save data for report
+        self.last_runs_data = runs_to_report
+        self.export_btn.setEnabled(len(self.last_runs_data) > 0)
+
+    def export_report(self):
+        if not self.last_runs_data:
+            return
+            
+        file_path, _ = QFileDialog.getSaveFileName(self, "Export Comparison Report", "comparison_report.pdf", "PDF Files (*.pdf)")
+        if not file_path:
+            return
+            
+        try:
+            # 1. Save current plot to temp image
+            temp_plot = Path("/tmp/comparison_plot.png")
+            self.figure.savefig(str(temp_plot), dpi=150, facecolor=self.figure.get_facecolor())
+            
+            # 2. Generate PDF
+            from tools.report_generator import generate_full_report
+            generate_full_report(file_path, self.last_runs_data, str(temp_plot))
+            
+            # 3. Success notification
+            QMessageBox.information(self, "Export Success", f"Report successfully generated at:\n{file_path}")
+            
+            # Cleanup
+            if temp_plot.exists():
+                temp_plot.unlink()
+                
+        except Exception as e:
+            QMessageBox.critical(self, "Export Error", f"Failed to generate report: {str(e)}")

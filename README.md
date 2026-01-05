@@ -11,8 +11,9 @@ An automated framework for benchmarking SLAM algorithms (Cartographer, GMapping,
     *   **Map Quality**: Coverage %, IoU (Intersection over Union), Path Length
     *   **System**: CPU Usage %, Max RAM (MB)
 *   **Headless CI**: Run full benchmarks on servers without a display (`runner/run_matrix.py`).
-*   **Modern GUI**: Dashboard, Analysis Comparison, and Robot Hardware Manager.
+*   **Modern GUI**: Dashboard, Analysis Comparison, 3D Visualizer, and Robot Manager.
 *   **Intelligent Analysis**: Comparison tool with trajectory overlay and heuristic anomaly detection.
+*   **3D Monitoring**: Real-time point cloud and trajectory visualization in a specialized 3D tab.
 *   **Stress Testing**: Real-time sensor degradation (LIDAR noise/range) and actuator limiting.
 
 ## 📦 Quick Start
@@ -25,6 +26,7 @@ python3 gui/main.py
 *   **Dashboard**: Select `modeA_validate_loop` or other matrices.
 *   **Benchmark**: View results in a sortable table.
 *   **Comparison**: Overlay trajectories from 3 runs on a ground truth map and detect anomalies.
+*   **3D Visualizer**: Live LIDAR point cloud and 3D robot trajectory.
 *   **Robot Manager**: Inject noise, limit LIDAR range, or scale motor speeds to test robustness.
 
 ### 2. Headless Mode (CI/CD)
