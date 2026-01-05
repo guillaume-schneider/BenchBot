@@ -39,7 +39,7 @@ python3 runner/run_matrix.py configs/matrices/test_headless_ci.yaml
 *   **[Headless CI](docs/HEADLESS_CI.md)**: Running benchmarks in CLI/CI mode.
 *   **[Simulation Realism](docs/SIMULATION_REALISM.md)**: Physics and Sensor noise parameters.
 *   **[Troubleshooting Exploration](docs/TROUBLESHOOTING_EXPLORATION.md)**: Solutions for navigation issues.
-*   **[Multi-SLAM Guide](docs/MULTI_SLAM_GUIDE.md)**: How to add new SLAM algorithms.
+*   **[Automated Dependencies](docs/AUTOMATED_DEPENDENCIES.md)**: Dynamic Git cloning and building for SLAMs.
 *   **[Archive & Logs](docs/archive/)**: Historical session logs and debugging notes.
 
 

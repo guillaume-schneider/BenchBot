@@ -239,6 +239,43 @@ def run_once(config_path: str) -> int:
 
     import threading
     import psutil
+    from runner.dependency_manager import DependencyManager
+
+    # Instantiate DependencyManager
+    dep_mgr = DependencyManager(log_callback=lambda m: node.get_logger().info(f"[DEPENDENCIES] {m}"))
+
+    # Collect dependencies from dataset and slam
+    all_deps = []
+    dataset_cfg = cfg.get("dataset", {})
+    all_deps.extend(dataset_cfg.get("dependencies", []) or [])
+    slam_cfg = cfg.get("slam", {})
+    all_deps.extend(slam_cfg.get("dependencies", []) or [])
+
+    # Ensure dependencies are met
+    if all_deps:
+        node.get_logger().info("Ensuring dependencies are met...")
+        if not dep_mgr.ensure_dependencies(all_deps):
+            node.get_logger().error("Failed to satisfy dependencies.")
+            return 4
+        node.get_logger().info("Dependencies satisfied.")
+
+    # Get setup paths to source
+    extra_sources = dep_mgr.get_source_commands(all_deps)
+    
+    def wrap_cmd_with_sourcing(cmd_input):
+        """Wraps a command (string or list) with sourcing of extra dependencies."""
+        if not extra_sources:
+            return cmd_input
+            
+        # Convert list to string if needed
+        if isinstance(cmd_input, list):
+            cmd_str = " ".join(f'"{c}"' if " " in c else c for c in cmd_input)
+        else:
+            cmd_str = cmd_input
+            
+        sourcing = " && ".join([f"source {s}" for s in extra_sources])
+        # Use bash -c to execute the command in the sourced environment
+        return ["bash", "-c", f"{sourcing} && exec {cmd_str}"]
 
     # Start monitoring thread
     system_metrics = {"max_cpu": 0.0, "max_ram": 0.0}
@@ -377,7 +414,7 @@ def run_once(config_path: str) -> int:
             else:
                 pm.start(
                     proc["name"],
-                    proc["cmd"],
+                    wrap_cmd_with_sourcing(proc["cmd"]),
                     env=proc.get("env", {}) or {},
                     cwd=proc.get("cwd", None),
                 )
@@ -388,14 +425,14 @@ def run_once(config_path: str) -> int:
         # START_SLAM (Mode A: may be noop or omitted)
         # If you want to allow "no slam", keep slam_cmd optional.
         if slam_cmd and slam_id != "noop":
-            pm.start("slam", slam_cmd, env=slam_env, cwd=slam_cwd)
+            pm.start("slam", wrap_cmd_with_sourcing(slam_cmd), env=slam_env, cwd=slam_cwd)
         elif slam_cmd and slam_id == "noop":
             # still launch noop for logging consistency (optional)
-            pm.start("slam", slam_cmd, env=slam_env, cwd=slam_cwd)
+            pm.start("slam", wrap_cmd_with_sourcing(slam_cmd), env=slam_env, cwd=slam_cwd)
 
         # START_ROSBAG
         if cfg["recording"]["enabled"]:
-            pm.start("rosbag", bag_cmd, env={}, cwd=None)
+            pm.start("rosbag", wrap_cmd_with_sourcing(bag_cmd), env={}, cwd=None)
 
         # WAIT_READY (probes)
         for p in cfg["probes"]["ready"]:

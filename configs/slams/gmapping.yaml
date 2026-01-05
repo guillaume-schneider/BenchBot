@@ -3,10 +3,21 @@ id: "gmapping"
 display_name: "GMapping"
 description: "Classic GMapping SLAM (requires slam_gmapping package)"
 
+dependencies:
+  - name: "gmapping"
+    git: "https://github.com/ros-perception/slam_gmapping.git"
+    branch: "humble-devel"
+    path: "deps/gmapping_ws"
+    build: "colcon build --symlink-install"
+    source: "install/setup.bash"
+
 launch:
-  # On utilise un wrapper qui source deps/gmapping_ws
+  # On utilise directement ros2 run car l'orchestrateur source le workspace
   cmd: 
-    - "/home/schneigu/Projects/slam_bench_orchestrator/tools/launch/gmapping_wrapper.sh"
+    - "ros2"
+    - "run"
+    - "slam_gmapping"
+    - "slam_gmapping"
     - "--ros-args"
     - "--params-file"
     - "/home/schneigu/Projects/slam_bench_orchestrator/configs/params/gmapping_params.yaml"
