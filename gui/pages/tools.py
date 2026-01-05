@@ -8,7 +8,6 @@ from matplotlib.figure import Figure
 import numpy as np
 from pathlib import Path
 
-# Imports from project
 from gui.pages.gt_map import GTMapPage
 from evaluation.metrics import (
     load_gt_map, read_messages_by_topic, occupancy_arrays_from_msgs,

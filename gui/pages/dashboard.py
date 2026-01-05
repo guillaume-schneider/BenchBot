@@ -31,7 +31,6 @@ class DashboardPage(QWidget):
         
         header_row.addStretch()
         
-        # Create Button
         self.create_btn = QPushButton("Create New")
         self.create_btn.setFixedSize(120, 36)
         self.create_btn.setStyleSheet("""

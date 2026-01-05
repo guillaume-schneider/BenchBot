@@ -30,7 +30,6 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("SLAM Bench Orchestrator")
         self.resize(1400, 900)
-        # self.setStyleSheet(STYLE_SHEET) # Moved to SettingsPage init to support persistence
         
         self.active_runs = {} # {config_path: worker}
         self.running_config = None # Last focused run

@@ -38,7 +38,6 @@ def repair_bag(bag_dir):
     
     conn.close()
     
-    # Create valid metadata structure
     meta = {
         "rosbag2_bagfile_information": {
             "version": 4,

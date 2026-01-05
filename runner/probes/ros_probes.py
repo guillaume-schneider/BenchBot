@@ -42,7 +42,6 @@ class TopicPublishProbe(Probe):
         # Use AnyMsg-style subscription: easiest is to use std_msgs/String? Not ok.
         # In practice, you should know msg types; for generic probing, use /rosapi is not available.
         # So we probe existence by graph + then count via ros2 topic echo is too heavy.
-        #
         # Better: implement per-known topics with types, or provide msg_type in config.
         # Here: require msg_type in params; we'll support that in a second probe below.
         return ProbeResult(

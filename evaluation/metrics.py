@@ -362,7 +362,6 @@ def compute_ssim(gt_map, est_map):
     score, _ = ssim(gt_norm, est_norm, full=True, data_range=1.0)
     
     # Optional: localized SSIM only on known cells
-    # score = ssim(gt_norm * mask, est_norm * mask, data_range=1.0)
     
     return float(score)
 
