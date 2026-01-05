@@ -18,7 +18,10 @@ try:
         occupancy_arrays_from_msgs,
         compute_coverage,
         compute_accessible_coverage,
+        save_map_image,
         compute_iou,
+        compute_ssim,
+        compute_wall_thickness,
         compute_time_to_coverage,
         compute_path_length,
     )
@@ -32,7 +35,10 @@ except ImportError:
         occupancy_arrays_from_msgs,
         compute_coverage,
         compute_accessible_coverage,
+        save_map_image,
         compute_iou,
+        compute_ssim,
+        compute_wall_thickness,
         compute_time_to_coverage,
         compute_path_length,
     )
@@ -198,6 +204,19 @@ class ResultWindow(QMainWindow):
             # Metrics
             est_map = occupancy_arrays_from_msgs(map_msgs, gt_map, gt_res, gt_origin)
             
+            # Save Maps for report
+            bag_path_obj = Path(bag_path)
+            map_img_path = str(bag_path_obj / "final_map.png")
+            gt_img_path = str(bag_path_obj / "gt_map.png")
+            
+            try:
+                self.log(f"Saving maps to {map_img_path} and {gt_img_path}")
+                save_map_image(est_map, map_img_path, title="Estimated Map")
+                save_map_image(gt_map, gt_img_path, title="Ground Truth Map")
+            except Exception as e:
+                self.log(f"WARNING: Could not save map images: {e}")
+            
+            
             # Need last map msg for accessible coverage
             _, last_map_msg = map_msgs[-1]
             
@@ -210,6 +229,9 @@ class ResultWindow(QMainWindow):
             )
             
             iou = compute_iou(gt_map, est_map)
+            ssim_val = compute_ssim(gt_map, est_map)
+            wall_thick_m = compute_wall_thickness(est_map, gt_res)
+            
             path_len = compute_path_length(odom_msgs)
             
             # RMSE Calculation
@@ -246,19 +268,36 @@ class ResultWindow(QMainWindow):
                     except:
                         pass
             
-            data.update({
-                "duration_s": float(duration_s),
-                "coverage": float(cov),
-                "accessible_coverage": float(acc_cov),
-                "iou": float(iou),
-                "path_length_m": float(path_len)
-            })
-            if rmse is not None:
+            # Only update metrics that don't already exist (preserve orchestrator data)
+            if data.get("duration_s") is None:
+                data["duration_s"] = float(duration_s)
+            if data.get("coverage") is None:
+                data["coverage"] = float(cov)
+            if data.get("accessible_coverage") is None:
+                data["accessible_coverage"] = float(acc_cov)
+            if data.get("iou") is None:
+                data["iou"] = float(iou)
+            if data.get("occupancy_iou") is None:
+                data["occupancy_iou"] = float(iou)
+            if data.get("map_ssim") is None:
+                data["map_ssim"] = float(ssim_val)
+            if data.get("wall_thickness_m") is None:
+                data["wall_thickness_m"] = float(wall_thick_m)
+            if data.get("path_length_m") is None:
+                data["path_length_m"] = float(path_len)
+            # Add map image paths
+            if data.get("map_image_path") is None:
+                data["map_image_path"] = map_img_path
+            if data.get("gt_map_image_path") is None:
+                data["gt_map_image_path"] = gt_img_path
+            if rmse is not None and data.get("ate_rmse") is None:
                 data["ate_rmse"] = float(rmse)
             
-            # Legacy fallbacks for older code specifically looking for percents
-            data["coverage_percent"] = float(cov * 100)
-            data["accessible_coverage_percent"] = float(acc_cov * 100)
+            # Legacy fallbacks (only if not present)
+            if data.get("coverage_percent") is None:
+                data["coverage_percent"] = float(cov * 100)
+            if data.get("accessible_coverage_percent") is None:
+                data["accessible_coverage_percent"] = float(acc_cov * 100)
             
             import json
             with open(metrics_file, 'w') as f:
@@ -271,7 +310,8 @@ class ResultWindow(QMainWindow):
             self.ax_gt.set_title("Ground Truth", color='white')
             self.ax_est.set_title("Estimated Map", color='white')
             
-            self.display_map(self.ax_gt, gt_map)
+
+            self.display_map(self.ax_gt, np.flipud(gt_map))
             # Flip estimated map to match GT orientation
             self.display_map(self.ax_est, np.flipud(est_map))
             

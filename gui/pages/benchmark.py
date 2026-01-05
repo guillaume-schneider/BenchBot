@@ -274,27 +274,56 @@ class BenchmarkPage(QWidget):
         
         self.apply_filters()
 
+
     def parse_run(self, path: Path):
         data = {
             "id": path.name, "slam": "N/A", "dataset": "N/A", "duration": None,
-            "ate": None, "coverage": None, "iou": None, "path": None, "cpu": None, "ram": None
+            "ate": None, "coverage": None, "iou": None, "path": None, "cpu": None, "ram": None,
+            "accessible_coverage": None, "occupancy_iou": None, 
+            "map_image_path": None, "gt_map_image_path": None, "wall_thick": None, "ssim": None,
+            "status": "Unknown", "reasons": []
         }
         parts = path.name.split("__")
         if len(parts) >= 2: data["dataset"] = parts[1]
         if len(parts) >= 3: data["slam"] = parts[2]
+
         metrics_path = path / "metrics.json"
         if metrics_path.exists():
             try:
                 with open(metrics_path, 'r') as f:
                     m = json.load(f)
+                    print(f"[DEBUG] Loaded {path.name}: IoU={m.get('occupancy_iou')}, AccCov={m.get('accessible_coverage')}")
                     data["ate"] = m.get("ate_rmse")
-                    data["coverage"] = m.get("coverage_percent")
-                    data["iou"] = m.get("iou")
+                    
+                    # Handle Coverage (prefer percent, fallback to ratio*100)
+                    cov = m.get("coverage_percent")
+                    if cov is None and m.get("coverage") is not None:
+                        cov = m.get("coverage") * 100.0
+                    data["coverage"] = cov
+                    
+                    data["iou"] = m.get("iou") # Legacy?
+                    data["occupancy_iou"] = m.get("occupancy_iou", m.get("iou")) # Prefer specific, fallback legacy
+                    
+                    # Accessible Coverage
+                    acc_cov = m.get("accessible_coverage")
+                    if acc_cov is not None and acc_cov <= 1.0: acc_cov *= 100.0 # Convert to %
+                    data["accessible_coverage"] = acc_cov
+                    
                     data["path"] = m.get("path_length_m")
                     data["duration"] = m.get("duration_s")
                     data["cpu"] = m.get("max_cpu_percent")
                     data["ram"] = m.get("max_ram_mb")
-            except: pass
+                    data["wall_thick"] = m.get("wall_thickness_m") * 100 if m.get("wall_thickness_m") else None # cm
+                    data["ssim"] = m.get("map_ssim")
+                    
+                    data["map_image_path"] = m.get("map_image_path")
+                    data["gt_map_image_path"] = m.get("gt_map_image_path")
+                    
+                    data["status"] = "ANOMALY" if m.get("is_failure") else "SUCCESS"
+                    data["reasons"] = m.get("failure_reasons", [])
+                    
+            except Exception as e: 
+                print(f"Error parsing metrics for {path.name}: {e}")
         return data
 
     def populate_table(self, runs):

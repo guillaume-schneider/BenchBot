@@ -1,7 +1,6 @@
 id: test_gmapping
-name: "Test GMapping Exploration"
-description: "Scenario de test unitaire pour GMapping avec Nav2/ExploreLite"
-
+name: Test GMapping Exploration
+description: Scenario de test unitaire pour GMapping avec Nav2/ExploreLite
 workspace:
   ros_distro: humble
   use_sim_time: true
@@ -14,7 +13,17 @@ defaults:
   rosbag:
     enabled: true
     storage_id: sqlite3
-    topics: [/tf, /tf_static, /odom, /clock, /scan, /cmd_vel, /map, /map_metadata, /gazebo/model_states, /robot_description]
+    topics:
+    - /tf
+    - /tf_static
+    - /odom
+    - /clock
+    - /scan
+    - /cmd_vel
+    - /map
+    - /map_metadata
+    - /gazebo/model_states
+    - /robot_description
   probes:
     required:
     - type: topic_publish
@@ -31,89 +40,86 @@ defaults:
       msg_type: nav_msgs/msg/OccupancyGrid
       min_messages: 1
       timeout_s: 60
-
 datasets:
-  - id: tb3_sim_explore_modeA
-    kind: sim_gazebo
-    dependencies:
-    - name: m-explore
-      git: https://github.com/robo-friends/m-explore-ros2
-      branch: main
-      path: deps/m_explore_ws
-      build: colcon build --symlink-install
-      source: install/setup.bash
-    world_model: "worlds/model.sdf"
-    scenario:
-      world: "worlds/model.sdf" 
-      bag_path: "datasets/tb3_sim_explore_modeA.bag" # Placeholder
-      duration_s: 180
-      processes:
-        - name: nav2_sim
-          cmd: 
-          - ros2
-          - launch
-          - /home/schneigu/Projects/benchbot/tools/launch/tb3_sim_no_loc.launch.py
-          - use_sim_time:=True
-          - x_pose:=0.5
-          - y_pose:=0.5
-          - world:=/home/schneigu/Projects/benchbot/worlds/fixed_model.world
-          - robot_sdf:=/home/schneigu/Projects/benchbot/worlds/waffle_fixed.model
-          - params_file:=/home/schneigu/Projects/benchbot/configs/params/nav2_params.yaml
-          - use_gazebo:=False
-          env:
-            TURTLEBOT3_MODEL: waffle
-
-        - name: kickstart
-          cmd: ["/home/schneigu/Projects/benchbot/tools/scripts/kickstart.sh"]
-          delay_s: 5.0
-          params:
-            restart: false
-
-        - name: explore
-          delay_s: 5.0
-          cmd:
-          - /home/schneigu/Projects/benchbot/tools/launch/explore_wrapper.sh
-          - ros2
-          - run
-          - explore_lite
-          - explore
-          - --ros-args
-          - --params-file
-          - /home/schneigu/Projects/benchbot/configs/params/explore_params.yaml
-          params: {} # Kept empty for structure or remove completely if safe. 
-                     # Orchestrator might not care if it's missing.
-                     # But let's just remove the block content content.
-
+- id: tb3_sim_explore_modeA
+  kind: sim_gazebo
+  dependencies:
+  - name: m-explore
+    git: https://github.com/robo-friends/m-explore-ros2
+    branch: main
+    path: deps/m_explore_ws
+    build: colcon build --symlink-install
+    source: install/setup.bash
+  world_model: worlds/model.sdf
+  scenario:
+    world: worlds/model.sdf
+    bag_path: datasets/tb3_sim_explore_modeA.bag
+    duration_s: 180
+    processes:
+    - name: nav2_sim
+      cmd:
+      - ros2
+      - launch
+      - /home/schneigu/Projects/benchbot/tools/launch/tb3_sim_no_loc.launch.py
+      - use_sim_time:=True
+      - x_pose:=0.5
+      - y_pose:=0.5
+      - world:=/home/schneigu/Projects/benchbot/worlds/fixed_model.world
+      - robot_sdf:=/home/schneigu/Projects/benchbot/worlds/waffle_fixed.model
+      - params_file:=/home/schneigu/Projects/benchbot/configs/params/nav2_params.yaml
+      - use_gazebo:=False
+      env:
+        TURTLEBOT3_MODEL: waffle
+    - name: kickstart
+      cmd:
+      - /home/schneigu/Projects/benchbot/tools/scripts/kickstart.sh
+      delay_s: 5.0
+      params:
+        restart: false
+    - name: explore
+      delay_s: 5.0
+      cmd:
+      - /home/schneigu/Projects/benchbot/tools/launch/explore_wrapper.sh
+      - ros2
+      - run
+      - explore_lite
+      - explore
+      - --ros-args
+      - --params-file
+      - /home/schneigu/Projects/benchbot/configs/params/explore_params.yaml
+      params: {}
 slams:
 - id: gmapping
   profile: configs/slams/gmapping.yaml
-
 matrix:
   include:
-    - dataset: tb3_sim_explore_modeA
-      slams:
-        - gmapping
-      repeats: 1
-
+  - dataset: tb3_sim_explore_modeA
+    slams:
+    - gmapping
+    repeats: 1
+    degradation:
+      enabled: false
+      max_range: 3.0
+      noise_std: 0.05
+      speed_scale: 1.0
 probes:
-  - name: scan
-    topic: /scan
-    msg_type: sensor_msgs/msg/LaserScan
-    timeout_s: 10
-  - name: tf
-    type: tf_exists
-    source: map
-    target: odom
-    timeout_s: 20
-  - name: odom_topic
-    topic: /odom
-    msg_type: nav_msgs/msg/Odometry
-    timeout_s: 10
-  - name: map
-    topic: /map
-    msg_type: nav_msgs/msg/OccupancyGrid
-    timeout_s: 30
-
+- name: scan
+  topic: /scan
+  msg_type: sensor_msgs/msg/LaserScan
+  timeout_s: 10
+- name: tf
+  type: tf_exists
+  source: map
+  target: odom
+  timeout_s: 20
+- name: odom_topic
+  topic: /odom
+  msg_type: nav_msgs/msg/Odometry
+  timeout_s: 10
+- name: map
+  topic: /map
+  msg_type: nav_msgs/msg/OccupancyGrid
+  timeout_s: 30
 options:
   use_sim_time: true
   use_rviz: true

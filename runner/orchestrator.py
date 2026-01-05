@@ -59,6 +59,9 @@ def build_probe(p: dict):
 
 def run_once(config_path: str) -> int:
     cfg = load_run_config(config_path)
+    logger.info("=" * 80)
+    logger.info("RUN_ONCE CALLED")
+    logger.info(f"RUN_ONCE CALLED - Config: {config_path}")
     ensure_dirs(cfg)
 
     logs_dir = cfg["paths"]["logs_dir"]
@@ -216,25 +219,35 @@ def run_once(config_path: str) -> int:
             rclpy.spin_once(node, timeout_sec=0.05)
 
     # --------- Robot Degradation Logic ---------
+
+    # --------- Robot Degradation Logic ---------
+    # Priority: 1. Config (Matrix/Run), 2. Global Settings (GUI)
+    degradation_conf = cfg.get("degradation", {})
     robot_settings_path = Path("configs/robot_settings.json")
-    degradation_active = False
-    if robot_settings_path.exists():
+    
+    if not degradation_conf and robot_settings_path.exists():
         try:
             with open(robot_settings_path) as f:
-                rs = json.load(f)
-                if rs.get("enabled", False):
-                    degradation_active = True
-                    degrader_cmd = [
-                        "python3", "tools/sensor_degrader.py",
-                        "--ros-args",
-                        "-p", f"max_range:={rs.get('max_range', 10.0)}",
-                        "-p", f"noise_std:={rs.get('noise_std', 0.0)}",
-                        "-p", f"speed_scale:={rs.get('speed_scale', 1.0)}",
-                        "-p", "enabled:=True"
-                    ]
+                degradation_conf = json.load(f)
         except Exception as e:
-            node.get_logger().warn(f"Failed to load robot settings: {e}")
+            node.get_logger().warn(f"Failed to load global robot settings: {e}")
 
+    degradation_active = degradation_conf.get("enabled", False)
+    
+    if degradation_active:
+        # Save effective settings to config for traceability
+        cfg["degradation"] = degradation_conf
+        
+        rs = degradation_conf
+        degrader_cmd = [
+            "python3", "tools/sensor_degrader.py",
+            "--ros-args",
+            "-p", f"max_range:={rs.get('max_range', 10.0)}",
+            "-p", f"noise_std:={rs.get('noise_std', 0.0)}",
+            "-p", f"speed_scale:={rs.get('speed_scale', 1.0)}",
+            "-p", "enabled:=True"
+        ]
+        
     # --------- Scenario: multi-process support ----------
     scenario = cfg.get("dataset", {}).get("scenario", {}) or {}
     scenario_processes = scenario.get("processes", None)
@@ -243,20 +256,28 @@ def run_once(config_path: str) -> int:
     if degradation_active:
         node.get_logger().info("Applying Robot/Sensor DEGRADATION for this run.")
         if not scenario_processes:
-            # Handle legacy or default wrap
-            pass # We'll handle it below when it's created
+            # Handle legacy or default wrap (will be created below if None)
+            pass 
         else:
             for proc in scenario_processes:
                 if "sim" in proc["name"].lower():
                     # Remap simulator outputs to _raw so degrader can intercept
                     proc["cmd"] += ["--ros-args", "--remap", "scan:=scan_raw", "--remap", "cmd_vel:=cmd_vel_raw"]
             
+            # Add degrader process
             scenario_processes.append({
                 "name": "degrader",
                 "cmd": degrader_cmd,
                 "env": {},
                 "cwd": str(Path.cwd())
             })
+            
+        # Save updated config with degradation params/processes to disk
+        try:
+            with open(config_path, "w") as f:
+                yaml.dump(cfg, f, default_flow_style=False)
+        except Exception as e:
+            node.get_logger().error(f"Failed to save resolved config: {e}")
 
     # Backward compatible: old config had scenario.launch.cmd
     if not scenario_processes:
@@ -507,6 +528,7 @@ def run_once(config_path: str) -> int:
             if not res.ok:
                 node.get_logger().error(f"[PROBE FAIL] {res.message}")
                 return 2
+                logger.error(f"PROBE FAILED - EXITING WITH CODE 2 (evaluation will NOT run)")
             node.get_logger().info(f"[PROBE OK] {res.message}")
 
         # WARMUP (still paused)
@@ -530,15 +552,72 @@ def run_once(config_path: str) -> int:
         # DRAIN: pause and wait a bit so last map/TF can flush
         set_explore(False)
         t2 = time.time()
+        logger.info(f"[EVAL] Run completed. Duration: {t2-t1:.1f}s")
         
         # Stop resource monitoring
         monitor_active = False
         if monitor_thread:
             monitor_thread.join(timeout=2.0)
+        logger.info(f"[EVAL] Monitoring stopped. Max CPU: {system_metrics['max_cpu']:.1f}%, Max RAM: {system_metrics['max_ram']:.1f}MB")
             
         return 0
 
     finally:
+        try:
+            node.get_logger().info("[EVAL] Saving system metrics immediately (Deferring full evaluation)...")
+            
+            metrics_path = cfg["paths"]["metrics_json"]
+            
+            # Extract degradation settings with defaults
+            degradation_cfg = cfg.get("degradation", {})
+            lidar_noise = 0.0
+            lidar_range = 10.0
+            speed_scale = 1.0
+            
+            if degradation_cfg and degradation_cfg.get("enabled", False):
+                lidar_noise = degradation_cfg.get("noise_std", 0.0)
+                lidar_range = degradation_cfg.get("max_range", 10.0)
+                speed_scale = degradation_cfg.get("speed_scale", 1.0)
+            
+            logger.info(f"[EVAL] Degradation values: noise={lidar_noise}, range={lidar_range}, scale={speed_scale}")
+            
+            # Create metrics dictionary with just system info
+            metrics = {
+                "duration_s": float(t2 - t1),
+                "max_cpu_percent": system_metrics["max_cpu"],
+                "max_ram_mb": system_metrics["max_ram"],
+                "degradation": degradation_cfg if degradation_cfg else None,
+                "lidar_noise": lidar_noise,
+                "lidar_range": lidar_range,
+                "speed_scale": speed_scale,
+                
+                # Placeholders explicitly set to None to indicate they need computation
+                "ate_rmse": None,
+                "coverage": None,
+                "accessible_coverage": None,
+                "occupancy_iou": None,
+                "map_ssim": None,
+                "wall_thickness_m": None,
+                "is_failure": False, # Default
+                "failure_reasons": []
+            }
+            
+            logger.info(f"[EVAL] Writing partial metrics to: {metrics_path}")
+            with open(metrics_path, "w") as f:
+                json.dump(metrics, f, indent=4)
+            logger.info(f"[EVAL] ✅ Partial metrics saved successfully.")
+            
+        except Exception as e:
+            node.get_logger().error(f"Failed to save system metrics: {e}")
+            import traceback
+            traceback.print_exc()
+            logger.error(f"[EVAL] Traceback printed above")
+        
+        node.get_logger().info("[EVAL] Cleaning up ROS node...")
+        # Cleanup ROS node
+        node.destroy_node()
+        rclpy.shutdown()
+
         monitor_active = False # Ensure loop stops
         
         # STOP (reverse-ish)
@@ -580,78 +659,6 @@ def run_once(config_path: str) -> int:
         except Exception:
             pass
 
-        # EVALUATE (after stop)
-        try:
-            node.get_logger().info("Starting post-run evaluation...")
-            from tools.benchmark import run_benchmark
-            
-            bag_path = cfg["paths"]["bags_dir"] + "/output"
-            metrics_path = cfg["paths"]["metrics_json"]
-            
-            rmse = run_benchmark(bag_path)
-            
-            # Additional analysis for anomalies and coverage
-            from evaluation import read_messages_by_topic, detect_anomalies, load_gt_map, occupancy_arrays_from_msgs, compute_coverage
-            
-            msgs = read_messages_by_topic(bag_path, ["/odom", "/map"])
-            odom_msgs = msgs.get("/odom", [])
-            map_msgs = msgs.get("/map", [])
-            
-            warnings, is_failure = detect_anomalies(odom_msgs, rmse)
-            
-            coverage = 0.0
-            # Try to get GT map for coverage
-            try:
-                # Find GT map from config (already loaded above as cfg)
-                gt_path_rel = None
-                for ds in cfg.get("datasets", []): # Matrix might have multiple, but cfg resolved has one
-                    pass # Simplified: Use the one in the resolved cfg
-                
-                # In resolved cfg, it's usually directly in dataset:
-                gt_def = cfg.get("dataset", {}).get("ground_truth", {})
-                if gt_def:
-                    gt_map, gt_res, gt_origin = load_gt_map(str(Path.cwd() / gt_def["map_path"]))
-                    est_on_gt = occupancy_arrays_from_msgs(map_msgs, gt_map, gt_res, gt_origin)
-                    coverage = compute_coverage(gt_map, est_on_gt)
-            except Exception as e:
-                node.get_logger().warn(f"Could not compute coverage: {e}")
-
-            status_text = "SUCCESS" if not is_failure else "POTENTIAL FAILURE"
-            
-            # Advanced Map Metrics
-            ssim_val = 0.0
-            wall_thick = 0.0
-            try:
-                from evaluation import compute_ssim, compute_wall_thickness
-                ssim_val = compute_ssim(gt_map, est_on_gt)
-                wall_thick = compute_wall_thickness(est_on_gt, gt_res)
-            except Exception as e:
-                 node.get_logger().warn(f"Could not compute advanced map metrics: {e}")
-
-            # Save to metrics.json
-            metrics = {
-                "ate_rmse": rmse,
-                "max_cpu_percent": system_metrics["max_cpu"],
-                "max_ram_mb": system_metrics["max_ram"],
-                "coverage": float(coverage),
-                "map_ssim": float(ssim_val),
-                "wall_thickness_m": float(wall_thick),
-                "is_failure": is_failure,
-                "failure_reasons": warnings
-            }
-            with open(metrics_path, "w") as f:
-                json.dump(metrics, f, indent=4)
-            
-            node.get_logger().info(f"Evaluation finished [{status_text}]. RMSE: {rmse}, Coverage: {coverage*100:.1f}%, SSIM: {ssim_val:.4f}, Wall: {wall_thick*100:.1f}cm")
-            if warnings:
-                for w in warnings:
-                    node.get_logger().warn(f" [!] {w}")
-        except Exception as e:
-            node.get_logger().error(f"Evaluation failed: {e}")
-
-        node.destroy_node()
-        rclpy.shutdown()
-        
         # Final killall for stubborn processes (Gazebo/O3DE are notorious)
         # This is a nuclear option but necessary for reliability
         # NOTE: Use specific process names to avoid killing other Python scripts!

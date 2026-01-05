@@ -174,10 +174,13 @@ class ComparisonPage(QWidget):
         self.ax.set_facecolor('#0f172a')
         self.ax.grid(True, color='#334155', linestyle='--', alpha=0.5)
         self.ax.grid(True, color='#334155', linestyle='--', alpha=0.5)
-        self.table.setRowCount(9)
+
+
+
+        self.table.setRowCount(15)
         # Update row labels
         self.table.setVerticalHeaderLabels([
-            "Status", "SLAM", "Dataset", "ATE RMSE", "Coverage", "SSIM", "Wall Thick.", "Max RAM", "Max CPU"
+            "Status", "SLAM", "Dataset", "Duration (s)", "ATE RMSE", "Coverage", "Acc. Coverage", "Occupancy IoU", "SSIM", "Wall Thick.", "Max RAM", "Max CPU", "Lidar Noise (std)", "Max Range (m)", "Speed Scale (%)"
         ])
         
         colors = ["#3b82f6", "#ef4444", "#10b981"]
@@ -187,7 +190,7 @@ class ComparisonPage(QWidget):
         for i, combo in enumerate(self.combos):
             run_path_str = combo.currentData()
             if not run_path_str:
-                for row in range(7):
+                for row in range(11):
                     self.table.setItem(row, i, QTableWidgetItem("-"))
                 continue
                 
@@ -210,11 +213,20 @@ class ComparisonPage(QWidget):
             if cov is None and 'coverage_percent' in metrics:
                 cov = metrics['coverage_percent'] / 100.0
             
+            # New metrics
+            acc_cov = metrics.get('accessible_coverage')
+            if acc_cov is not None and acc_cov <= 1.0: acc_cov *= 100.0 # to %
+            elif acc_cov is None and 'accessible_coverage_percent' in metrics:
+                 acc_cov = metrics['accessible_coverage_percent']
+
+            iou = metrics.get('occupancy_iou')
+            if iou is None and 'iou' in metrics: iou = metrics['iou']
+
             ssim_val = metrics.get('map_ssim')
-            if ssim_val is None and 'iou' in metrics:
-                ssim_val = metrics['iou'] # Legacy fallback
-                
             thick = metrics.get('wall_thickness_m')
+            
+            # Duration
+            duration = metrics.get('duration_s')
             
             # 7. Status & Failure detection (NOW AT ROW 0)
             is_failure = metrics.get('is_failure', False)
@@ -232,27 +244,49 @@ class ComparisonPage(QWidget):
             self.table.setItem(0, i, status_item)
             self.table.setItem(1, i, QTableWidgetItem(slam))
             self.table.setItem(2, i, QTableWidgetItem(dataset))
-            self.table.setItem(3, i, QTableWidgetItem(f"{ate:.4f} m" if ate is not None else "N/A"))
-            self.table.setItem(4, i, QTableWidgetItem(f"{cov*100:.1f} %" if cov is not None else "N/A"))
-            self.table.setItem(5, i, QTableWidgetItem(f"{ssim_val:.4f}" if ssim_val is not None else "N/A"))
-            self.table.setItem(6, i, QTableWidgetItem(f"{thick*100:.2f} cm" if thick is not None else "N/A"))
-            self.table.setItem(7, i, QTableWidgetItem(f"{ram:.1f} MB" if ram is not None else "N/A"))
-            self.table.setItem(8, i, QTableWidgetItem(f"{cpu:.1f} %" if cpu is not None else "N/A"))
+            self.table.setItem(3, i, QTableWidgetItem(f"{duration:.1f} s" if duration is not None else "N/A"))
+            self.table.setItem(4, i, QTableWidgetItem(f"{ate:.4f} m" if ate is not None else "N/A"))
+            self.table.setItem(5, i, QTableWidgetItem(f"{cov*100:.1f} %" if cov is not None else "N/A"))
+            self.table.setItem(6, i, QTableWidgetItem(f"{acc_cov:.1f} %" if acc_cov is not None else "N/A"))
+            self.table.setItem(7, i, QTableWidgetItem(f"{iou:.4f}" if iou is not None else "N/A"))
+            self.table.setItem(8, i, QTableWidgetItem(f"{ssim_val:.4f}" if ssim_val is not None else "N/A"))
+
+            self.table.setItem(9, i, QTableWidgetItem(f"{thick*100:.2f} cm" if thick is not None else "N/A"))
+            self.table.setItem(10, i, QTableWidgetItem(f"{ram:.1f} MB" if ram is not None else "N/A"))
+            self.table.setItem(11, i, QTableWidgetItem(f"{cpu:.1f} %" if cpu is not None else "N/A"))
+
+
+            # Extract degradation settings from metrics.json (already saved by orchestrator)
+            lidar_noise = metrics.get('lidar_noise')
+            lidar_range = metrics.get('lidar_range')
+            speed_scale = metrics.get('speed_scale')
+
+            self.table.setItem(12, i, QTableWidgetItem(f"{lidar_noise:.3f}" if lidar_noise is not None else "-"))
+            self.table.setItem(13, i, QTableWidgetItem(f"{lidar_range:.1f} m" if lidar_range is not None else "-"))
+            self.table.setItem(14, i, QTableWidgetItem(f"{speed_scale*100:.0f} %" if speed_scale is not None else "-"))
 
             # Store for PDF report
             runs_to_report.append({
                 'name': run_path.name,
                 'slam': slam,
                 'dataset': dataset,
-                'ate': f"{ate:.4f}" if ate is not None else "N/A",
-                'coverage': f"{cov*100:.1f}" if cov is not None else "N/A",
-                'ssim': f"{ssim_val:.4f}" if ssim_val is not None else "N/A",
-                'wall_thick': f"{thick*100:.2f}" if thick is not None else "N/A",
-                'ram': f"{ram:.1f}" if ram is not None else "N/A",
-                'cpu': f"{cpu:.1f}" if cpu is not None else "N/A",
+                'duration': duration,
+                'ate': ate,
+                'coverage': cov*100.0 if cov is not None else None,
+                'accessible_coverage': acc_cov, 
+                'occupancy_iou': iou,
+                'ssim': ssim_val,
+                'wall_thick': thick*100.0 if thick is not None else None,
+                'ram': ram,
+                'cpu': cpu,
                 'status': "❌ ANOMALY" if is_failure else "✅ VALID",
                 'is_failure': is_failure,
-                'reasons': reasons
+                'reasons': reasons,
+                'map_image_path': metrics.get('map_image_path'),
+                'gt_map_image_path': metrics.get('gt_map_image_path'),
+                'lidar_noise': lidar_noise,
+                'lidar_range': lidar_range,
+                'speed_scale': speed_scale * 100 if speed_scale is not None else None
             })
 
             # 3. Trajectory extraction
@@ -276,7 +310,30 @@ class ComparisonPage(QWidget):
                             if gt_def:
                                 full_gt = (Path.cwd() / gt_def.get("map_path")).resolve()
                                 if full_gt.exists():
+
                                     gt_map, gt_res, gt_origin = load_gt_map(str(full_gt))
+                                    # load_gt_map returns Bottom-Up ROS Convention (Row 0 is Bottom)
+                                    # imshow(origin='lower') expects Row 0 to be Bottom.
+                                    # So we do NOT need flipud if load_gt_map is already flipped.
+                                    # BUT load_gt_map in metrics.py does flipud.
+                                    # So gt_map is Bottom-Up.
+                                    # vis is Bottom-Up.
+                                    # imshow(vis, origin='lower') shows correctly.
+                                    # So why user complains?
+                                    # Maybe load_gt_map is NOT consistent across files?
+                                    # gui/pages/comparison.py imports load_gt_map from EVALUATION (metrics.py).
+                                    # I verified metrics.py has flipud.
+                                    
+                                    # Wait, look at LINE 304 in original file:
+                                    # self.ax.imshow(np.flipud(vis), extent=extents, origin='lower', cmap='gray', alpha=0.3)
+                                    # It HAS flipud!
+                                    # If vis is Bottom-Up, and we flipud, it becomes Top-Down.
+                                    # And imshow origin='lower' puts Row 0 (Top) at Bottom.
+                                    # So it displays Top-Down data UPSIDE DOWN.
+                                    # This is the bug!
+                                    
+                                    # Fix: REMOVE np.flipud.
+                                    
                                     extents = [
                                         gt_origin[0], 
                                         gt_origin[0] + gt_map.shape[1] * gt_res,
@@ -286,7 +343,7 @@ class ComparisonPage(QWidget):
                                     vis = np.zeros(gt_map.shape)
                                     vis[gt_map == 0] = 0.8
                                     vis[gt_map > 50] = 0.2
-                                    self.ax.imshow(np.flipud(vis), extent=extents, origin='lower', cmap='gray', alpha=0.3)
+                                    self.ax.imshow(vis, extent=extents, origin='lower', cmap='gray', alpha=0.3)
                                     gt_loaded = True
                     except:
                         pass

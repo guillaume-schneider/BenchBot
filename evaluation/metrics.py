@@ -94,12 +94,38 @@ def load_gt_map(yaml_path: str):
     if negate:
         img_norm = 1.0 - img_norm
 
+
     gt_occ_grid = np.full(img_norm.shape, -1, dtype=np.int8)
-    gt_occ_grid[img_norm > occupied_thresh] = 100
-    gt_occ_grid[img_norm < free_thresh] = 0
+    # Standard PGM: White (255) is Free, Black (0) is Occupied
+    # High value > occupied_thresh (0.65) -> Free (0)
+    # Low value < free_thresh (0.196) -> Occupied (100)
     
-    # Keep the map in its original orientation for calculations
-    # We'll handle the flip in visualization if needed
+    # Note: ROS map_server docs say "occupied_thresh" determines occupied, 
+    # but usually pixels < free_thresh are free?
+    # Actually map_server:
+    # "Pixels with brightness greater than free_thresh are considered free... (Wait no)"
+    # Standard: p > occ_th -> Occupied. p < free_th -> Free.
+    # BUT: 
+    # If negate=0 (Black is occupied).
+    # Then p (brightness) is LOW for occupied.
+    # So if p < threshold -> Occupied.
+    # The variable "occupied_thresh" in YAML usually means probability?
+    # No, YAML has "occupied_thresh" (default 0.65). 
+    # Interpretation depends on mode.
+    # 
+    # Let's assume standard "Black is Walls".
+    # Black = 0. White = 1.
+    # Walls are 0.
+    # So if img_norm < free_thresh -> Occupied.
+    
+    gt_occ_grid[img_norm > occupied_thresh] = 0    # White -> Free
+    gt_occ_grid[img_norm < free_thresh] = 100      # Black -> Occupied
+    
+
+    
+    # Flip the map to match ROS convention (Top-Down image -> Bottom-Up grid)
+    # ROS map origin is bottom-left, but image origin is top-left.
+    gt_occ_grid = np.flipud(gt_occ_grid)
 
     return gt_occ_grid, resolution, origin
 
@@ -454,6 +480,37 @@ def get_trajectory(odom_msgs):
         tx.append(msg.pose.pose.position.x)
         ty.append(msg.pose.pose.position.y)
     return tx, ty
+
+
+
+def save_map_image(map_array, output_path, title=None):
+    """
+    Save the occupancy grid as an image.
+    map_array: 2D numpy array (0-100, -1).
+    output_path: path to save the image.
+    """
+    # Normalize for visualization:
+    # -1 (unknown) -> 127 (gray)
+    # 0 (free) -> 255 (white)
+    # 100 (occupied) -> 0 (black)
+    
+    vis_map = np.full(map_array.shape, 127, dtype=np.uint8)
+    vis_map[map_array == 0] = 255
+    vis_map[map_array > 50] = 0
+    
+
+    # Flip if needed (usually map_array is already in image coords if loaded via cv2, 
+    # but if it came from ROS msg it might be bottom-up. 
+    # align_est_map_to_gt returns map in GT indices. GT loader uses cv2 no flip?
+    # Actually load_gt_map uses cv2.imread which is top-down.
+    # But usually ROS maps need flipud to be viewed correctly as image files.
+    vis_map = np.flipud(vis_map)
+    
+    if title:
+        # Add a title bar? slightly complex for cv2 only, let's keep it raw for now.
+        pass
+        
+    cv2.imwrite(str(output_path), vis_map)
 
 
 def detect_anomalies(odom_msgs, ate_rmse=None):

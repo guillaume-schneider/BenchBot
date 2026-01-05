@@ -12,7 +12,17 @@ defaults:
   rosbag:
     enabled: true
     storage_id: sqlite3
-    topics: [/tf, /tf_static, /odom, /clock, /scan, /cmd_vel, /map, /map_metadata, /gazebo/model_states, /robot_description]
+    topics:
+    - /tf
+    - /tf_static
+    - /odom
+    - /clock
+    - /scan
+    - /cmd_vel
+    - /map
+    - /map_metadata
+    - /gazebo/model_states
+    - /robot_description
   probes:
     required:
     - type: topic_publish
@@ -29,7 +39,6 @@ defaults:
       msg_type: nav_msgs/msg/OccupancyGrid
       min_messages: 1
       timeout_s: 60
-
 datasets:
 - id: tb3_sim_explore_modeA
   kind: sim_gazebo
@@ -49,13 +58,12 @@ datasets:
       - use_gazebo:=False
       env:
         TURTLEBOT3_MODEL: waffle
-
     - name: kickstart
-      cmd: ["/home/schneigu/Projects/benchbot/tools/scripts/kickstart.sh"]
+      cmd:
+      - /home/schneigu/Projects/benchbot/tools/scripts/kickstart.sh
       delay_s: 5.0
       params:
         restart: false
-
     - name: explore
       delay_s: 20.0
       cmd:
@@ -69,21 +77,27 @@ datasets:
       - /home/schneigu/Projects/benchbot/configs/params/explore_params.yaml
       params: {}
   world_model: worlds/model.sdf
-
 slams:
 - id: cartographer_2d
   profile: configs/slams/cartographer_2d.yaml
-
 matrix:
   include:
   - dataset: tb3_sim_explore_modeA
     slams:
     - cartographer_2d
     repeats: 1
-    seeds: [0]
-    tags: [single_test, cartographer]
-
+    seeds:
+    - 0
+    tags:
+    - single_test
+    - cartographer
+    degradation:
+      enabled: false
+      max_range: 3.0
+      noise_std: 0.05
+      speed_scale: 1.0
 output:
   root_dir: results/runs
   index_file: results/index.jsonl
-  artifacts: {export_map: true}
+  artifacts:
+    export_map: true

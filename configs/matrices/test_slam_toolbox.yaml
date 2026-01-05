@@ -7,12 +7,22 @@ defaults:
   run:
     warmup_s: 2.0
     drain_s: 1.0
-    timeout_s: 180.0  # Plus long pour bien tester (3min)
+    timeout_s: 20.0
     max_restarts: 0
   rosbag:
     enabled: true
     storage_id: sqlite3
-    topics: [/tf, /tf_static, /odom, /clock, /scan, /cmd_vel, /map, /map_metadata, /gazebo/model_states, /robot_description]
+    topics:
+    - /tf
+    - /tf_static
+    - /odom
+    - /clock
+    - /scan
+    - /cmd_vel
+    - /map
+    - /map_metadata
+    - /gazebo/model_states
+    - /robot_description
   probes:
     required:
     - type: topic_publish
@@ -29,7 +39,6 @@ defaults:
       msg_type: nav_msgs/msg/OccupancyGrid
       min_messages: 1
       timeout_s: 60
-
 datasets:
 - id: tb3_sim_explore_modeA
   kind: sim_gazebo
@@ -72,21 +81,27 @@ datasets:
             min_frontier_size: 0.15
             planner_frequency: 1.0
   world_model: worlds/model.sdf
-
 slams:
 - id: slam_toolbox_sync
   profile: configs/slams/slam_toolbox_sync.yaml
-
 matrix:
   include:
   - dataset: tb3_sim_explore_modeA
     slams:
     - slam_toolbox_sync
     repeats: 1
-    seeds: [0]
-    tags: [single_test, slam_toolbox]
-
+    seeds:
+    - 0
+    tags:
+    - single_test
+    - slam_toolbox
+    degradation:
+      enabled: false
+      max_range: 3.0
+      noise_std: 0.05
+      speed_scale: 1.0
 output:
   root_dir: results/runs
   index_file: results/index.jsonl
-  artifacts: {export_map: true}
+  artifacts:
+    export_map: true

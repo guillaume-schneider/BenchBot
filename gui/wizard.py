@@ -1,7 +1,9 @@
+
 from PyQt5.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QStackedWidget,
     QLineEdit, QFormLayout, QComboBox, QFileDialog, QMessageBox, QCheckBox,
-    QListWidget, QListWidgetItem, QGroupBox, QRadioButton, QButtonGroup, QFrame
+    QListWidget, QListWidgetItem, QGroupBox, QRadioButton, QButtonGroup, QFrame,
+    QDoubleSpinBox, QSlider
 )
 from PyQt5.QtCore import Qt, pyqtSignal
 from pathlib import Path
@@ -39,14 +41,17 @@ class ConfigWizard(QDialog):
         self.page_mode = self.create_mode_page()
         self.page_basic = self.create_basic_page()
         self.page_dataset = self.create_dataset_page()
+
         self.page_slams = self.create_slams_page()
+        self.page_degradation = self.create_degradation_page()
         self.page_import = self.create_import_page()
         
         self.stack.addWidget(self.page_mode)     # 0
         self.stack.addWidget(self.page_basic)    # 1
         self.stack.addWidget(self.page_dataset)  # 2
-        self.stack.addWidget(self.page_slams)    # 3
-        self.stack.addWidget(self.page_import)   # 4
+        self.stack.addWidget(self.page_degradation) # 3
+        self.stack.addWidget(self.page_slams)    # 4
+        self.stack.addWidget(self.page_import)   # 5
         
         # Data
         self.data = {
@@ -161,8 +166,77 @@ class ConfigWizard(QDialog):
         
         return widget
 
+
+    def create_degradation_page(self):
+        widget, content, btns = self.create_page_container("Step 3: Hardware Degradation")
+        layout = QVBoxLayout(content)
+        
+        self.deg_enabled = QCheckBox("Enable Hardware Degradation")
+        self.deg_enabled.setStyleSheet("font-weight: bold; font-size: 14px;")
+        layout.addWidget(self.deg_enabled)
+        
+        form = QFormLayout()
+        
+        self.deg_range = QDoubleSpinBox()
+        self.deg_range.setRange(0.1, 50.0)
+        self.deg_range.setValue(10.0)
+        form.addRow("Max Lidar Range (m):", self.deg_range)
+        
+        self.deg_noise = QDoubleSpinBox()
+        self.deg_noise.setRange(0.0, 1.0)
+        self.deg_noise.setSingleStep(0.01)
+        self.deg_noise.setValue(0.0)
+        form.addRow("Lidar Noise (std):", self.deg_noise)
+        
+        self.deg_speed = QSlider(Qt.Horizontal)
+        self.deg_speed.setRange(10, 200)
+        self.deg_speed.setValue(100)
+        self.deg_speed_lbl = QLabel("100%")
+        self.deg_speed.valueChanged.connect(lambda v: self.deg_speed_lbl.setText(f"{v}%"))
+        
+        sr_layout = QHBoxLayout()
+        sr_layout.addWidget(self.deg_speed)
+        sr_layout.addWidget(self.deg_speed_lbl)
+        form.addRow("Speed Scale:", sr_layout)
+        
+        layout.addLayout(form)
+        
+        # Logic to disable fields if checkbox unchecked
+        def toggle(state):
+            enabled = (state == Qt.Checked)
+            self.deg_range.setEnabled(enabled)
+            self.deg_noise.setEnabled(enabled)
+            self.deg_speed.setEnabled(enabled)
+        
+        self.deg_enabled.stateChanged.connect(toggle)
+        toggle(Qt.Unchecked) # Init disabled
+        
+        # Nav
+        b_back = QPushButton("Back")
+        b_back.setObjectName("secondary")
+        b_back.clicked.connect(lambda: self.stack.setCurrentIndex(2))
+        
+        b_next = QPushButton("Next")
+        b_next.clicked.connect(self.validate_degradation)
+        
+        btns.addWidget(b_back)
+        btns.addStretch()
+        btns.addWidget(b_next)
+        
+        return widget
+
+    def validate_degradation(self):
+        # Capture data
+        self.data["degradation"] = {
+            "enabled": self.deg_enabled.isChecked(),
+            "max_range": self.deg_range.value(),
+            "noise_std": self.deg_noise.value(),
+            "speed_scale": self.deg_speed.value() / 100.0
+        }
+        self.stack.setCurrentIndex(4) # Go to SLAMs
+
     def create_slams_page(self):
-        widget, content, btns = self.create_page_container("Step 3: Select Algorithms")
+        widget, content, btns = self.create_page_container("Step 4: Select Algorithms")
         l = QVBoxLayout(content)
         
         self.slam_list = QListWidget()
@@ -182,7 +256,7 @@ class ConfigWizard(QDialog):
         # Nav
         b_back = QPushButton("Back")
         b_back.setObjectName("secondary")
-        b_back.clicked.connect(lambda: self.stack.setCurrentIndex(2))
+        b_back.clicked.connect(lambda: self.stack.setCurrentIndex(3))
         
         b_finish = QPushButton("Finish & Create")
         b_finish.setStyleSheet("background-color: #22c55e;")
@@ -265,7 +339,10 @@ class ConfigWizard(QDialog):
         
         # Matrix defaults
         self.data["matrix"] = {
-            "include": [{"repeats": 1}]
+            "include": [{
+                "repeats": 1,
+                "degradation": self.data.get("degradation", {})
+            }]
         }
         self.data["output"] = {"root_dir": "results/runs"}
         

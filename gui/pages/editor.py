@@ -152,16 +152,57 @@ class VisualEditorWidget(QScrollArea):
         w.original_data = data
         l = QVBoxLayout(w)
         f = QFormLayout()
+        
         ds_edit = QLineEdit(data.get("dataset", ""))
         slams_edit = QLineEdit(", ".join(data.get("slams", [])))
         seeds = data.get("seeds", [0])
         seeds_edit = QLineEdit(", ".join(map(str, seeds)))
         repeats_edit = QLineEdit(str(data.get("repeats", 1)))
+        
         f.addRow("Dataset ID:", ds_edit)
         f.addRow("SLAM IDs:", slams_edit)
         f.addRow("Seeds:", seeds_edit)
         f.addRow("Repeats:", repeats_edit)
+        
+        # Degradation
+        deg = data.get("degradation", {})
+        d_widget = QWidget()
+        d_layout = QHBoxLayout(d_widget)
+        d_layout.setContentsMargins(0,0,0,0)
+        
+        cb_en = QCheckBox("Active")
+        cb_en.setChecked(deg.get("enabled", False))
+        
+        noise_ed = QLineEdit(str(deg.get("noise_std", 0.0)))
+        noise_ed.setPlaceholderText("Noise Std")
+        noise_ed.setFixedWidth(60)
+        
+        range_ed = QLineEdit(str(deg.get("max_range", 10.0)))
+        range_ed.setPlaceholderText("Range")
+        range_ed.setFixedWidth(60)
+        
+        speed_ed = QLineEdit(str(deg.get("speed_scale", 1.0)))
+        speed_ed.setPlaceholderText("Speed")
+        speed_ed.setFixedWidth(60)
+        
+        d_layout.addWidget(cb_en)
+        d_layout.addWidget(QLabel("Noise:"))
+        d_layout.addWidget(noise_ed)
+        d_layout.addWidget(QLabel("Range:"))
+        d_layout.addWidget(range_ed)
+        d_layout.addWidget(QLabel("Speed:"))
+        d_layout.addWidget(speed_ed)
+        
+        f.addRow("Degradation:", d_widget)
+        
         l.addLayout(f)
+        
+        # Store refs
+        w.fields = {
+            "dataset": ds_edit, "slams": slams_edit, "seeds": seeds_edit, "repeats": repeats_edit,
+            "deg_en": cb_en, "deg_noise": noise_ed, "deg_range": range_ed, "deg_speed": speed_ed
+        }
+        
         rem_btn = QPushButton("Remove")
         rem_btn.setObjectName("dangerButton")
         rem_btn.clicked.connect(lambda: w.deleteLater())
@@ -259,14 +300,24 @@ class VisualEditorWidget(QScrollArea):
             w = self.matrix_layout.itemAt(i).widget()
             inc = w.original_data.copy() if hasattr(w, 'original_data') else {}
             
-            inc["dataset"] = get_form_field(w, 0)
-            slams = [x.strip() for x in get_form_field(w, 1).split(",") if x.strip()]
-            seeds = [int(x) for x in get_form_field(w, 2).split(",") if x.strip().isdigit()]
-            repeats = int(get_form_field(w, 3) or 1)
-            
-            inc["slams"] = slams
-            inc["seeds"] = seeds if seeds else [0]
-            inc["repeats"] = repeats
+            if hasattr(w, 'fields'):
+                inc["dataset"] = w.fields["dataset"].text()
+                slams = [x.strip() for x in w.fields["slams"].text().split(",") if x.strip()]
+                seeds = [int(x) for x in w.fields["seeds"].text().split(",") if x.strip().isdigit()]
+                inc["repeats"] = int(w.fields["repeats"].text() or 1)
+                inc["slams"] = slams
+                inc["seeds"] = seeds if seeds else [0]
+                
+                # Degradation
+                d = inc.get("degradation", {})
+                d["enabled"] = w.fields["deg_en"].isChecked()
+                d["noise_std"] = float(w.fields["deg_noise"].text() or 0)
+                d["max_range"] = float(w.fields["deg_range"].text() or 10)
+                d["speed_scale"] = float(w.fields["deg_speed"].text() or 1)
+                inc["degradation"] = d
+            else:
+                # Fallback should not happen with new items
+                continue
             
             data["matrix"]["include"].append(inc)
             

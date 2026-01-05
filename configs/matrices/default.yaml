@@ -80,7 +80,6 @@ datasets:
       - explore.launch.py
       - use_sim_time:=True
       env:
-      env:
         AMENT_PREFIX_PATH: /home/schneigu/Projects/benchbot/deps/m_explore_ws/install/multirobot_map_merge:/home/schneigu/Projects/benchbot/deps/m_explore_ws/install/explore_lite:/opt/ros/humble
         LD_LIBRARY_PATH: /home/schneigu/Projects/benchbot/deps/m_explore_ws/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib
         PYTHONPATH: /home/schneigu/Projects/benchbot/deps/m_explore_ws/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages
@@ -110,6 +109,11 @@ matrix:
     - modeB
     - tb3
     - explore_lite
+    degradation:
+      enabled: false
+      max_range: 10.0
+      noise_std: 0.0
+      speed_scale: 1.0
 output:
   root_dir: results/runs
   index_file: results/index.jsonl

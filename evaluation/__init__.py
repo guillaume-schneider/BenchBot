@@ -16,7 +16,8 @@ from .metrics import (
     get_trajectory,
     detect_anomalies,
     compute_ssim,
-    compute_wall_thickness
+    compute_wall_thickness,
+    save_map_image
 )
 
 __all__ = [
@@ -32,5 +33,6 @@ __all__ = [
     'get_trajectory',
     'detect_anomalies',
     'compute_ssim',
-    'compute_wall_thickness'
+    'compute_wall_thickness',
+    'save_map_image'
 ]
