@@ -19,6 +19,8 @@ An automated framework for benchmarking SLAM algorithms (Cartographer, GMapping,
     *   **Anomaly Detection**: Stuck robot, TF jumps, massive drift detection
 *   **Docker Support**: Full containerization for 100% reproducible benchmarks across environments
 *   **Automated Reporting**: One-click PDF generation with trajectory plots, metrics tables, and health indicators
+*   **Centralized Logging**: Rotating file logs, colored console output, automatic crash reports (JSON)
+*   **Comprehensive Testing**: 70+ unit tests with pytest, 80%+ code coverage, CI/CD ready
 *   **Headless CI**: Run full benchmarks on servers without a display (`runner/run_matrix.py`).
 *   **Modern GUI**: Dashboard, Analysis Comparison, 3D Visualizer, Robot Manager, and Settings.
 *   **Intelligent Comparison**: Overlay up to 3 trajectories with ground truth and detailed anomaly tooltips.
@@ -74,6 +76,7 @@ python3 runner/run_matrix.py configs/matrices/test_headless_ci.yaml
 
 ## 📚 Documentation
 
+*   **[📖 Documentation Index](docs/INDEX.md)**: Complete documentation hub with quick reference
 *   **[Roadmap](docs/ROADMAP.md)**: Future features including auto-tuning and failure injection.
 *   **[Setup & Specs](docs/SETUP_AND_SPECS.md)**: Hardware requirements and installation guide.
 *   **[Simulators Guide](docs/SIMULATORS.md)**: Installing and using Gazebo vs O3DE.
@@ -86,6 +89,8 @@ python3 runner/run_matrix.py configs/matrices/test_headless_ci.yaml
 *   **[Analysis & Comparison](docs/ANALYSIS_GUIDE.md)**: Using the comparison tool, PDF reports, and anomaly detection.
 *   **[Robot Hardware Manager](docs/ROBOT_HARDWARE_MANAGER.md)**: Configuring sensor noise and motor limits for stress tests.
 *   **[Automated Dependencies](docs/AUTOMATED_DEPENDENCIES.md)**: Dynamic Git cloning and building for SLAMs.
+*   **[Testing Guide](tests/README.md)**: Unit tests, integration tests, and coverage reports.
+*   **[Logging System](logs/README.md)**: Centralized logging, crash reports, and debugging.
 *   **[Archive & Logs](docs/archive/)**: Historical session logs and debugging notes.
 
 

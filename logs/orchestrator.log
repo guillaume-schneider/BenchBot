@@ -1,0 +1,22 @@
+2026-01-05 06:14:37 - slam_bench.system - INFO - logger.py:290 - ============================================================
+2026-01-05 06:14:37 - slam_bench.system - [32mINFO[0m - logger.py:290 - ============================================================
+2026-01-05 06:14:37 - slam_bench.system - INFO - logger.py:291 - SLAM Bench Orchestrator - System Information
+2026-01-05 06:14:37 - slam_bench.system - [32mINFO[0m - logger.py:291 - SLAM Bench Orchestrator - System Information
+2026-01-05 06:14:37 - slam_bench.system - INFO - logger.py:292 - ============================================================
+2026-01-05 06:14:37 - slam_bench.system - [32mINFO[0m - logger.py:292 - ============================================================
+2026-01-05 06:14:37 - slam_bench.system - INFO - logger.py:293 - Python Version: 3.10.12 (main, Nov  4 2025, 08:48:33) [GCC 11.4.0]
+2026-01-05 06:14:37 - slam_bench.system - [32mINFO[0m - logger.py:293 - Python Version: 3.10.12 (main, Nov  4 2025, 08:48:33) [GCC 11.4.0]
+2026-01-05 06:14:37 - slam_bench.system - INFO - logger.py:294 - Platform: linux
+2026-01-05 06:14:37 - slam_bench.system - [32mINFO[0m - logger.py:294 - Platform: linux
+2026-01-05 06:14:37 - slam_bench.system - INFO - logger.py:295 - Log File: /home/schneigu/Projects/slam_bench_orchestrator/logs/orchestrator.log
+2026-01-05 06:14:37 - slam_bench.system - [32mINFO[0m - logger.py:295 - Log File: /home/schneigu/Projects/slam_bench_orchestrator/logs/orchestrator.log
+2026-01-05 06:14:37 - slam_bench.system - INFO - logger.py:296 - Crash Reports: /home/schneigu/Projects/slam_bench_orchestrator/logs/crashes
+2026-01-05 06:14:37 - slam_bench.system - [32mINFO[0m - logger.py:296 - Crash Reports: /home/schneigu/Projects/slam_bench_orchestrator/logs/crashes
+2026-01-05 06:14:37 - slam_bench.system - INFO - logger.py:297 - ============================================================
+2026-01-05 06:14:37 - slam_bench.system - [32mINFO[0m - logger.py:297 - ============================================================
+2026-01-05 06:14:37 - slam_bench.test - INFO - <string>:1 - Test log message
+2026-01-05 06:14:37 - slam_bench.test - [32mINFO[0m - <string>:1 - Test log message
+2026-01-05 06:14:37 - slam_bench.test - WARNING - <string>:1 - Test warning
+2026-01-05 06:14:37 - slam_bench.test - [33mWARNING[0m - <string>:1 - Test warning
+2026-01-05 06:14:37 - slam_bench.test - ERROR - <string>:1 - Test error
+2026-01-05 06:14:37 - slam_bench.test - [31mERROR[0m - <string>:1 - Test error

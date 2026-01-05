@@ -22,6 +22,12 @@ from runner.probes.ros_probes import (
     NodePresentProbe,
 )
 
+# Import centralized logging
+from utils.logger import get_logger, LogContext, log_exceptions
+
+# Setup logger for this module
+logger = get_logger("orchestrator")
+
 
 def load_run_config(path: str) -> dict:
     with open(path, "r", encoding="utf-8") as f:
@@ -74,7 +80,7 @@ def run_once(config_path: str) -> int:
         try:
             from tools.simulator_manager import SimulatorManager
         except ImportError:
-            print("[ERROR] SimulatorManager not found. O3DE support requires tools/simulator_manager.py")
+            logger.error("SimulatorManager not found. O3DE support requires tools/simulator_manager.py")
             return 3
         
         sim_mgr = SimulatorManager()
@@ -82,36 +88,36 @@ def run_once(config_path: str) -> int:
         
         # Verify O3DE is installed
         if not o3de_sim.is_installed():
-            print("[ERROR] O3DE is not installed!")
-            print("Please install O3DE via GUI: Tools → Simulators → Install O3DE")
+            logger.error("O3DE is not installed!")
+            logger.error("Please install O3DE via GUI: Tools → Simulators → Install O3DE")
             return 3
         
-        print(f"[ORCHESTRATOR] O3DE found at: {o3de_sim.install_dir}")
+        logger.info(f"O3DE found at: {o3de_sim.install_dir}")
         
         # Get world SDF path (it's at dataset level, not scenario level)
         world_sdf = cfg.get("dataset", {}).get("world_model")
         if not world_sdf:
-            print("[ERROR] No 'world_model' specified in dataset scenario")
+            logger.error("No 'world_model' specified in dataset scenario")
             return 3
         
         world_sdf_path = Path(world_sdf)
         if not world_sdf_path.exists():
-            print(f"[ERROR] World SDF not found: {world_sdf}")
+            logger.error(f"World SDF not found: {world_sdf}")
             return 3
         
         # Convert SDF to O3DE project (cached)
         project_name = world_sdf_path.stem + "_o3de_project"
-        print(f"[ORCHESTRATOR] Converting SDF world to O3DE project: {project_name}")
+        logger.info(f"Converting SDF world to O3DE project: {project_name}")
         
         try:
             project_path = o3de_sim.create_project_from_sdf(
                 world_sdf_path,
                 project_name,
-                progress_callback=lambda msg, pct: print(f"  [{pct}%] {msg}")
+                progress_callback=lambda msg, pct: logger.debug(f"[{pct}%] {msg}")
             )
-            print(f"[ORCHESTRATOR] O3DE project ready at: {project_path}")
+            logger.info(f"O3DE project ready at: {project_path}")
         except Exception as e:
-            print(f"[ERROR] Failed to convert SDF to O3DE: {e}")
+            logger.error(f"Failed to convert SDF to O3DE: {e}", exc_info=True)
             import traceback
             traceback.print_exc()
             return 3
