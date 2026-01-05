@@ -8,7 +8,7 @@ if [ -f /opt/ros/humble/setup.bash ]; then
 fi
 
 # Source local workspace
-WORKSPACE_INSTALL="$(dirname "$0")/../../deps/install/setup.bash"
+WORKSPACE_INSTALL="$(dirname "$0")/../../deps/m_explore_ws/install/setup.bash"
 if [ -f "$WORKSPACE_INSTALL" ]; then
     source "$WORKSPACE_INSTALL"
 else

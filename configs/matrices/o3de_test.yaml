@@ -45,6 +45,13 @@ defaults:
 datasets:
 - id: tb3_o3de_test
   kind: sim_o3de
+  dependencies:
+  - name: m-explore
+    git: https://github.com/robo-friends/m-explore-ros2
+    branch: main
+    path: deps/m_explore_ws
+    build: colcon build --symlink-install
+    source: install/setup.bash
   simulator: o3de  # Trigger O3DE instead of Gazebo
   world_model: worlds/model.sdf  # Will be converted to O3DE project
   scenario:
@@ -75,9 +82,9 @@ datasets:
       - explore.launch.py
       - use_sim_time:=True
       env:
-        AMENT_PREFIX_PATH: /home/schneigu/Projects/benchbot/deps/install/multirobot_map_merge:/home/schneigu/Projects/benchbot/deps/install/explore_lite:/opt/ros/humble
-        LD_LIBRARY_PATH: /home/schneigu/Projects/benchbot/deps/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib
-        PYTHONPATH: /home/schneigu/Projects/benchbot/deps/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages
+        AMENT_PREFIX_PATH: /home/schneigu/Projects/benchbot/deps/m_explore_ws/install/multirobot_map_merge:/home/schneigu/Projects/benchbot/deps/m_explore_ws/install/explore_lite:/opt/ros/humble
+        LD_LIBRARY_PATH: /home/schneigu/Projects/benchbot/deps/m_explore_ws/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib
+        PYTHONPATH: /home/schneigu/Projects/benchbot/deps/m_explore_ws/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages
 
 slams:
 - id: noop
