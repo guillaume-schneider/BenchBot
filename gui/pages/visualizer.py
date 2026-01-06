@@ -165,16 +165,8 @@ class VisualizerPage(QWidget):
                 self.status_lbl.setStyleSheet("color: #ef4444; font-weight: bold; margin-left: 20px;")
 
     def inject_pose(self, pose_data):
-        """Fallback pose update from orchestrator metrics if ROS /odom is slow/missing"""
-        if not pose_data: return
-        yaw = pose_data.get('yaw', 0.0)
-        # Convert yaw to quaternion
-        self.update_pose({
-            'x': pose_data.get('x', 0.0),
-            'y': pose_data.get('y', 0.0),
-            'z': 0.0,
-            'qx': 0.0, 'qy': 0.0, 'qz': math.sin(yaw/2.0), 'qw': math.cos(yaw/2.0)
-        })
+        """Deprecated: Avoid dual pose sources to prevent artifacts"""
+        pass
 
     def update_scan(self, points):
         # Transform scan points from local robot frame to world frame (odom)
@@ -234,10 +226,14 @@ class VisualizerPage(QWidget):
         if dist > 2.0:
             return
 
-        # 4. Standard update
-        if dist > 0.05:
-            self.traj_points.append(p_ground)
-            # Limit history to 5000 points to keep perf high
+        if np.linalg.norm(self.traj_points[-1] - p_ground) > 0.05:
+            # Detect huge time jump or new run start (distance > 5m)
+            if np.linalg.norm(self.traj_points[-1] - p_ground) > 5.0:
+                self.traj_points = [p_ground]
+            else:
+                self.traj_points.append(p_ground)
+            
+            # Limit history
             if len(self.traj_points) > 5000:
                 self.traj_points.pop(0)
             
