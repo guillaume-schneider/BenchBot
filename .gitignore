@@ -9,4 +9,6 @@ wheels/
 # Virtual environments
 .venv
 *.pdf
-/results
+results/
+deps/
+logs/
