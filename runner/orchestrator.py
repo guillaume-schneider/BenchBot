@@ -228,20 +228,34 @@ def run_once(config_path: str) -> int:
     explore_resume_topic = "/explore/resume"
     explore_pub = node.create_publisher(Bool, explore_resume_topic, 10)
 
-    # --------- Pose Tracking for Live Plotting via TF ---------
+    # --------- Pose Tracking for Live Plotting ---------
     latest_pose = {"x": 0.0, "y": 0.0, "yaw": 0.0}
     
-    # Use TF for real position (map -> base_footprint)
+    def odom_callback(msg: Odometry):
+        nonlocal latest_pose
+        # Use odom as primary source for 'Live Odometry' display
+        latest_pose["x"] = msg.pose.pose.position.x
+        latest_pose["y"] = msg.pose.pose.position.y
+        # Compute yaw from quaternion
+        q = msg.pose.pose.orientation
+        import math
+        siny_cosp = 2 * (q.w * q.z + q.x * q.y)
+        cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z)
+        latest_pose["yaw"] = math.atan2(siny_cosp, cosy_cosp)
+
+    # Subscribe to odom for high-frequency live updates
+    node.create_subscription(Odometry, "/odom", odom_callback, 10)
+    
+    # Use TF for real position (map -> base_footprint) when available (more accurate but slower)
     tf_buffer = tf2_ros.Buffer()
     tf_listener = tf2_ros.TransformListener(tf_buffer, node)
     
     def update_pose_from_tf():
         nonlocal latest_pose
         try:
-            # We look for map -> base_footprint which is the standard SLAM output
-            # Use the node's clock which handles use_sim_time correctly
-            now = node.get_clock().now()
-            trans = tf_buffer.lookup_transform('map', 'base_footprint', now, timeout=rclpy.duration.Duration(seconds=0.1))
+            # Try to get map-relative pose if SLAM is running
+            now = rclpy.time.Time() # Get latest available
+            trans = tf_buffer.lookup_transform('map', 'base_footprint', now, timeout=rclpy.duration.Duration(seconds=0.01))
             
             latest_pose["x"] = trans.transform.translation.x
             latest_pose["y"] = trans.transform.translation.y
@@ -251,8 +265,8 @@ def run_once(config_path: str) -> int:
             siny_cosp = 2 * (q.w * q.z + q.x * q.y)
             cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z)
             latest_pose["yaw"] = math.atan2(siny_cosp, cosy_cosp)
-        except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
-            # Fallback to odom if map is not yet available
+        except Exception:
+            # If map fails, we stay with what /odom subscriber provided
             pass
 
     # Create a timer to poll TF regularly (10Hz)
