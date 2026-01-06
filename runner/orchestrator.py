@@ -10,6 +10,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Bool
 from nav_msgs.msg import Odometry
+import tf2_ros
 
 from runner.process_manager import ProcessManager
 from runner.bag_recorder import RosbagConfig, build_rosbag_cmd
@@ -187,11 +188,11 @@ def run_once(config_path: str) -> int:
     try:
         import subprocess
         targets = [
-            "gzserver", "gzclient", "ruby",  # Gazebo
+            "gzserver", "gzclient", "ruby", "spawn_entity", # Gazebo
             "Editor", "GameLauncher", "AssetProcessor",  # O3DE
             "nav2_manager", "component_container", "component_container_isolated", "lifecycle_manager",  # Nav2
             "map_server", "amcl", "bt_navigator", "planner_server", "controller_server",
-            "rviz2", "robot_state_publisher"
+            "rviz2", "robot_state_publisher", "slam_gmapping", "sync_slam_toolbox_node", "explore_node"
         ]
         
         # Kill command construction
@@ -208,28 +209,50 @@ def run_once(config_path: str) -> int:
 
     # Start ROS probe node
     rclpy.init()
-    node = Node("slam_bench_probe_node")
+    
+    # Enable sim time if specified in config
+    use_sim_time = cfg.get("run_control", {}).get("use_sim_time", False)
+    from rcl_interfaces.msg import ParameterDescriptor
+    from rclpy.parameter import Parameter
+    
+    node = Node("slam_bench_probe_node", parameter_overrides=[
+        Parameter("use_sim_time", Parameter.Type.BOOL, use_sim_time)
+    ])
     ctx = ProbeContext(node=node)
 
     # --------- Mode A additions: explore pause/resume ----------
     explore_resume_topic = "/explore/resume"
     explore_pub = node.create_publisher(Bool, explore_resume_topic, 10)
 
-    # --------- Pose Tracking for Live Plotting ---------
+    # --------- Pose Tracking for Live Plotting via TF ---------
     latest_pose = {"x": 0.0, "y": 0.0, "yaw": 0.0}
     
-    def odom_callback(msg: Odometry):
+    # Use TF for real position (map -> base_footprint)
+    tf_buffer = tf2_ros.Buffer()
+    tf_listener = tf2_ros.TransformListener(tf_buffer, node)
+    
+    def update_pose_from_tf():
         nonlocal latest_pose
-        latest_pose["x"] = msg.pose.pose.position.x
-        latest_pose["y"] = msg.pose.pose.position.y
-        # Basic yaw extraction if needed
-        import math
-        q = msg.pose.pose.orientation
-        siny_cosp = 2 * (q.w * q.z + q.x * q.y)
-        cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z)
-        latest_pose["yaw"] = math.atan2(siny_cosp, cosy_cosp)
+        try:
+            # We look for map -> base_footprint which is the standard SLAM output
+            # Use the node's clock which handles use_sim_time correctly
+            now = node.get_clock().now()
+            trans = tf_buffer.lookup_transform('map', 'base_footprint', now, timeout=rclpy.duration.Duration(seconds=0.1))
+            
+            latest_pose["x"] = trans.transform.translation.x
+            latest_pose["y"] = trans.transform.translation.y
+            
+            q = trans.transform.rotation
+            import math
+            siny_cosp = 2 * (q.w * q.z + q.x * q.y)
+            cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z)
+            latest_pose["yaw"] = math.atan2(siny_cosp, cosy_cosp)
+        except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
+            # Fallback to odom if map is not yet available
+            pass
 
-    node.create_subscription(Odometry, "/odom", odom_callback, 10)
+    # Create a timer to poll TF regularly (10Hz)
+    node.create_timer(0.1, update_pose_from_tf)
 
     def set_explore(enabled: bool) -> None:
         msg = Bool()
@@ -500,6 +523,12 @@ def run_once(config_path: str) -> int:
     try:
         # START_SCENARIO (multi-process)
         for proc in scenario_processes:
+            # Check for optional startup delay
+            delay_s = proc.get("delay_s", 0.0)
+            if delay_s > 0:
+                node.get_logger().info(f"[STARTUP] Waiting {delay_s}s before starting '{proc['name']}'...")
+                time.sleep(delay_s)
+            
             # Special handling for O3DE-managed process
             if proc.get("_o3de_managed"):
                 print("[ORCHESTRATOR] Starting O3DE via SimulatorManager...")
@@ -527,9 +556,6 @@ def run_once(config_path: str) -> int:
                     cwd=proc.get("cwd", None),
                 )
 
-        # Pause exploration for stable probes/warmup
-        set_explore(False)
-
         # START_SLAM (Mode A: may be noop or omitted)
         # If you want to allow "no slam", keep slam_cmd optional.
         if slam_cmd and slam_id != "noop":
@@ -541,6 +567,13 @@ def run_once(config_path: str) -> int:
         # START_ROSBAG
         if cfg["recording"]["enabled"]:
             pm.start("rosbag", wrap_cmd_with_sourcing(bag_cmd), env={}, cwd=None)
+
+        # Wait for all processes to initialize (especially explorer with delay_s)
+        node.get_logger().info("[STARTUP] Waiting for all processes to initialize...")
+        time.sleep(2.0)
+        
+        # Pause exploration for stable probes/warmup (now that explorer is running)
+        set_explore(False)
 
         # WAIT_READY (probes)
         for p in cfg["probes"]["ready"]:

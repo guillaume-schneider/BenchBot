@@ -53,7 +53,14 @@ Welcome to the comprehensive documentation for the SLAM Bench Orchestrator. This
 
 ## 🔧 Troubleshooting
 
-- **[TROUBLESHOOTING_EXPLORATION.md](TROUBLESHOOTING_EXPLORATION.md)** - Navigation and exploration issues
+### Exploration & Navigation
+- **[EXPLORATION_FIX_COMPLETE.md](EXPLORATION_FIX_COMPLETE.md)** - ⭐ Guide complet de résolution des problèmes d'exploration
+- **[EXPLORATION_QUICK_REFERENCE.md](EXPLORATION_QUICK_REFERENCE.md)** - Référence rapide pour l'exploration
+- **[TROUBLESHOOTING_EXPLORATION.md](TROUBLESHOOTING_EXPLORATION.md)** - Navigation et exploration issues
+- **[ROBUST_SYNCHRONIZATION.md](ROBUST_SYNCHRONIZATION.md)** - Synchronisation robuste avec probes
+- **[GAZEBO_CRASH_ANALYSIS.md](GAZEBO_CRASH_ANALYSIS.md)** - Analyse et résolution des crashes Gazebo
+
+### SLAM-Specific
 - **[TROUBLESHOOTING_GMAPPING.md](TROUBLESHOOTING_GMAPPING.md)** - GMapping-specific problems
 - **[FIXES_EXPLORE_LITE.md](../FIXES_EXPLORE_LITE.md)** - explore_lite configuration fixes
 - **[FIXES_TF_PROBLEMS.md](../FIXES_TF_PROBLEMS.md)** - TF transformation issues
@@ -166,9 +173,3 @@ slam_bench_orchestrator/
 - ✅ 3D visualizer with "Follow Robot" mode
 
 See [ROADMAP.md](ROADMAP.md) for upcoming features.
-
----
-
-**Last Updated**: 2026-01-05  
-**Version**: 1.0  
-**Maintainer**: SLAM Bench Team

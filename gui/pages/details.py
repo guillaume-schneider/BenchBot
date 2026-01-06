@@ -660,7 +660,7 @@ class ConfigDetailsPage(QWidget):
                 last_map_msg.info.width, last_map_msg.info.height, last_map_msg.info.resolution
             )
             final_iou = compute_iou(gt_map, est_map)
-            path_len = compute_path_length(odom_msgs)
+            path_len = compute_path_length(odom_msgs, bag_path_str)
             
             # 4. Display Results
             self.results_text.append("\n=== BENCHMARK RESULTS ===")

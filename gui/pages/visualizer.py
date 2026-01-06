@@ -116,32 +116,32 @@ class VisualizerPage(QWidget):
         self.view.setCameraPosition(distance=15, elevation=30, azimuth=45)
         self.layout.addWidget(self.view)
         
-        # Grid
+        # Grid (Map floor)
         self.grid = gl.GLGridItem()
-        self.grid.setSize(20, 20)
+        self.grid.setSize(50, 50) # Larger grid
         self.grid.setSpacing(1, 1)
-        self.grid.setColor((51, 65, 85, 255))
+        self.grid.setColor((51, 65, 85, 120))
         self.view.addItem(self.grid)
         
         # Lidar Points
-        self.scan_item = gl.GLScatterPlotItem(pos=np.array([[0,0,0]]), color=(0.4, 0.5, 1.0, 1.0), size=2, pxMode=True)
+        self.scan_item = gl.GLScatterPlotItem(pos=np.array([[0,0,0]]), color=(0.4, 0.5, 1.0, 1.0), size=3, pxMode=True)
         self.view.addItem(self.scan_item)
         
         # Trajectory
+        # Initialize with None/Empty to avoid line from origin
         self.traj_item = gl.GLLinePlotItem(pos=np.array([[0,0,0]]), color=(0.1, 0.8, 0.4, 1.0), width=2, antialias=True)
         self.view.addItem(self.traj_item)
         
-        # Robot Representation (Composite)
+        # Robot Representation (Axis + Box)
         self.robot_axis = gl.GLAxisItem()
-        self.robot_axis.setSize(0.5, 0.5, 0.5)
+        self.robot_axis.setSize(1.0, 1.0, 1.0) # Larger axes
         self.view.addItem(self.robot_axis)
         
-        # Add a more visible body for the robot
         self.robot_box = gl.GLBoxItem()
-        self.robot_box.setSize(0.3, 0.3, 0.1)
-        self.robot_box.translate(-0.15, -0.15, 0) # Center it
+        self.robot_box.setSize(0.4, 0.4, 0.2)
+        self.robot_box.translate(-0.2, -0.2, 0)
         self.robot_box.setParentItem(self.robot_axis)
-        self.robot_box.setColor((59, 130, 246, 150)) # Blue-ish transparent
+        self.robot_box.setColor((59, 130, 246, 200)) # Solid blue body
 
     def reset_camera(self):
         self.view.setCameraPosition(distance=15, elevation=30, azimuth=45)
@@ -179,61 +179,75 @@ class VisualizerPage(QWidget):
     def update_scan(self, points):
         # Transform scan points from local robot frame to world frame (odom)
         if self.latest_pose:
-            px, py, pz = self.latest_pose['x'], self.latest_pose['y'], self.latest_pose['z']
-            qx, qy, qz, qw = self.latest_pose['qx'], self.latest_pose['qy'], self.latest_pose['qz'], self.latest_pose['qw']
+            px, py = self.latest_pose['x'], self.latest_pose['y']
+            # Only use Yaw for stable 2D visualization
+            qw, qx, qy, qz = self.latest_pose['qw'], self.latest_pose['qx'], self.latest_pose['qy'], self.latest_pose['qz']
             
-            # 3D Rotation Matrix from Quaternion
-            r00 = 1 - 2*(qy**2 + qz**2)
-            r01 = 2*(qx*qy - qz*qw)
-            r02 = 2*(qx*qz + qy*qw)
-            r10 = 2*(qx*qy + qz*qw)
-            r11 = 1 - 2*(qx**2 + qz**2)
-            r12 = 2*(qy*qz - qx*qw)
-            r20 = 2*(qx*qz - qy*qw)
-            r21 = 2*(qy*qz + qx*qw)
-            r22 = 1 - 2*(qx**2 + qy**2)
+            # Simple 2D rotation (Yaw) from quaternion
+            siny_cosp = 2 * (qw * qz + qx * qy)
+            cosy_cosp = 1 - 2 * (qy * qy + qz * qz)
+            yaw = math.atan2(siny_cosp, cosy_cosp)
             
-            R = np.array([[r00, r01, r02],
-                          [r10, r11, r12],
-                          [r20, r21, r22]])
+            R = np.array([[np.cos(yaw), -np.sin(yaw), 0],
+                          [np.sin(yaw),  np.cos(yaw), 0],
+                          [0,            0,           1]])
             
-            # Points are (N, 3). Transform: P_world = P_local * R^T + T
-            world_points = points @ R.T + np.array([px, py, pz])
+            # Project scan slightly above ground
+            world_points = points @ R.T + np.array([px, py, 0.05])
             self.scan_item.setData(pos=world_points)
         else:
             self.scan_item.setData(pos=points)
 
     def update_pose(self, pose):
         self.latest_pose = pose
-        p = np.array([pose['x'], pose['y'], pose['z']])
+        # Force Z=0 for ground plane visualization
+        p_ground = np.array([pose['x'], pose['y'], 0.0])
         
         # Build 4x4 Transformation Matrix
         tr = pg.Transform3D()
-        tr.translate(p[0], p[1], p[2])
+        tr.translate(p_ground[0], p_ground[1], p_ground[2])
         
-        # Apply orientation (Quaternion to Axis-Angle)
-        qw = max(-1.0, min(1.0, pose['qw']))
-        angle = 2 * math.acos(qw)
-        deg = math.degrees(angle)
-        if deg > 0.1:
-            s = math.sqrt(max(0, 1 - qw*qw))
-            if s > 0.001:
-                ax, ay, az = pose['qx']/s, pose['qy']/s, pose['qz']/s
-                tr.rotate(deg, ax, ay, az)
+        # Only use Yaw for stable 2D Cap
+        qw, qx, qy, qz = pose['qw'], pose['qx'], pose['qy'], pose['qz']
+        siny_cosp = 2 * (qw * qz + qx * qy)
+        cosy_cosp = 1 - 2 * (qy * qy + qz * qz)
+        yaw_deg = math.degrees(math.atan2(siny_cosp, cosy_cosp))
+        tr.rotate(yaw_deg, 0, 0, 1)
         
         # Apply transform to the axis (and its child box)
         self.robot_axis.setTransform(tr)
         
-        # Update Trajectory
-        if not self.traj_points or np.linalg.norm(self.traj_points[-1] - p) > 0.05:
-            self.traj_points.append(p)
+        # Update Trajectory (Stored with Z=0)
+        # 1. Skip if the pose is at the exact origin (avoid start noise)
+        if abs(p_ground[0]) < 0.001 and abs(p_ground[1]) < 0.001:
+            return
+
+        # 2. Initialize if empty
+        if not self.traj_points:
+             # Use current position as starting point (not 0,0,0)
+             self.traj_points.append(p_ground)
+             return
+
+        # 3. Filter distance to previous point
+        dist = np.linalg.norm(self.traj_points[-1] - p_ground)
+        # If we jump more than 2 meters instantly, it's a simulation spike - ignore it
+        if dist > 2.0:
+            return
+
+        # 4. Standard update
+        if dist > 0.05:
+            self.traj_points.append(p_ground)
+            # Limit history to 5000 points to keep perf high
+            if len(self.traj_points) > 5000:
+                self.traj_points.pop(0)
+            
             if len(self.traj_points) > 1:
-                self.traj_item.setData(pos=np.array(self.traj_points))
+                self.traj_item.setData(pos=np.array(self.traj_points, dtype=np.float32))
         
         # Move camera to follow robot if requested
         if self.follow_cb.isChecked():
             # Set the center to the robot position
-            self.view.opts['center'] = pg.Vector(p[0], p[1], p[2])
+            self.view.opts['center'] = pg.Vector(p_ground[0], p_ground[1], p_ground[2])
             self.view.update()
 
     def closeEvent(self, event):

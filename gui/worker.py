@@ -176,7 +176,13 @@ class RunWorker(QThread):
                                         sc = resolved.get("dataset", {}).get("scenario", {})
                                         
                                         def enforce_rviz(cmd):
+                                            # Only apply use_rviz to 'ros2 launch' commands, not 'ros2 run'
                                             if isinstance(cmd, list):
+                                                 # Check if this is a 'ros2 run' command
+                                                 if len(cmd) >= 2 and cmd[0] == "ros2" and cmd[1] == "run":
+                                                     print(f"DEBUG: Skipping use_rviz for 'ros2 run' command")
+                                                     return cmd
+                                                 
                                                  # Check for replace
                                                  for i, c in enumerate(cmd):
                                                      if "use_rviz:=" in c:
@@ -184,18 +190,26 @@ class RunWorker(QThread):
                                                          cmd[i] = target_arg
                                                          return cmd
 
-                                                 # Not found, append
-                                                 print(f"DEBUG: Appending {target_arg} to cmd list")
-                                                 cmd.append(target_arg)
+                                                 # Not found, append (only for launch commands)
+                                                 if len(cmd) >= 2 and cmd[0] == "ros2" and cmd[1] == "launch":
+                                                     print(f"DEBUG: Appending {target_arg} to ros2 launch cmd list")
+                                                     cmd.append(target_arg)
 
                                             elif isinstance(cmd, str):
+                                                 # Skip for 'ros2 run' string commands
+                                                 if "ros2 run" in cmd:
+                                                     print(f"DEBUG: Skipping use_rviz for 'ros2 run' string command")
+                                                     return cmd
+                                                     
                                                  if "use_rviz:=" in cmd:
                                                      # Regex replace would be better but simple string parsing usually sufficient for key:=val
                                                      import re
                                                      return re.sub(r"use_rviz:=(True|False)", target_arg, cmd)
                                                  
-                                                 print(f"DEBUG: Appending {target_arg} to cmd string")
-                                                 return cmd + " " + target_arg
+                                                 # Only append for launch commands
+                                                 if "ros2 launch" in cmd:
+                                                     print(f"DEBUG: Appending {target_arg} to ros2 launch cmd string")
+                                                     return cmd + " " + target_arg
                                             return cmd
 
                                         if "processes" in sc:

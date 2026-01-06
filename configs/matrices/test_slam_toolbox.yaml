@@ -5,7 +5,7 @@ workspace:
   use_sim_time: true
 defaults:
   run:
-    warmup_s: 2.0
+    warmup_s: 3.0  # Probes ensure system is ready, warmup just stabilizes metrics
     drain_s: 1.0
     timeout_s: 180.0
     max_restarts: 0
@@ -32,6 +32,10 @@ defaults:
       timeout_s: 60
     - type: tf_available
       from_frame: map
+      to_frame: odom
+      timeout_s: 60
+    - type: tf_available
+      from_frame: base_footprint
       to_frame: odom
       timeout_s: 60
     - type: topic_publish
@@ -61,25 +65,21 @@ datasets:
       - y_pose:=0.5
       - world:=${PROJECT_ROOT}/worlds/fixed_model.world
       - robot_sdf:=${PROJECT_ROOT}/worlds/waffle_fixed.model
+      - use_gazebo:=False  # Disable gzclient to avoid graphical crashes
       env:
         TURTLEBOT3_MODEL: waffle
     - name: explore
+      delay_s: 2.0  # Small delay to avoid startup race, probes ensure Nav2 is ready
       cmd:
       - ros2
       - launch
-      - explore_lite
-      - explore.launch.py
+      - ${PROJECT_ROOT}/tools/launch/explore_with_qos.launch.py
       - use_sim_time:=True
+      - params_file:=${PROJECT_ROOT}/configs/params/explore_params.yaml
       env:
         AMENT_PREFIX_PATH: ${PROJECT_ROOT}/deps/m_explore_ws/install/multirobot_map_merge:${PROJECT_ROOT}/deps/m_explore_ws/install/explore_lite:/opt/ros/humble
         LD_LIBRARY_PATH: ${PROJECT_ROOT}/deps/m_explore_ws/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib
         PYTHONPATH: ${PROJECT_ROOT}/deps/m_explore_ws/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages
-      params:
-        explore_node:
-          ros__parameters:
-            robot_base_frame: base_footprint
-            min_frontier_size: 0.15
-            planner_frequency: 1.0
   world_model: worlds/model.sdf
 slams:
 - id: slam_toolbox_sync

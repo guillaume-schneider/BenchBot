@@ -488,7 +488,7 @@ def compute_time_to_coverage(gt_map, gt_res, gt_origin, map_msgs, thresholds):
     return times_to_cov
 
 
-def compute_path_length(odom_msgs):
+def compute_path_length(odom_msgs, bag_path=None):
     """
     Integrate path length from /odom messages.
     """

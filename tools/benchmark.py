@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 import sqlite3
+import json
 from rosbag2_py import SequentialReader, StorageOptions, ConverterOptions
 from rclpy.serialization import deserialize_message
 from rosidl_runtime_py.utilities import get_message
@@ -162,15 +163,30 @@ def calculate_ate(gt_poses, tf_data, odom_data):
             tf_buffer.update(tf_data[tf_idx][0], tf_data[tf_idx][1])
             tf_idx += 1
         
-        # Update Odom index to nearest time (or last known)
+        # Find nearest odom message (within reasonable time window)
+        # Instead of just using the last one, find the closest one
+        best_odom_idx = -1
+        min_time_diff = float('inf')
+        
+        # Search in a window around current time
+        search_start = max(0, odom_idx - 10)
+        search_end = min(len(odom_data), odom_idx + 10)
+        
+        for i in range(search_start, search_end):
+            time_diff = abs(odom_data[i][0] - t_ns)
+            if time_diff < min_time_diff:
+                min_time_diff = time_diff
+                best_odom_idx = i
+        
+        # Update odom_idx for next iteration
         while odom_idx < len(odom_data) and odom_data[odom_idx][0] <= t_ns:
             odom_idx += 1
         
-        if odom_idx == 0:
+        if best_odom_idx == -1:
             continue
             
-        # Use the latest odom pose
-        _, trans_ob, rot_ob = odom_data[odom_idx - 1]
+        # Use the nearest odom pose
+        _, trans_ob, rot_ob = odom_data[best_odom_idx]
         
         # Get map->odom from TF
         tf_mo = tf_buffer.lookup_transform_map_odom()
@@ -257,6 +273,20 @@ def run_benchmark(bag_path, plot_path=None):
     plt.savefig(str(plot_path))
     plt.close()
     print(f"Plot saved to {plot_path}")
+    
+    # Save trajectory data to JSON for GUI visualization
+    traj_data = {
+        "est_x": est_x,
+        "est_y": est_y,
+        "gt_x": gt_x,
+        "gt_y": gt_y,
+        "rmse": rmse
+    }
+    traj_json_path = Path(bag_path) / "trajectory.json" if Path(bag_path).is_dir() else Path(bag_path).parent / "trajectory.json"
+    with open(traj_json_path, 'w') as f:
+        json.dump(traj_data, f)
+    print(f"Trajectory data saved to {traj_json_path}")
+    
     return rmse
 
 def main():

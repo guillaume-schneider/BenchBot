@@ -117,3 +117,51 @@ The `potential_scale` parameter was default or set high (3.0). This adds a cost 
 - **Cartographer**: `min_range = 0.0`, `accumulated_range = 1`, Delayed start (20s).
 - **Nav2**: Rectangular Footprint, `inflation_radius = 0.20`, `scaling = 10.0`.
 - **Explore**: Uses Global Costmap, `potential_scale = 0.001`.
+
+---
+
+## 5. Explorer Startup Delays \u0026 TF Synchronization
+
+### Issue: Explorer Takes Long Time to Start
+**Symptoms:**
+- The `explore_lite` node starts but waits 10-20 seconds before beginning exploration.
+- Logs show repeated `TF_OLD_DATA` warnings and `Timed out waiting for transform` errors.
+- Example error: `Lookup would require extrapolation into the past. Requested time 5.683000 but the earliest data is at time 21.500000`
+
+**Root Cause:**
+The explorer starts too early, before Nav2 has fully initialized and published stable TF transformations. The explorer requires:
+1. The `base_link` → `map` transformation to be available
+2. The `/map` topic (costmap) to be published
+3. The Nav2 action server to be ready
+
+**Resolution:**
+Add a startup delay to the explorer process using the `delay_s` parameter in the dataset configuration:
+
+```yaml
+processes:
+  - name: "nav2_stack"
+    cmd: [...]
+    
+  - name: "explore"
+    delay_s: 10.0  # Wait for Nav2 to fully initialize
+    cmd: [...]
+```
+
+**Recommended Delays:**
+- **Nav2 Stack**: 0s (starts first)
+- **Explorer**: 5s (waits for Nav2 - not too long to avoid TF desync)
+- **Kickstart Script**: 3-5s (if used)
+
+**Important Note on Delays:**
+- Delays that are too long (>10s) can cause TF desynchronization issues where the explorer tries to access transforms from the past
+- The `transform_tolerance` parameter in `explore_params.yaml` has been increased to 30.0s to handle pause/resume cycles
+- The orchestrator now waits 2s after starting all processes before pausing exploration to ensure proper initialization
+
+**How It Works:**
+The orchestrator now supports the `delay_s` parameter for each process. When specified, it will sleep for that duration before starting the process, allowing previous processes to initialize fully.
+
+**Benefits:**
+- Eliminates TF synchronization errors
+- Reduces startup warnings in logs
+- Ensures stable exploration from the start
+- No wasted time waiting for timeouts

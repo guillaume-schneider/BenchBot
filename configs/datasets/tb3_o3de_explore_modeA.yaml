@@ -34,6 +34,7 @@ scenario:
         ROS_DOMAIN_ID: "0"
     
     - name: "explore"
+      delay_s: 5.0  # Wait for Nav2 to initialize (reduced to avoid TF desync)
       cmd:
         - ros2
         - launch
