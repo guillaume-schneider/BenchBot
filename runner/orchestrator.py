@@ -194,7 +194,7 @@ def run_once(config_path: str) -> int:
             "gzserver", "gzclient", "ruby", "spawn_entity", # Gazebo
             "Editor", "GameLauncher", "AssetProcessor",  # O3DE
             "nav2_manager", "component_container", "component_container_isolated", "lifecycle_manager",  # Nav2
-            "map_server", "amcl", "bt_navigator", "planner_server", "controller_server",
+            "map_server", "amcl", "bt_navigator", "planner_server", "controller_server", "behavior_server",
             "smoother_server", "waypoint_follower", "velocity_smoother",
             "rviz2", "robot_state_publisher", "slam_gmapping", "sync_slam_toolbox_node", "explore_node"
         ]

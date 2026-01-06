@@ -377,7 +377,7 @@ class RunWorker(QThread):
             targets = [
                 "gzserver", "gzclient", "ruby", "spawn_entity",
                 "nav2_manager", "component_container", "component_container_isolated", "lifecycle_manager",
-                "map_server", "amcl", "bt_navigator", "planner_server", "controller_server",
+                "map_server", "amcl", "bt_navigator", "planner_server", "controller_server", "behavior_server",
                 "smoother_server", "waypoint_follower", "velocity_smoother",
                 "rviz2", "robot_state_publisher", "slam_toolbox", "sync_slam_toolbox_node", "explore", "rosbag2"
             ]
