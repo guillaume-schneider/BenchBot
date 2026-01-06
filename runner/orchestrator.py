@@ -28,9 +28,30 @@ from utils.logger import get_logger, LogContext, log_exceptions
 logger = get_logger("orchestrator")
 
 
+def recursive_substitute(obj, mapping):
+    if isinstance(obj, dict):
+        return {k: recursive_substitute(v, mapping) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [recursive_substitute(x, mapping) for x in obj]
+    elif isinstance(obj, str):
+        for k, v in mapping.items():
+            obj = obj.replace(k, v)
+        return obj
+    else:
+        return obj
+
 def load_run_config(path: str) -> dict:
     with open(path, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f) or {}
+        config = yaml.safe_load(f) or {}
+    
+    # Define substitutions
+    # We assume the orchestrator is run from the project root
+    mapping = {
+        "${PROJECT_ROOT}": str(Path.cwd()),
+        "${HOME}": str(Path.home())
+    }
+    
+    return recursive_substitute(config, mapping)
 
 
 def ensure_dirs(cfg: dict) -> None:

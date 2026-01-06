@@ -88,8 +88,9 @@ class DashboardPage(QWidget):
         
         for yaml_file in sorted(matrices_dir.glob("*.yaml")):
             try:
-                with open(yaml_file, 'r') as f:
-                    data = yaml.safe_load(f)
+                from runner.resolve import load_yaml
+                
+                data = load_yaml(yaml_file)
                     
                 card = ConfigCard(str(yaml_file), data)
                 card.card_clicked.connect(lambda p=str(yaml_file), d=data: self.config_selected.emit(p, d))

@@ -63,15 +63,15 @@ datasets:
     scenario:
       processes:
         - name: "nav2_sim"
-          cmd: ["ros2", "launch", "nav2_bringup", "tb3_simulation_launch.py", "slam:=True", "headless:=True", "gui:=False", "use_sim_time:=True", "x_pose:=0.5", "y_pose:=0.5", "z_pose:=0.01", "yaw:=0.0", "world:=/home/schneigu/Projects/benchbot/worlds/fixed_model.world", "robot_sdf:=/home/schneigu/Projects/benchbot/worlds/waffle_fixed.model"]
+          cmd: ["ros2", "launch", "nav2_bringup", "tb3_simulation_launch.py", "slam:=True", "headless:=True", "gui:=False", "use_sim_time:=True", "x_pose:=0.5", "y_pose:=0.5", "z_pose:=0.01", "yaw:=0.0", "world:=${PROJECT_ROOT}/worlds/fixed_model.world", "robot_sdf:=${PROJECT_ROOT}/worlds/waffle_fixed.model"]
           env:
             TURTLEBOT3_MODEL: "waffle"
         - name: "explore"
           cmd: ["ros2", "launch", "explore_lite", "explore.launch.py", "use_sim_time:=True"]
           env:
-            AMENT_PREFIX_PATH: "/home/schneigu/Projects/benchbot/deps/m_explore_ws/install/multirobot_map_merge:/home/schneigu/Projects/benchbot/deps/m_explore_ws/install/explore_lite:/opt/ros/humble"
-            LD_LIBRARY_PATH: "/home/schneigu/Projects/benchbot/deps/m_explore_ws/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib"
-            PYTHONPATH: "/home/schneigu/Projects/benchbot/deps/m_explore_ws/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages"
+            AMENT_PREFIX_PATH: "${PROJECT_ROOT}/deps/m_explore_ws/install/multirobot_map_merge:${PROJECT_ROOT}/deps/m_explore_ws/install/explore_lite:/opt/ros/humble"
+            LD_LIBRARY_PATH: "${PROJECT_ROOT}/deps/m_explore_ws/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib"
+            PYTHONPATH: "${PROJECT_ROOT}/deps/m_explore_ws/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages"
           params:
             explore_node:
               ros__parameters:

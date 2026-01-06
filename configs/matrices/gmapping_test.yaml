@@ -52,19 +52,19 @@ datasets:
           cmd: 
           - ros2
           - launch
-          - /home/schneigu/Projects/benchbot/tools/launch/tb3_sim_no_loc.launch.py
+          - ${PROJECT_ROOT}/tools/launch/tb3_sim_no_loc.launch.py
           - use_sim_time:=True
           - x_pose:=0.5
           - y_pose:=0.5
-          - world:=/home/schneigu/Projects/benchbot/worlds/fixed_model.world
-          - robot_sdf:=/home/schneigu/Projects/benchbot/worlds/waffle_fixed.model
-          - params_file:=/home/schneigu/Projects/benchbot/configs/params/nav2_params.yaml
+          - world:=${PROJECT_ROOT}/worlds/fixed_model.world
+          - robot_sdf:=${PROJECT_ROOT}/worlds/waffle_fixed.model
+          - params_file:=${PROJECT_ROOT}/configs/params/nav2_params.yaml
           - use_gazebo:=False
           env:
             TURTLEBOT3_MODEL: waffle
 
         - name: kickstart
-          cmd: ["/home/schneigu/Projects/benchbot/tools/scripts/kickstart.sh"]
+          cmd: ["${PROJECT_ROOT}/tools/scripts/kickstart.sh"]
           delay_s: 5.0
           params:
             restart: false
@@ -72,14 +72,14 @@ datasets:
         - name: explore
           delay_s: 5.0
           cmd:
-          - /home/schneigu/Projects/benchbot/tools/launch/explore_wrapper.sh
+          - ${PROJECT_ROOT}/tools/launch/explore_wrapper.sh
           - ros2
           - run
           - explore_lite
           - explore
           - --ros-args
           - --params-file
-          - /home/schneigu/Projects/benchbot/configs/params/explore_params.yaml
+          - ${PROJECT_ROOT}/configs/params/explore_params.yaml
           params: {} # Kept empty for structure or remove completely if safe. 
                      # Orchestrator might not care if it's missing.
                      # But let's just remove the block content content.

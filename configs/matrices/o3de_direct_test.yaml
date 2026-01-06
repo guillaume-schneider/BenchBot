@@ -24,8 +24,8 @@ datasets:
             - y_pose:=0.5
             - z_pose:=0.01
             - yaw:=0.0
-            - world:=/home/schneigu/Projects/benchbot/worlds/fixed_model.world
-            - robot_sdf:=/home/schneigu/Projects/benchbot/worlds/waffle_fixed.model
+            - world:=${PROJECT_ROOT}/worlds/fixed_model.world
+            - robot_sdf:=${PROJECT_ROOT}/worlds/waffle_fixed.model
           env:
             ROS_DOMAIN_ID: "0"
         - name: "explore"
