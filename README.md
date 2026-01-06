@@ -1,3 +1,5 @@
+![BenchBot Banner](docs/assets/banner.png)
+
 # SLAM Bench Orchestrator
 
 ![Python](https://img.shields.io/badge/python-3.10-blue)
@@ -60,7 +62,7 @@ python3 gui/main.py
 *   **3D Visualizer**: Live LIDAR point cloud, robot trajectory, and "Follow Robot" camera mode.
 *   **Robot Manager**: Inject noise, limit LIDAR range, or scale motor speeds to test robustness.
 
-### 2. Docker Mode (Reproducible)
+### 2. Docker Mode (Experimental)
 Build and run in an isolated container:
 ```bash
 docker-compose build
@@ -116,21 +118,3 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ## 📜 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- ROS 2 Community for the robotics middleware
-- OpenSLAM for GMapping implementation
-- Google Cartographer team
-- All contributors and testers
-
-## 📧 Contact
-
-For questions or support:
-- **Issues:** [GitHub Issues](https://github.com/YOUR_USERNAME/benchbot/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/YOUR_USERNAME/benchbot/discussions)
-
----
-
-**Made with ❤️ for the SLAM research community**
-

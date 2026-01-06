@@ -11,7 +11,7 @@ from PyQt5.QtWidgets import (
     QPushButton, QStackedWidget, QLabel, QFrame, QButtonGroup
 )
 from PyQt5.QtCore import Qt, QSize
-from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtGui import QIcon, QFont, QPixmap
 
 from gui.utils import STYLE_SHEET
 from gui.worker import RunWorker
@@ -55,9 +55,20 @@ class MainWindow(QMainWindow):
         sidebar_layout.setContentsMargins(0, 30, 0, 30)
         
         # Logo / Title
-        title = QLabel("SLAM Bench")
-        title.setStyleSheet("font-size: 24px; font-weight: 800; color: #f8fafc; padding-left: 30px; margin-bottom: 30px;")
-        sidebar_layout.addWidget(title)
+        # Logo / Title
+        logo_label = QLabel()
+        logo_path = str(PROJECT_ROOT / "gui" / "assets" / "logo.png")
+        pixmap = QPixmap(logo_path)
+        if not pixmap.isNull():
+             pixmap = pixmap.scaledToWidth(200, Qt.SmoothTransformation)
+             logo_label.setPixmap(pixmap)
+             logo_label.setAlignment(Qt.AlignCenter)
+             logo_label.setStyleSheet("padding-left: 20px; margin-bottom: 20px;")
+        else:
+             logo_label.setText("SLAM Bench")
+             logo_label.setStyleSheet("font-size: 24px; font-weight: 800; color: #f8fafc; padding-left: 30px; margin-bottom: 30px;")
+             
+        sidebar_layout.addWidget(logo_label)
         
         # Nav Buttons
         self.nav_group = QButtonGroup(self)
