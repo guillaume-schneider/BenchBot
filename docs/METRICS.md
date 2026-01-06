@@ -7,7 +7,7 @@ The SLAM Bench Orchestrator captures high-fidelity performance metrics to evalua
 ### 1. ATE (Absolute Trajectory Error)
 - **Definition**: The Root Mean Square Error (RMSE) of the Euclidean distance between the estimated trajectory positions and the ground truth.
 - **Formula**:
-  $$ \text{ATE} = \sqrt{\frac{1}{N} \sum_{i=1}^{N} \| \mathbf{p}_{est,i} - \mathbf{p}_{gt,i} \|^2} $$
+  $ \text{ATE} = \sqrt{\frac{1}{N} \sum_{i=1}^{N} \| \mathbf{p}_{est,i} - \mathbf{p}_{gt,i} \|^2} $
   Where $N$ is the number of aligned poses, and $\mathbf{p}$ represents the $(x, y)$ position vector.
 - **Alignment**: Trajectories are aligned using Umeyama's algorithm (rigid transformation optimization) before calculating error to account for start frame differences.
 - **Goal**: Lower is better. ATE $< 0.1m$ is considered excellent for office environments.
@@ -16,7 +16,7 @@ The SLAM Bench Orchestrator captures high-fidelity performance metrics to evalua
 ### 2. Map Coverage
 - **Definition**: The fraction of the **accessible ground truth free space** that has been successfully observed by the robot.
 - **Formula**:
-  $$ \text{Coverage} = \frac{|GT_{free} \cap Est_{known}|}{|GT_{free}|} $$
+  $ \text{Coverage} = \frac{|GT_{free} \cap Est_{known}|}{|GT_{free}|} $
   *   $GT_{free}$: Set of cells in Ground Truth that are free ($0$).
   *   $Est_{known}$: Set of cells in Estimated Map that are discovered (Free or Occupied, $\neq -1$).
 - **Implementation**: Uses bitwise operations on the aligned occupancy grids.
@@ -26,7 +26,7 @@ The SLAM Bench Orchestrator captures high-fidelity performance metrics to evalua
 ### 3. IoU (Intersection over Union)
 - **Definition**: Measures the overlap consistency of **Occupied** cells (walls/obstacles) between the SLAM map and Ground Truth.
 - **Formula**:
-  $$ \text{IoU} = \frac{|GT_{occ} \cap Est_{occ}|}{|GT_{occ} \cup Est_{occ}|} $$
+  $ \text{IoU} = \frac{|GT_{occ} \cap Est_{occ}|}{|GT_{occ} \cup Est_{occ}|} $
   *   $GT_{occ}$: $\{c \in \text{Cells} \mid GT(c) > 50\}$
   *   $Est_{occ}$: $\{c \in \text{Cells} \mid Est(c) > 50\}$
 - **Goal**: Higher is better. Only considers structural accuracy (walls). A low IoU usually indicates map distortion ("ghosting") or scale drift.
@@ -35,7 +35,7 @@ The SLAM Bench Orchestrator captures high-fidelity performance metrics to evalua
 ### 4. SSIM (Structural Similarity Index) 🆕
 - **Definition**: A perceptual metric that quantifies image quality degradation caused by processing (compression or, in our case, mapping noise). 
 - **Formula**:
-  $$ \text{SSIM}(x, y) = \frac{(2\mu_x\mu_y + C_1)(2\sigma_{xy} + C_2)}{(\mu_x^2 + \mu_y^2 + C_1)(\sigma_x^2 + \sigma_y^2 + C_2)} $$
+  $ \text{SSIM}(x, y) = \frac{(2\mu_x\mu_y + C_1)(2\sigma_{xy} + C_2)}{(\mu_x^2 + \mu_y^2 + C_1)(\sigma_x^2 + \sigma_y^2 + C_2)} $
   *   $\mu_x, \mu_y$: Local means of maps $x$ and $y$.
   *   $\sigma_x, \sigma_y$: Local variances.
   *   $\sigma_{xy}$: Local covariance.
@@ -49,7 +49,7 @@ The SLAM Bench Orchestrator captures high-fidelity performance metrics to evalua
   1.  **Skeletonize** the estimated map to find the 1-pixel wide centerlines of walls. $S = \text{Skeleton}(Est_{occ})$
   2.  Compute **Distance Transform** $D$ on the occupied mask (distance to nearest free cell).
   3.  Sample the distance map at skeleton locations:
-  $$ \text{Thickness} \approx 2 \times \text{mean}(D(p)) \quad \forall p \in S $$
+  $ \text{Thickness} \approx 2 \times \text{mean}(D(p)) \quad \forall p \in S $
 - **Goal**: Lower is better. Values close to the actual wall thickness (~10cm) indicate a sharp, stable map. High values (>20cm) indicate that walls are "smeared" due to drift.
 - **Intuitively**: "Are the walls sharp, thin lines, or thick, blurry blobs?" Sharp lines imply the robot's localization was stable; thick lines imply it was jittering around.
 

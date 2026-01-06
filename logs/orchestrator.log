@@ -190,3 +190,13 @@
 2026-01-05 19:17:27 - slam_bench.orchestrator - [32mINFO[0m - orchestrator.py:605 - [EVAL] Writing partial metrics to: results/runs/2026-01-05_19-14-03__tb3_sim_explore_modeA__slam_toolbox_sync__seed0__r0/metrics.json
 2026-01-05 19:17:27 - slam_bench.orchestrator - INFO - orchestrator.py:608 - [EVAL] ✅ Partial metrics saved successfully.
 2026-01-05 19:17:27 - slam_bench.orchestrator - [32mINFO[0m - orchestrator.py:608 - [EVAL] ✅ Partial metrics saved successfully.
+2026-01-06 18:49:30 - slam_bench.orchestrator - INFO - orchestrator.py:62 - ================================================================================
+2026-01-06 18:49:30 - slam_bench.orchestrator - [32mINFO[0m - orchestrator.py:62 - ================================================================================
+2026-01-06 18:49:30 - slam_bench.orchestrator - INFO - orchestrator.py:63 - RUN_ONCE CALLED
+2026-01-06 18:49:30 - slam_bench.orchestrator - [32mINFO[0m - orchestrator.py:63 - RUN_ONCE CALLED
+2026-01-06 18:49:30 - slam_bench.orchestrator - INFO - orchestrator.py:64 - RUN_ONCE CALLED - Config: results/runs/2026-01-06_18-49-29__tb3_sim_explore_modeA__slam_toolbox_sync__seed0__r0/config_resolved.yaml
+2026-01-06 18:49:30 - slam_bench.orchestrator - [32mINFO[0m - orchestrator.py:64 - RUN_ONCE CALLED - Config: results/runs/2026-01-06_18-49-29__tb3_sim_explore_modeA__slam_toolbox_sync__seed0__r0/config_resolved.yaml
+2026-01-06 18:49:55 - slam_bench.orchestrator - INFO - orchestrator.py:582 - [EVAL] Degradation values: noise=0.0, range=10.0, scale=1.0
+2026-01-06 18:49:55 - slam_bench.orchestrator - [32mINFO[0m - orchestrator.py:582 - [EVAL] Degradation values: noise=0.0, range=10.0, scale=1.0
+2026-01-06 18:49:55 - slam_bench.orchestrator - ERROR - orchestrator.py:614 - [EVAL] Traceback printed above
+2026-01-06 18:49:55 - slam_bench.orchestrator - [31mERROR[0m - orchestrator.py:614 - [EVAL] Traceback printed above
