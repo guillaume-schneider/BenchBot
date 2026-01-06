@@ -7,7 +7,7 @@ defaults:
   run:
     warmup_s: 2.0
     drain_s: 1.0
-    timeout_s: 20.0
+    timeout_s: 180.0
     max_restarts: 0
   rosbag:
     enabled: true

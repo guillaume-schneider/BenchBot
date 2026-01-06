@@ -76,7 +76,14 @@ def read_bag_data(bag_path):
             try:
                 idx = -1
                 for i, name in enumerate(msg.name):
-                    if 'turtlebot3' in name:
+                    # Robust robot detection: look for standard TB3 names but ignore known static environments
+                    # 'turtlebot3_house', 'turtlebot3_world' are static maps.
+                    # 'turtlebot3_waffle', 'turtlebot3_burger', 'waffle', 'burger' are robots.
+                    
+                    if ('turtlebot3' in name or 'waffle' in name or 'burger' in name):
+                        if 'house' in name or 'world' in name or 'ground' in name:
+                            continue # Skip static environment models
+                        
                         idx = i
                         break
                 
@@ -227,9 +234,16 @@ def run_benchmark(bag_path, plot_path=None):
     est_x = [p[0] for p in est_traj]
     est_y = [p[1] for p in est_traj]
     
+    print(f"Plotting Trajectory: {len(gt_x)} points")
+    print(f"  GT Bounds: X[{min(gt_x):.2f}, {max(gt_x):.2f}], Y[{min(gt_y):.2f}, {max(gt_y):.2f}]")
+    print(f"  Est Bounds: X[{min(est_x):.2f}, {max(est_x):.2f}], Y[{min(est_y):.2f}, {max(est_y):.2f}]")
+
     plt.figure(figsize=(10,6))
-    plt.plot(gt_x, gt_y, 'g-', label='Ground Truth')
-    plt.plot(est_x, est_y, 'b--', label='SLAM Estimate')
+    # Plot Estimate first (blue dashed)
+    plt.plot(est_x, est_y, 'b--', label='SLAM Estimate', linewidth=2, zorder=1)
+    # Plot GT second (green solid) on top
+    plt.plot(gt_x, gt_y, 'g-', label='Ground Truth', linewidth=2, alpha=0.8, zorder=2)
+    
     plt.title(f"Trajectory Comparison (ATE RMSE: {rmse:.3f}m)")
     plt.xlabel("X [m]")
     plt.ylabel("Y [m]")

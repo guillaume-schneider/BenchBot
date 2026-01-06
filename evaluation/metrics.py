@@ -319,39 +319,82 @@ def compute_coverage(gt_map, est_map):
 
 def compute_accessible_coverage(gt_map, est_map, gt_res, gt_origin, est_origin, est_width, est_height, est_res):
     """
-    Coverage of the accessible area only (bounding box of the estimated map).
-    This gives a more meaningful metric for exploration performance.
+    Coverage of the ACTUAL accessible area (Reachability analysis on GT map).
+    Defines 'Accessible' as the connected component of free space in the GT map
+    that corresponds to the area strictly explored/seen by the robot.
+    
+    This handles cases where the GT map has a large "outside" free area that is 
+    unreachable (separated by walls), preventing the "largest component" heuristic 
+    from picking the wrong area.
+
+    Args:
+        gt_map: Ground truth occupancy grid (0=Free, 100=Occ, -1=Unk)
+        est_map: Estimated map aligned to GT (0=Free, 100=Occ, -1=Unk)
     """
-    # Calculate the bounding box of the estimated map in world coordinates
-    est_min_x = est_origin[0]
-    est_max_x = est_origin[0] + est_width * est_res
-    est_min_y = est_origin[1]
-    est_max_y = est_origin[1] + est_height * est_res
-    
-    # Convert to GT map indices
-    gt_h, gt_w = gt_map.shape
-    gt_origin_x, gt_origin_y, _ = gt_origin
-    
-    # Calculate bounding box in GT map indices
-    # Since GT is already in ROS convention (flipud in generator), use same logic as alignment
-    gt_j_min = max(0, int((est_min_x - gt_origin_x) / gt_res))
-    gt_j_max = min(gt_w, int((est_max_x - gt_origin_x) / gt_res) + 1)
-    gt_i_min = max(0, int((est_min_y - gt_origin_y) / gt_res))
-    gt_i_max = min(gt_h, int((est_max_y - gt_origin_y) / gt_res) + 1)
-    
-    # Extract the accessible region from both maps
-    gt_accessible = gt_map[gt_i_min:gt_i_max, gt_j_min:gt_j_max]
-    est_accessible = est_map[gt_i_min:gt_i_max, gt_j_min:gt_j_max]
-    
-    # Compute coverage in this region
-    gt_free = (gt_accessible == 0)
-    est_known = (est_accessible != -1)
-    
+    # 1. Identify Accessible Space candidates
+    gt_free = (gt_map == 0).astype(np.uint8)
     if gt_free.sum() == 0:
         return 0.0
+
+    # Label connected components (8-connectivity)
+    num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(gt_free, connectivity=8)
     
-    covered = (gt_free & est_known).sum()
-    return covered / gt_free.sum()
+    # Background is label 0. labels 1..N are components.
+    if num_labels <= 1:
+        return 0.0
+    
+    # 2. Find the component that matches the robot's location/map
+    # We look for the component that has the most overlap with the ESTIMATED Free Space.
+    est_free = (est_map == 0)
+    
+    best_label = -1
+    max_overlap = -1
+    
+    # Heuristic: If est_map is empty (no free space), fall back to largest component
+    if est_free.sum() == 0:
+        # Fallback: largest area
+        best_label = 1
+        max_overlap = stats[1, cv2.CC_STAT_AREA]
+        for i in range(2, num_labels):
+            area = stats[i, cv2.CC_STAT_AREA]
+            if area > max_overlap:
+                max_overlap = area
+                best_label = i
+    else:
+        # Check overlap for each component
+        # Optimization: We can just use the labels imagemasked by est_free to count occurances
+        # BUT: est_free might cross walls due to SLAM errors.
+        # We want the component with the *highest number of shared pixels*.
+        
+        # Fast way using numpy bincount on the masked labels
+        # labels[est_free] gives all label IDs under the free pixels of estimated map
+        masked_labels = labels[est_free]
+        if masked_labels.size > 0:
+            # bincount accounts for 0 (background) too, so logic holds
+            counts = np.bincount(masked_labels, minlength=num_labels)
+            # We ignore label 0 (background)
+            counts[0] = 0
+            best_label = np.argmax(counts)
+            
+            # If for some reason overlap is 0 (unlikely if est_free > 0), fallback
+            if counts[best_label] == 0:
+                 best_label = np.argmax(stats[1:, cv2.CC_STAT_AREA]) + 1
+        else:
+             best_label = np.argmax(stats[1:, cv2.CC_STAT_AREA]) + 1
+
+    accessible_mask = (labels == best_label)
+    total_accessible = accessible_mask.sum()
+    
+    if total_accessible == 0:
+        return 0.0
+        
+    # 3. Compute Coverage
+    # Check which pixels in the accessible mask are "known" in the estimated map
+    est_known = (est_map != -1)
+    
+    covered_accessible = (accessible_mask & est_known).sum()
+    
+    return covered_accessible / total_accessible
 
 
 def compute_iou(gt_map, est_map):

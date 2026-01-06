@@ -266,6 +266,7 @@ class ComparisonPage(QWidget):
             self.table.setItem(14, i, QTableWidgetItem(f"{speed_scale*100:.0f} %" if speed_scale is not None else "-"))
 
             # Store for PDF report
+            ate_plot = run_path / "bags" / "output" / "ate_plot.png"
             runs_to_report.append({
                 'name': run_path.name,
                 'slam': slam,
@@ -284,6 +285,7 @@ class ComparisonPage(QWidget):
                 'reasons': reasons,
                 'map_image_path': metrics.get('map_image_path'),
                 'gt_map_image_path': metrics.get('gt_map_image_path'),
+                'ate_image_path': str(ate_plot) if ate_plot.exists() else None,
                 'lidar_noise': lidar_noise,
                 'lidar_range': lidar_range,
                 'speed_scale': speed_scale * 100 if speed_scale is not None else None

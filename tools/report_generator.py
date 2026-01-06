@@ -81,25 +81,48 @@ class SLAMReportGenerator:
         self.elements.append(Paragraph("2. Map Quality", self.styles['Heading2']))
         self.elements.append(Spacer(1, 0.1 * inch))
 
-        fig2, axs2 = plt.subplots(1, 3, figsize=(12, 4))
+        ssim = [r.get('ssim') if r.get('ssim') is not None else 0 for r in self.runs_data]
+        thick = [r.get('wall_thick') if r.get('wall_thick') is not None else 0 for r in self.runs_data]
+
+        # Use GridSpec for 3 top, 2 bottom layout
+        fig2 = plt.figure(figsize=(12, 8))
+        gs = fig2.add_gridspec(2, 6) # 2 rows, 6 columns grid for flexibility
+
+        # Row 1: Coverage, AccCov, IoU (each takes 2 columns)
+        ax1 = fig2.add_subplot(gs[0, 0:2])
+        ax2 = fig2.add_subplot(gs[0, 2:4])
+        ax3 = fig2.add_subplot(gs[0, 4:6])
         
-        axs2[0].bar(names, coverage, color='#22c55e')
-        axs2[0].set_title('Global Coverage (%)')
-        axs2[0].tick_params(axis='x', rotation=30, labelsize=8)
+        # Row 2: SSIM, Thickness (centered, each takes 2 columns, offset by 1)
+        ax4 = fig2.add_subplot(gs[1, 1:3])
+        ax5 = fig2.add_subplot(gs[1, 3:5])
+
+        # Plot Data
+        ax1.bar(names, coverage, color='#22c55e')
+        ax1.set_title('Global Coverage (%)')
+        ax1.tick_params(axis='x', rotation=30, labelsize=8)
         
-        axs2[1].bar(names, acc_cov, color='#10b981')
-        axs2[1].set_title('Accessible Coverage (%)')
-        axs2[1].tick_params(axis='x', rotation=30, labelsize=8)
+        ax2.bar(names, acc_cov, color='#10b981')
+        ax2.set_title('Accessible Coverage (%)')
+        ax2.tick_params(axis='x', rotation=30, labelsize=8)
         
-        axs2[2].bar(names, iou, color='#8b5cf6')
-        axs2[2].set_title('Occupancy IoU (0-1)')
-        axs2[2].tick_params(axis='x', rotation=30, labelsize=8)
+        ax3.bar(names, iou, color='#8b5cf6')
+        ax3.set_title('Occupancy IoU (0-1)')
+        ax3.tick_params(axis='x', rotation=30, labelsize=8)
+
+        ax4.bar(names, ssim, color='#d8b4fe')
+        ax4.set_title('Map SSIM (0-1)')
+        ax4.tick_params(axis='x', rotation=30, labelsize=8)
+
+        ax5.bar(names, thick, color='#fbbf24')
+        ax5.set_title('Wall Thickness (cm)')
+        ax5.tick_params(axis='x', rotation=30, labelsize=8)
         
         plt.tight_layout()
         
         with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp2:
             plt.savefig(tmp2.name, dpi=120)
-            self.elements.append(Image(tmp2.name, width=9.5*inch, height=3.2*inch))
+            self.elements.append(Image(tmp2.name, width=9*inch, height=6*inch))
         plt.close(fig2)
         self.elements.append(Spacer(1, 0.2 * inch))
 
@@ -280,6 +303,56 @@ class SLAMReportGenerator:
             self.elements.append(t)
 
 
+
+    def add_trajectory_comparison(self, runs_data):
+        self.elements.append(PageBreak())
+        self.elements.append(Paragraph("Trajectory Analysis (GT vs Estimate)", self.styles['SubTitle']))
+        self.elements.append(Spacer(1, 0.2 * inch))
+        
+        # Display Trajectory Plots in a grid
+        traj_images = []
+        for i, r in enumerate(runs_data):
+            path = r.get('ate_image_path')
+            # Fallback if ate_image_path missing (legacy support)
+            if not path and r.get('map_image_path'):
+                # Try to guess
+                maybe_path = Path(r.get('map_image_path')).parent / "ate_plot.png"
+                if maybe_path.exists():
+                    path = str(maybe_path)
+
+            title = f"{r.get('slam', 'Run '+str(i+1))} (ATE: {r.get('ate', 0):.3f}m)"
+            if path and os.path.exists(path):
+                img = Image(path, width=3.5*inch, height=3.5*inch, kind='proportional')
+                traj_images.append([img, Paragraph(title, self.styles['Normal'])])
+            else:
+                traj_images.append([Paragraph("Trajectory Plot Not Found", self.styles['Normal']), Paragraph(title, self.styles['Normal'])])
+
+        # Batch into rows
+        row_data = []
+        current_row = []
+        for item in traj_images:
+            t_cell = Table([[item[0]], [item[1]]], colWidths=[3.6*inch], rowHeights=[3.6*inch, 0.4*inch])
+            t_cell.setStyle(TableStyle([('ALIGN', (0,0), (-1,-1), 'CENTER'), ('VALIGN', (0,0), (-1,-1), 'MIDDLE')]))
+            current_row.append(t_cell)
+            
+            if len(current_row) == 3:
+                row_data.append(current_row)
+                current_row = []
+        
+        if current_row:
+            while len(current_row) < 3:
+                current_row.append("")
+            row_data.append(current_row)
+            
+        if row_data:
+            t = Table(row_data, colWidths=[3.8*inch, 3.8*inch, 3.8*inch])
+            t.setStyle(TableStyle([
+                ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+                ('VALIGN', (0,0), (-1,-1), 'TOP'),
+            ]))
+            self.elements.append(t)
+
+
     def add_metric_explanations(self):
         self.elements.append(Paragraph("Guide to Metrics", self.styles['Heading2']))
         self.elements.append(Spacer(1, 0.1 * inch))
@@ -366,6 +439,8 @@ class SLAMReportGenerator:
         self.add_metrics_charts()
         if self.plot_path:
             self.add_plot(self.plot_path)
+            
+        self.add_trajectory_comparison(self.runs_data)
         self.add_map_comparison(self.runs_data)
         self.add_run_details(self.runs_data)
         self.doc.build(self.elements)
