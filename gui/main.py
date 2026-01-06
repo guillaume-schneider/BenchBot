@@ -168,8 +168,17 @@ class MainWindow(QMainWindow):
         if path in self.active_runs:
             worker = self.active_runs[path]
             if worker.isRunning():
-                 worker.cancel()
-                 self.handle_log("STOP requested by user...", path)
+                worker.cancel()
+                self.handle_log("🛑 STOP requested by user. Force killing processes...", path)
+                # Visual feedback: update status badge
+                if path in self.page_dashboard.cards:
+                    card = self.page_dashboard.cards[path]
+                    card.status_badge.setText("STOPPING...")
+                    card.status_badge.setStyleSheet("background-color: #7f1d1d; color: #fecaca; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;")
+                
+                if self.page_details.config_path == path:
+                    self.page_details.mon_info_lbl.setText("Stopping run...")
+                    self.page_details.mon_info_lbl.setStyleSheet("color: #ef4444; font-weight: bold;")
 
     def switch_page(self, index):
         if index == 0:

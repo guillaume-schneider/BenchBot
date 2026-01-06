@@ -298,9 +298,13 @@ class RunWorker(QThread):
                 try:
                     while True:
                         if self.is_cancelled:
-                            self.log_signal.emit("WARN: Cancellation requested. Terminating process group...")
+                            self.log_signal.emit("WARN: Cancellation requested. Terminating process group with SIGKILL...")
                             if self.current_process:
-                                os.killpg(os.getpgid(self.current_process.pid), signal.SIGTERM)
+                                try:
+                                    # Kill entire process group (Gazebo, Nav2, etc)
+                                    os.killpg(os.getpgid(self.current_process.pid), signal.SIGKILL)
+                                except Exception as ke:
+                                    self.log_signal.emit(f"Error killing process group: {ke}")
                             break
                         
                         events = sel.select(timeout=0.1)
@@ -361,3 +365,23 @@ class RunWorker(QThread):
 
     def cancel(self):
         self.is_cancelled = True
+        self.perform_nuclear_cleanup()
+
+    def perform_nuclear_cleanup(self):
+        """Nuclear option: kill all relevant processes manually as they might be in separate groups."""
+        try:
+            import subprocess
+            # Clear ROS 2 daemon/discovery cache
+            subprocess.run(["ros2", "daemon", "stop"], stderr=subprocess.DEVNULL, timeout=2)
+            
+            targets = [
+                "gzserver", "gzclient", "ruby", "spawn_entity",
+                "nav2_manager", "component_container", "component_container_isolated", "lifecycle_manager",
+                "map_server", "amcl", "bt_navigator", "planner_server", "controller_server",
+                "smoother_server", "waypoint_follower", "velocity_smoother",
+                "rviz2", "robot_state_publisher", "slam_toolbox", "sync_slam_toolbox_node", "explore", "rosbag2"
+            ]
+            for t in targets:
+                subprocess.run(["pkill", "-9", "-f", t], stderr=subprocess.DEVNULL, timeout=1)
+        except Exception:
+            pass

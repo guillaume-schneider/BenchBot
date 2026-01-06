@@ -66,10 +66,11 @@ datasets:
       - world:=${PROJECT_ROOT}/worlds/fixed_model.world
       - robot_sdf:=${PROJECT_ROOT}/worlds/waffle_fixed.model
       - use_gazebo:=False  # Disable gzclient to avoid graphical crashes
+      - params_file:=${PROJECT_ROOT}/configs/params/nav2_params.yaml
       env:
         TURTLEBOT3_MODEL: waffle
     - name: explore
-      delay_s: 2.0  # Small delay to avoid startup race, probes ensure Nav2 is ready
+      delay_s: 6.0  # Increased to let Nav2 lifecycle nodes activate properly
       cmd:
       - ros2
       - launch

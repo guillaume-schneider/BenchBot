@@ -187,11 +187,15 @@ def run_once(config_path: str) -> int:
     # This ensures a clean slate before starting
     try:
         import subprocess
+        # 1. Kill ROS 2 daemon to clear discovery cache (crucial for clean re-registration)
+        subprocess.run(["ros2", "daemon", "stop"], stderr=subprocess.DEVNULL, timeout=5)
+        
         targets = [
             "gzserver", "gzclient", "ruby", "spawn_entity", # Gazebo
             "Editor", "GameLauncher", "AssetProcessor",  # O3DE
             "nav2_manager", "component_container", "component_container_isolated", "lifecycle_manager",  # Nav2
             "map_server", "amcl", "bt_navigator", "planner_server", "controller_server",
+            "smoother_server", "waypoint_follower", "velocity_smoother",
             "rviz2", "robot_state_publisher", "slam_gmapping", "sync_slam_toolbox_node", "explore_node"
         ]
         
@@ -201,7 +205,7 @@ def run_once(config_path: str) -> int:
         for t in targets:
             subprocess.run(cmd + [t], stderr=subprocess.DEVNULL, timeout=2)
             
-        time.sleep(2.0)  # Let the system fully clean up ports and resources
+        time.sleep(3.0)  # Increased: Let the system fully clean up ports, DDS and resources
     except Exception:
         pass
 

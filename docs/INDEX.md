@@ -59,6 +59,7 @@ Welcome to the comprehensive documentation for the SLAM Bench Orchestrator. This
 - **[TROUBLESHOOTING_EXPLORATION.md](TROUBLESHOOTING_EXPLORATION.md)** - Navigation et exploration issues
 - **[ROBUST_SYNCHRONIZATION.md](ROBUST_SYNCHRONIZATION.md)** - Synchronisation robuste avec probes
 - **[GAZEBO_CRASH_ANALYSIS.md](GAZEBO_CRASH_ANALYSIS.md)** - Analyse et résolution des crashes Gazebo
+- **[RUN_STOP_STABILIZATION.md](RUN_STOP_STABILIZATION.md)** - ⭐ Stabilisation du cycle RUN/STOP et gestion des processus
 
 ### SLAM-Specific
 - **[TROUBLESHOOTING_GMAPPING.md](TROUBLESHOOTING_GMAPPING.md)** - GMapping-specific problems

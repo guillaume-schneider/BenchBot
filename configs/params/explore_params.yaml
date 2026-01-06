@@ -2,7 +2,6 @@ explore_node:
   ros__parameters:
     robot_base_frame: base_footprint  # TurtleBot3 uses base_footprint
     costmap_topic: /map  # Use SLAM map for frontier detection
-    costmap_topic_reliability: transient_local  # Match SLAM QoS
     visualize: true
     min_frontier_size: 0.2
     planner_frequency: 1.0
