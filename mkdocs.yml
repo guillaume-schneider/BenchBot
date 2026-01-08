@@ -3,6 +3,7 @@ site_description: Documentation for BenchBot
 site_author: Guillaume Schneider
 repo_name: BenchBot
 repo_url: https://github.com/guillaume-schneider/BenchBot
+site_url: https://guillaume-schneider.github.io/BenchBot/
 
 theme:
   name: material
