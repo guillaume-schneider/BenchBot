@@ -74,7 +74,7 @@ Ensure your system meets these requirements before proceeding:
     docker-compose up
     ```
     
-    See the [Docker Guide](README.md#docker-mode) for more details.
+    See the [Docker Guide](https://github.com/guillaume-schneider/BenchBot#docker-mode) for more details.
 
 ---
 
