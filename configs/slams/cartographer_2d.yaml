@@ -7,14 +7,14 @@ launch:
   cmd:
     - "ros2"
     - "launch"
-    - "/home/schneigu/Projects/benchbot/tools/launch/cartographer_custom.launch.py"
+    - "${PROJECT_ROOT}/tools/launch/cartographer_custom.launch.py"
     - "use_sim_time:=True"
-    - "configuration_directory:=/home/schneigu/Projects/benchbot/configs/params"
+    - "configuration_directory:=${PROJECT_ROOT}/configs/params"
     - "configuration_basename:=cartographer_turtlebot3_2d.lua"
   cwd: null
   env: {}
   args:
-    configuration_directory: "/home/schneigu/Projects/benchbot/configs/params"
+    configuration_directory: "${PROJECT_ROOT}/configs/params"
     configuration_basename: "cartographer_turtlebot3_2d.lua"
     use_sim_time: true # Pour compatibilite args, meme si cmd ligne prevaut
   namespace: null

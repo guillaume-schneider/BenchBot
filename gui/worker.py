@@ -203,7 +203,13 @@ class RunWorker(QThread):
                                         sc = resolved.get("dataset", {}).get("scenario", {})
                                         
                                         def enforce_rviz(cmd):
+                                            # Only apply use_rviz to 'ros2 launch' commands, not 'ros2 run'
                                             if isinstance(cmd, list):
+                                                 # Check if this is a 'ros2 run' command
+                                                 if len(cmd) >= 2 and cmd[0] == "ros2" and cmd[1] == "run":
+                                                     print(f"DEBUG: Skipping use_rviz for 'ros2 run' command")
+                                                     return cmd
+                                                 
                                                  # Check for replace
                                                  for i, c in enumerate(cmd):
                                                      if "use_rviz:=" in c:
@@ -211,18 +217,26 @@ class RunWorker(QThread):
                                                          cmd[i] = target_arg
                                                          return cmd
 
-                                                 # Not found, append
-                                                 print(f"DEBUG: Appending {target_arg} to cmd list")
-                                                 cmd.append(target_arg)
+                                                 # Not found, append (only for launch commands)
+                                                 if len(cmd) >= 2 and cmd[0] == "ros2" and cmd[1] == "launch":
+                                                     print(f"DEBUG: Appending {target_arg} to ros2 launch cmd list")
+                                                     cmd.append(target_arg)
 
                                             elif isinstance(cmd, str):
+                                                 # Skip for 'ros2 run' string commands
+                                                 if "ros2 run" in cmd:
+                                                     print(f"DEBUG: Skipping use_rviz for 'ros2 run' string command")
+                                                     return cmd
+                                                     
                                                  if "use_rviz:=" in cmd:
                                                      # Regex replace would be better but simple string parsing usually sufficient for key:=val
                                                      import re
                                                      return re.sub(r"use_rviz:=(True|False)", target_arg, cmd)
                                                  
-                                                 print(f"DEBUG: Appending {target_arg} to cmd string")
-                                                 return cmd + " " + target_arg
+                                                 # Only append for launch commands
+                                                 if "ros2 launch" in cmd:
+                                                     print(f"DEBUG: Appending {target_arg} to ros2 launch cmd string")
+                                                     return cmd + " " + target_arg
                                             return cmd
 
                                         if "processes" in sc:
@@ -311,9 +325,13 @@ class RunWorker(QThread):
                 try:
                     while True:
                         if self.is_cancelled:
-                            self.log_signal.emit("WARN: Cancellation requested. Terminating process group...")
+                            self.log_signal.emit("WARN: Cancellation requested. Terminating process group with SIGKILL...")
                             if self.current_process:
-                                os.killpg(os.getpgid(self.current_process.pid), signal.SIGTERM)
+                                try:
+                                    # Kill entire process group (Gazebo, Nav2, etc)
+                                    os.killpg(os.getpgid(self.current_process.pid), signal.SIGKILL)
+                                except Exception as ke:
+                                    self.log_signal.emit(f"Error killing process group: {ke}")
                             break
                         
                         events = sel.select(timeout=0.1)
@@ -374,3 +392,23 @@ class RunWorker(QThread):
 
     def cancel(self):
         self.is_cancelled = True
+        self.perform_nuclear_cleanup()
+
+    def perform_nuclear_cleanup(self):
+        """Nuclear option: kill all relevant processes manually as they might be in separate groups."""
+        try:
+            import subprocess
+            # Clear ROS 2 daemon/discovery cache
+            subprocess.run(["ros2", "daemon", "stop"], stderr=subprocess.DEVNULL, timeout=2)
+            
+            targets = [
+                "gzserver", "gzclient", "ruby", "spawn_entity",
+                "nav2_manager", "component_container", "component_container_isolated", "lifecycle_manager",
+                "map_server", "amcl", "bt_navigator", "planner_server", "controller_server", "behavior_server",
+                "smoother_server", "waypoint_follower", "velocity_smoother",
+                "rviz2", "robot_state_publisher", "slam_toolbox", "sync_slam_toolbox_node", "explore", "rosbag2"
+            ]
+            for t in targets:
+                subprocess.run(["pkill", "-9", "-f", t], stderr=subprocess.DEVNULL, timeout=1)
+        except Exception:
+            pass

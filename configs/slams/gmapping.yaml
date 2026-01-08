@@ -14,10 +14,10 @@ dependencies:
 launch:
   # On utilise directement ros2 run car l'orchestrateur source le workspace
   cmd: 
-    - "/home/schneigu/Projects/benchbot/tools/launch/gmapping_wrapper.sh"
+    - "${PROJECT_ROOT}/tools/launch/gmapping_wrapper.sh"
     - "--ros-args"
     - "--params-file"
-    - "/home/schneigu/Projects/benchbot/configs/params/gmapping_params.yaml"
+    - "${PROJECT_ROOT}/configs/params/gmapping_params.yaml"
     - "-p"
     - "use_sim_time:=true"
   args:
