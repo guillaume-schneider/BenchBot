@@ -1,3 +1,7 @@
+"""Dashboard page for managing benchmark configurations.
+
+Displays configuration cards in a grid layout with quick actions.
+"""
 from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QGridLayout, QLabel, QScrollArea, QPushButton, QHBoxLayout
 )
@@ -8,6 +12,14 @@ from gui.widgets import ConfigCard
 from gui.wizard import ConfigWizard
 
 class DashboardPage(QWidget):
+    """Main dashboard displaying all benchmark configurations.
+    
+    Signals:
+        config_selected: Emitted when a config card is clicked (path, data)
+        run_requested: Emitted when Run is clicked (path, data)
+        stop_requested: Emitted when Stop is clicked (path)
+        edit_requested: Emitted when Edit is clicked (path)
+    """
     config_selected = pyqtSignal(str, dict)  # Path, Data
     run_requested = pyqtSignal(str, dict)    # Path, Data
     stop_requested = pyqtSignal(str)         # Path (no data needed for stop)

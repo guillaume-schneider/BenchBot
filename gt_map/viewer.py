@@ -1,3 +1,7 @@
+"""Interactive map viewer for visualizing ground truth maps.
+
+Displays occupancy grid maps with proper scaling and origin.
+"""
 import yaml
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
@@ -5,6 +9,14 @@ import numpy as np
 import os
 
 def show_map(yaml_path):
+    """Display a map from a YAML configuration file.
+    
+    Args:
+        yaml_path: Path to the map YAML file (ROS map_server format)
+        
+    The function loads the map image and metadata, then displays it
+    with proper world coordinates using matplotlib.
+    """
     if not os.path.exists(yaml_path):
         print(f"Error: {yaml_path} not found.")
         return

@@ -1,3 +1,9 @@
+"""Ground truth map generation from Gazebo SDF files.
+
+This module parses SDF (Simulation Description Format) files and generates
+2D occupancy grid maps by projecting 3D geometry onto a horizontal plane
+at a specified laser height.
+"""
 import xml.etree.ElementTree as ET
 import numpy as np
 import math
@@ -5,6 +11,14 @@ import yaml
 import os
 
 def parse_pose(pose_str):
+    """Parse SDF pose string into numpy array.
+    
+    Args:
+        pose_str: Space-separated string "x y z roll pitch yaw"
+        
+    Returns:
+        numpy array of 6 elements [x, y, z, roll, pitch, yaw]
+    """
     if not pose_str:
         return np.zeros(6)
     return np.fromstring(pose_str.strip(), sep=' ')
@@ -209,6 +223,29 @@ def process_model_detailed(model_elem, current_transform, laser_z, depth=0):
     return obstacles
 
 def generate_map(sdf_path='world/model.sdf', resolution=0.05, laser_z=0.17, padding=1.0, output_name='map_gt', gen_png=True, gen_debug=True):
+    """Generate a 2D occupancy grid map from a Gazebo SDF file.
+    
+    Parses the SDF file, extracts 3D geometry (boxes, cylinders), and projects
+    them onto a 2D plane at the specified laser height. Outputs PGM and YAML files
+    compatible with ROS 2 map_server.
+    
+    Args:
+        sdf_path: Path to the SDF file
+        resolution: Map resolution in meters per pixel (default: 0.05)
+        laser_z: Height of the laser scanner in meters (default: 0.17)
+        padding: Extra padding around the map bounds in meters (default: 1.0)
+        output_name: Base name for output files (default: 'map_gt')
+        gen_png: Whether to generate a PNG preview (default: True)
+        gen_debug: Whether to generate a debug plot (default: True)
+        
+    Returns:
+        Tuple of (success: bool, message: str)
+        
+    Example:
+        >>> success, msg = generate_map('worlds/turtlebot3_world.sdf', output_name='maps/gt/tb3_world')
+        >>> if success:
+        ...     print("Map generated successfully")
+    """
     print(f"DEBUG: generate_map called for {sdf_path}")
     if not os.path.exists(sdf_path):
         return False, f"Error: {sdf_path} not found."

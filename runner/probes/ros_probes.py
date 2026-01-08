@@ -1,3 +1,8 @@
+"""ROS 2 probes for verifying system readiness before benchmark execution.
+
+This module provides a suite of probes to verify that ROS 2 nodes, topics, services,
+and transforms are available and functioning correctly before starting a benchmark run.
+"""
 from __future__ import annotations
 import time
 from dataclasses import dataclass
@@ -9,6 +14,19 @@ from rclpy.task import Future
 from rclpy.qos import qos_profile_sensor_data
 
 from runner.probes.base import Probe, ProbeResult
+
+# TF2
+from tf2_ros import Buffer, TransformListener
+from rclpy.duration import Duration
+
+
+@dataclass
+class ProbeContext:
+    """Context object passed to probes containing the ROS 2 node.
+    
+    Attributes:
+        node: ROS 2 node used for spinning and creating subscriptions/clients
+    """
 
 # TF2
 from tf2_ros import Buffer, TransformListener
@@ -30,6 +48,10 @@ def _spin_until(node: Node, predicate, timeout_s: float, spin_dt_s: float = 0.05
 
 
 class TopicPublishProbe(Probe):
+    """Deprecated probe - use TopicPublishTypedProbe instead.
+    
+    This probe requires explicit message type specification.
+    """
     def __init__(self, topic: str, min_messages: int = 1, timeout_s: float = 10.0):
         self.topic = topic
         self.min_messages = int(min_messages)
@@ -51,6 +73,16 @@ class TopicPublishProbe(Probe):
 
 
 class TopicPublishTypedProbe(Probe):
+    """Probe that verifies a topic is publishing messages.
+    
+    Subscribes to a topic and waits for a minimum number of messages to be received.
+    
+    Args:
+        topic: Topic name (e.g., "/scan")
+        msg_type: Message type string (e.g., "sensor_msgs/msg/LaserScan")
+        min_messages: Minimum number of messages to receive (default: 1)
+        timeout_s: Maximum time to wait in seconds (default: 10.0)
+    """
     def __init__(self, topic: str, msg_type: str, min_messages: int = 1, timeout_s: float = 10.0):
         self.topic = topic
         self.msg_type = msg_type
@@ -97,6 +129,18 @@ class TopicPublishTypedProbe(Probe):
 
 
 class TopicHzTypedProbe(Probe):
+    """Probe that verifies a topic is publishing at a minimum frequency.
+    
+    Measures the publication rate over a sliding window and ensures it meets
+    the minimum Hz requirement.
+    
+    Args:
+        topic: Topic name
+        msg_type: Message type string
+        min_hz: Minimum required frequency in Hz
+        window_s: Time window for frequency calculation (default: 5.0)
+        timeout_s: Maximum time to wait (default: 20.0)
+    """
     def __init__(self, topic: str, msg_type: str, min_hz: float, window_s: float = 5.0, timeout_s: float = 20.0):
         self.topic = topic
         self.msg_type = msg_type
@@ -147,6 +191,15 @@ class TopicHzTypedProbe(Probe):
 
 
 class TfAvailableProbe(Probe):
+    """Probe that verifies a TF transform is available.
+    
+    Checks if a transform between two frames exists in the TF tree.
+    
+    Args:
+        from_frame: Source frame (e.g., "odom")
+        to_frame: Target frame (e.g., "base_link")
+        timeout_s: Maximum time to wait (default: 10.0)
+    """
     def __init__(self, from_frame: str, to_frame: str, timeout_s: float = 10.0):
         self.from_frame = from_frame
         self.to_frame = to_frame
@@ -173,6 +226,13 @@ class TfAvailableProbe(Probe):
 
 
 class ServiceAvailableProbe(Probe):
+    """Probe that verifies a ROS 2 service is available.
+    
+    Args:
+        service: Service name (e.g., "/map_server/load_map")
+        srv_type: Service type string (e.g., "nav2_msgs/srv/LoadMap")
+        timeout_s: Maximum time to wait (default: 10.0)
+    """
     def __init__(self, service: str, srv_type: str, timeout_s: float = 10.0):
         self.service = service
         self.srv_type = srv_type
@@ -200,6 +260,12 @@ class ServiceAvailableProbe(Probe):
 
 
 class NodePresentProbe(Probe):
+    """Probe that verifies a ROS 2 node is running.
+    
+    Args:
+        node_name: Name of the node to check for
+        timeout_s: Maximum time to wait (default: 10.0)
+    """
     def __init__(self, node_name: str, timeout_s: float = 10.0):
         self.node_name = node_name
         self.timeout_s = float(timeout_s)

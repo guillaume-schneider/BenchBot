@@ -1,52 +1,56 @@
-# SLAM Auto-Tuner Guide
+---
+icon: material/magic-staff
+---
 
-The Auto-Tuner is an advanced feature that uses Bayesian Optimization (via [Optuna](https://optuna.org/)) to automatically find the most accurate parameters for any SLAM algorithm.
+# 🧠 AI Auto-Tuner Guide
 
-## 🧠 How it Works
-Instead of manually editing YAML files and running tests, the Auto-Tuner:
-1.  Takes a **Base Job** as a template.
-2.  Defines a **Search Space** (parameters and their ranges).
-3.  Executes multiple **Trials**.
-4.  Uses the **ATE (Absolute Trajectory Error)** as the objective to minimize.
-5.  Suggests the **Best Parameters** found across all trials.
+Manually tuning SLAM parameters is tedious. The **Auto-Tuner** uses Bayesian Optimization to find the perfect configuration for your robot.
 
-## 🛠 Usage via GUI
+## 🌊 How It Works
 
-### Step 1: Prepare a Reference Job
-The optimizer needs to know the context (World, Robot, SLAM stack). 
-- Run any benchmark once from the Dashboard.
-- Find its definition in `results/jobs/`.
-
-### Step 2: Configure the Search Space
-In **Tools > Auto-Tuner**:
-1.  **Reference Job**: Browse to your generated job YAML.
-2.  **Parameters**: Add parameters you want to optimize.
-    - **Path**: The dot-separated path in the config (e.g., `slam.parameters.slam_gmapping.maxUrange`).
-    - **Min/Max**: The range for the optimizer to explore.
-3.  **Trials**: Set the number of experiments (recommended: 10-30).
-
-### Step 3: Run & Analyze
-Click **Run Optimization**. The orchestrator will run the simulations in the background. A final dialog will present the optimal values discovered.
+![Auto Tuning Flowchart](images/auto_tuning_flow.png)
 
 ---
 
-## 💻 Technical Details
+## 🛠️ Optimization Workflow
 
-### Optimization Algorithm
-We use the **Tree-structured Parzen Estimator (TPE)** algorithm. It is more efficient than a "Grid Search" because it learns which ranges correlate with better accuracy and focuses its search there.
+### 1. Define Search Space
+Create a file in `configs/tuning/` defining the ranges to explore.
 
-### Process Isolation
-Each trial is executed in a separate process. This ensures that:
-- ROS 2 nodes are cleaned up between trials.
-- Memory leaks don't accumulate.
-- Failed trials (crashes) don't stop the whole optimization.
+```yaml
+# configs/tuning/gmapping_search.yaml
+algorithm: gmapping
+parameters:
+  linearUpdate: [0.1, 0.5]  # Range: 0.1m to 0.5m
+  particles: [30, 200]      # Range: 30 to 200
+  sigma: [0.05, 0.2]
+```
 
-### Database
-All results are stored in `results/optimization/<run_name>/study.db` (SQLite). You can open this file with any SQLite browser to see the history of every trial.
+### 2. Launch Tuner
+From the GUI, go to the **Auto-Tuner** tab.
+
+1.  **Select Objective**: `Minimize ATE` (Recommended) or `Maximize Coverage`.
+2.  **Budget**: Set number of trials (e.g., `50`).
+3.  **Run**: Click **Start Optimization**.
+
+!!! warning "Time Consumption"
+    Each trial runs a full simulation. 50 trials @ 2 mins/run = **1h 40m** total duration.
+    Running in **Headless Mode** speeds this up significantly.
 
 ---
 
-## ⚠️ Important Notes
-- **Time Consumption**: Running 20 trials of a 5-minute benchmark will take over 1.5 hours. Ensure your PC is well-ventilated!
-- **GPU Usage**: Optimization usually runs significantly faster on machines with dedicated GPUs.
-- **Deterministic Results**: For better results, use a fixed seed if possible, or increase the number of trials to average out simulation noise.
+## 📈 Analyzing Results
+
+The tuner generates a `tuning_report.pdf` showing:
+
+*   **Convergence Plot**: How quickly the error dropped.
+*   **Parallel Coordinates**: Which parameters matter most.
+*   **Best Config**: The winning YAML snippet.
+
+!!! success "Best Found"
+    ```yaml
+    linearUpdate: 0.32
+    particles: 85
+    sigma: 0.08
+    ```
+    *ATE reduced by 40% compared to default.*

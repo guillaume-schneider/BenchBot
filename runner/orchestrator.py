@@ -1,3 +1,12 @@
+"""Benchmark orchestration and execution engine.
+
+This module is the core of the benchmarking system. It handles:
+- Process lifecycle management (simulator, SLAM, rosbag)
+- ROS 2 readiness probes
+- System resource monitoring
+- Degradation injection
+- Metrics collection
+"""
 from __future__ import annotations
 
 import time
@@ -29,6 +38,14 @@ logger = get_logger("orchestrator")
 
 
 def load_run_config(path: str) -> dict:
+    """Load a YAML configuration file.
+    
+    Args:
+        path: Path to the YAML config file
+        
+    Returns:
+        Dictionary containing the configuration
+    """
     with open(path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f) or {}
 

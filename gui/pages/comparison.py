@@ -1,3 +1,10 @@
+"""Benchmark comparison page for side-by-side analysis.
+
+Allows users to compare up to 3 runs with:
+- Trajectory overlay visualization
+- Metrics comparison table
+- PDF report generation
+"""
 from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, 
     QComboBox, QFrame, QTableWidget, QTableWidgetItem, QHeaderView, QFileDialog, QMessageBox
@@ -20,6 +27,14 @@ except ImportError:
     EVALUATION_AVAILABLE = False
 
 class ComparisonPage(QWidget):
+    """Side-by-side comparison of multiple benchmark runs.
+    
+    Features:
+    - Select up to 3 runs for comparison
+    - Trajectory overlay on ground truth map
+    - Detailed metrics comparison table
+    - Export comparison report to PDF
+    """
     def __init__(self, parent=None):
         super().__init__(parent)
         self.layout = QVBoxLayout(self)

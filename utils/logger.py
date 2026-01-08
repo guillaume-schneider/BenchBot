@@ -1,5 +1,5 @@
 """
-Centralized logging system for SLAM Bench Orchestrator.
+Centralized logging system for BenchBot.
 
 Provides:
 - Rotating file logging
@@ -288,7 +288,7 @@ def log_system_info():
     """Log system information at startup."""
     logger = get_logger("system")
     logger.info("=" * 60)
-    logger.info("SLAM Bench Orchestrator - System Information")
+    logger.info("BenchBot - System Information")
     logger.info("=" * 60)
     logger.info(f"Python Version: {sys.version}")
     logger.info(f"Platform: {sys.platform}")

@@ -1,3 +1,7 @@
+"""Main GUI application entry point.
+
+Provides the primary window with navigation sidebar and page management.
+"""
 import sys
 import os
 from pathlib import Path
@@ -26,9 +30,14 @@ from gui.pages.robot_manager import RobotManagerPage
 from gui.pages.visualizer import VisualizerPage
 
 class MainWindow(QMainWindow):
+    """Main application window with sidebar navigation.
+    
+    Manages multiple pages (Dashboard, Benchmark, Tools, etc.) and
+    coordinates benchmark execution via worker threads.
+    """
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("SLAM Bench Orchestrator")
+        self.setWindowTitle("BenchBot")
         self.resize(1400, 900)
         
         self.active_runs = {} # {config_path: worker}

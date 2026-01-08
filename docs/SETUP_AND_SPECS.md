@@ -1,95 +1,56 @@
-# System Requirements & Tech Stack
-
-This document outlines the software architecture, hardware recommendations, and setup procedures for the SLAM Bench Orchestrator.
-
-## 🛠️ Technology Stack
-
-### Core Framework
-- **OS**: Ubuntu 22.04 LTS (Jammy Jellyfish) - *Required for ROS 2 Humble*.
-- **Middleware**: [ROS 2 Humble Hawksbill](https://docs.ros.org/en/humble/index.html).
-- **Languages**: 
-    - **Python 3.10+**: Orchestrator logic, GUI, metrics calculation.
-    - **C++**: High-performance SLAM backends (GMapping, SLAM Toolbox).
-
-### Simulation Engines
-- **Gazebo Classic**: Standard ROS simulation for lightweight benchmarking.
-- **O3DE (Open 3D Engine)**: High-fidelity simulation with PhysX 5.0 and Vulkan rendering.
-
-### Key Libraries (Python)
-- **PyQt5**: Modern desktop interface.
-- **Matplotlib/NumPy**: Data visualization and trajectory analysis.
-- **ReportLab**: Automated PDF report generation.
-- **psutil**: Real-time system resource monitoring (CPU/RAM).
-- **rosbag2_py**: Direct reading of ROS 2 sqlite3 databases.
-
+---
+icon: material/laptop
 ---
 
-## 💻 Hardware Specifications
+# 🖥️ Setup & Specifications
 
-Benchmarking SLAM requires significant resources, especially when running the simulator and SLAM stack simultaneously.
+Hardware and software requirements to ensure reliable benchmarking.
 
-| Component | Minimum (Gazebo) | Recommended (O3DE + SLAM) |
+## 💻 Hardware Requirements
+
+Select the profile that matches your simulation needs.
+
+| Component | Minimum (2D Lidar) | Recommended (3D/O3DE) |
 | :--- | :--- | :--- |
-| **CPU** | Quad-core (Intel i5 / AMD R5) | 8-core+ (Intel i7 / AMD R7) |
-| **RAM** | 8 GB | 16 GB - 32 GB |
-| **GPU** | Integrated Graphics | **NVIDIA RTX 2060+ / AMD RX 5700+** |
-| **Disk** | 5 GB Free | 50 GB Free (O3DE is bulky) |
-| **Graphics API** | OpenGL | **Vulkan Support (Required for O3DE)** |
+| **CPU** | Quad-core (i5 or Ryzen 5) | 8-core+ (i7/i9 or Ryzen 7/9) |
+| **RAM** | 8 GB | 32 GB+ |
+| **GPU** | Integrated Graphics | NVIDIA RTX 3060+ / AMD RX 6600+ |
+| **Storage** | 20 GB free space | 100 GB NVMe SSD |
 
-> **Note**: For O3DE, a dedicated GPU with proprietary drivers (Nvidia/AMD) is highly recommended for stable physics and frame rates.
-
----
-
-## 🏗️ System Setup
-
-### 1. ROS 2 Environment
-Ensure ROS 2 Humble is installed and sourced:
-```bash
-source /opt/ros/humble/setup.bash
-```
-
-### 2. SLAM & Navigation Dependencies
-Install the required ROS 2 binary packages:
-```bash
-sudo apt update
-sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup \
-                 ros-humble-slam-toolbox ros-humble-cartographer-ros \
-                 ros-humble-turtlebot3-msgs ros-humble-turtlebot3-simulations
-```
-
-### 3. Python Environment
-Install the required Python modules:
-```bash
-pip install PyQt5 pyyaml numpy matplotlib reportlab psutil
-```
-
-### 4. GMapping Path (Legacy Support)
-If you intend to use the patched GMapping included in this project:
-```bash
-cd deps/gmapping_ws
-colcon build --symlink-install
-source install/setup.bash
-```
+!!! warning "GPU Requirement for O3DE"
+    O3DE (Open 3D Engine) heavily relies on GPU raytracing (Vulkan/DX12). Use a dedicated **NVIDIA** or **AMD** card with updated drivers for best performance.
 
 ---
 
-## 📁 Workspace Architecture
+## 🐧 Software Environment
 
-```text
-slam_bench_orchestrator/
-├── configs/          # Configuration files (YAML/LUA)
-│   ├── matrices/     # Benchmark suites definition
-│   ├── slams/        # SLAM algorithm profiles
-│   └── datasets/     # Simulation scenarios
-├── runner/           # Core Orchestration (Headless support)
-├── gui/              # PyQt5 Dashboard and Benchmark views
-├── tools/            # Analysis & Reporting scripts
-├── results/          # Artifacts (Bags, Metrics, Plots)
-└── docs/             # Technical documentation & Guides
-```
+### Operating System
+
+| OS | Version | Support Status |
+| :--- | :--- | :--- |
+| ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white) | **22.04 LTS** (Jammy) | ✅ **Official Support** |
+| ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white) | 10 / 11 | ❌ Not Supported (Use WSL2) |
+| ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white) | All Versions | ❌ Not Supported |
+
+### Core Dependencies
+
+*   **ROS 2 Humble**: The middleware backbone.
+*   **Gazebo Classic (11)**: Default lightweight simulator.
+*   **Python 3.10**: For the orchestrator and analysis tools.
 
 ---
 
-## 🔌 Network & Security
-- **ROS_DOMAIN_ID**: Ensure all benchmark runs use a unique domain ID if multiple users are on the same network.
-- **Firewall**: UFW should allow local traffic for ROS 2 discovery (DDS).
+## 🔌 Hardware Adaptation
+
+If you are running benchmarks on a physical robot or specific hardware:
+
+### Sensor Configuration
+Ensure your URDF defines these frames:
+
+*   `base_link`: Center of the robot
+*   `odom`: Odometry frame
+*   `scan`: 2D Lidar frame (if applicable)
+*   `velodyne`: 3D Lidar frame (if applicable)
+
+!!! tip "Verifying TF Tree"
+    Run `ros2 run tf2_tools view_frames` to generate a PDF of your transformation tree and verify connectivity.

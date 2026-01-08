@@ -1,3 +1,10 @@
+"""Results window for displaying benchmark run analysis.
+
+Provides a detailed view of benchmark results including:
+- Metrics computation (Coverage, IoU, SSIM, ATE)
+- Map visualization (Ground Truth vs Estimated)
+- Optimization suggestions
+"""
 import sys
 from pathlib import Path
 import yaml
@@ -44,6 +51,18 @@ except ImportError:
     )
 
 class ResultWindow(QMainWindow):
+    """Window for displaying detailed benchmark run results.
+    
+    Automatically loads and analyzes benchmark results, computing metrics
+    and displaying map comparisons.
+    
+    Signals:
+        auto_tune_requested: Emitted when user requests optimization (str: job_path)
+    
+    Args:
+        run_dir: Path to the run directory containing results
+        parent: Optional parent widget
+    """
     auto_tune_requested = pyqtSignal(str) # job_path
 
     def __init__(self, run_dir, parent=None):

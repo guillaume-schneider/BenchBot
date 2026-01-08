@@ -1,3 +1,12 @@
+"""PDF report generation for SLAM benchmark results.
+
+This module uses ReportLab to generate comprehensive PDF reports with:
+- Summary tables comparing multiple runs
+- Visualization charts (ATE, Coverage, IoU, CPU/RAM)
+- Map comparison images
+- Trajectory plots
+- Automated performance analysis
+"""
 import os
 import json
 from pathlib import Path
@@ -11,6 +20,16 @@ import matplotlib.pyplot as plt
 import tempfile
 
 class SLAMReportGenerator:
+    """Generator for comprehensive SLAM benchmark PDF reports.
+    
+    Creates multi-page PDF reports with tables, charts, and images comparing
+    multiple SLAM algorithm runs.
+    
+    Args:
+        runs_data: List of dicts containing run metrics and metadata
+        output_path: Path where the PDF will be saved
+        plot_path: Optional path to a trajectory plot image
+    """
     def __init__(self, runs_data, output_path, plot_path=None):
         self.runs_data = runs_data
         self.output_path = output_path

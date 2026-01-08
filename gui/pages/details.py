@@ -1,3 +1,10 @@
+"""Configuration details page with live monitoring and analysis.
+
+Provides detailed view of benchmark configurations with:
+- Live CPU/RAM monitoring
+- Real-time trajectory visualization
+- Run logs and results analysis
+"""
 from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QTabWidget, 
     QTextEdit, QGroupBox, QComboBox, QSplitter, QFrame, QFormLayout,
@@ -30,6 +37,20 @@ from gui.utils import YamlHighlighter
 import yaml
 
 class ConfigDetailsPage(QWidget):
+    """Detailed configuration view with monitoring and analysis.
+    
+    Provides tabs for:
+    - Overview: Configuration summary and results table
+    - Logs: Real-time execution logs
+    - Monitor: Live CPU/RAM/trajectory visualization
+    - Analysis: Post-run metrics and map comparison
+    
+    Signals:
+        back_clicked: Emitted when back button is clicked
+        stop_requested: Emitted when stop button is clicked
+        edit_requested: Emitted when edit button is clicked
+        run_requested: Emitted when run is requested (path, options)
+    """
     back_clicked = pyqtSignal()
     stop_requested = pyqtSignal()
     edit_requested = pyqtSignal()

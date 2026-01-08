@@ -1,95 +1,94 @@
-# 🎯 Guide de Benchmarking Multi-SLAM
+# 🎯 Multi-SLAM Benchmarking Guide
 
-## 📋 SLAMs Disponibles
+## 📋 Available SLAMs
 
-Votre orchestrateur supporte actuellement **4 algorithmes SLAM** :
+Your orchestrator currently supports **4 SLAM algorithms**:
 
 ### 1. **SLAM Toolbox (Sync Mode)**
-- **ID** : `slam_toolbox_sync`
-- **Type** : Graph-based SLAM
-- **Advantages** : State-of-the-art loop closure, very robust.
-- **Config** : `configs/slams/slam_toolbox_sync.yaml`
+- **ID**: `slam_toolbox_sync`
+- **Type**: Graph-based SLAM
+- **Advantages**: State-of-the-art loop closure, very robust.
+- **Config**: `configs/slams/slam_toolbox_sync.yaml`
 
 ### 2. **Cartographer 2D**
-- **ID** : `cartographer_2d`
-- **Type** : Submap Matching SLAM
-- **Advantages** : High precision, optimized for large environments.
-- **Config** : `configs/slams/cartographer_2d.yaml`
+- **ID**: `cartographer_2d`
+- **Type**: Submap Matching SLAM
+- **Advantages**: High precision, optimized for large environments.
+- **Config**: `configs/slams/cartographer_2d.yaml`
 
 ### 3. **GMapping (Native Path)**
-- **ID** : `gmapping`
-- **Type** : Particle filter SLAM
-- **Notes** : Fixed & Patched in `deps/gmapping_ws` to support parameters and ROS 2 Humble.
-- **Config** : `configs/slams/gmapping.yaml`
+- **ID**: `gmapping`
+- **Type**: Particle filter SLAM
+- **Notes**: Fixed & Patched in `deps/gmapping_ws` to support parameters and ROS 2 Humble.
+- **Config**: `configs/slams/gmapping.yaml`
 
 ### 4. **External (Passive)**
-- **ID** : `external`
-- **Type** : Passive observer
-- **Usage** : When SLAM is already running externally or as part of the scenario dataset.
-- **Config** : `configs/slams/external.yaml`
+- **ID**: `external`
+- **Type**: Passive observer
+- **Usage**: When SLAM is already running externally or as part of the scenario dataset.
+- **Config**: `configs/slams/external.yaml`
 
 ### 5. **NoOp (Baseline)**
-- **ID** : `noop`
-- **Type** : Odometry-only (No SLAM)
-- **Usage** : Reference point to measure drift without correction.
-
+- **ID**: `noop`
+- **Type**: Odometry-only (No SLAM)
+- **Usage**: Reference point to measure drift without correction.
 
 ---
 
-## 🚀 Comment Tester Différents SLAMs
+## 🚀 How to Test Different SLAMs
 
-### Option 1 : Via GUI (Recommandé)
+### Option 1: Via GUI (Recommended)
 
 ```bash
 cd ~/Projects/slam_bench_orchestrator
 python3 gui/main.py
 ```
 
-1. Dans le **Dashboard**, sélectionnez **`slam_comparison.yaml`**
-2. Cliquez **Run**
-3. L'orchestrateur va lancer **3 benchmarks** automatiquement :
-   - Run 1 : NoOp (baseline)
-   - Run 2 : SLAM Toolbox
-   - Run 3 : Cartographer
-4. Les résultats s'affichent automatiquement !
+1. In the **Dashboard**, select **`slam_comparison.yaml`**
+2. Click **Run**
+3. The orchestrator will launch **3 benchmarks** automatically:
+   - Run 1: NoOp (baseline)
+   - Run 2: SLAM Toolbox
+   - Run 3: Cartographer
+4. The results are displayed automatically!
 
-### Option 2 : Via CLI
+### Option 2: Via CLI
 
 ```bash
 cd ~/Projects/slam_bench_orchestrator
 # Source ROS 2
 source /opt/ros/humble/setup.bash
 
-# Lancer la matrice
+# Launch the matrix
 python3 runner/run_matrix.py configs/matrices/slam_comparison.yaml
 ```
 
 ---
 
-## 📊 Comparer les Résultats
+## 📊 Comparing Results
 
-### Métriques Collectées pour Chaque SLAM
+### Metrics Collected for Each SLAM
 
-- **Coverage** : Discovery percentage of explorable area.
-- **IoU** : Accuracy of generated map vs Ground Truth.
-- **ATE** : Locatization precision (RMSE).
-- **Duration** : Actual wall clock time for the run.
-- **CPU/Memory** : Peak system resources consumed (Max CPU%, Max RAM MB).
-- **Path Length** : Total distance traveled.
+- **Coverage**: Discovery percentage of explorable area.
+- **IoU**: Accuracy of generated map vs Ground Truth.
+- **ATE**: Localization precision (RMSE).
+- **Duration**: Actual wall clock time for the run.
+- **CPU/Memory**: Peak system resources consumed (Max CPU%, Max RAM MB).
+- **Path Length**: Total distance traveled.
 
-### Visualiser la Comparaison
+### Visualizing the Comparison
 
-Dans le GUI :
-1. Allez dans **Details** (cliquez sur la card de votre matrice)
-2. Onglet **Results** : Tableau comparatif
-3. Cliquez sur chaque run pour voir les métriques détaillées
-4. Comparez visuellement les cartes générées
+In the GUI:
+1. Go to **Details** (click on your matrix card)
+2. **Results** Tab: Comparative table
+3. Click on each run to see detailed metrics
+4. Visually compare generated maps
 
 ---
 
-## 🔧 Créer Votre Propre Matrice
+## 🔧 Creating Your Own Matrix
 
-### Exemple : Tester Seulement 2 SLAMs
+### Example: Testing Only 2 SLAMs
 
 ```yaml
 # configs/matrices/my_test.yaml
@@ -112,38 +111,38 @@ matrix:
       repeats: 1
 ```
 
-### Exemple : Tester avec Plusieurs Seeds (Robustesse)
+### Example: Testing with Multiple Seeds (Robustness)
 
 ```yaml
 matrix:
   include:
     - dataset: tb3_sim_explore_modeA
       slams: [slam_toolbox_sync]
-      seeds: [0, 1, 2, 3, 4]  # 5 runs différents
+      seeds: [0, 1, 2, 3, 4]  # 5 different runs
       repeats: 1
 ```
 
-Cela va générer **5 runs** avec différentes initialisations aléatoires.
+This will generate **5 runs** with different random initializations.
 
 ---
 
-## 📝 Résultats Attendus
+## 📝 Expected Results
 
-### Structure des Résultats
+### Results Structure
 
 ```
 results/runs/
 ├── 2026-01-04_XX-XX-XX__tb3_sim_explore_modeA__noop__seed0__r0/
-│   ├── bags/       # Rosbag enregistré
-│   ├── logs/       # Logs de chaque process
-│   └── metrics.json # Métriques calculées
+│   ├── bags/       # Recorded Rosbag
+│   ├── logs/       # Logs for each process
+│   └── metrics.json # Calculated metrics
 ├── 2026-01-04_XX-XX-XX__tb3_sim_explore_modeA__slam_toolbox_sync__seed0__r0/
 │   └── ...
 └── 2026-01-04_XX-XX-XX__tb3_sim_explore_modeA__cartographer_2d__seed0__r0/
     └── ...
 ```
 
-### Exemple de Comparaison
+### Comparison Example
 
 | SLAM | Coverage | IoU | ATE | Runtime |
 |------|----------|-----|-----|---------|
@@ -151,79 +150,79 @@ results/runs/
 | SLAM Toolbox | **78%** | **0.82** | **0.3m** | 95s |
 | Cartographer | 72% | 0.79 | 0.4m | 110s |
 
-**Gagnant** : SLAM Toolbox (meilleure couverture et précision)
+**Winner**: SLAM Toolbox (better coverage and precision)
 
 ---
 
 ## 🐛 Troubleshooting
 
-### Cartographer Ne Lance Pas
+### Cartographer Does Not Launch
 
-**Vérifiez** que Cartographer est installé :
+**Check** that Cartographer is installed:
 ```bash
 ros2 pkg list | grep cartographer
 ```
 
-**Si absent**, installez :
+**If missing**, install:
 ```bash
 sudo apt install ros-humble-cartographer-ros
 ```
 
-### GMapping Ne Fonctionne Pas
+### GMapping Does Not Work
 
-GMapping n'a pas de port officiel ROS 2. Utilisez :
-- SLAM Toolbox (meilleur)
+GMapping does not have an official ROS 2 port. Use:
+- SLAM Toolbox (better)
 - Cartographer (alternative)
 
-### Erreur "Failed to resolve dependencies"
+### Error "Failed to resolve dependencies"
 
-Une config SLAM fait référence à un fichier manquant. **Vérifiez** :
+A SLAM config refers to a missing file. **Check**:
 ```bash
 cat configs/slams/cartographer_2d.yaml
-# Regardez les chemins dans 'configuration_directory'
+# Look at paths in 'configuration_directory'
 ```
 
-**Adaptez** les chemins à votre système.
+**Adapt** the paths to your system.
 
 ---
 
-## 🎯 Recommandations
+## 🎯 Recommendations
 
-### Pour Débuter
-1. **Testez** d'abord avec `noop` (baseline)
-2. **Puis** `slam_toolbox_sync` (le plus robuste)
-3. **Comparez** avec votre objectif
+### Getting Started
+1. **Test** first with `noop` (baseline)
+2. **Then** `slam_toolbox_sync` (most robust)
+3. **Compare** with your objective
 
-### Pour Performance
-- **SLAM Toolbox** : Meilleur équilibre vitesse/précision
-- **Cartographer** : Plus précis sur grands environnements
-- **NoOp** : Le plus rapide (pas de SLAM)
+### For Performance
+- **SLAM Toolbox**: Best speed/accuracy balance
+- **Cartographer**: More accurate on large environments
+- **NoOp**: Fastest (no SLAM)
 
-### Pour Recherche
-- **Multi-seeds** : Tester robustesse
-- **Multi-datasets** : Tester généralisation
-- **Multi-slams** : Benchmarking comparatif
-
----
-
-## 📚 Ressources
-
-- **SLAM Toolbox** : https://github.com/SteveMacenski/slam_toolbox
-- **Cartographer** : https://github.com/cartographer-project/cartographer
-- **ROS 2 SLAM** : https://github.com/ros-planning/navigation2
+### For Research
+- **Multi-seeds**: Test robustness
+- **Multi-datasets**: Test generalization
+- **Multi-slams**: Comparative benchmarking
 
 ---
 
-## 🎉 Prochain Niveau
+## 📚 Resources
 
-### Ajouter un Nouveau SLAM
+- **SLAM Toolbox**: https://github.com/SteveMacenski/slam_toolbox
+- **Cartographer**: https://github.com/cartographer-project/cartographer
+- **ROS 2 SLAM**: https://github.com/ros-planning/navigation2
 
-1. Créez `configs/slams/my_slam.yaml`
-2. Définissez la commande de lancement
-3. Ajoutez-le à votre matrice
-4. Lancez !
+---
 
-**Exemple** : Ajouter Hector SLAM :
+## 🎉 Next Level
+
+### Adding a New SLAM
+
+1. Create `configs/slams/my_slam.yaml`
+2. Define the launch command
+3. Add it to your matrix
+4. Launch!
+
+**Example**: Adding Hector SLAM:
 
 ```yaml
 # configs/slams/hector_slam.yaml
@@ -246,8 +245,8 @@ probes:
       timeout_s: 60
 ```
 
-Puis ajoutez-le à votre matrice !
+Then add it to your matrix!
 
 ---
 
-**Happy Benchmarking !** 🚀
+**Happy Benchmarking!** 🚀

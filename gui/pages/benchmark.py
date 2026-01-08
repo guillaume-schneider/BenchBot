@@ -1,3 +1,8 @@
+"""Global benchmark page for viewing all runs.
+
+Provides a comprehensive table of all benchmark runs with filtering
+and PDF report generation capabilities.
+"""
 from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, 
     QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView,
@@ -29,6 +34,14 @@ class ReportThread(QThread):
             self.finished.emit(False, f"{str(e)}\n\n{traceback.format_exc()}")
 
 class BenchmarkPage(QWidget):
+    """Global benchmark results page.
+    
+    Displays all benchmark runs in a filterable table with metrics:
+    - ATE, Coverage, IoU, Path Length
+    - CPU and RAM usage
+    - Run status and filtering
+    - PDF report export
+    """
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setObjectName("benchmarkPage")

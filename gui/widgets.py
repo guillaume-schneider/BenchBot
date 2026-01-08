@@ -1,3 +1,7 @@
+"""Reusable PyQt5 widgets for the GUI.
+
+Provides custom widgets with modern styling and animations.
+"""
 from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QFrame, 
     QProgressBar, QGraphicsDropShadowEffect, QGridLayout
@@ -7,6 +11,22 @@ from PyQt5.QtGui import QColor, QFont, QCursor
 import collections
 
 class ConfigCard(QFrame):
+    """Card widget representing a benchmark configuration.
+    
+    Displays configuration metadata, status, progress, and provides
+    quick actions (Run/Stop/Edit).
+    
+    Signals:
+        run_clicked: Emitted when Run button is clicked
+        stop_clicked: Emitted when Stop button is clicked
+        card_clicked: Emitted when card is clicked
+        edit_clicked: Emitted when Edit button is clicked
+    
+    Args:
+        path: Path to the configuration file
+        data: Configuration data dictionary
+        parent: Optional parent widget
+    """
     """
     A card widget representing a benchmark configuration.
     Displays status, progress, and quick actions (Run/Stop).

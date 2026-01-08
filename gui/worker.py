@@ -1,3 +1,8 @@
+"""Background worker thread for running SLAM benchmarks.
+
+This module provides a QThread-based worker that executes benchmark runs
+in the background, emitting signals for progress updates and live metrics.
+"""
 from PyQt5.QtCore import QThread, pyqtSignal, QSettings
 import subprocess
 import sys
@@ -11,6 +16,28 @@ from gt_map.generator import generate_map
 PROJECT_ROOT = Path(__file__).parent.parent
 
 class RunWorker(QThread):
+    """Worker thread for executing benchmark runs in the background.
+    
+    This thread handles the full lifecycle of benchmark execution:
+    - Resolving matrix configurations into individual runs
+    - Auto-generating ground truth maps if missing
+    - Executing runs via subprocess
+    - Emitting live metrics and progress updates
+    
+    Signals:
+        log_signal: Emits log messages (str)
+        progress_signal: Emits progress updates (current, total, run_id)
+        finished_signal: Emits when all runs complete
+        result_ready: Emits when a run completes successfully (run_path)
+        config_started: Emits when starting a config (config_path)
+        config_finished: Emits when finishing a config (config_path)
+        live_metrics_signal: Emits live CPU/RAM metrics (config_path, dict)
+    
+    Args:
+        configs_paths: List of matrix configuration file paths
+        use_gui: Whether to enable GUI mode (legacy)
+        options: Dict of run options (use_gazebo, use_rviz, etc.)
+    """
     log_signal = pyqtSignal(str) # Log message
     progress_signal = pyqtSignal(int, int, str)
     finished_signal = pyqtSignal()

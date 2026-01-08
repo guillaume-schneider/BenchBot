@@ -1,4 +1,8 @@
+"""Robot and sensor degradation manager page.
 
+Allows users to simulate hardware limitations and sensor noise
+for SLAM robustness testing.
+"""
 
 from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QSlider, QDoubleSpinBox, 
@@ -11,6 +15,14 @@ import yaml
 from pathlib import Path
 
 class RobotManagerPage(QWidget):
+    """Page for configuring robot hardware degradation parameters.
+    
+    Provides controls for:
+    - LIDAR range and noise
+    - Chassis speed scaling
+    - Preset configurations
+    - Saving to configuration files
+    """
 
 
     def __init__(self, parent=None):

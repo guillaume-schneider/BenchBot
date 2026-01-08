@@ -1,3 +1,7 @@
+"""Settings page for application configuration.
+
+Provides controls for theme, simulator management, and Docker execution.
+"""
 from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, 
     QFrame, QMessageBox, QComboBox, QCheckBox, QScrollArea
@@ -6,6 +10,13 @@ from PyQt5.QtCore import Qt, QSettings
 from PyQt5.QtGui import QIcon
 
 class SettingsPage(QWidget):
+    """Application settings and preferences page.
+    
+    Allows users to configure:
+    - Theme (Dark/Light)
+    - Simulator installations
+    - Docker execution mode
+    """
     def __init__(self, main_window=None, parent=None):
         super().__init__(parent)
         self.main_window = main_window
