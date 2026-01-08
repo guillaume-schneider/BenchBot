@@ -56,7 +56,7 @@ We designed BenchBot to be modular. To add a new SLAM:
 
 3.  **Document It**: Update `docs/MULTI_SLAM_GUIDE.md` to list your new algorithm.
 
-See [Multi-SLAM Guide](docs/MULTI_SLAM_GUIDE.md) for details.
+See [Multi-SLAM Guide](MULTI_SLAM_GUIDE.md) for details.
 
 ### 2. Adding a New Metric
 
