@@ -112,7 +112,7 @@ In real life, a wall is solid and thin.
 *   **Bad Map**: Walls look like thick, fuzzy markers or appear as two parallel lines (Double Wall). This happens when the robot is slightly confused about its rotation.
 
 ??? abstract "Deep Dive: Math & Algorithm"
-    ![Wall Thickness Illustration](images/wall_thickness_illustration.png)
+    ![Wall Thickness Illustration](images/wall_thickness_illustration.jpg)
 
     **Measurement Algorithm**
 
