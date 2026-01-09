@@ -23,7 +23,7 @@
 
 **BenchBot** is a complete lifecycle ecosystem for professional ROS 2 development. From initial integration to final validation, it empowers teams to master their navigation stack.
 
-*   **🧩 Integrate**: Plug in any SLAM algorithm ([Cartographer](https://github.com/ros2/cartographer), [SLAM Toolbox](https://github.com/SteveMacenski/slam_toolbox), [GMapping](https://github.com/ros-perception/slam_gmapping)) with a modular plugin system.
+*   **🧩 Integrate**: Plug in any SLAM algorithm with a modular plugin system.
 *   **⚙️ Optimize**: Use the **AI Auto-Tuner** to automatically discover the perfect parameters for your robot.
 *   **📈 Monitor**: Track evolution with industrial-grade metrics (**ATE**, **SSIM**, **Coverage**) over time.
 *   **✅ Validate**: Ensure production readiness with automated CI/CD pipelines and reproducible Docker environments.
@@ -53,7 +53,7 @@
 
 ## 🏆 Benchmark Results Showcase
 
-**See the full [Demo Report]([https://benchbot.guillaumeschneider.fr/Demo/Report/](https://benchbot.guillaumeschneider.fr/DEMO_REPORT/)) for interactive analysis.**
+**See the full [Demo Report](https://benchbot.guillaumeschneider.fr/DEMO_REPORT/) for interactive analysis.**
 
 Here is a sample comparison between **[SLAM Toolbox](https://github.com/SteveMacenski/slam_toolbox)**, **[Cartographer](https://github.com/ros2/cartographer)**, and **[GMapping](https://github.com/ros-perception/slam_gmapping)** in a simulated office environment.
 
