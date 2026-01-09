@@ -1,0 +1,52 @@
+# TurtleBot3 Gazebo Exploration (Mode A)
+# Extracted from configs/matrices/test_slam_toolbox.yaml
+
+name: "TurtleBot3 Gazebo Exploration (Mode A)"
+id: "tb3_sim_explore_modeA"
+
+# Simulator selection
+simulator: "gazebo"
+
+dependencies:
+  - name: "m-explore"
+    git: "https://github.com/robo-friends/m-explore-ros2"
+    branch: "main"
+    path: "deps/m_explore_ws"
+    build: "colcon build --symlink-install"
+    source: "install/setup.bash"
+
+scenario:
+  world_model: "worlds/model.sdf"
+  
+  processes:
+    - name: "nav2_sim"
+      cmd:
+        - ros2
+        - launch
+        - ${PROJECT_ROOT}/tools/launch/tb3_sim_no_loc.launch.py
+        - use_sim_time:=True
+        - x_pose:=0.5
+        - y_pose:=0.5
+        - world:=${PROJECT_ROOT}/worlds/fixed_model.world
+        - robot_sdf:=${PROJECT_ROOT}/worlds/waffle_fixed.model
+        - use_gazebo:=False  # Disable gzclient to avoid graphical crashes
+        - params_file:=${PROJECT_ROOT}/configs/params/nav2_params.yaml
+      env:
+        TURTLEBOT3_MODEL: "waffle"
+    
+    - name: "explore"
+      delay_s: 6.0  # Increased to let Nav2 lifecycle nodes activate properly
+      cmd:
+        - ros2
+        - launch
+        - ${PROJECT_ROOT}/tools/launch/explore_with_qos.launch.py
+        - use_sim_time:=True
+        - params_file:=${PROJECT_ROOT}/configs/params/explore_params.yaml
+      env:
+        AMENT_PREFIX_PATH: "${PROJECT_ROOT}/deps/m_explore_ws/install/multirobot_map_merge:${PROJECT_ROOT}/deps/m_explore_ws/install/explore_lite:/opt/ros/humble"
+        LD_LIBRARY_PATH: "${PROJECT_ROOT}/deps/m_explore_ws/install/multirobot_map_merge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib"
+        PYTHONPATH: "${PROJECT_ROOT}/deps/m_explore_ws/install/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages"
+
+ground_truth:
+  map_path: "maps/gt/model.yaml"
+  name: "model"
