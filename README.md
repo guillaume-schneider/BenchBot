@@ -53,7 +53,7 @@
 
 ## 🏆 Benchmark Results Showcase
 
-**See the full [Demo Report](https://benchbot.guillaumeschneider.fr/Demo/Report/) for interactive analysis.**
+**See the full [Demo Report]([https://benchbot.guillaumeschneider.fr/Demo/Report/](https://benchbot.guillaumeschneider.fr/DEMO_REPORT/)) for interactive analysis.**
 
 Here is a sample comparison between **[SLAM Toolbox](https://github.com/SteveMacenski/slam_toolbox)**, **[Cartographer](https://github.com/ros2/cartographer)**, and **[GMapping](https://github.com/ros-perception/slam_gmapping)** in a simulated office environment.
 
