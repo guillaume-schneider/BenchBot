@@ -23,7 +23,7 @@
 
 **BenchBot** is a complete lifecycle ecosystem for professional ROS 2 development. From initial integration to final validation, it empowers teams to master their navigation stack.
 
-*   **🧩 Integrate**: Plug in any SLAM algorithm (Cartographer, SLAM Toolbox, GMapping) with a modular plugin system.
+*   **🧩 Integrate**: Plug in any SLAM algorithm ([Cartographer](https://github.com/ros2/cartographer), [SLAM Toolbox](https://github.com/SteveMacenski/slam_toolbox), [GMapping](https://github.com/ros-perception/slam_gmapping)) with a modular plugin system.
 *   **⚙️ Optimize**: Use the **AI Auto-Tuner** to automatically discover the perfect parameters for your robot.
 *   **📈 Monitor**: Track evolution with industrial-grade metrics (**ATE**, **SSIM**, **Coverage**) over time.
 *   **✅ Validate**: Ensure production readiness with automated CI/CD pipelines and reproducible Docker environments.
@@ -48,6 +48,39 @@
 *   **Intelligent Comparison**: Overlay up to 3 trajectories with ground truth and detailed anomaly tooltips.
 *   **3D Real-Time Monitoring**: Live LIDAR point cloud, robot pose, and trajectory with "Follow Robot" camera mode.
 *   **Stress Testing**: Dynamic sensor degradation (LIDAR noise/range) and actuator limiting.
+
+---
+
+## 🏆 Benchmark Results Showcase
+
+**See the full [Demo Report](https://benchbot.guillaumeschneider.fr/Demo/Report/) for interactive analysis.**
+
+Here is a sample comparison between **[SLAM Toolbox](https://github.com/SteveMacenski/slam_toolbox)**, **[Cartographer](https://github.com/ros2/cartographer)**, and **[GMapping](https://github.com/ros-perception/slam_gmapping)** in a simulated office environment.
+
+### 📊 Performance Summary
+
+| Metric | [SLAM Toolbox](https://github.com/SteveMacenski/slam_toolbox) | [Cartographer](https://github.com/ros2/cartographer) | [GMapping](https://github.com/ros-perception/slam_gmapping) |
+| :--- | :---: | :---: | :---: |
+| **ATE RMSE (m)** | **0.0130** 🥇 | 0.0151 🥈 | 0.0197 🥉 |
+| **Map SSIM** | 0.9175 | 0.8517 | **0.9212** 🥇 |
+| **CPU Usage** | **196%** 🥇 | 1476% | 1284% |
+| **RAM Usage** | 1212 MB | 1068 MB | **1027 MB** 🥇 |
+| **Map IoU** | 0.1457 | 0.0079 | **0.1695** 🥇 |
+
+> **Analysis**: **SLAM Toolbox** offers the best trajectory accuracy (lowest ATE), while **GMapping** produces the highest quality maps (best SSIM & IoU) but consumes significantly more resources. **Cartographer** struggled with loop closure in this specific scenario, resulting in lower map quality scores.
+
+### 📈 Generated Charts & Maps
+
+<p align="center">
+  <img src="docs/assets/images/benchmark_ate.png" width="45%" alt="ATE Error">
+  <img src="docs/assets/images/benchmark_metrics.png" width="45%" alt="Coverage Metrics">
+</p>
+
+<p align="center">
+  <img src="docs/assets/images/benchmark_resources.png" width="45%" alt="System Resources">
+  <img src="docs/assets/images/benchmark_maps.png" width="45%" alt="Generated Maps">
+</p>
+
 
 ---
 
