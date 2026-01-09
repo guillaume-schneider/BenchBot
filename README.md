@@ -1,22 +1,42 @@
-![BenchBot Banner](docs/assets/banner.png)
+<p align="center">
+  <img src="docs/assets/banner.png" alt="BenchBot Banner" width="100%">
+</p>
 
-# SLAM Bench Orchestrator
+# BenchBot
 
-![Python](https://img.shields.io/badge/python-3.10-blue)
-![ROS 2](https://img.shields.io/badge/ROS%202-Humble-green)
-![License](https://img.shields.io/badge/license-MIT-orange)
-![Docker](https://img.shields.io/badge/docker-supported-2496ED?logo=docker&logoColor=white)
-![Platform](https://img.shields.io/badge/platform-linux-lightgrey)
+<p align="center">
+  <a href="https://benchbot.guillaumeschneider.fr">
+    <img src="https://img.shields.io/badge/Docs-Online-blue?style=for-the-badge&logo=materialformkdocs" alt="Documentation">
+  </a>
+  <img src="https://img.shields.io/badge/ROS%202-Humble-green?style=for-the-badge&logo=ros" alt="ROS 2 Humble">
+  <img src="https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python" alt="Python 3.10+">
+  <img src="https://img.shields.io/badge/License-MIT-orange?style=for-the-badge" alt="License">
+</p>
 
-An automated framework for benchmarking SLAM algorithms (Cartographer, GMapping, SLAM Toolbox, etc.) in dynamic simulation environments (Gazebo, O3DE).
+<p align="center">
+  <strong>The Comprehensive Ecosystem for ROS 2 Navigation & SLAM Benchmarking</strong>
+</p>
+
+---
+
+## 💡 What is BenchBot?
+
+**BenchBot** is a complete lifecycle ecosystem for professional ROS 2 development. From initial integration to final validation, it empowers teams to master their navigation stack.
+
+*   **🧩 Integrate**: Plug in any SLAM algorithm (Cartographer, SLAM Toolbox, GMapping) with a modular plugin system.
+*   **⚙️ Optimize**: Use the **AI Auto-Tuner** to automatically discover the perfect parameters for your robot.
+*   **📈 Monitor**: Track evolution with industrial-grade metrics (**ATE**, **SSIM**, **Coverage**) over time.
+*   **✅ Validate**: Ensure production readiness with automated CI/CD pipelines and reproducible Docker environments.
+
+---
 
 ## 🚀 Key Features
 
 *   **Multi-Simulator**: Switch between **Gazebo** (Classic) and **O3DE** (PhysX 5.0).
-*   **High-Fidelity Physics**: "Sim-to-Real" tuning with realistic wheel slip, friction, and IMU/Lidar noise ([Details](docs/SIMULATION_REALISM.md)).
+*   **High-Fidelity Physics**: "Sim-to-Real" tuning with realistic wheel slip, friction, and IMU/Lidar noise ([Details](https://benchbot.guillaumeschneider.fr/SIMULATION_REALISM/)).
 *   **Advanced Metrics**:
     *   **Trajectory**: ATE (Absolute Trajectory Error) with automatic alignment
-    *   **Map Quality**: Coverage %, IoU, **SSIM (Structural Similarity)**, **Wall Thickness Analysis**
+    *   **Map Quality**: Coverage %, IoU, **SSIM (Structural Similarity)**, Wall Thickness Analysis
     *   **System**: Real-time CPU Usage %, Max RAM (MB)
     *   **Anomaly Detection**: Stuck robot, TF jumps, massive drift detection
 *   **Docker Support**: Full containerization for 100% reproducible benchmarks across environments
@@ -29,91 +49,46 @@ An automated framework for benchmarking SLAM algorithms (Cartographer, GMapping,
 *   **3D Real-Time Monitoring**: Live LIDAR point cloud, robot pose, and trajectory with "Follow Robot" camera mode.
 *   **Stress Testing**: Dynamic sensor degradation (LIDAR noise/range) and actuator limiting.
 
+---
+
+## 📖 Documentation
+
+Full documentation is available at **[https://benchbot.guillaumeschneider.fr](https://benchbot.guillaumeschneider.fr)**.
+
+### Quick Links
+*   [🚀 Quick Start](https://benchbot.guillaumeschneider.fr/QUICK_START/)
+*   [📦 Installation Guide](https://benchbot.guillaumeschneider.fr/INSTALLATION/)
+*   [📊 Metrics Explained](https://benchbot.guillaumeschneider.fr/METRICS/)
+*   [🎮 Simulators (Gazebo vs O3DE)](https://benchbot.guillaumeschneider.fr/SIMULATORS/)
+*   [🧠 AI Auto-Tuner](https://benchbot.guillaumeschneider.fr/AUTO_TUNER_GUIDE/)
+*   [🖥️ Headless Mode (CI/CD)](https://benchbot.guillaumeschneider.fr/HEADLESS_CI/)
+
+---
+
 ## 📦 Installation
 
 ### Prerequisites
-- **OS:** Ubuntu 22.04 LTS
-- **ROS 2:** Humble Hawksbill ([Installation Guide](https://docs.ros.org/en/humble/Installation.html))
-- **Python:** 3.10+
+*   **OS**: Ubuntu 22.04 LTS
+*   **ROS 2**: Humble Hawksbill
+*   **Python**: 3.10+
 
 ### Quick Install
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/benchbot.git
-cd benchbot
+git clone https://github.com/guillaume-schneider/BenchBot.git
+cd BenchBot
 
 # Run automated installer
 ./install.sh
-
-# Or install manually
-pip3 install -r requirements.txt
 ```
 
-## 🎮 Quick Start
+For detailed instructions, see the [Installation Guide](https://benchbot.guillaumeschneider.fr/INSTALLATION/).
 
-### 1. Launch GUI
-```bash
-python3 gui/main.py
-```
-*   **Settings**: Install Simulators (O3DE), toggle Themes (Dark/Light), enable Docker execution, and build container images.
-*   **Dashboard**: Select benchmark matrices and monitor live metrics (CPU, RAM, robot pose).
-*   **Benchmark**: View results in a sortable table with health indicators.
-*   **Comparison**: Overlay up to 3 trajectories with advanced metrics (ATE, Coverage, SSIM, Wall Thickness) and export PDF reports.
-*   **3D Visualizer**: Live LIDAR point cloud, robot trajectory, and "Follow Robot" camera mode.
-*   **Robot Manager**: Inject noise, limit LIDAR range, or scale motor speeds to test robustness.
-
-### 2. Docker Mode (Experimental)
-Build and run in an isolated container:
-```bash
-docker-compose build
-docker-compose up
-```
-Or enable Docker execution from the GUI Settings tab.
-
-### 3. Headless Mode (CI/CD)
-Run a full benchmark suite without opening any windows:
-```bash
-python3 runner/run_matrix.py configs/matrices/test_headless_ci.yaml
-```
-
-## 📚 Documentation
-
-*   **[📖 Documentation Index](docs/INDEX.md)**: Complete documentation hub with quick reference
-*   **[Roadmap](docs/ROADMAP.md)**: Future features including auto-tuning and failure injection.
-*   **[Setup & Specs](docs/SETUP_AND_SPECS.md)**: Hardware requirements and installation guide.
-*   **[Simulators Guide](docs/SIMULATORS.md)**: Installing and using Gazebo vs O3DE.
-*   **[Auto-Tuner Guide](docs/AUTO_TUNER_GUIDE.md)**: Optimizing SLAM parameters with AI.
-*   **[O3DE Deep Dive](docs/o3de/)**: Comprehensive documentation for O3DE integration.
-*   **[Metrics Documentation](docs/METRICS.md)**: Details on ATE, coverage, SSIM, and wall thickness.
-*   **[Headless CI](docs/HEADLESS_CI.md)**: Running benchmarks in CLI/CI mode.
-*   **[Simulation Realism](docs/SIMULATION_REALISM.md)**: Physics and Sensor noise parameters.
-*   **[Troubleshooting Exploration](docs/TROUBLESHOOTING_EXPLORATION.md)**: Solutions for navigation issues.
-*   **[Analysis & Comparison](docs/ANALYSIS_GUIDE.md)**: Using the comparison tool, PDF reports, and anomaly detection.
-*   **[Robot Hardware Manager](docs/ROBOT_HARDWARE_MANAGER.md)**: Configuring sensor noise and motor limits for stress tests.
-*   **[Automated Dependencies](docs/AUTOMATED_DEPENDENCIES.md)**: Dynamic Git cloning and building for SLAMs.
-*   **[Testing Guide](tests/README.md)**: Unit tests, integration tests, and coverage reports.
-*   **[Logging System](logs/README.md)**: Centralized logging, crash reports, and debugging.
-*   **[Archive & Logs](docs/archive/)**: Historical session logs and debugging notes.
-
-
-
-## 🛠️ Project Structure
-
-*   `gui/`: PyQT5 interface (Main, Dashboard, Settings, Benchmark).
-*   `runner/`: Core orchestration logic (`orchestrator.py`, `run_matrix.py`).
-*   `configs/`:
-    *   `matrices/`: Benchmark suites.
-    *   `slams/`: SLAM algorithm profiles.
-    *   `datasets/`: Simulation scenarios.
-*   `results/`: Runs, logs, bags, and generated metrics.
+---
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on:
-- Code style guidelines
-- Development setup
-- Pull request process
-- Bug reporting
+We welcome contributions! Please see our [Contributing Guide](https://benchbot.guillaumeschneider.fr/CONTRIBUTING/) for details.
 
 ## 📜 License
 

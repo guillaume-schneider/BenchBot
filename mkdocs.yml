@@ -102,5 +102,8 @@ nav:
     - GMapping Issues: TROUBLESHOOTING_GMAPPING.md
     - Headless Mode: HEADLESS_CI.md
     - Multi-SLAM Guide: MULTI_SLAM_GUIDE.md
+  - Demo:
+    - Report: DEMO_REPORT.md
+
   - Contributing: CONTRIBUTING.md
   - Roadmap: ROADMAP.md
