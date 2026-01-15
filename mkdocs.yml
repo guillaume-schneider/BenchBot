@@ -103,6 +103,7 @@ nav:
     - Headless Mode: HEADLESS_CI.md
     - Multi-SLAM Guide: MULTI_SLAM_GUIDE.md
   - Demo:
+    - Video Demo: DEMO_VIDEO.md
     - Report: DEMO_REPORT.md
 
   - Contributing: CONTRIBUTING.md

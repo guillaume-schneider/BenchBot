@@ -1,5 +1,7 @@
 # Demo: Benchmark Report
 
+
+
 ## Comparison Report: Cartographer vs SLAM Toolbox vs GMapping
 
 This report provides a detailed comparison of three popular 2D SLAM algorithms: **Cartographer**, **SLAM Toolbox**, and **GMapping**. It evaluates their performance based on trajectory error (ATE), map quality (SSIM, IoU), and resource usage.

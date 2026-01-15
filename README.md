@@ -18,9 +18,10 @@
 </p>
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=JEq93nV6x9s">
-    <img src="https://img.youtube.com/vi/JEq93nV6x9s/0.jpg" alt="Voir la vidéo">
-  </a>
+  <video width="100%" controls poster="docs/assets/images/benchmark_demo_thumb.png">
+    <source src="docs/videos/benchmark_demo.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 </p>
 
 ---
