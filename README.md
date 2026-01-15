@@ -17,13 +17,6 @@
   <strong>The Comprehensive Ecosystem for ROS 2 Navigation & SLAM Benchmarking</strong>
 </p>
 
-<p align="center">
-  <video width="100%" controls poster="docs/assets/images/benchmark_demo_thumb.png">
-    <source src="docs/videos/benchmark_demo.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</p>
-
 ---
 
 ## 💡 What is BenchBot?
@@ -34,6 +27,8 @@
 *   **⚙️ Optimize**: Use the **AI Auto-Tuner** to automatically discover the perfect parameters for your robot.
 *   **📈 Monitor**: Track evolution with industrial-grade metrics (**ATE**, **SSIM**, **Coverage**) over time.
 *   **✅ Validate**: Ensure production readiness with automated CI/CD pipelines and reproducible Docker environments.
+
+https://github.com/user-attachments/assets/eb9e0536-40be-4193-9ab8-5de50cf7b8fc
 
 ---
 
